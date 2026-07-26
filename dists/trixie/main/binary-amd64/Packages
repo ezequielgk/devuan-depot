@@ -1,3 +1,17 @@
+Package: mangowm
+Version: 0.0.0+gitcc4fdec
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/mangowm_0.0.0+gitcc4fdec_amd64.deb
+Size: 609532
+MD5sum: f75b385abbdd4498e320d2b1973defcc
+SHA1: ff727898e1007b44ff640c85f28075b80b1c016d
+SHA256: 8694f45517c187011adf8b17ab10b49e36f605c50d9e30cb30e22e1929d7e4b9
+Section: x11
+Priority: optional
+Description: MangoWM - A Wayland compositor
+ An i3-compatible Wayland compositor with visual effects.
+
 Package: swayfx
 Version: 0.5.3
 Architecture: amd64
