@@ -200,6 +200,14 @@
             padding-bottom: 0.6rem;
         }
 
+        h3 {
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 1.5rem 0 0.8rem;
+        }
+
         .pkg-list {
             font-family: var(--mono);
             font-size: 0.88rem;
@@ -294,6 +302,7 @@
         <p class="tagline">Personal APT repository for Debian 13 (trixie) / Devuan 6. Packages are built via
             GitHub Actions, without compiling anything locally.</p>
 
+        <h3>1. import repo public key</h3>
         <div class="term">
             <div class="term-bar">
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -301,13 +310,13 @@
             </div>
             <div class="term-body">
                 <button class="copy-btn">copy</button>
-                <pre><span class="cmt"># 1. import repo public key</span>
-curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
+                <pre>curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
   | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg
 sudo chmod a+r /usr/share/keyrings/devuan-depot.gpg</pre>
             </div>
         </div>
 
+        <h3>2. add the repo</h3>
         <div class="term">
             <div class="term-bar">
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -315,13 +324,13 @@ sudo chmod a+r /usr/share/keyrings/devuan-depot.gpg</pre>
             </div>
             <div class="term-body">
                 <button class="copy-btn">copy</button>
-                <pre><span class="cmt"># 2. add the repo</span>
-echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
+                <pre>echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
   | sudo tee /etc/apt/sources.list.d/devuan-depot.list
 sudo chmod a+r /etc/apt/sources.list.d/devuan-depot.list</pre>
             </div>
         </div>
 
+        <h3>3. install</h3>
         <div class="term">
             <div class="term-bar">
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -329,8 +338,7 @@ sudo chmod a+r /etc/apt/sources.list.d/devuan-depot.list</pre>
             </div>
             <div class="term-body">
                 <button class="copy-btn">copy</button>
-                <pre id="install-cmd"><span class="cmt"># 3. install</span>
-sudo apt update
+                <pre id="install-cmd">sudo apt update
 sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             </div>
         </div>
