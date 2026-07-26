@@ -317,7 +317,8 @@ sudo chmod a+r /usr/share/keyrings/devuan-depot.gpg</pre>
                 <button class="copy-btn">copy</button>
                 <pre><span class="cmt"># 2. add the repo</span>
 echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
-  | sudo tee /etc/apt/sources.list.d/devuan-depot.list</pre>
+  | sudo tee /etc/apt/sources.list.d/devuan-depot.list
+sudo chmod a+r /etc/apt/sources.list.d/devuan-depot.list</pre>
             </div>
         </div>
 
