@@ -15,7 +15,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git scdoc dpkg-dev ca-certificates \
+            build-essential meson pkg-config cmake git scdoc dpkg-dev ca-certificates curl jq \
             wayland-protocols libwayland-dev libpcre2-dev libjson-c-dev \
             libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev \
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
