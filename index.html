@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>devuan-depot — repositorio APT personal</title>
+    <title>devuan-depot — personal APT repository</title>
     <style>
         :root {
             --bg: #171512;
@@ -104,7 +104,7 @@
         .term {
             background: var(--bg-raised);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             overflow: hidden;
             margin-bottom: 2.5rem;
             box-shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.6);
@@ -176,7 +176,7 @@
             font-family: var(--mono);
             font-size: 0.7rem;
             padding: 0.25rem 0.55rem;
-            border-radius: 5px;
+            border-radius: 0;
             cursor: pointer;
         }
 
@@ -204,7 +204,7 @@
             font-family: var(--mono);
             font-size: 0.88rem;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             overflow: hidden;
         }
 
@@ -235,7 +235,7 @@
         .pkg-status {
             font-size: 0.72rem;
             padding: 0.15rem 0.5rem;
-            border-radius: 4px;
+            border-radius: 0;
             white-space: nowrap;
         }
 
@@ -283,16 +283,16 @@
     <div class="wrap">
 
         <header class="top">
-            <div class="brand"><strong>devuan-depot</strong> · repo apt personal</div>
+            <div class="brand"><strong>devuan-depot</strong> · personal apt repo</div>
             <nav class="top-links">
                 <a href="https://github.com/ezequielgk/devuan-depot">github</a>
                 <a href="public.asc">public.asc</a>
             </nav>
         </header>
 
-        <h1><span class="prompt">$</span> apt install <span id="typed-pkg">&lt;paquete&gt;</span></h1>
-        <p class="tagline">Repositorio APT personal para Debian 13 (trixie) / Devuan 6. Los paquetes se compilan vía
-            GitHub Actions, sin tener que compilar nada localmente.</p>
+        <h1><span class="prompt">$</span> apt install <span id="typed-pkg">&lt;package&gt;</span></h1>
+        <p class="tagline">Personal APT repository for Debian 13 (trixie) / Devuan 6. Packages are built via
+            GitHub Actions, without compiling anything locally.</p>
 
         <div class="term">
             <div class="term-bar">
@@ -300,58 +300,76 @@
                 <span class="term-title">ezequiel@devuan: ~</span>
             </div>
             <div class="term-body">
-                <button class="copy-btn" id="copy-btn">copiar</button>
-                <pre id="install-cmd"><span class="cmt"># 1. importar la clave publica del repo</span>
+                <button class="copy-btn">copy</button>
+                <pre><span class="cmt"># 1. import repo public key</span>
 curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg
+  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg</pre>
+            </div>
+        </div>
 
-<span class="cmt"># 2. agregar el repo</span>
+        <div class="term">
+            <div class="term-bar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="term-title">ezequiel@devuan: ~</span>
+            </div>
+            <div class="term-body">
+                <button class="copy-btn">copy</button>
+                <pre><span class="cmt"># 2. add the repo</span>
 echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
-  | sudo tee /etc/apt/sources.list.d/devuan-depot.list
+  | sudo tee /etc/apt/sources.list.d/devuan-depot.list</pre>
+            </div>
+        </div>
 
-<span class="cmt"># 3. instalar</span>
+        <div class="term">
+            <div class="term-bar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="term-title">ezequiel@devuan: ~</span>
+            </div>
+            <div class="term-body">
+                <button class="copy-btn">copy</button>
+                <pre id="install-cmd"><span class="cmt"># 3. install</span>
 sudo apt update
-sudo apt install &lt;paquete&gt;<span class="cursor"></span></pre>
+sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             </div>
         </div>
 
         <section>
-            <h2>paquetes</h2>
+            <h2>packages</h2>
             <div class="pkg-list" id="pkg-list">
-                <div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Cargando lista de paquetes…</span>
+                <div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Loading package list…</span>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>cómo funciona</h2>
+            <h2>how it works</h2>
             <p style="color: var(--text-dim); font-size: 0.92rem;">
-                Cada paquete tiene su propio workflow en <a
+                Each package has its own workflow in <a
                     href="https://github.com/ezequielgk/devuan-depot/tree/main/.github/workflows">.github/workflows</a>.
-                GitHub Actions compila el código fuente dentro de un contenedor <code>debian:trixie</code>,
-                arma el <code>.deb</code>, y lo publica firmado en la rama <code>gh-pages</code> — esta misma página.
+                GitHub Actions builds the source code inside a <code>debian:trixie</code> container,
+                assembles the <code>.deb</code>, and publishes it signed on the <code>gh-pages</code> branch — this very page.
             </p>
         </section>
 
         <footer>
             <span>suite: trixie · arch: amd64</span>
-            <span>firmado con GPG</span>
+            <span>signed with GPG</span>
         </footer>
 
     </div>
 
     <script>
-        const btn = document.getElementById('copy-btn');
-        const cmdEl = document.getElementById('install-cmd');
-        btn.addEventListener('click', async () => {
-            const text = cmdEl.innerText.trim();
-            try {
-                await navigator.clipboard.writeText(text);
-                btn.textContent = 'copiado';
-                setTimeout(() => { btn.textContent = 'copiar'; }, 1500);
-            } catch (e) {
-                btn.textContent = 'error';
-            }
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = btn.nextElementSibling.innerText.trim();
+                try {
+                    await navigator.clipboard.writeText(text);
+                    btn.textContent = 'copied';
+                    setTimeout(() => { btn.textContent = 'copy'; }, 1500);
+                } catch (e) {
+                    btn.textContent = 'error';
+                }
+            });
         });
 
         // Parsea el archivo "Packages" (formato de control de Debian: stanzas
@@ -378,13 +396,15 @@ sudo apt install &lt;paquete&gt;<span class="cursor"></span></pre>
         async function loadPackages() {
             const list = document.getElementById('pkg-list');
             const typedPkg = document.getElementById('typed-pkg');
+            const cmdEl = document.getElementById('install-cmd');
+            
             try {
                 const res = await fetch('dists/trixie/main/binary-amd64/Packages');
-                if (!res.ok) throw new Error('no encontrado');
+                if (!res.ok) throw new Error('not found');
                 const pkgs = parsePackages(await res.text());
 
                 if (!pkgs.length) {
-                    list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Todavía no hay paquetes publicados.</span></div>';
+                    list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No packages published yet.</span></div>';
                     return;
                 }
 
@@ -401,10 +421,10 @@ sudo apt install &lt;paquete&gt;<span class="cursor"></span></pre>
                 const first = pkgs[0].Package;
                 if (first) {
                     typedPkg.textContent = first;
-                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;paquete&gt;/g, first);
+                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;package&gt;/g, first);
                 }
             } catch (e) {
-                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No se pudo cargar la lista de paquetes todavía.</span></div>';
+                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Could not load package list yet.</span></div>';
             }
         }
 
