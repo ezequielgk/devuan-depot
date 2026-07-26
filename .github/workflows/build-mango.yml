@@ -68,15 +68,15 @@ jobs:
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
 
           cat > pkgroot/DEBIAN/control <<CTRL
-          Package: mangowm
+          Package: mangowc
           Version: ${VERSION}
           Section: x11
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: MangoWM - A Wayland compositor
-           An i3-compatible Wayland compositor with visual effects.
+          Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
+           Practical and Powerful wayland compositor (dwm but wayland).
           CTRL
 
           cat > pkgroot/DEBIAN/postinst <<'EOF'
@@ -101,13 +101,13 @@ jobs:
 
           chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
-          dpkg-deb --build --root-owner-group pkgroot "mangowm_${VERSION}_amd64.deb"
-          mv "mangowm_${VERSION}_amd64.deb" ..
+          dpkg-deb --build --root-owner-group pkgroot "mangowc_${VERSION}_amd64.deb"
+          mv "mangowc_${VERSION}_amd64.deb" ..
 
       - uses: actions/upload-artifact@v4
         with:
-          name: mangowm-deb
-          path: src/mangowm_*_amd64.deb
+          name: mangowc-deb
+          path: src/mangowc_*_amd64.deb
 
   publish:
     needs: build
@@ -121,7 +121,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: mangowm-deb
+          name: mangowc-deb
           path: incoming
 
       - name: Import GPG key
@@ -161,5 +161,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Add/Update mangowm" || echo "No changes"
+          git commit -m "Add/Update mangowc" || echo "No changes"
           git push
