@@ -19,7 +19,8 @@ jobs:
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
             libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
             libliftoff-dev libdisplay-info-dev libpixman-1-dev \
-            hwdata libudev-dev xwayland libxml2-dev bison flex
+            hwdata libudev-dev xwayland libxml2-dev bison flex \
+            libegl-dev libgles2-dev libvulkan-dev
 
       - name: Clone wlroots, scenefx and mangowm
         run: |
@@ -35,19 +36,19 @@ jobs:
       - name: Compile and install wlroots
         working-directory: src/wlroots
         run: |
-          meson setup build --prefix=/usr --wrap-mode=default
+          meson setup build --prefix=/usr --wrap-mode=forcefallback
           ninja -C build install
 
       - name: Compile and install scenefx
         working-directory: src/scenefx
         run: |
-          meson setup build --prefix=/usr --wrap-mode=default
+          meson setup build --prefix=/usr --wrap-mode=forcefallback
           ninja -C build install
 
       - name: Compile mangowm
         working-directory: src/mango
         run: |
-          meson setup build --buildtype=release --prefix=/usr --wrap-mode=default
+          meson setup build --buildtype=release --prefix=/usr --wrap-mode=forcefallback
           ninja -C build
 
       - name: Package .deb
