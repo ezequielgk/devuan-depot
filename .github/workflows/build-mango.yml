@@ -38,7 +38,7 @@ jobs:
       - name: Compile and install wlroots
         working-directory: src/wlroots
         run: |
-          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false -Dxwayland=enabled
+          meson setup build --prefix=/usr --wrap-mode=default --force-fallback-for=pixman -Dwerror=false -Dxwayland=enabled
           ninja -C build install
 
       - name: Compile and install scenefx
