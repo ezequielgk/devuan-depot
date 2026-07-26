@@ -19,7 +19,7 @@ jobs:
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
             libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
             libliftoff-dev libdisplay-info-dev libpixman-1-dev \
-            hwdata libudev-dev xwayland
+            hwdata libudev-dev xwayland libxml2-dev
 
       - name: Clone wayland, wlroots, scenefx and mangowm
         run: |
