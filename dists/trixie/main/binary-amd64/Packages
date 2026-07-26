@@ -12,6 +12,20 @@ Priority: optional
 Description: MangoWM - A Wayland compositor
  An i3-compatible Wayland compositor with visual effects.
 
+Package: niri
+Version: 26.04
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/niri_26.04_amd64.deb
+Size: 23336040
+MD5sum: 1e29733440647489b5a5bfcc98112374
+SHA1: 0ab1cd857112d17f6816db4a27f03804d518b1d6
+SHA256: 475e68f2bca39458d28ae7735ebcc90967d1fb14b4fcfa2466e3f0a627505139
+Section: x11
+Priority: optional
+Description: Niri - A scrollable-tiling Wayland compositor
+ Niri is a scrollable-tiling Wayland compositor.
+
 Package: swayfx
 Version: 0.5.3
 Architecture: amd64
