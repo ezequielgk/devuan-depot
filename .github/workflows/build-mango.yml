@@ -21,11 +21,8 @@ jobs:
             libliftoff-dev libdisplay-info-dev libpixman-1-dev \
             hwdata libudev-dev xwayland libxml2-dev
 
-      - name: Clone wayland, wlroots, scenefx and mangowm
+      - name: Clone wlroots, scenefx and mangowm
         run: |
-          # 0. Wayland 1.24.0
-          git clone --branch 1.24.0 --depth 1 https://gitlab.freedesktop.org/wayland/wayland.git src/wayland
-
           # 1. wlroots 0.20.2
           git clone --branch 0.20.2 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git src/wlroots
           
@@ -35,28 +32,22 @@ jobs:
           # 3. mangowm (latest from main)
           git clone --depth 1 https://github.com/mangowm/mango.git src/mango
 
-      - name: Compile and install Wayland 1.24.0
-        working-directory: src/wayland
-        run: |
-          meson setup build --prefix=/usr -Ddocumentation=false
-          ninja -C build install
-
       - name: Compile and install wlroots
         working-directory: src/wlroots
         run: |
-          meson setup build --prefix=/usr
+          meson setup build --prefix=/usr --wrap-mode=default
           ninja -C build install
 
       - name: Compile and install scenefx
         working-directory: src/scenefx
         run: |
-          meson setup build --prefix=/usr
+          meson setup build --prefix=/usr --wrap-mode=default
           ninja -C build install
 
       - name: Compile mangowm
         working-directory: src/mango
         run: |
-          meson setup build --buildtype=release --prefix=/usr
+          meson setup build --buildtype=release --prefix=/usr --wrap-mode=default
           ninja -C build
 
       - name: Package .deb
