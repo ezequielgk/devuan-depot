@@ -118,6 +118,7 @@ jobs:
 
       - name: Generar y firmar Release
         run: |
+          export GPG_TTY=$(tty)
           cd dists/trixie
           cat > Release <<REL
           Origin: rox-apt-repo
