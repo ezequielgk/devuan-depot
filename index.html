@@ -303,7 +303,8 @@
                 <button class="copy-btn">copy</button>
                 <pre><span class="cmt"># 1. import repo public key</span>
 curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg</pre>
+  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg
+sudo chmod a+r /usr/share/keyrings/devuan-depot.gpg</pre>
             </div>
         </div>
 
