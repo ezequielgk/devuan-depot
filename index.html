@@ -290,9 +290,9 @@
             </nav>
         </header>
 
-        <h1><span class="prompt">$</span> apt install <span id="typed-pkg">swayfx</span></h1>
-        <p class="tagline">Paquetes .deb compilados para Debian 13 (trixie) / Devuan 6, sin tener que compilar nada
-            localmente.</p>
+        <h1><span class="prompt">$</span> apt install <span id="typed-pkg">&lt;paquete&gt;</span></h1>
+        <p class="tagline">Repositorio APT personal para Debian 13 (trixie) / Devuan 6. Los paquetes se compilan vía
+            GitHub Actions, sin tener que compilar nada localmente.</p>
 
         <div class="term">
             <div class="term-bar">
@@ -311,19 +311,14 @@ echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.gi
 
 <span class="cmt"># 3. instalar</span>
 sudo apt update
-sudo apt install swayfx<span class="cursor"></span></pre>
+sudo apt install &lt;paquete&gt;<span class="cursor"></span></pre>
             </div>
         </div>
 
         <section>
             <h2>paquetes</h2>
-            <div class="pkg-list">
-                <div class="pkg-row">
-                    <span class="pkg-name">swayfx</span>
-                    <span class="pkg-status status-ok">0.5.3</span>
-                    <span></span>
-                    <span class="pkg-desc">Sway con blur, sombras y esquinas redondeadas (wlroots 0.19, scenefx
-                        0.4.1)</span>
+            <div class="pkg-list" id="pkg-list">
+                <div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Cargando lista de paquetes…</span>
                 </div>
             </div>
         </section>
@@ -349,7 +344,7 @@ sudo apt install swayfx<span class="cursor"></span></pre>
         const btn = document.getElementById('copy-btn');
         const cmdEl = document.getElementById('install-cmd');
         btn.addEventListener('click', async () => {
-            const text = cmdEl.innerText.replace(/^# .*$/gm, m => m).trim();
+            const text = cmdEl.innerText.trim();
             try {
                 await navigator.clipboard.writeText(text);
                 btn.textContent = 'copiado';
@@ -358,6 +353,62 @@ sudo apt install swayfx<span class="cursor"></span></pre>
                 btn.textContent = 'error';
             }
         });
+
+        // Parsea el archivo "Packages" (formato de control de Debian: stanzas
+        // separadas por línea en blanco, campos "Clave: valor") y renderiza
+        // la lista de paquetes disponibles en el repo dinámicamente.
+        function parsePackages(text) {
+            return text.trim().split(/\n\n+/).filter(Boolean).map(stanza => {
+                const fields = {};
+                let lastKey = null;
+                for (const line of stanza.split('\n')) {
+                    const m = line.match(/^([A-Za-z-]+):\s?(.*)$/);
+                    if (m) {
+                        lastKey = m[1];
+                        fields[lastKey] = m[2];
+                    } else if (lastKey && /^\s/.test(line)) {
+                        // línea de continuación (descripción multilínea)
+                        fields[lastKey] += ' ' + line.trim();
+                    }
+                }
+                return fields;
+            });
+        }
+
+        async function loadPackages() {
+            const list = document.getElementById('pkg-list');
+            const typedPkg = document.getElementById('typed-pkg');
+            try {
+                const res = await fetch('dists/trixie/main/binary-amd64/Packages');
+                if (!res.ok) throw new Error('no encontrado');
+                const pkgs = parsePackages(await res.text());
+
+                if (!pkgs.length) {
+                    list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Todavía no hay paquetes publicados.</span></div>';
+                    return;
+                }
+
+                list.innerHTML = pkgs.map(p => `
+        <div class="pkg-row">
+          <span class="pkg-name">${p.Package || '?'}</span>
+          <span class="pkg-status status-ok">${p.Version || ''}</span>
+          <span></span>
+          <span class="pkg-desc">${p.Description || ''}</span>
+        </div>
+      `).join('');
+
+                // Usa el primer paquete para completar los ejemplos de comando
+                const first = pkgs[0].Package;
+                if (first) {
+                    typedPkg.textContent = first;
+                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;paquete&gt;/g, first);
+                }
+            } catch (e) {
+                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No se pudo cargar la lista de paquetes todavía.</span></div>';
+            }
+        }
+
+        loadPackages();
     </script>
 </body>
 
