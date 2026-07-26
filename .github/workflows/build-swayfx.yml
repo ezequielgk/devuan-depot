@@ -11,26 +11,26 @@ jobs:
     container:
       image: debian:trixie
     steps:
-      - name: Instalar git
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends git ca-certificates
-
-      - name: Clonar upstream
-        run: |
-          git clone --depth 1 https://github.com/WillPower3309/swayfx.git src
-
-      - name: Instalar dependencias de build
+      - name: Instalar git y dependencias de build
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            build-essential meson ninja-build git pkg-config \
-            libwayland-dev wayland-protocols libxkbcommon-dev \
-            libpixman-1-dev libdrm-dev libgbm-dev libinput-dev \
-            libudev-dev libseat-dev libxcb-*-dev libpam0g-dev \
-            libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev \
-            scdoc libsystemd-dev libegl1-mesa-dev libgles2-mesa-dev \
-            hwdata dpkg-dev
+            meson pkg-config cmake git scdoc dpkg-dev ca-certificates \
+            wayland-protocols libwayland-dev libpcre2-dev libjson-c-dev \
+            libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev \
+            libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
+            libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
+            libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
+            libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
+            libgles2-mesa-dev hwdata libudev-dev
+
+      - name: Clonar SwayFX y subproyectos (wlroots + scenefx)
+        run: |
+          git clone --branch 0.5.3 --depth 1 https://github.com/WillPower3309/swayfx.git src
+          mkdir -p src/subprojects
+          cd src/subprojects
+          git clone --branch 0.4.1 --depth 1 https://github.com/wlrfx/scenefx.git
+          git clone --branch 0.19.0 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git
 
       - name: Compilar
         working-directory: src
@@ -41,12 +41,14 @@ jobs:
       - name: Empaquetar .deb
         working-directory: src
         run: |
-          VERSION=$(git describe --tags --always | sed 's/^v//')
+          VERSION="0.5.3"
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
+
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
             $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable 2>/dev/null) \
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
+
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: swayfx
           Version: ${VERSION}
@@ -57,7 +59,31 @@ jobs:
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
           Description: SwayFX - Sway con efectos visuales
            Fork de Sway con blur, sombras y esquinas redondeadas.
+           Basado en Sway 1.11, wlroots 0.19.0 y scenefx 0.4.1.
           CTRL
+
+          cat > pkgroot/DEBIAN/postinst <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          if [ -x /usr/bin/update-desktop-database ]; then
+            update-desktop-database -q /usr/share/applications || true
+          fi
+          exit 0
+          EOF
+
+          cat > pkgroot/DEBIAN/postrm <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          if [ -x /usr/bin/update-desktop-database ]; then
+            update-desktop-database -q /usr/share/applications || true
+          fi
+          exit 0
+          EOF
+
+          chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
+
           dpkg-deb --build --root-owner-group pkgroot "swayfx_${VERSION}_amd64.deb"
           mv "swayfx_${VERSION}_amd64.deb" ..
 
