@@ -1,5 +1,7 @@
 # devuan-depot
 
+**Website:** [https://ezequielgk.github.io/devuan-depot/](https://ezequielgk.github.io/devuan-depot/)
+
 Personal APT repository. Workflows in `.github/workflows/` build projects and publish `.deb` packages ready to install via GitHub Pages.
 
 ## Installation (on Devuan 6 / Debian 13)
