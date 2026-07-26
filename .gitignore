@@ -3,3 +3,5 @@
 !public.asc
 build/
 pkgroot/
+/logs_niri
+/logs_mangowc
