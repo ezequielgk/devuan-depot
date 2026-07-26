@@ -42,13 +42,13 @@ jobs:
       - name: Compile and install scenefx
         working-directory: src/scenefx
         run: |
-          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
+          meson setup build --prefix=/usr --wrap-mode=default -Dwerror=false
           ninja -C build install
 
       - name: Compile mangowm
         working-directory: src/mango
         run: |
-          meson setup build --buildtype=release --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
+          meson setup build --buildtype=release --prefix=/usr --wrap-mode=default -Dwerror=false
           ninja -C build
 
       - name: Package .deb
