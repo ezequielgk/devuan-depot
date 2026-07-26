@@ -3,13 +3,13 @@ Version: 0.5.2
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Filename: pool/main/swayfx_0.5.2_amd64.deb
-Size: 5663704
-MD5sum: 883cc3f6e0c45af423cc2cf7c77e8514
-SHA1: b317fee3887cac373e122b3d39bb935803176d59
-SHA256: 770a3c9060a5e3660f4a9d93a1d648ab8772b6d517ea348490b4a40716ac94e5
+Size: 5663932
+MD5sum: c3d9b39517ab6bcb7090ecf146aa0a00
+SHA1: bf212d545168600c7c7266d6009b91e54e0db578
+SHA256: 047797949206450d4750b6bd716113c2ed30cfbfda08e5d9ec3bca6f6d6cdf7d
 Section: x11
 Priority: optional
-Description: SwayFX - Sway with visual effects
+Description: SwayFX - but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
 
