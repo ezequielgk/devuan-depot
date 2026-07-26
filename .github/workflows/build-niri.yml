@@ -41,7 +41,10 @@ jobs:
           mkdir -p pkgroot/usr/share/wayland-sessions
           
           # Copiamos los binarios principales
-          cp target/release/niri target/release/niri-msg pkgroot/usr/bin/
+          cp target/release/niri pkgroot/usr/bin/
+          if [ -f target/release/niri-msg ]; then
+            cp target/release/niri-msg pkgroot/usr/bin/
+          fi
           
           # Copiamos el archivo desktop para que aparezca en el Display Manager
           if [ -f resources/niri.desktop ]; then
