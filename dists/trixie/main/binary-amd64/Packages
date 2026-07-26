@@ -1,12 +1,12 @@
 Package: swayfx
-Version: 0.5.2
+Version: 0.5.3
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/swayfx_0.5.2_amd64.deb
-Size: 5659704
-MD5sum: 96b24ebec7c9265624ae5e38955bc6b0
-SHA1: aef9a931a81a00a77658f57719c7732a1dcf6a03
-SHA256: a058f70f0785f896bb4e98c4b1dee56af6316475f89c63f537f0721ac950e493
+Filename: pool/main/swayfx_0.5.3_amd64.deb
+Size: 5660832
+MD5sum: 9dd32d652cb0acd666675176c38cb841
+SHA1: 0092bfeb0df32590f396c100cc40080749a0a8be
+SHA256: 8bf2dc9c56357a8e4fcd721fccf3484f3c482f69777a0999a3b575b92290b302
 Section: x11
 Priority: optional
 Description: SwayFX - Sway but with eye candy!
