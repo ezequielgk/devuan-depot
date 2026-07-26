@@ -11,6 +11,11 @@ jobs:
     container:
       image: debian:trixie
     steps:
+      - name: Instalar git
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git ca-certificates
+
       - name: Clonar upstream
         run: |
           git clone --depth 1 https://github.com/WillPower3309/swayfx.git src
