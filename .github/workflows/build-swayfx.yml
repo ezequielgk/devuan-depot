@@ -129,10 +129,12 @@ jobs:
           Date: $(date -Ru)
           REL
           apt-ftparchive release . >> Release
-          echo "" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
-            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
-          echo "" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
-            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+          printf '%s' "${{ secrets.GPG_PASSPHRASE }}" | \
+            gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
+              --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          printf '%s' "${{ secrets.GPG_PASSPHRASE }}" | \
+            gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
+              --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
 
       - name: Commit y push a gh-pages
         run: |
