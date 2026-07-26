@@ -106,7 +106,10 @@ jobs:
           path: incoming
 
       - name: Importar GPG key
-        run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Agregar al pool y regenerar índices
         run: |
@@ -129,9 +132,9 @@ jobs:
           Date: $(date -Ru)
           REL
           apt-ftparchive release . >> Release
-          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" \
+          gpg --batch --yes \
             --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
-          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" \
+          gpg --batch --yes \
             --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
 
       - name: Commit y push a gh-pages
