@@ -118,7 +118,6 @@ jobs:
 
       - name: Generar y firmar Release
         run: |
-          export GPG_TTY=$(tty)
           cd dists/trixie
           cat > Release <<REL
           Origin: rox-apt-repo
@@ -130,9 +129,9 @@ jobs:
           Date: $(date -Ru)
           REL
           apt-ftparchive release . >> Release
-          gpg --batch --yes --no-tty \
+          echo "" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
             --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
-          gpg --batch --yes --no-tty \
+          echo "" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
             --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
 
       - name: Commit y push a gh-pages
