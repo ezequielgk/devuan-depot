@@ -11,7 +11,7 @@ jobs:
     container:
       image: debian:trixie
     steps:
-      - name: Instalar git y dependencias de build
+      - name: Install git and build dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
@@ -24,11 +24,11 @@ jobs:
             libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
             libgles2-mesa-dev hwdata libudev-dev
 
-      - name: Clonar SwayFX y subproyectos (wlroots + scenefx)
+      - name: Clone SwayFX and subprojects (wlroots + scenefx)
         run: |
-          # Obtener el tag del último release estable (ej: 0.5.2)
+          # Get the tag of the latest stable release (e.g. 0.5.2)
           LATEST_TAG=$(curl -sL https://api.github.com/repos/WillPower3309/swayfx/releases/latest | jq -r .tag_name)
-          echo "Obtenida versión latest: $LATEST_TAG"
+          echo "Obtained latest version: $LATEST_TAG"
           echo "SWAYFX_VERSION=$LATEST_TAG" >> $GITHUB_ENV
           
           git clone --branch $LATEST_TAG --depth 1 https://github.com/WillPower3309/swayfx.git src
@@ -37,16 +37,16 @@ jobs:
           git clone --branch 0.4.1 --depth 1 https://github.com/wlrfx/scenefx.git
           git clone --branch 0.19.0 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git
 
-      - name: Compilar
+      - name: Compile
         working-directory: src
         run: |
           meson setup build --buildtype=release --prefix=/usr
           ninja -C build
 
-      - name: Empaquetar .deb
+      - name: Package .deb
         working-directory: src
         run: |
-          # Quitamos la 'v' si el tag la tuviera (ej: v0.5.2 -> 0.5.2)
+          # Remove 'v' from tag if present (e.g. v0.5.2 -> 0.5.2)
           VERSION="${SWAYFX_VERSION#v}"
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
@@ -63,9 +63,9 @@ jobs:
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: SwayFX - Sway con efectos visuales
-           Fork de Sway con blur, sombras y esquinas redondeadas.
-           Basado en Sway 1.11, wlroots 0.19.0 y scenefx 0.4.1.
+          Description: SwayFX - Sway with visual effects
+           Sway fork with blur, shadows and rounded corners.
+           Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
           CTRL
 
           cat > pkgroot/DEBIAN/postinst <<'EOF'
@@ -113,13 +113,13 @@ jobs:
           name: swayfx-deb
           path: incoming
 
-      - name: Importar GPG key
+      - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Agregar al pool y regenerar índices
+      - name: Add to pool and regenerate indices
         run: |
           sudo apt-get install -y dpkg-dev
           mkdir -p pool/main dists/trixie/main/binary-amd64
@@ -127,12 +127,12 @@ jobs:
           dpkg-scanpackages --arch amd64 pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
 
-      - name: Generar y firmar Release
+      - name: Generate and sign Release
         run: |
           cd dists/trixie
           cat > Release <<REL
-          Origin: rox-apt-repo
-          Label: Rox Personal Repo
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
           Suite: trixie
           Codename: trixie
           Architectures: amd64
@@ -145,10 +145,10 @@ jobs:
           gpg --batch --yes \
             --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
 
-      - name: Commit y push a gh-pages
+      - name: Commit and push to gh-pages
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Actualizar swayfx" || echo "Sin cambios"
+          git commit -m "Update swayfx" || echo "No changes"
           git push
