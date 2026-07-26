@@ -1,0 +1,5 @@
+*.deb
+*.asc
+!public.asc
+build/
+pkgroot/
