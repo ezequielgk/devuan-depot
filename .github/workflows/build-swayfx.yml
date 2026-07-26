@@ -51,6 +51,16 @@ jobs:
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
 
+          # Modify wayland-sessions desktop file
+          mv pkgroot/usr/share/wayland-sessions/sway.desktop pkgroot/usr/share/wayland-sessions/swayfx.desktop
+          cat > pkgroot/usr/share/wayland-sessions/swayfx.desktop <<'SESSION'
+          [Desktop Entry]
+          Name=SwayFX
+          Comment=An i3-compatible Wayland compositor with eye candy
+          Exec=sway
+          Type=Application
+          SESSION
+
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
             $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable 2>/dev/null) \
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
