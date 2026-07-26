@@ -1,18 +1,23 @@
-# rox-apt-repo
+# devuan-depot
 
-Repositorio APT personal. Los workflows en `.github/workflows/` compilan
-proyectos (propios o de terceros) y publican los `.deb` resultantes en la
-rama `gh-pages`, que se sirve vía GitHub Pages como repositorio APT.
+Personal APT repository. Workflows in `.github/workflows/` build projects and publish `.deb` packages ready to install via GitHub Pages.
 
-## Instalación (en Devuan/Debian)
+## Installation (on Devuan 6 / Debian 13)
 
+### 1. Import repo public key
 ```bash
-curl -fsSL https://TU_USUARIO.github.io/REPO_NAME/public.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/rox-apt-repo.gpg
+curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg
+```
 
-echo "deb [signed-by=/usr/share/keyrings/rox-apt-repo.gpg] https://TU_USUARIO.github.io/REPO_NAME trixie main" \
-  | sudo tee /etc/apt/sources.list.d/rox-apt-repo.list
+### 2. Add the repo
+```bash
+echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
+  | sudo tee /etc/apt/sources.list.d/devuan-depot.list
+```
 
+### 3. Install
+```bash
 sudo apt update
-sudo apt install <paquete>
+sudo apt install <package>
 ```
