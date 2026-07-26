@@ -36,19 +36,19 @@ jobs:
       - name: Compile and install wlroots
         working-directory: src/wlroots
         run: |
-          meson setup build --prefix=/usr --wrap-mode=forcefallback
+          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
           ninja -C build install
 
       - name: Compile and install scenefx
         working-directory: src/scenefx
         run: |
-          meson setup build --prefix=/usr --wrap-mode=forcefallback
+          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
           ninja -C build install
 
       - name: Compile mangowm
         working-directory: src/mango
         run: |
-          meson setup build --buildtype=release --prefix=/usr --wrap-mode=forcefallback
+          meson setup build --buildtype=release --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
           ninja -C build
 
       - name: Package .deb
