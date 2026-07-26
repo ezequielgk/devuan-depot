@@ -27,7 +27,7 @@ jobs:
       - name: Clone SwayFX and subprojects (wlroots + scenefx)
         run: |
           # Get the absolute newest tag, even if the author forgot to mark it as "latest"
-          LATEST_TAG=$(curl -sL https://api.github.com/repos/WillPower3309/swayfx/tags | jq -r '.[0].name')
+          LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/WillPower3309/swayfx/tags | jq -r '.[0].name')
           echo "Obtained latest version: $LATEST_TAG"
           echo "SWAYFX_VERSION=$LATEST_TAG" >> $GITHUB_ENV
           
