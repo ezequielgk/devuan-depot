@@ -20,7 +20,9 @@ jobs:
             libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
             libliftoff-dev libdisplay-info-dev libpixman-1-dev \
             hwdata libudev-dev xwayland libxml2-dev bison flex \
-            libegl1-mesa-dev libgles2-mesa-dev libvulkan-dev
+            libegl1-mesa-dev libgles2-mesa-dev libvulkan-dev \
+            libxcb-composite0-dev libxcb-render0-dev libxcb-xfixes0-dev \
+            libxcb-shape0-dev libxcb-errors-dev
 
       - name: Clone wlroots, scenefx and mangowm
         run: |
@@ -36,7 +38,7 @@ jobs:
       - name: Compile and install wlroots
         working-directory: src/wlroots
         run: |
-          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false
+          meson setup build --prefix=/usr --wrap-mode=forcefallback -Dwerror=false -Dxwayland=enabled
           ninja -C build install
 
       - name: Compile and install scenefx
