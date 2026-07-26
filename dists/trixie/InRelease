@@ -1,43 +1,43 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Origin: rox-apt-repo
-Label: Rox Personal Repo
+Origin: devuan-depot
+Label: devuan-depot Personal Repo
 Suite: trixie
 Codename: trixie
 Architectures: amd64
 Components: main
-Date: Sun, 26 Jul 2026 19:05:50 +0000
-Date: Sun, 26 Jul 2026 19:05:50 +0000
+Date: Sun, 26 Jul 2026 19:39:03 +0000
+Date: Sun, 26 Jul 2026 19:39:03 +0000
 MD5Sum:
- 91a0069075e90adf4c17d63b69f44a62              191 Release
- 4f021e7c94c9e56587e4860f4d27d42b              510 main/binary-amd64/Packages
- 82d73709a2e49a6da5b8ebaeb12e52ee              395 main/binary-amd64/Packages.gz
+ a3325932932646e9d4eca54996adffc9              200 Release
+ c7e3bfe899c0967b32f88c1a04d9fce2              505 main/binary-amd64/Packages
+ 8f685de9e4f1134242d329e7c907dc94              392 main/binary-amd64/Packages.gz
 SHA1:
- 556318f3561260747dd609bb7e590d4bf637eb91              191 Release
- 8a840b562a82d10d47dc2ba712658d55966dd40e              510 main/binary-amd64/Packages
- b9ce02f044d1aadd6674a9d2f3d76b6238e47f21              395 main/binary-amd64/Packages.gz
+ 23d915e5e5d7f5bcf6cbb4495c5e100a7b84ce49              200 Release
+ 6bddadef48e037f5d16ee13fafc50aa82464a905              505 main/binary-amd64/Packages
+ 1ae0b0af8853cf35019f677da677b567dfc73385              392 main/binary-amd64/Packages.gz
 SHA256:
- 6de69b5e4c860860c61daa1fe461bbafc9a5007fb4f44028eaabd5427b5c6f19              191 Release
- 145d7420726cc0aa35109fc25154d735758ab90de7d0bb8e59a9cbf9bf32b3e4              510 main/binary-amd64/Packages
- 28db2f34e0d706b5cd6e4b72467dcb36429afda178a4991b15ad797924ceb792              395 main/binary-amd64/Packages.gz
+ f3e945fe4e53ec90dfe628fe68f8fb81c0aa60c419d3368fb78df1c0b5ddf555              200 Release
+ 2a2293da98c927434fbe289ac01b884491b655db7d8f7df7b6e1da81c401004f              505 main/binary-amd64/Packages
+ a3d9047617718f2b0896d717b19eda8854a18e07ea33c6318449a24155624507              392 main/binary-amd64/Packages.gz
 SHA512:
- 5673faedb1cd5bdd4cbff0fbd1494ab772ff39c0e6a22067f0d9498014af1676322ba4ec51d411d62dc1823f883b89af16a43466b3cb939f89de8acf2b605e84              191 Release
- deea30ac5f4ff66445673dcbbd1090a49f25dd8c11d45d6c333903551d15bc68cce02a993c535335c90f4a9479280e0eb8e7517d2ce3c7a7172bd32d5774d161              510 main/binary-amd64/Packages
- 067381419388b112d47385682ba304955e2b0a9840aae69f9ef6e67ba77bd788270a293a33f1aba0fadd237c436c2b7beb6deaac41a779160a2f1246bafe6841              395 main/binary-amd64/Packages.gz
+ 039f5d0e2e2a027ae33dd776e4aa1127cf90d519774b485b49123ba9231d468d49405c8c2b4c84a22e17f64e9efc6ad71fa2f72543a274257da22b6f269af57f              200 Release
+ 33dc68b2e79a80b43e921638657bd3c41c2a024f3fb1104ac659f0585acedba32372abaf0fae50b713a22cea5c383d3c04df005d1aa2ff1d3a2c1c572bb604f1              505 main/binary-amd64/Packages
+ 9fea11eb5a6946e7c0e24f99b152be802cf667003adce27569fc7969f6a2120cceb9a6b91f17045accc80d06b812ee092fb93954c7d3825044c20932170fe1bd              392 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpmWo8ACgkQQefTvOiq
-LHRRoA//QpAmUlNRGq+ksLYR9CJzUWth/7prgwPTlQX3+zrvis5fxhPhtBIi5vFi
-OMk74W4Mz3sdHGJuAOGwe6RqmBpQ5tCmdXh7HuzKdAoMakmYmPIVWfitLV77Pm+o
-DJSyopEPZlWPDU13Avdpp8u4fkThu0355ZzxrH7HgFVBKKwYxeLeYR+w8IBpuvEg
-MxL9Gq15KBKnv4cyCVxwww1SEh4TW3rJurL4VPQtwHe4Ng53gvkq6EEDudDCBBC0
-ZrvojttXkTXrfwZyAb8uI2hPlMeFbXPeG8VFbiaALIh+K2e5ExORzyM9C/KVPMTQ
-zE1qn/Tva9dbrG+KjcsOhV378pEZjFv/b6tglcQ819Q6RNh1iE6zE/NqRDqAzlE4
-K8kW/aYPpbm7o3AmJkd3xq7WioK2Eic1cptK+DGN9rKhJn4WgXhjbkxZk4s01gok
-9aBvzfTxJRsSgV7g8Re96QtygI4kGHyygJ7ZYebi9E572RJtpTtIhoMOKAnyqoNe
-pn4GnCJpvqDC+/onLheYRU2inGKCevD1aVpXmUJ8n6yH8F+01ZN+VZn2oU8Fc/eQ
-t4bt5azT7hTvON8gGO2viPiD0AzDTs2VeKy6kIpT+Py8DbtozcnMYT3ZfiH4CEra
-vwIyeQYAG+gF8vMY6oNdIBkhT9rHpgfefyt3cdk6UrZYUYGQNtQ=
-=YoRg
+iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpmYlgACgkQQefTvOiq
+LHQRUw//TUsEC4uuaSfy55bgiRSvCs2t7DCliiAUvHnSQU5IlQMG1YCdUmcXr/JV
+z5xCndm7Y0JBzATZwg8SsXTEU3T5xd8vFuhxgRQr5znGeMvIS9ipjb8iGC8Vdp+l
+aVsbTDZAMz27l3YlnpyYv617IBb/XrV/pD8Aghat8hTh0Gh0TlSoooFMLG6faokz
+seNp2UlAEHKk6iF5tRNHiMMid81c2irdNJ5ovLODBjl6ljxXU+OKuMs9rJayeT7B
+8zAcHQT3niJqr4HZrH1enZPY8P1mFUc4XdY4HuYPlm8Kri0vHvgCkYQHfhZkMT0H
++pL7jDV30ofiDNcgP9Ey0koCDrdO4Fia2UiCLaglaQDVTz1ZIjg1BhIhxl07Jlh0
+khdUaOD6eGtqEKbEY52PusqkgzMjKsmuffnSalRb7wH1JAUV0eMNt367iFPsYnof
+J4thyy7uZEcKN3rT46nfw30KI9QeBGgWAn/pc9puNiZlb/boqeLpS3qCo6O3fy8r
+FhkJDH2ESCLpI9pE9QEO5UKLOVBGuxxH+jZeGrN4zohUI45nwg7UP2zLd1E0IAxh
+KUPcTy0FmtxaO4q6JH9rIG1oRmfH2E4tpTR1SxrTnVkBLp72NFKBz4MG1FdVvCWR
+tgIY9JX8hwEZ73c9Eb+SAsycd2QzThjAABNc3cU2wwkY7IoW8ow=
+=zS1E
 -----END PGP SIGNATURE-----
