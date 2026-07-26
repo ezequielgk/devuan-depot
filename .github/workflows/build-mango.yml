@@ -1,9 +1,6 @@
 name: Build MangoWM .deb
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/build-mango.yml'
 
 jobs:
   build:

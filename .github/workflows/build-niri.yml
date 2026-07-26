@@ -1,9 +1,6 @@
 name: Build Niri .deb
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/build-niri.yml'
 
 jobs:
   build:
