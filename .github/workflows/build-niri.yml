@@ -1,9 +1,9 @@
-name: Build SwayFX .deb
+name: Build Niri .deb
 on:
   workflow_dispatch:
   push:
-    tags:
-      - 'swayfx-v*'
+    paths:
+      - '.github/workflows/build-niri.yml'
 
 jobs:
   build:
@@ -11,77 +11,65 @@ jobs:
     container:
       image: debian:trixie
     steps:
-      - name: Install git and build dependencies
+      - name: Install build dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git scdoc dpkg-dev ca-certificates curl jq \
-            wayland-protocols libwayland-dev libpcre2-dev libjson-c-dev \
-            libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev \
-            libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
-            libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
-            libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
-            libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
-            libgles2-mesa-dev hwdata libudev-dev
+            gcc clang libudev-dev libgbm-dev libxkbcommon-dev libegl1-mesa-dev \
+            libwayland-dev libinput-dev libdbus-1-dev libsystemd-dev libseat-dev \
+            libpipewire-0.3-dev libpango1.0-dev libdisplay-info-dev \
+            cargo rustc pkg-config cmake git dpkg-dev ca-certificates curl jq
 
-      - name: Clone SwayFX and subprojects (wlroots + scenefx)
+      - name: Clone Niri
         run: |
-          # Get the absolute newest tag, even if the author forgot to mark it as "latest"
-          LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/WillPower3309/swayfx/tags | jq -r '.[0].name')
+          # Obtenemos el último tag oficial de Niri
+          LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/YaLTeR/niri/tags | jq -r '.[0].name')
           echo "Obtained latest version: $LATEST_TAG"
-          echo "SWAYFX_VERSION=$LATEST_TAG" >> $GITHUB_ENV
+          echo "NIRI_VERSION=$LATEST_TAG" >> $GITHUB_ENV
           
-          git clone --branch $LATEST_TAG --depth 1 https://github.com/WillPower3309/swayfx.git src
-          mkdir -p src/subprojects
-          cd src/subprojects
-          git clone --branch 0.4.1 --depth 1 https://github.com/wlrfx/scenefx.git
-          git clone --branch 0.19.0 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git
+          git clone --branch $LATEST_TAG --depth 1 https://github.com/YaLTeR/niri.git src
 
       - name: Compile
         working-directory: src
         run: |
-          meson setup build --buildtype=release --prefix=/usr
-          ninja -C build
+          cargo build --release
 
       - name: Package .deb
         working-directory: src
         run: |
-          # Remove 'v' from tag if present (e.g. v0.5.2 -> 0.5.2)
-          VERSION="${SWAYFX_VERSION#v}"
+          # Quitamos la 'v' si el tag la tuviera (ej: v0.1.0 -> 0.1.0)
+          VERSION="${NIRI_VERSION#v}"
           mkdir -p pkgroot/DEBIAN
-          DESTDIR=$PWD/pkgroot ninja -C build install
-
-          # Modify wayland-sessions desktop file
-          mv pkgroot/usr/share/wayland-sessions/sway.desktop pkgroot/usr/share/wayland-sessions/swayfx.desktop
-          cat > pkgroot/usr/share/wayland-sessions/swayfx.desktop <<'SESSION'
-          [Desktop Entry]
-          Name=SwayFX
-          Comment=An i3-compatible Wayland compositor with eye candy
-          Exec=dbus-run-session sway
-          Type=Application
-          SESSION
+          mkdir -p pkgroot/usr/bin
+          mkdir -p pkgroot/usr/share/wayland-sessions
+          
+          # Copiamos los binarios principales
+          cp target/release/niri target/release/niri-msg pkgroot/usr/bin/
+          
+          # Copiamos el archivo desktop para que aparezca en el Display Manager
+          if [ -f resources/niri.desktop ]; then
+            cp resources/niri.desktop pkgroot/usr/share/wayland-sessions/
+          fi
 
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable 2>/dev/null) \
+            $(find pkgroot/usr/bin -type f -executable 2>/dev/null) \
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
 
           cat > pkgroot/DEBIAN/control <<CTRL
-          Package: swayfx
+          Package: niri
           Version: ${VERSION}
           Section: x11
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: SwayFX - Sway but with eye candy!
-           Sway fork with blur, shadows and rounded corners.
-           Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
+          Description: Niri - A scrollable-tiling Wayland compositor
+           Niri is a scrollable-tiling Wayland compositor.
           CTRL
 
           cat > pkgroot/DEBIAN/postinst <<'EOF'
           #!/bin/sh
           set -e
-          ldconfig
           if [ -x /usr/bin/update-desktop-database ]; then
             update-desktop-database -q /usr/share/applications || true
           fi
@@ -91,7 +79,6 @@ jobs:
           cat > pkgroot/DEBIAN/postrm <<'EOF'
           #!/bin/sh
           set -e
-          ldconfig
           if [ -x /usr/bin/update-desktop-database ]; then
             update-desktop-database -q /usr/share/applications || true
           fi
@@ -100,13 +87,13 @@ jobs:
 
           chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
-          dpkg-deb --build --root-owner-group pkgroot "swayfx_${VERSION}_amd64.deb"
-          mv "swayfx_${VERSION}_amd64.deb" ..
+          dpkg-deb --build --root-owner-group pkgroot "niri_${VERSION}_amd64.deb"
+          mv "niri_${VERSION}_amd64.deb" ..
 
       - uses: actions/upload-artifact@v4
         with:
-          name: swayfx-deb
-          path: swayfx_*_amd64.deb
+          name: niri-deb
+          path: niri_*_amd64.deb
 
   publish:
     needs: build
@@ -120,7 +107,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: swayfx-deb
+          name: niri-deb
           path: incoming
 
       - name: Import GPG key
@@ -160,5 +147,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Update swayfx" || echo "No changes"
+          git commit -m "Add/Update niri" || echo "No changes"
           git push
