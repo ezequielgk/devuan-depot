@@ -1,9 +1,6 @@
 name: Build SwayFX .deb
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'swayfx-v*'
 
 jobs:
   build:

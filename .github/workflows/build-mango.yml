@@ -1,4 +1,4 @@
-name: Build MangoWM .deb
+name: Build MangoWC .deb
 on:
   workflow_dispatch:
 
