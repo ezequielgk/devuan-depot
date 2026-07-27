@@ -38,7 +38,7 @@ jobs:
       - name: Compile
         working-directory: src
         run: |
-          meson setup build --buildtype=release --prefix=/usr -Dxwayland=enabled
+          meson setup build --buildtype=release --prefix=/usr
           ninja -C build
 
       - name: Package .deb
