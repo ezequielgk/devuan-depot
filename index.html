@@ -200,12 +200,68 @@
             padding-bottom: 0.6rem;
         }
 
-        h3 {
-            font-family: var(--sans);
-            font-size: 0.95rem;
-            font-weight: 600;
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
             color: var(--text);
-            margin: 1.5rem 0 0.8rem;
+            border-color: var(--accent-dim);
+        }
+
+        .filter-btn.active {
+            color: var(--text);
+            border-color: var(--accent);
+            background: #2a2520;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.8rem;
+            flex-grow: 1;
+            max-width: 300px;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--accent);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            outline: none;
+            width: 100%;
+            margin-left: 0.5rem;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-dim);
         }
 
         .pkg-list {
@@ -345,6 +401,17 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
 
         <section>
             <h2>packages</h2>
+            <div class="filter-bar">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="packages">Paquetes</button>
+                    <button class="filter-btn" data-filter="backports">Backports</button>
+                </div>
+                <div class="search-container">
+                    <span style="color: var(--text-dim);">🔍</span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar paquetes...">
+                </div>
+            </div>
             <div class="pkg-list" id="pkg-list">
                 <div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Loading package list…</span>
                 </div>
@@ -403,22 +470,39 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             });
         }
 
-        async function loadPackages() {
+        let allPackages = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function renderPackages() {
             const list = document.getElementById('pkg-list');
-            const typedPkg = document.getElementById('typed-pkg');
-            const cmdEl = document.getElementById('install-cmd');
-            
-            try {
-                const res = await fetch('dists/trixie/main/binary-amd64/Packages');
-                if (!res.ok) throw new Error('not found');
-                const pkgs = parsePackages(await res.text());
+            if (!allPackages.length) {
+                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No packages published yet.</span></div>';
+                return;
+            }
 
-                if (!pkgs.length) {
-                    list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No packages published yet.</span></div>';
-                    return;
+            const filtered = allPackages.filter(p => {
+                // Considera backports a todas las librerías base de debian que estamos compilando
+                const isBackport = p.Package.startsWith('lib') || p.Package.startsWith('wayland') || p.Package.startsWith('pixman');
+                
+                if (currentFilter === 'packages' && isBackport) return false;
+                if (currentFilter === 'backports' && !isBackport) return false;
+
+                if (searchQuery) {
+                    const term = searchQuery.toLowerCase();
+                    const name = (p.Package || '').toLowerCase();
+                    const desc = (p.Description || '').toLowerCase();
+                    if (!name.includes(term) && !desc.includes(term)) return false;
                 }
+                return true;
+            });
 
-                list.innerHTML = pkgs.map(p => `
+            if (!filtered.length) {
+                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No se encontraron paquetes.</span></div>';
+                return;
+            }
+
+            list.innerHTML = filtered.map(p => `
         <div class="pkg-row">
           <span class="pkg-name">${p.Package || '?'}</span>
           <span class="pkg-status status-ok">${p.Version || ''}</span>
@@ -426,12 +510,40 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
           <span class="pkg-desc">${p.Description || ''}</span>
         </div>
       `).join('');
+        }
 
-                // Usa el primer paquete para completar los ejemplos de comando
-                const first = pkgs[0].Package;
+        async function loadPackages() {
+            const typedPkg = document.getElementById('typed-pkg');
+            const cmdEl = document.getElementById('install-cmd');
+            const list = document.getElementById('pkg-list');
+            
+            try {
+                const res = await fetch('dists/trixie/main/binary-amd64/Packages');
+                if (!res.ok) throw new Error('not found');
+                allPackages = parsePackages(await res.text());
+
+                renderPackages();
+
+                // Setup filters
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        currentFilter = e.target.getAttribute('data-filter');
+                        renderPackages();
+                    });
+                });
+
+                document.getElementById('search-input').addEventListener('input', (e) => {
+                    searchQuery = e.target.value;
+                    renderPackages();
+                });
+
+                // Usa el primer paquete que no sea una librería (backport) para los ejemplos de código
+                const first = allPackages.find(p => !(p.Package.startsWith('lib') || p.Package.startsWith('wayland')));
                 if (first) {
-                    typedPkg.textContent = first;
-                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;package&gt;/g, first);
+                    typedPkg.textContent = first.Package;
+                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;package&gt;/g, first.Package);
                 }
             } catch (e) {
                 list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Could not load package list yet.</span></div>';
