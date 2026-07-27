@@ -547,6 +547,67 @@ Multi-Arch: same
 Description: debug symbols for libliftoff0
 Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
 
+Package: libpixman-1-0
+Source: pixman
+Version: 0.46.4-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 753
+Depends: libc6 (>= 2.29)
+Filename: pool/main/libpixman-1-0_0.46.4-1_amd64.deb
+Size: 261452
+MD5sum: b874a6ac38033fb70d270935b1bba9f9
+SHA1: 70e2c712f0236debd208b27d410cc06834f1b2e4
+SHA256: 1a45e287b364cbf1c0a30ea019073e6cb5a5d01f7e67edb9c3e5e361133e2f2e
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: http://pixman.org/
+Description: pixel-manipulation library for X and cairo
+ A library for manipulating pixel regions -- a set of Y-X banded
+ rectangles, image compositing using the Porter/Duff model
+ and implicit mask generation for geometric primitives including
+ trapezoids, triangles, and rectangles.
+
+Package: libpixman-1-0-dbgsym
+Source: pixman
+Version: 0.46.4-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1821
+Depends: libpixman-1-0 (= 0.46.4-1)
+Filename: pool/main/libpixman-1-0-dbgsym_0.46.4-1_amd64.deb
+Size: 1795036
+MD5sum: 18d13860d1c89227c8e014d15f8d7794
+SHA1: be2ff30ec8727df6aca117a741e4d4077922cc84
+SHA256: 20009ff0a9d69291fba63a05feda9780da507c7d50819f224db36e21f3043899
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libpixman-1-0
+Build-Ids: 73bf52ad7f2cabdec9e89bcd60fb8b089029c007
+
+Package: libpixman-1-dev
+Source: pixman
+Version: 0.46.4-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 74
+Depends: libpixman-1-0 (= 0.46.4-1)
+Filename: pool/main/libpixman-1-dev_0.46.4-1_amd64.deb
+Size: 11900
+MD5sum: 17a4d7fcddb423d0c8696cc96f1554c6
+SHA1: 9d751bc5d7d3253e54fbf4589d3af293eaafe448
+SHA256: e6541d5e0cf91d54fc667baba2ae27a4ce46f39faf475441d78041664dd24ab6
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: http://pixman.org/
+Description: pixel-manipulation library for X and cairo (development files)
+ Development libraries, header files and documentation needed by
+ programs that want to compile with the Cairo/X pixman library.
+
 Package: libwayland-bin
 Source: wayland
 Version: 1.26.0-1
@@ -922,10 +983,10 @@ Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 452
 Depends: libc6 (>= 2.38), libwayland-client0 (>= 1.20.0), libxcb-xkb1, libxcb1, libxkbcommon-x11-0 (>= 0.5.0), libxkbcommon0 (>= 1.12.3), libxkbregistry0 (>= 1.12.3)
 Filename: pool/main/libxkbcommon-tools_1.13.1-1_amd64.deb
-Size: 71020
-MD5sum: a2e2000097105c0147db111a7343e3f4
-SHA1: 204bf88252ed88108ff902b431ee83da0395bcd3
-SHA256: 58477bf2843bc2f09ed8e5ac945f638cc5787195e081ef2f5401302835878040
+Size: 71004
+MD5sum: 36dcaa7587df04f448772276986ed932
+SHA1: 02d4f7d28b8229cbfceca05777d6c7364e9c349f
+SHA256: 8ca76bf93ea7216981d62499ea411f09a63b89142acae278761914a4761612e5
 Section: graphics
 Priority: optional
 Multi-Arch: foreign
@@ -953,14 +1014,14 @@ Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 576
 Depends: libxkbcommon-tools (= 1.13.1-1)
 Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1_amd64.deb
-Size: 340360
-MD5sum: 5bd889c0f76d50cc6932c46a597a8c87
-SHA1: c71b50477472998d5cdebb08a2c1d974d3e7ae8e
-SHA256: 88284a33e2fdd9f92e6d6516f088639fec9b4b543197a5ca1623d6646bc019f8
+Size: 340432
+MD5sum: 6735f0171faac50c5ba6b0c5b5aaa0fb
+SHA1: 83c6c35b6c56c98fda4f7dc298d9820fc7fe1f39
+SHA256: eec5345d7486fb14ddc32c6c7d908b9ab8636d3b3638afb8891b3eacd54ccd9c
 Section: debug
 Priority: optional
 Description: debug symbols for libxkbcommon-tools
-Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 8b012bd0cc668181305528beb17a105f0269ceb9 a1317e947f8b999c809d6d8348b5174054d4ab35 bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 e8ef5ed8404f945891f5ab8e062ddfcc2b0ab5d4 f7bd417ffc64bed9396eeed03e735553e4f417f5
+Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 b1ba8b8ca2ea1d54831235e4c18c99973ab33b2b bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 daa85d7a807988a8055fe7f033efe9539bb96b8e f7bd417ffc64bed9396eeed03e735553e4f417f5
 
 Package: libxkbcommon-x11-0
 Source: libxkbcommon
