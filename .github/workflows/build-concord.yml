@@ -12,7 +12,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            pkg-config cmake git dpkg-dev ca-certificates curl jq \
+            gcc build-essential pkg-config cmake git dpkg-dev ca-certificates curl jq \
             libopus-dev libasound2-dev libssl-dev
 
       - name: Install latest Rust
