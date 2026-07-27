@@ -9,7 +9,7 @@ jobs:
         include:
           - branch: "0.19.0"
             pkg_name: "wlroots0.19"
-          - branch: "master"
+          - branch: "0.20.2"
             pkg_name: "wlroots0.20"
             
     runs-on: ubuntu-latest
