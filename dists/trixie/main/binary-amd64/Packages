@@ -73,15 +73,16 @@ Version: 0.5.3
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Filename: pool/main/swayfx_0.5.3_amd64.deb
-Size: 5663640
-MD5sum: 11fc0231fd55a754cc505f5ab599ff4c
-SHA1: 1adc63b7969f1394a545832389da900edf7e8b19
-SHA256: a461a6407bd35c4212ee5c83057ea4ddbc6dc186e39db6f325f40412ae07ffde
+Size: 5696728
+MD5sum: 90cb2fc7acf24a33c7d32e11287dcbc8
+SHA1: 34b2d8b877435c792f4888d9ad95c7be394785fa
+SHA256: 147d24bc04813b4da99e1bf951558f2a9a9414b08dcc81d247a1ab1d30529d91
 Section: x11
 Priority: optional
 Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
+ Built with Xwayland support enabled.
 
 Package: xwayland-satellite
 Version: 0.8.1
