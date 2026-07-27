@@ -29,7 +29,7 @@ jobs:
         working-directory: src
         run: |
           export CFLAGS="$CFLAGS -O3"
-          meson setup build --buildtype=release --prefix=/usr -Db_lto=true
+          meson setup build --buildtype=release --prefix=/usr -Db_lto=true -Dterminfo=disabled
           ninja -C build
 
       - name: Package .deb
