@@ -73,6 +73,7 @@ jobs:
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
+          Recommends: seatd
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
           Description: SwayFX - Sway but with eye candy!
            Sway fork with blur, shadows and rounded corners.
@@ -84,8 +85,6 @@ jobs:
           #!/bin/sh
           set -e
           ldconfig
-          # Apply suid for systems without logind/seatd
-          chmod a+s /usr/bin/sway
           if [ -x /usr/bin/update-desktop-database ]; then
             update-desktop-database -q /usr/share/applications || true
           fi
