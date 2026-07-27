@@ -1,0 +1,9 @@
+# Ignorar archivos generados localmente durante pruebas de empaquetado
+*.deb
+*.asc
+!public.asc
+build/
+pkgroot/
+src/
+*.log
+.vscode/
