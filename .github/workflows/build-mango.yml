@@ -11,8 +11,14 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update
+          apt-get install -y --no-install-recommends ca-certificates curl jq wget
+          
+          # Add the devuan-depot repository to install backports, wlroots0.20 and scenefx0.5
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+          
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git scdoc dpkg-dev ca-certificates \
+            build-essential meson pkg-config cmake git scdoc dpkg-dev \
             wayland-protocols libwayland-dev libpcre2-dev libcjson-dev \
             libpango1.0-dev libcairo2-dev \
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
@@ -22,32 +28,14 @@ jobs:
             hwdata libudev-dev xwayland libxml2-dev bison flex \
             libegl1-mesa-dev libgles2-mesa-dev libvulkan-dev \
             libxcb-composite0-dev libxcb-render0-dev libxcb-xfixes0-dev \
-            libxcb-shape0-dev libxcb-errors-dev
+            libxcb-shape0-dev libxcb-errors-dev \
+            wlroots0.20 scenefx0.5
 
-      - name: Clone wlroots, scenefx and mangowm
+      - name: Clone mangowm
         run: |
-          # 1. wlroots 0.20.2
-          git clone --branch 0.20.2 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git src/wlroots
-          
-          # 2. scenefx 0.5
-          git clone --branch 0.5 --depth 1 https://github.com/wlrfx/scenefx.git src/scenefx
-          
-          # 3. mangowm (latest from main)
           git clone --depth 1 https://github.com/mangowm/mango.git src/mango
 
-      - name: Compile and install wlroots
-        working-directory: src/wlroots
-        run: |
-          meson setup build --prefix=/usr --wrap-mode=default --force-fallback-for=pixman -Dwerror=false -Dxwayland=enabled
-          ninja -C build install
-
-      - name: Compile and install scenefx
-        working-directory: src/scenefx
-        run: |
-          meson setup build --prefix=/usr --wrap-mode=default -Dwerror=false
-          ninja -C build install
-
-      - name: Compile mangowm
+      - name: Compile mango
         working-directory: src/mango
         run: |
           meson setup build --buildtype=release --prefix=/usr --wrap-mode=default -Dwerror=false

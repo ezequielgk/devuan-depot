@@ -22,8 +22,14 @@ jobs:
       - name: Install build dependencies and repo key
         run: |
           apt-get update
+          apt-get install -y --no-install-recommends ca-certificates wget curl jq
+
+          # Add the devuan-depot repository to install specific wlroots dependency and backports
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git ca-certificates curl jq \
+            build-essential meson pkg-config cmake git \
             wayland-protocols libwayland-dev \
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
@@ -32,12 +38,7 @@ jobs:
             libgles2-mesa-dev hwdata libudev-dev \
             libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
             libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev \
-            ca-certificates wget
-
-          # Add the devuan-depot repository to install specific wlroots dependency
-          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
-          apt-get update
-          apt-get install -y ${{ matrix.wlroots_dep }}
+            ${{ matrix.wlroots_dep }}
 
       - name: Clone scenefx
         run: |

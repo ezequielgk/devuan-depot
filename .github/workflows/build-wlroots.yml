@@ -19,20 +19,17 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
-          # Primero actualizamos los repos básicos e instalamos ca-certificates para poder descargar por HTTPS
+          # Actualizar repositorios e instalar ca-certificates primero
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates
           
-          # Add the devuan-depot repository to install wayland1.24 if needed
+          # Agregar nuestro propio repositorio Devuan-Depot (que contiene los backports de libdrm y wayland)
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           
-          if [ "${{ matrix.branch }}" = "0.20.2" ]; then
-            apt-get install -y wayland1.24
-          fi
-
+          # Instalar dependencias. Al estar nuestro repo, apt usará nuestras versiones más nuevas automáticamente.
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git ca-certificates curl jq \
+            build-essential meson pkg-config cmake git curl jq \
             wayland-protocols libwayland-dev \
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
@@ -52,8 +49,6 @@ jobs:
       - name: Compile wlroots
         working-directory: src
         run: |
-          export PKG_CONFIG_PATH="/opt/wayland1.24/lib/x86_64-linux-gnu/pkgconfig:/opt/wayland1.24/lib/pkgconfig:/opt/wayland1.24/share/pkgconfig:$PKG_CONFIG_PATH"
-          export PATH="/opt/wayland1.24/bin:$PATH"
           meson setup build --buildtype=release --prefix=/usr
           ninja -C build
 

@@ -12,8 +12,14 @@ jobs:
       - name: Install git and build dependencies
         run: |
           apt-get update
+          apt-get install -y --no-install-recommends ca-certificates curl jq wget
+          
+          # Add the devuan-depot repository to install wlroots0.19 and scenefx0.4
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+          
           apt-get install -y --no-install-recommends \
-            build-essential meson pkg-config cmake git scdoc dpkg-dev ca-certificates curl jq \
+            build-essential meson pkg-config cmake git scdoc dpkg-dev \
             wayland-protocols libwayland-dev libpcre2-dev libjson-c-dev \
             libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev \
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
@@ -22,9 +28,10 @@ jobs:
             libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
             libgles2-mesa-dev hwdata libudev-dev \
             libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
-            libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev
+            libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev \
+            wlroots0.19 scenefx0.4
 
-      - name: Clone SwayFX and subprojects (wlroots + scenefx)
+      - name: Clone SwayFX
         run: |
           # Get the absolute newest tag, even if the author forgot to mark it as "latest"
           LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/WillPower3309/swayfx/tags | jq -r '.[0].name')
@@ -32,16 +39,12 @@ jobs:
           echo "SWAYFX_VERSION=$LATEST_TAG" >> $GITHUB_ENV
 
           git clone --branch $LATEST_TAG --depth 1 https://github.com/WillPower3309/swayfx.git src
-          mkdir -p src/subprojects
-          cd src/subprojects
-          git clone --branch 0.4.1 --depth 1 https://github.com/wlrfx/scenefx.git
-          git clone --branch 0.19.0 --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git
 
       - name: Compile
         working-directory: src
         run: |
-          meson setup build --buildtype=release --prefix=/usr \
-            -Dwlroots:xwayland=enabled
+          # The subprojects will automatically fallback to the system dependencies we installed via apt
+          meson setup build --buildtype=release --prefix=/usr
           ninja -C build
 
       - name: Package .deb
