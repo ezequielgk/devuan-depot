@@ -26,6 +26,117 @@ Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
+Package: libdisplay-info-bin
+Source: libdisplay-info
+Version: 0.3.0-1
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 104
+Depends: libc6 (>= 2.34), libdisplay-info3 (>= 0.3.0)
+Filename: pool/main/libdisplay-info-bin_0.3.0-1_amd64.deb
+Size: 32464
+MD5sum: 7a602c83d5d9c22a9b173f923e4d9ca9
+SHA1: 78a52eb6981a451927ae371af452b067727c0292
+SHA256: 07b6d2d5340f77652689537b393b35f146b2c26a939cea9c9f450c61de3d1fc4
+Section: video
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (utils)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+ .
+ This package contains the di-edid-decode binary.
+
+Package: libdisplay-info-bin-dbgsym
+Source: libdisplay-info
+Version: 0.3.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 116
+Depends: libdisplay-info-bin (= 0.3.0-1)
+Filename: pool/main/libdisplay-info-bin-dbgsym_0.3.0-1_amd64.deb
+Size: 74224
+MD5sum: 00f56bb3dae706827a6cde9283cab161
+SHA1: 1f3505dbe558ee217f919b629e15db97d8f96715
+SHA256: 651935136dce0f6a11bc6855c9148ac33e6a6faa50ef525d60af087e3ca88bf7
+Section: debug
+Priority: optional
+Description: debug symbols for libdisplay-info-bin
+Build-Ids: d2a0e2c6fc06dfe5a3b865a8f44a05cf882bcba9
+
+Package: libdisplay-info-dev
+Source: libdisplay-info
+Version: 0.3.0-1
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 142
+Depends: libdisplay-info3 (= 0.3.0-1)
+Filename: pool/main/libdisplay-info-dev_0.3.0-1_amd64.deb
+Size: 29100
+MD5sum: 84595ca2fb385c453fc2288f975d4a64
+SHA1: 9719828131e9593d244d90652555031e6ad630e1
+SHA256: 9d5a918bc94e7b8e50391446af596766f61466faf4ed54b8146392183a658e91
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (development files)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+ .
+ This package contains the development files, including headers and
+ pkgconf configuration.
+
+Package: libdisplay-info3
+Source: libdisplay-info
+Version: 0.3.0-1
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 263
+Depends: libc6 (>= 2.27)
+Filename: pool/main/libdisplay-info3_0.3.0-1_amd64.deb
+Size: 77848
+MD5sum: 527c53a60e24a9958f87b48379e82978
+SHA1: 836d1fc3d58eadf22226a98be3cda0d8edb19e8c
+SHA256: 554f6c442d42386fc541da8cb70dbd753f042901e6837d2c123d537b2faf1f31
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (shared library)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+
+Package: libdisplay-info3-dbgsym
+Source: libdisplay-info
+Version: 0.3.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 163
+Depends: libdisplay-info3 (= 0.3.0-1)
+Filename: pool/main/libdisplay-info3-dbgsym_0.3.0-1_amd64.deb
+Size: 141372
+MD5sum: 626ce6e466e3e1c6f0d9e1eb2a00d308
+SHA1: 6e2a716bb3f4eb12e117970ade5be21c78c653ac
+SHA256: 7e7cbe5335bc760e917facde0f6634344120d6237246b29b9599620c63bdc8b0
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdisplay-info3
+Build-Ids: 4b4d0a4282d79ff86ddf854305f5855338f061d3
+
 Package: libdrm-amdgpu1
 Source: libdrm
 Version: 2.4.134-3
@@ -370,6 +481,71 @@ Priority: optional
 Multi-Arch: same
 Description: debug symbols for libdrm2
 Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
+
+Package: libliftoff-dev
+Source: libliftoff
+Version: 0.5.0-1.1
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 22
+Depends: libliftoff0 (= 0.5.0-1.1)
+Filename: pool/main/libliftoff-dev_0.5.0-1.1_amd64.deb
+Size: 4820
+MD5sum: abfdba49f63673bbbeb6fccefaaee726
+SHA1: 7f2e64c5ac3536e0aff95e386f195564caa94b88
+SHA256: f98492b8d7f2b634b3207054984b7257b948b7c53ce9c9703f479f67d41239eb
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
+Description: lightweight KMS plane library - development files
+ libliftoff eases the use of KMS planes from userspace without standing
+ in your way. Users create "virtual planes" called layers, set KMS
+ properties on them, and libliftoff will pick planes for these layers if
+ possible.
+ .
+ This package contains the development files.
+
+Package: libliftoff0
+Source: libliftoff
+Version: 0.5.0-1.1
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 50
+Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
+Filename: pool/main/libliftoff0_0.5.0-1.1_amd64.deb
+Size: 15672
+MD5sum: e66909db3a9ffb577fe6363716304815
+SHA1: 37c65967c5fb5976dd3fb24fe3f5eab4895d89b0
+SHA256: 3a624f63fc5f4b188201ad78466d25b70b5f22c0562c68df178cf3ed176e1fa6
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
+Description: lightweight KMS plane library
+ libliftoff eases the use of KMS planes from userspace without standing
+ in your way. Users create "virtual planes" called layers, set KMS
+ properties on them, and libliftoff will pick planes for these layers if
+ possible.
+
+Package: libliftoff0-dbgsym
+Source: libliftoff
+Version: 0.5.0-1.1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 48
+Depends: libliftoff0 (= 0.5.0-1.1)
+Filename: pool/main/libliftoff0-dbgsym_0.5.0-1.1_amd64.deb
+Size: 33268
+MD5sum: a49c636db9696a5b673632819b94fcd6
+SHA1: a6dda57dc34547f6b7eb5354edc368fd7103d223
+SHA256: 8c544707b3e109913fe6a50f8eef2107778f99a172b9be8e09b040ddf4bef037
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libliftoff0
+Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
 
 Package: libwayland-bin
 Source: wayland
@@ -746,10 +922,10 @@ Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 452
 Depends: libc6 (>= 2.38), libwayland-client0 (>= 1.20.0), libxcb-xkb1, libxcb1, libxkbcommon-x11-0 (>= 0.5.0), libxkbcommon0 (>= 1.12.3), libxkbregistry0 (>= 1.12.3)
 Filename: pool/main/libxkbcommon-tools_1.13.1-1_amd64.deb
-Size: 71036
-MD5sum: 0704007907746de58303538b6b9a7d00
-SHA1: 3159e16c10bd1a3db46b0d5512255b63367e6ecc
-SHA256: 4056c9708ae3048aeff3779300d3101c878c3bcd10a90c8e44521e727f426686
+Size: 71020
+MD5sum: a2e2000097105c0147db111a7343e3f4
+SHA1: 204bf88252ed88108ff902b431ee83da0395bcd3
+SHA256: 58477bf2843bc2f09ed8e5ac945f638cc5787195e081ef2f5401302835878040
 Section: graphics
 Priority: optional
 Multi-Arch: foreign
@@ -774,17 +950,17 @@ Version: 1.13.1-1
 Auto-Built-Package: debug-symbols
 Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 575
+Installed-Size: 576
 Depends: libxkbcommon-tools (= 1.13.1-1)
 Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1_amd64.deb
-Size: 340148
-MD5sum: 6fd842f045f6405886578d08ac3334e2
-SHA1: f351cbc74e44fe0ff13e38c6721743fc6655589a
-SHA256: 598f71ba081440192fe3e2352c5a8fd74f7e371f1791ced8adf9fc49bb4bf922
+Size: 340360
+MD5sum: 5bd889c0f76d50cc6932c46a597a8c87
+SHA1: c71b50477472998d5cdebb08a2c1d974d3e7ae8e
+SHA256: 88284a33e2fdd9f92e6d6516f088639fec9b4b543197a5ca1623d6646bc019f8
 Section: debug
 Priority: optional
 Description: debug symbols for libxkbcommon-tools
-Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 a9fe78c8ea4feb219dc420cd956efe5c5d03087f bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 f12d9cf4f953b431d6f85e95fdc03a0bfa69aabb f7bd417ffc64bed9396eeed03e735553e4f417f5
+Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 8b012bd0cc668181305528beb17a105f0269ceb9 a1317e947f8b999c809d6d8348b5174054d4ab35 bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 e8ef5ed8404f945891f5ab8e062ddfcc2b0ab5d4 f7bd417ffc64bed9396eeed03e735553e4f417f5
 
 Package: libxkbcommon-x11-0
 Source: libxkbcommon
@@ -1039,6 +1215,26 @@ Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
  Built with Xwayland support enabled.
+
+Package: wayland-protocols
+Version: 1.49-1
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1144
+Filename: pool/main/wayland-protocols_1.49-1_all.deb
+Size: 136488
+MD5sum: 8fe26c6b9ad63ca1235dceae6a938c5a
+SHA1: 72562f4b7b02b5c076fa7ea22b4575317aaa8be7
+SHA256: 244f16a3e839a7060db4012190cc0dd64c04b2356f2196bc9cee28040c8c45a3
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor protocols
+ Wayland protocols that add functionality not available in the Wayland core
+ protocol. Such protocols either add completely new functionality, or extend
+ the functionality of some other protocol either in Wayland core, or some other
+ protocol in wayland-protocols.
 
 Package: wayland1.24
 Version: 1.24.0~git736d12a
