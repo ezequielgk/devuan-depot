@@ -1,3 +1,17 @@
+Package: mangowc
+Version: 0.0.0+gitcc4fdec
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/mangowc_0.0.0+gitcc4fdec_amd64.deb
+Size: 609604
+MD5sum: d1938554ee9a09e47b4637be6aad5536
+SHA1: 53bb1673d17fb21ea3d3fa77f1d6f527fbafd675
+SHA256: 31b4b830c29fbbe20ede7df0714a4399093530e08ad3137721ff2bd0f6383e99
+Section: x11
+Priority: optional
+Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
+ Practical and Powerful wayland compositor (dwm but wayland).
+
 Package: mangowm
 Version: 0.0.0+gitcc4fdec
 Architecture: amd64
