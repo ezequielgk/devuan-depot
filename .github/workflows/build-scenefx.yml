@@ -27,6 +27,7 @@ jobs:
           # Add the devuan-depot repository to install specific wlroots dependency and backports
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
+          apt-get upgrade -y
 
           apt-get install -y --no-install-recommends \
             build-essential meson pkg-config cmake git \

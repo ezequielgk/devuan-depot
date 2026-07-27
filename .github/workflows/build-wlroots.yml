@@ -27,6 +27,10 @@ jobs:
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           
+          # Forzamos la actualización de paquetes base (como libpixman-1-0 o libwayland-client0)
+          # para que APT no intente instalar versiones -dev viejas compatibles con las librerías base.
+          apt-get upgrade -y
+          
           # Instalar dependencias. Al estar nuestro repo, apt usará nuestras versiones más nuevas automáticamente.
           apt-get install -y --no-install-recommends \
             build-essential meson pkg-config cmake git curl jq \
