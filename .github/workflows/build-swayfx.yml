@@ -41,7 +41,7 @@ jobs:
         working-directory: src
         run: |
           meson setup build --buildtype=release --prefix=/usr \
-            -Dxwayland=enabled -Dwlroots:xwayland=enabled
+            -Dwlroots:xwayland=enabled
           ninja -C build
 
       - name: Package .deb
