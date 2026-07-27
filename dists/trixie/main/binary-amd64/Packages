@@ -1,3 +1,17 @@
+Package: concord
+Version: 2.4.6
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/concord_2.4.6_amd64.deb
+Size: 10968464
+MD5sum: 0143637708c9f1b6f62bef6b5ff4989c
+SHA1: f7f45394cba95bd6f033ed87cafe63673a861625
+SHA256: 47ccebcef6be6951856b727870192cd15f40894a3e7b61ee5c5ab88118b047c8
+Section: x11
+Priority: optional
+Description: Concord - A Discord terminal client
+ Concord is a fast and simple terminal Discord client written in Rust.
+
 Package: mangowc
 Version: 0.0.0+gitcc4fdec
 Architecture: amd64
