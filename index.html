@@ -403,13 +403,12 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             <h2>packages</h2>
             <div class="filter-bar">
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="packages">Paquetes</button>
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="packages">Packages</button>
                     <button class="filter-btn" data-filter="backports">Backports</button>
                 </div>
                 <div class="search-container">
-                    <span style="color: var(--text-dim);">🔍</span>
-                    <input type="text" id="search-input" class="search-input" placeholder="Buscar paquetes...">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search packages...">
                 </div>
             </div>
             <div class="pkg-list" id="pkg-list">
@@ -498,7 +497,7 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             });
 
             if (!filtered.length) {
-                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No se encontraron paquetes.</span></div>';
+                list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">No packages found.</span></div>';
                 return;
             }
 
