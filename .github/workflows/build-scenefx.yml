@@ -39,6 +39,7 @@ jobs:
             libgles2-mesa-dev hwdata libudev-dev \
             libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
             libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev \
+            libvulkan-dev glslang-tools \
             ${{ matrix.wlroots_dep }}
 
       - name: Clone scenefx

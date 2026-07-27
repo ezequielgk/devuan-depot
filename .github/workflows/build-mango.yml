@@ -30,6 +30,7 @@ jobs:
             libegl1-mesa-dev libgles2-mesa-dev libvulkan-dev \
             libxcb-composite0-dev libxcb-render0-dev libxcb-xfixes0-dev \
             libxcb-shape0-dev libxcb-errors-dev \
+            libvulkan-dev glslang-tools \
             wlroots0.20 scenefx0.5
 
       - name: Clone mangowm
