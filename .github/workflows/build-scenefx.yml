@@ -1,0 +1,145 @@
+name: Build scenefx0.5 .deb
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - name: Install build dependencies and repo key
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential meson pkg-config cmake git ca-certificates curl jq \
+            wayland-protocols libwayland-dev \
+            libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
+            libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
+            libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
+            libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
+            libgles2-mesa-dev hwdata libudev-dev \
+            libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
+            libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev \
+            ca-certificates wget
+
+          # Add the devuan-depot repository to install wlroots0.20
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+          apt-get install -y wlroots0.20
+
+      - name: Clone scenefx
+        run: |
+          # Checkout specific branch/tag for 0.5
+          git clone --depth 1 https://github.com/wlrfx/scenefx.git src
+          cd src
+          SCENEFX_VERSION=$(git rev-parse --short HEAD)
+          echo "SCENEFX_VERSION=0.5.0~git${SCENEFX_VERSION}" >> $GITHUB_ENV
+
+      - name: Compile scenefx
+        working-directory: src
+        run: |
+          meson setup build --buildtype=release --prefix=/usr
+          ninja -C build
+
+      - name: Package .deb
+        working-directory: src
+        run: |
+          mkdir -p pkgroot/DEBIAN
+          DESTDIR=$PWD/pkgroot ninja -C build install
+
+          DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
+            $(find pkgroot/usr/lib -name "*.so*" -type f 2>/dev/null) \
+            2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
+
+          # Ensure it depends on the exact wlroots0.20 we just used (optional, dpkg-shlibdeps should catch it if they link dynamically)
+          
+          cat > pkgroot/DEBIAN/control <<CTRL
+          Package: scenefx0.5
+          Version: ${SCENEFX_VERSION}
+          Section: libs
+          Priority: optional
+          Architecture: amd64
+          Depends: ${DEPS}
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+          Description: scenefx 0.5 - drop-in replacement for wlr_scene
+          CTRL
+
+          cat > pkgroot/DEBIAN/postinst <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          exit 0
+          EOF
+
+          cat > pkgroot/DEBIAN/postrm <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          exit 0
+          EOF
+          chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
+
+          dpkg-deb --build --root-owner-group pkgroot "scenefx0.5_${SCENEFX_VERSION}_amd64.deb"
+          mv "scenefx0.5_${SCENEFX_VERSION}_amd64.deb" ..
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scenefx-deb
+          path: scenefx0.5_*_amd64.deb
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: scenefx-deb
+          path: incoming
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        run: |
+          sudo apt-get install -y dpkg-dev
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          cp incoming/*.deb pool/main/
+          dpkg-scanpackages --arch amd64 pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        run: |
+          cd dists/trixie
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+
+      - name: Commit and push to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pool dists
+          git commit -m "Update scenefx0.5" || echo "No changes"
+          git push
