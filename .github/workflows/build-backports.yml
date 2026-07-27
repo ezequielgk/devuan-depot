@@ -10,6 +10,9 @@ jobs:
           - package: "wayland"
           - package: "libdrm"
           - package: "libxkbcommon"
+          - package: "wayland-protocols"
+          - package: "libdisplay-info"
+          - package: "libliftoff"
           
     runs-on: ubuntu-latest
     container:
