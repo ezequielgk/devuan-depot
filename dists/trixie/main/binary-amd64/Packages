@@ -677,6 +677,310 @@ Multi-Arch: same
 Description: debug symbols for libwayland-server0
 Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
 
+Package: libxkbcommon-dev
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 390
+Depends: libxkbcommon0 (= 1.13.1-1)
+Filename: pool/main/libxkbcommon-dev_1.13.1-1_amd64.deb
+Size: 60148
+MD5sum: 2c7806aad3d13f2ee5bd971c95ac76ca
+SHA1: e1e754d9e12eeea981381b1339543187edfaa6dd
+SHA256: 5997cb5c19936b0b4b644623b12777fbea4527d12d175c928bcec83e9b5b8e2c
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - development files
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the development headers for the library found in
+ libxkbcommon0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-doc
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 3602
+Filename: pool/main/libxkbcommon-doc_1.13.1-1_all.deb
+Size: 362728
+MD5sum: 30bd08694abb8dc04f288a371d357abb
+SHA1: c496a716f088dc316c5e111f7c7d5b14e9e52423
+SHA256: 2ab623d61cf6e3f9098eeb8f72f007bb54f923b8e1c1577a1d7ffed155d4e01a
+Section: doc
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - documentation
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the documentation files for the library found in
+ libxkbcommon0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-tools
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 452
+Depends: libc6 (>= 2.38), libwayland-client0 (>= 1.20.0), libxcb-xkb1, libxcb1, libxkbcommon-x11-0 (>= 0.5.0), libxkbcommon0 (>= 1.12.3), libxkbregistry0 (>= 1.12.3)
+Filename: pool/main/libxkbcommon-tools_1.13.1-1_amd64.deb
+Size: 71036
+MD5sum: 0704007907746de58303538b6b9a7d00
+SHA1: 3159e16c10bd1a3db46b0d5512255b63367e6ecc
+SHA256: 4056c9708ae3048aeff3779300d3101c878c3bcd10a90c8e44521e727f426686
+Section: graphics
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - tools
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the xkbcli tool to interact with XKB keymaps.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-tools-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 575
+Depends: libxkbcommon-tools (= 1.13.1-1)
+Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1_amd64.deb
+Size: 340148
+MD5sum: 6fd842f045f6405886578d08ac3334e2
+SHA1: f351cbc74e44fe0ff13e38c6721743fc6655589a
+SHA256: 598f71ba081440192fe3e2352c5a8fd74f7e371f1791ced8adf9fc49bb4bf922
+Section: debug
+Priority: optional
+Description: debug symbols for libxkbcommon-tools
+Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 a9fe78c8ea4feb219dc420cd956efe5c5d03087f bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 f12d9cf4f953b431d6f85e95fdc03a0bfa69aabb f7bd417ffc64bed9396eeed03e735553e4f417f5
+
+Package: libxkbcommon-x11-0
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 69
+Depends: libxkbcommon0 (= 1.13.1-1), libc6 (>= 2.38), libxcb-xkb1, libxcb1 (>= 1.6)
+Filename: pool/main/libxkbcommon-x11-0_1.13.1-1_amd64.deb
+Size: 20900
+MD5sum: fe8ab3e278f38c7fdaf8063b1c155c0e
+SHA1: 5f7e1cf84635b461828c1060868f6f517c2e9fa2
+SHA256: 6223e3b0c7d66fd8022802745da73a6ec7467b9785dee277f39d23b821562ddc
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to create keymaps with the XKB X11 protocol
+ This package provides an add-on library called xkbcommon-x11, to support
+ creating keymaps with the XKB X11 protocol, by querying the X server directly.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-x11-0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 84
+Depends: libxkbcommon-x11-0 (= 1.13.1-1)
+Filename: pool/main/libxkbcommon-x11-0-dbgsym_1.13.1-1_amd64.deb
+Size: 65108
+MD5sum: 1d24434026428bceb705d5894d270170
+SHA1: 538e574b0193a9757bbc4b9927c04e35b8408f17
+SHA256: f811f787f1d4749d847b4e857e96e00ea436aad3848659aff4306a72ec6983f6
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon-x11-0
+Build-Ids: 6597fc53967af10b25399d36fba21ac817555295
+
+Package: libxkbcommon-x11-dev
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 28
+Depends: libxkbcommon-x11-0 (= 1.13.1-1), libxkbcommon-dev (= 1.13.1-1), libxcb1-dev, libxcb-xkb-dev
+Filename: pool/main/libxkbcommon-x11-dev_1.13.1-1_amd64.deb
+Size: 7156
+MD5sum: 52ff47c5ae38770c5330994a01629651
+SHA1: 9a47819ca0252d452b20fa55a3e6f306472f294b
+SHA256: 9f752237226a0d9008222909de8272e7cb5dcb23bae0549922266b9b973f15f2
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to create keymaps with the XKB X11 protocol - development files
+ This package provides an add-on library called xkbcommon-x11, to support
+ creating keymaps with the XKB X11 protocol, by querying the X server directly.
+ .
+ This package contains the development headers for the library found in
+ libxkbcommon-x11-0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon0
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 401
+Depends: xkb-data, libc6 (>= 2.38)
+Filename: pool/main/libxkbcommon0_1.13.1-1_amd64.deb
+Size: 147028
+MD5sum: d0329716ea85f571bee462c626500cf1
+SHA1: 1c62b891b092232670f51877ab2b62af5c5c9aac
+SHA256: 99a05fae03a92d9c14f300bd8b6d3f699ed076356eba99669259872a6746d5b5
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - shared library
+ This package provides a library to handle keyboard descriptions, including
+ loading them from disk, parsing them and handling their state. It's mainly
+ meant for client toolkits, window systems, and other system applications;
+ currently that includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 388
+Depends: libxkbcommon0 (= 1.13.1-1)
+Filename: pool/main/libxkbcommon0-dbgsym_1.13.1-1_amd64.deb
+Size: 362716
+MD5sum: 9cd69b973a0de5775a4389311a28c469
+SHA1: 853961ee5484a428076f06615a53dfae23f6a0de
+SHA256: 9abbc7dfd2788485c22e1f45085cad07a2678358b817d683724ce35d0585ae8b
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon0
+Build-Ids: ed3f2dd073dfc13a710abdc28f4365b47239e53e
+
+Package: libxkbregistry-dev
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 44
+Depends: libxkbcommon-dev (= 1.13.1-1), libxkbregistry0 (= 1.13.1-1), libxml2-dev
+Filename: pool/main/libxkbregistry-dev_1.13.1-1_amd64.deb
+Size: 9720
+MD5sum: 98c8dec6580636518beb1fdbb7d01e77
+SHA1: 535380f2537cbef0ddc8eb506edb85bc5a89c023
+SHA256: dddd9ab025cdfb2cf4d514ce7e4de1974ee2a2d97c4856c95465669a770d7712
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to query available RMLVO - development files
+ This package provides an add-on library called xkbregistry, which is used
+ to query the available RMLVO instead of parsing evdev.xml directly.
+ .
+ This package contains the development headers for the library found in
+ libxkbregistry0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbregistry0
+Source: libxkbcommon
+Version: 1.13.1-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 59
+Depends: libxkbcommon0 (= 1.13.1-1), libc6 (>= 2.38), libxml2 (>= 2.7.4)
+Filename: pool/main/libxkbregistry0_1.13.1-1_amd64.deb
+Size: 17196
+MD5sum: bddf507c7c33825226845715b11085dc
+SHA1: f9eba0a947ce7fdc87eb5a44d80222e9e3465e64
+SHA256: da25acfe660a90ceb2f2dc991674c9025d050d73af2be1e6e296d5998538baca
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to query available RMLVO
+ This package provides an add-on library called xkbregistry, which is used
+ to query available RMLVO instead of parsing evdev.xml directly.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbregistry0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 61
+Depends: libxkbregistry0 (= 1.13.1-1)
+Filename: pool/main/libxkbregistry0-dbgsym_1.13.1-1_amd64.deb
+Size: 43348
+MD5sum: 76385a5e8da47d6ebb6a6fe370e709bf
+SHA1: b9fc49707b9e9d48b20609ab07956bd0a137f654
+SHA256: b2d63acc1c350125ace8f3fb88ab2e82358da3e85f8fbb90dbf2c9a46873a811
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbregistry0
+Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
+
 Package: mangowc
 Version: 0.0.0+gitcc4fdec
 Architecture: amd64
