@@ -32,10 +32,10 @@ jobs:
           cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
           make -j$(nproc)
 
-      - name: Package .deb
+      - name: Empaquetar .deb
         working-directory: src
         run: |
-          VERSION="${PCMANFM_QT_VERSION#v}"
+          VERSION="${PCMANFM_QT_VERSION#v}-99~devuandepot"
           DESTDIR=$(pwd)/pkgroot
           cd build
           make install DESTDIR=$DESTDIR
