@@ -85,6 +85,19 @@ Description: SwayFX - Sway but with eye candy!
  Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
  Built with Xwayland support enabled.
 
+Package: wayland1.24
+Version: 1.24.0~git736d12a
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/wayland1.24_1.24.0~git736d12a_amd64.deb
+Size: 145000
+MD5sum: 77d077f9d1c2248846f22c6e3ca6c09d
+SHA1: 2d616b816755a99d203eda6509dcc67aba0df3c9
+SHA256: 26e117547ce05366f36f4bf64cd7c6d2ae41bd150568dda70ff6862629794211
+Section: libs
+Priority: optional
+Description: Wayland (1.24.0) installed in /opt/wayland1.24 (Backport)
+
 Package: xwayland-satellite
 Version: 0.8.1
 Architecture: amd64
