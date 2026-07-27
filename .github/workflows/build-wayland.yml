@@ -1,17 +1,9 @@
-name: Build wlroots .deb
+name: Build wayland1.24 .deb
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - branch: "0.19.0"
-            pkg_name: "wlroots0.19"
-          - branch: "0.20.2"
-            pkg_name: "wlroots0.20"
-            
     runs-on: ubuntu-latest
     container:
       image: debian:trixie
@@ -19,38 +11,23 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
-          # Add the devuan-depot repository to install wayland1.24 if needed
-          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
-          
-          if [ "${{ matrix.branch }}" = "0.20.2" ]; then
-            apt-get install -y wayland1.24
-          fi
-
           apt-get install -y --no-install-recommends \
             build-essential meson pkg-config cmake git ca-certificates curl jq \
-            wayland-protocols libwayland-dev \
-            libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
-            libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
-            libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
-            libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
-            libgles2-mesa-dev hwdata libudev-dev \
-            libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
-            libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev
+            libffi-dev libexpat1-dev libxml2-dev
 
-      - name: Clone wlroots
+      - name: Clone Wayland 1.24
         run: |
-          git clone --branch ${{ matrix.branch }} --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git src
+          git clone --branch 1.24.0 --depth 1 https://gitlab.freedesktop.org/wayland/wayland.git src
           cd src
-          WLROOTS_VERSION=$(git rev-parse --short HEAD)
-          echo "WLROOTS_VERSION=${{ matrix.branch }}~git${WLROOTS_VERSION}" >> $GITHUB_ENV
+          WAYLAND_VERSION=$(git rev-parse --short HEAD)
+          echo "WAYLAND_VERSION=1.24.0~git${WAYLAND_VERSION}" >> $GITHUB_ENV
 
-      - name: Compile wlroots
+      - name: Compile Wayland
         working-directory: src
         run: |
-          export PKG_CONFIG_PATH="/opt/wayland1.24/lib/x86_64-linux-gnu/pkgconfig:/opt/wayland1.24/lib/pkgconfig:/opt/wayland1.24/share/pkgconfig:$PKG_CONFIG_PATH"
-          export PATH="/opt/wayland1.24/bin:$PATH"
-          meson setup build --buildtype=release --prefix=/usr
+          # Instalamos en /opt/wayland1.24 para no pisar las librerías del sistema (Trixie 1.23.1)
+          meson setup build --buildtype=release --prefix=/opt/wayland1.24 -Ddocumentation=false
           ninja -C build
 
       - name: Package .deb
@@ -59,24 +36,27 @@ jobs:
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
 
+          # Encontramos dependencias
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/usr/lib -name "*.so*" -type f 2>/dev/null) \
+            $(find pkgroot/opt/wayland1.24/lib -name "*.so*" -type f 2>/dev/null) \
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
 
           cat > pkgroot/DEBIAN/control <<CTRL
-          Package: ${{ matrix.pkg_name }}
-          Version: ${WLROOTS_VERSION}
+          Package: wayland1.24
+          Version: ${WAYLAND_VERSION}
           Section: libs
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: wlroots (${{ matrix.branch }}) modular Wayland compositor library
+          Description: Wayland 1.24 installed in /opt/wayland1.24 (Backport)
           CTRL
 
           cat > pkgroot/DEBIAN/postinst <<'EOF'
           #!/bin/sh
           set -e
+          echo "/opt/wayland1.24/lib/x86_64-linux-gnu" > /etc/ld.so.conf.d/wayland1.24.conf
+          echo "/opt/wayland1.24/lib" >> /etc/ld.so.conf.d/wayland1.24.conf
           ldconfig
           exit 0
           EOF
@@ -84,18 +64,19 @@ jobs:
           cat > pkgroot/DEBIAN/postrm <<'EOF'
           #!/bin/sh
           set -e
+          rm -f /etc/ld.so.conf.d/wayland1.24.conf
           ldconfig
           exit 0
           EOF
           chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
-          dpkg-deb --build --root-owner-group pkgroot "${{ matrix.pkg_name }}_${WLROOTS_VERSION}_amd64.deb"
-          mv "${{ matrix.pkg_name }}_${WLROOTS_VERSION}_amd64.deb" ..
+          dpkg-deb --build --root-owner-group pkgroot "wayland1.24_${WAYLAND_VERSION}_amd64.deb"
+          mv "wayland1.24_${WAYLAND_VERSION}_amd64.deb" ..
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wlroots-deb-${{ matrix.pkg_name }}
-          path: ${{ matrix.pkg_name }}_*_amd64.deb
+          name: wayland-deb
+          path: wayland1.24_*_amd64.deb
 
   publish:
     needs: build
@@ -109,9 +90,8 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          pattern: wlroots-deb-*
+          name: wayland-deb
           path: incoming
-          merge-multiple: true
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -150,5 +130,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Update wlroots packages" || echo "No changes"
+          git commit -m "Add wayland1.24 backport" || echo "No changes"
           git push
