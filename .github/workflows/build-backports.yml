@@ -9,6 +9,7 @@ jobs:
         include:
           - package: "wayland"
           - package: "libdrm"
+          - package: "libxkbcommon"
           
     runs-on: ubuntu-latest
     container:
