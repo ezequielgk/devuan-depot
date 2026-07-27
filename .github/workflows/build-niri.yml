@@ -62,6 +62,7 @@ jobs:
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
+          Recommends: xwayland-satellite
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
           Description: Niri - A scrollable-tiling Wayland compositor
            Niri is a scrollable-tiling Wayland compositor.
