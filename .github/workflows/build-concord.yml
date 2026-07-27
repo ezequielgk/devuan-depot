@@ -12,8 +12,13 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            cargo rustc pkg-config cmake git dpkg-dev ca-certificates curl jq \
+            pkg-config cmake git dpkg-dev ca-certificates curl jq \
             libopus-dev libasound2-dev libssl-dev
+
+      - name: Install latest Rust
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Clone Concord
         run: |
