@@ -26,6 +26,657 @@ Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
+Package: libdrm-amdgpu1
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 72
+Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-amdgpu1_2.4.134-3_amd64.deb
+Size: 24776
+MD5sum: 6869d0a071d00e509eefe59e01bb9fc5
+SHA1: 0285ce0415130e849242bed17d1a5ccf03b4e616
+SHA256: 74ec39fa1441ece127fdf50902ac838684f1534e390afe4ad65a278c4ecee343
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to amdgpu-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-amdgpu1-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 80
+Depends: libdrm-amdgpu1 (= 2.4.134-3)
+Filename: pool/main/libdrm-amdgpu1-dbgsym_2.4.134-3_amd64.deb
+Size: 62020
+MD5sum: ac69cce9b0becb7f9fe34af43e9fc35c
+SHA1: 0bd1e493d4b1453dcf3592be97db54b486a816ee
+SHA256: 1dd341b2764c24ca05bd6b351fcb5f93cd4c76d4538e19e6e9869a3768a78346
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-amdgpu1
+Build-Ids: 1c8764a59822bfbaee3754f60f66241dcde9cc0c
+
+Package: libdrm-common
+Source: libdrm
+Version: 2.4.134-3
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 42
+Filename: pool/main/libdrm-common_2.4.134-3_all.deb
+Size: 9384
+MD5sum: 6cef97ff7083c823459f40e2a40bf40c
+SHA1: 7dd74d71ff7855eee6d1add22ae5a64ad07c6c3a
+SHA256: 1bdabcecb0dbc75fb5b2db00f7426b53608224160a6ffcd3dc298eaf06c19ea2
+Section: libs
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- common files
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides common files for libdrm.
+
+Package: libdrm-dev
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1505
+Depends: libdrm2 (= 2.4.134-3), libdrm-intel1 (= 2.4.134-3), libdrm-radeon1 (= 2.4.134-3), libdrm-nouveau2 (= 2.4.134-3), libdrm-amdgpu1 (= 2.4.134-3), libdrm-freedreno1 (= 2.4.134-3), libpciaccess-dev
+Filename: pool/main/libdrm-dev_2.4.134-3_amd64.deb
+Size: 323944
+MD5sum: 3c03f80443718c6e430f7c14a4ade96b
+SHA1: 793db4521d9429dd3c3786b7886f3ea4da4f1787
+SHA256: b12066bb095e4039a46358d33cbb16594d1adbf545e820fce43e0d6a1cf7d711
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- development files
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides the development environment for libdrm.
+
+Package: libdrm-freedreno1
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 66
+Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-freedreno1_2.4.134-3_amd64.deb
+Size: 22652
+MD5sum: 91ab60207f1be2b2a0aa79da03efc980
+SHA1: 939d6301ace5d7a6c34ef782856965f5bf65e1e2
+SHA256: 3d5e9b272c555182a353c85a1f09c9cff7e38f718ff576443dea48e760e8e9d4
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to msm/kgsl kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-freedreno1-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 70
+Depends: libdrm-freedreno1 (= 2.4.134-3)
+Filename: pool/main/libdrm-freedreno1-dbgsym_2.4.134-3_amd64.deb
+Size: 52224
+MD5sum: 9db1d966ec8279b72f85136d8b3b2181
+SHA1: 0f4cce4d4a1a7a28b5f612780458c6eb252e0e6f
+SHA256: 5505903ead42898d9d988e21dae149e2e6e7ab2c11fd0c5de671c9b9fbbfb3db
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-freedreno1
+Build-Ids: b89485ea8577f5ff7c09de73c7981ddba2fb9b4f
+
+Package: libdrm-intel1
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 173
+Depends: libc6 (>= 2.34), libdrm2 (>= 2.4.108), libpciaccess0
+Filename: pool/main/libdrm-intel1_2.4.134-3_amd64.deb
+Size: 64844
+MD5sum: 9ff26fcaa518d11860b4f2f8818c6f72
+SHA1: 8dcdaf57a45428c1d7a324d6cc1f7b0589c33859
+SHA256: 1b7feefaa09599212bcedc79579b6eb94b9b1e1b1c625a6c00f7dc5a6067657b
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to intel-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-intel1-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 152
+Depends: libdrm-intel1 (= 2.4.134-3)
+Filename: pool/main/libdrm-intel1-dbgsym_2.4.134-3_amd64.deb
+Size: 130816
+MD5sum: c44228c492fb1de6f9a9ad05adb66b93
+SHA1: ff2b51916660f763245373ab160c2833a7ce2c51
+SHA256: e3cc348893c9da9067252ea7839723d97ff36a3c27bee52186d4fff2ffac1204
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-intel1
+Build-Ids: 913578b9fdeadf837844b5cee5d95d96e68a3c96
+
+Package: libdrm-nouveau2
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 62
+Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-nouveau2_2.4.134-3_amd64.deb
+Size: 20624
+MD5sum: 594913cbb5dcf9b49d846943f0173cee
+SHA1: 55ba24055007e9aedf9da0b406f005c636a64203
+SHA256: 00b3e6763694baeaf3dc2353ab31670a9bc577f56a6ce63b943864c9783df40d
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to nouveau-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-nouveau2-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 56
+Depends: libdrm-nouveau2 (= 2.4.134-3)
+Filename: pool/main/libdrm-nouveau2-dbgsym_2.4.134-3_amd64.deb
+Size: 41204
+MD5sum: f2cf22909d6e1275b5c17eea9ea2d371
+SHA1: 9098240b3feaf4e0842f137587ebb6312d322117
+SHA256: 6e79c58adc9ab71b5be5fa52fb018f57fb85cbefcf51260e6b5b6c42c9512741
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-nouveau2
+Build-Ids: b6226753be6a75c5975cadf97017222a4cbd2a5e
+
+Package: libdrm-radeon1
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 74
+Depends: libc6 (>= 2.4), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-radeon1_2.4.134-3_amd64.deb
+Size: 23300
+MD5sum: 342d6f59040fc543436e87f2aa3e0156
+SHA1: eacc9e6dd52a1571e4873d13367ddf12bab182ea
+SHA256: e3f7e0e796248a8814f15a382a09ad07b4b85604c1b00c46dbe07d8c514135e3
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to radeon-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-radeon1-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 64
+Depends: libdrm-radeon1 (= 2.4.134-3)
+Filename: pool/main/libdrm-radeon1-dbgsym_2.4.134-3_amd64.deb
+Size: 48872
+MD5sum: b49951fb3253a01b7668b04b5060f8b7
+SHA1: 0d9cdfeeb27691125827fd19d8d8c346b9816c7e
+SHA256: 4ce521f88646948e701d61cd9132ce679350d5f1eb8a76832451fb6b2ef4e2c3
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-radeon1
+Build-Ids: 4aa9daa61819e2cc5214245b207c1586c4795d37
+
+Package: libdrm-tests
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 200
+Depends: libdrm2 (= 2.4.134-3), libc6 (>= 2.38), libdrm-amdgpu1 (>= 2.4.77)
+Filename: pool/main/libdrm-tests_2.4.134-3_amd64.deb
+Size: 57648
+MD5sum: b52083ba074f8607cdbf9a58fc337f6b
+SHA1: 8a5ce218bdedeac49d85550084d6ed14ef08a398
+SHA256: db550ca0b09f3efcc8897b17b1060571488dd65ee0f2b476642efec490cdd17c
+Section: libs
+Priority: optional
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Testing tools from the libdrm project
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package contains a variety of tools for testing from the libdrm project.
+
+Package: libdrm-tests-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 255
+Depends: libdrm-tests (= 2.4.134-3)
+Filename: pool/main/libdrm-tests-dbgsym_2.4.134-3_amd64.deb
+Size: 161560
+MD5sum: ab80e802862b9990c1da1186b566fa33
+SHA1: ba608c5e6143a59971bff6afb80284748bfe895c
+SHA256: 103d46688d019e3c5d98cb2b9594857b8877eaa5217d0981ac58196cda9ed3ac
+Section: debug
+Priority: optional
+Description: debug symbols for libdrm-tests
+Build-Ids: 0c91fba054e32443c569e25836ee6362daa6dc66 127e737a4273782a9161a5713f39989c1f2aead9 b4a5b6372fadc946d250681d628065f5aa2a187f d7d7cee4ca52a5c4296cab6f2aa56c2e15a2d72b eaa339c0784ba6ada513235c30ea1c248236c36c fc9bad7ed541b121382dc8458e57cdcee4532a4f
+
+Package: libdrm2
+Source: libdrm
+Version: 2.4.134-3
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 119
+Depends: libdrm-common (>= 2.4.134-3), libc6 (>= 2.38)
+Filename: pool/main/libdrm2_2.4.134-3_amd64.deb
+Size: 40072
+MD5sum: d06f6f8906853063fce758acff1b758f
+SHA1: 8885c11d89cf4b7fb56fd43bc02a9f61a6132689
+SHA256: d13a84560c987dda4fa1d37499f7dde991f1b2a2039fc3468b84c26e02c47052
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides the runtime environment for libdrm.
+
+Package: libdrm2-dbgsym
+Source: libdrm
+Version: 2.4.134-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 127
+Depends: libdrm2 (= 2.4.134-3)
+Filename: pool/main/libdrm2-dbgsym_2.4.134-3_amd64.deb
+Size: 108260
+MD5sum: 978fb78eaa34241b059af5ef750b6ffe
+SHA1: 9eafbb627ac5262cba32d76510b0084937d86c06
+SHA256: 31134aaa0b4037a6e6123f7f76f89cff01447e1e4f31fa820dd6f3a6fc0dc1ec
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm2
+Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
+
+Package: libwayland-bin
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 68
+Depends: libc6 (>= 2.34), libexpat1 (>= 2.0.1), libxml2 (>= 2.7.4)
+Filename: pool/main/libwayland-bin_1.26.0-1_amd64.deb
+Size: 22376
+MD5sum: 73c3e329876787c03eb7983d1cfa3d4a
+SHA1: 0e09df4e6fbb476d412b77ff4c4bf8deb5bc945c
+SHA256: 0c5eb3d53fe920973239903079cede91bd57dd4e83d9b9328ef73a1d66413719
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - binary utilities
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development binary utilities
+
+Package: libwayland-bin-dbgsym
+Source: wayland
+Version: 1.26.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 83
+Depends: libwayland-bin (= 1.26.0-1)
+Filename: pool/main/libwayland-bin-dbgsym_1.26.0-1_amd64.deb
+Size: 52980
+MD5sum: bfc144125eb17b759f96bf2c301acc50
+SHA1: 3b6fbe7e3ad107c513fd09ee1d64ec8d7e612393
+SHA256: 4c6f4431e00879782d6f1c54a7c21b2e4d9e348407aeba6703bd2dcbac298668
+Section: debug
+Priority: optional
+Description: debug symbols for libwayland-bin
+Build-Ids: c7886431f1514ec61c649f78117fe48355da1f3d
+
+Package: libwayland-client0
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 95
+Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
+Filename: pool/main/libwayland-client0_1.26.0-1_amd64.deb
+Size: 29884
+MD5sum: be5f08dbad0dc265d604bf023c526d6b
+SHA1: 583d7d1bdc7e7d365e5adad27127387e5e8b6867
+SHA256: 2ec6de80fa8a3069f6e60def276dfb05a02411df6f75a87500cdc2c7516dc268
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - client library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the client side of
+ the Wayland protocol.
+
+Package: libwayland-client0-dbgsym
+Source: wayland
+Version: 1.26.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 89
+Depends: libwayland-client0 (= 1.26.0-1)
+Filename: pool/main/libwayland-client0-dbgsym_1.26.0-1_amd64.deb
+Size: 69644
+MD5sum: c8f4543df7f811ef4f59b29d7851a6b1
+SHA1: 22481471e37ab8c3ce3c02db77a4d732117deb9c
+SHA256: 7daa36fe2c3ed9d5d54296aabbd03ee242ebde32b1974a182bd294be1056ae4d
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-client0
+Build-Ids: a2897a2646c93eb09bb382b6234bb0dd22a12725
+
+Package: libwayland-cursor0
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 51
+Depends: libc6 (>= 2.28), libwayland-client0 (>= 1.20.0)
+Filename: pool/main/libwayland-cursor0_1.26.0-1_amd64.deb
+Size: 12304
+MD5sum: 710c1a10849afbe12058ce9680f6df7f
+SHA1: ad11af7917ca60699f4f87121d0583d037630c4d
+SHA256: 811d8ea9aa4934a9925660421320e8fd41fdcc380ecf94893ad326418611cac4
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - cursor library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships a helper library to manage cursors.
+
+Package: libwayland-cursor0-dbgsym
+Source: wayland
+Version: 1.26.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 37
+Depends: libwayland-cursor0 (= 1.26.0-1)
+Filename: pool/main/libwayland-cursor0-dbgsym_1.26.0-1_amd64.deb
+Size: 23372
+MD5sum: 4763264441c8f72eab4ef3c2aa792c84
+SHA1: 8aa75d31d865d66eb752b6571513697de7b5d344
+SHA256: 9798ed25a989afa82d08e27104c22e935cf612d26d58f5052a00be7179763a8f
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-cursor0
+Build-Ids: dc9539922cbd8a7159e287faaf1b0fd3e7562b1b
+
+Package: libwayland-dev
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 664
+Depends: libwayland-client0 (= 1.26.0-1), libwayland-server0 (= 1.26.0-1), libwayland-cursor0 (= 1.26.0-1), libwayland-egl1 (= 1.26.0-1), libwayland-bin (= 1.26.0-1), libffi-dev
+Suggests: libwayland-doc
+Filename: pool/main/libwayland-dev_1.26.0-1_amd64.deb
+Size: 78624
+MD5sum: 8558ae08fe75dae2e867d54c9bafcb94
+SHA1: 5eb2b9574f37d77ab75bb4eb477d68d06af67085
+SHA256: b120c430af2d5b6752db23ba57d30d3f4a2e68ff406192b9413da4555a796c60
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - development files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development headers for the Wayland libraries.
+ Non-developers likely have little use for this package.
+
+Package: libwayland-doc
+Source: wayland
+Version: 1.26.0-1
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 3735
+Filename: pool/main/libwayland-doc_1.26.0-1_all.deb
+Size: 1265504
+MD5sum: d3589080283a21c3c1c559c6ea8fd78c
+SHA1: ae8416950530c74b0fd8ec2dee0c200248e2c4a1
+SHA256: 94b731011a13be96069ee1219d9f589899bd616656b2075b75dacbf602841687
+Section: doc
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - documentation files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the documentation for the Wayland libraries.
+ Non-developers likely have little use for this package.
+
+Package: libwayland-egl-backend-dev
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 17
+Filename: pool/main/libwayland-egl-backend-dev_1.26.0-1_amd64.deb
+Size: 5172
+MD5sum: d3ce982c63c6a754b1e9b5ea96cb7c55
+SHA1: defbbc5874157aeba8d188d410278f728f648c1e
+SHA256: 04774c93b19e298f444eda9288889a86a2d54fef01debd08132ffff962e97ff9
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - EGL backend development files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development headers for the Wayland EGL backend.
+
+Package: libwayland-egl1
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 30
+Depends: libc6 (>= 2.2.5)
+Filename: pool/main/libwayland-egl1_1.26.0-1_amd64.deb
+Size: 6264
+MD5sum: 99c3941220c69d9182d5671bc015c3cc
+SHA1: 54f03171ee5559cf7f2ffb38e50b2be41e7bfe38
+SHA256: c17ff34455274d85a5aa8dcc68cf8525f856bfba87330882f2fe5831e7a15512
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - EGL library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the Wayland EGL platform
+ of the Wayland protocol.
+
+Package: libwayland-egl1-dbgsym
+Source: wayland
+Version: 1.26.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 16
+Depends: libwayland-egl1 (= 1.26.0-1)
+Filename: pool/main/libwayland-egl1-dbgsym_1.26.0-1_amd64.deb
+Size: 3684
+MD5sum: 590ad3e79ee5c9481eb40131b9e3c458
+SHA1: adc5d8224611e547da883a3f9f5104b8b360858c
+SHA256: 26d3aa5a53f71a6e013714a2b20793996875f1b7791520db8e1a918f2e43be3f
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-egl1
+Build-Ids: fcd0ac92d4ffb87f9f873161ea543fcc7202c9a2
+
+Package: libwayland-server0
+Source: wayland
+Version: 1.26.0-1
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 113
+Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
+Filename: pool/main/libwayland-server0_1.26.0-1_amd64.deb
+Size: 36956
+MD5sum: bc1ac668212cbbd61e7221ff97bc82ee
+SHA1: 5388c6e0de62ea39e3488b0874017b35fddb0172
+SHA256: e29239e45b0826b85a16d5ac7db3676f671b8ad0b7290a18efcce1ac1ee86532
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - server library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the server side of
+ the Wayland protocol.
+
+Package: libwayland-server0-dbgsym
+Source: wayland
+Version: 1.26.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 118
+Depends: libwayland-server0 (= 1.26.0-1)
+Filename: pool/main/libwayland-server0-dbgsym_1.26.0-1_amd64.deb
+Size: 95572
+MD5sum: bb4e39caf5fe95d33969a3d64f3a805d
+SHA1: 451f9ec934d49e444d3f999d9bc1d3a68c6a763f
+SHA256: c9553df29f31e9547d561868b20a8cb19917cde1a6abd3b09a7cffd219dc7d12
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-server0
+Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
+
 Package: mangowc
 Version: 0.0.0+gitcc4fdec
 Architecture: amd64
