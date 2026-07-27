@@ -1,9 +1,17 @@
-name: Build wlroots0.20 .deb
+name: Build wlroots .deb
 on:
   workflow_dispatch:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        include:
+          - branch: "0.19.0"
+            pkg_name: "wlroots0.19"
+          - branch: "master"
+            pkg_name: "wlroots0.20"
+            
     runs-on: ubuntu-latest
     container:
       image: debian:trixie
@@ -25,11 +33,10 @@ jobs:
 
       - name: Clone wlroots
         run: |
-          # Checkout specific branch/tag for 0.20 (e.g., master or specific tag)
-          git clone --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git src
+          git clone --branch ${{ matrix.branch }} --depth 1 https://gitlab.freedesktop.org/wlroots/wlroots.git src
           cd src
           WLROOTS_VERSION=$(git rev-parse --short HEAD)
-          echo "WLROOTS_VERSION=0.20.0~git${WLROOTS_VERSION}" >> $GITHUB_ENV
+          echo "WLROOTS_VERSION=${{ matrix.branch }}~git${WLROOTS_VERSION}" >> $GITHUB_ENV
 
       - name: Compile wlroots
         working-directory: src
@@ -48,14 +55,14 @@ jobs:
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
 
           cat > pkgroot/DEBIAN/control <<CTRL
-          Package: wlroots0.20
+          Package: ${{ matrix.pkg_name }}
           Version: ${WLROOTS_VERSION}
           Section: libs
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: wlroots 0.20 modular Wayland compositor library
+          Description: wlroots (${{ matrix.branch }}) modular Wayland compositor library
           CTRL
 
           cat > pkgroot/DEBIAN/postinst <<'EOF'
@@ -73,13 +80,13 @@ jobs:
           EOF
           chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
-          dpkg-deb --build --root-owner-group pkgroot "wlroots0.20_${WLROOTS_VERSION}_amd64.deb"
-          mv "wlroots0.20_${WLROOTS_VERSION}_amd64.deb" ..
+          dpkg-deb --build --root-owner-group pkgroot "${{ matrix.pkg_name }}_${WLROOTS_VERSION}_amd64.deb"
+          mv "${{ matrix.pkg_name }}_${WLROOTS_VERSION}_amd64.deb" ..
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wlroots-deb
-          path: wlroots0.20_*_amd64.deb
+          name: wlroots-deb-${{ matrix.pkg_name }}
+          path: ${{ matrix.pkg_name }}_*_amd64.deb
 
   publish:
     needs: build
@@ -93,8 +100,9 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: wlroots-deb
+          pattern: wlroots-deb-*
           path: incoming
+          merge-multiple: true
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -133,5 +141,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Update wlroots0.20" || echo "No changes"
+          git commit -m "Update wlroots packages" || echo "No changes"
           git push
