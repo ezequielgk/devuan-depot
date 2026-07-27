@@ -26,6 +26,10 @@ jobs:
           
           # Add sid source repo for downloading source packages
           echo "deb-src http://deb.debian.org/debian sid main" > /etc/apt/sources.list.d/sid-src.list
+          
+          # Add our own repo so we can use previously built backports (like libwayland-dev 1.26.0) to build newer ones
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          
           apt-get update
 
       - name: Build backport
