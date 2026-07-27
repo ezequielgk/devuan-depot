@@ -19,6 +19,10 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
+          # Primero actualizamos los repos básicos e instalamos ca-certificates para poder descargar por HTTPS
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+          
           # Add the devuan-depot repository to install wayland1.24 if needed
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
