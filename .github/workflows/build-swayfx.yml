@@ -18,9 +18,9 @@ jobs:
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
             libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
-            libxcb-composite0-dev libxcb-xfixes0-dev \
             libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
-            libgles2-mesa-dev hwdata libudev-dev
+            libgles2-mesa-dev hwdata libudev-dev \
+            libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland libelogind-dev
 
       - name: Clone SwayFX and subprojects (wlroots + scenefx)
         run: |
@@ -80,6 +80,8 @@ jobs:
           #!/bin/sh
           set -e
           ldconfig
+          # Apply suid for systems without logind/seatd
+          chmod a+s /usr/bin/sway
           if [ -x /usr/bin/update-desktop-database ]; then
             update-desktop-database -q /usr/share/applications || true
           fi
