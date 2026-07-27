@@ -54,6 +54,20 @@ Priority: optional
 Description: Niri - A scrollable-tiling Wayland compositor
  Niri is a scrollable-tiling Wayland compositor.
 
+Package: pcmanfm-qt
+Version: 2.1.0
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/pcmanfm-qt_2.1.0_amd64.deb
+Size: 532000
+MD5sum: 7df2fd41dbbfe5310c3ef5cb4bfcfd6e
+SHA1: 9d50269e0f713ff1c9363fc64192508e3e8ea5d3
+SHA256: 4f5bc0845ce584bebad497106416851ef4a30f0d6dc5d24a3554a9b6300d76be
+Section: x11
+Priority: optional
+Description: PCManFM-Qt - extremely fast and lightweight file manager
+ Extremely fast and lightweight file manager, part of LXQt.
+
 Package: swayfx
 Version: 0.5.3
 Architecture: amd64
