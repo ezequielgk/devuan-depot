@@ -1310,6 +1310,32 @@ Section: libs
 Priority: optional
 Description: Wayland (1.24.0) installed in /opt/wayland1.24 (Backport)
 
+Package: wlroots0.19
+Version: 0.19.0~git13a62a2
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/wlroots0.19_0.19.0~git13a62a2_amd64.deb
+Size: 522884
+MD5sum: fb2ef1ef01e8f07d98e62a9809511633
+SHA1: f96fd7bfd7c5a6c5321c19805e8d30b0f4ced336
+SHA256: 1cbe76a7fa97a71e039124bbd19edaf0cbc49992730e7e07f412012a279db1c4
+Section: libs
+Priority: optional
+Description: wlroots (0.19.0) modular Wayland compositor library
+
+Package: wlroots0.20
+Version: 0.20.2~gitd783533
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/wlroots0.20_0.20.2~gitd783533_amd64.deb
+Size: 550008
+MD5sum: 47c9a25a202b3dd132792513401cd63e
+SHA1: d5ba598159d9dda9d4484c9ce6b7acbc2b737851
+SHA256: 709d1230fd25b7ab4938fcfca172d46615ff0ac9bd84240a6d3ce61803411ac4
+Section: libs
+Priority: optional
+Description: wlroots (0.20.2) modular Wayland compositor library
+
 Package: xwayland-satellite
 Version: 0.8.1
 Architecture: amd64
