@@ -1,9 +1,15 @@
-name: Build wayland1.24 .deb
+name: Build wayland .deb
 on:
   workflow_dispatch:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        include:
+          - branch: "1.24.0"
+            pkg_name: "wayland1.24"
+            
     runs-on: ubuntu-latest
     container:
       image: debian:trixie
@@ -16,18 +22,18 @@ jobs:
             build-essential meson pkg-config cmake git ca-certificates curl jq \
             libffi-dev libexpat1-dev libxml2-dev
 
-      - name: Clone Wayland 1.24
+      - name: Clone Wayland
         run: |
-          git clone --branch 1.24.0 --depth 1 https://gitlab.freedesktop.org/wayland/wayland.git src
+          git clone --branch ${{ matrix.branch }} --depth 1 https://gitlab.freedesktop.org/wayland/wayland.git src
           cd src
           WAYLAND_VERSION=$(git rev-parse --short HEAD)
-          echo "WAYLAND_VERSION=1.24.0~git${WAYLAND_VERSION}" >> $GITHUB_ENV
+          echo "WAYLAND_VERSION=${{ matrix.branch }}~git${WAYLAND_VERSION}" >> $GITHUB_ENV
 
       - name: Compile Wayland
         working-directory: src
         run: |
-          # Instalamos en /opt/wayland1.24 para no pisar las librerías del sistema (Trixie 1.23.1)
-          meson setup build --buildtype=release --prefix=/opt/wayland1.24 -Ddocumentation=false
+          # Instalamos en /opt/ para no pisar las librerías del sistema (Trixie 1.23.1)
+          meson setup build --buildtype=release --prefix=/opt/${{ matrix.pkg_name }} -Ddocumentation=false
           ninja -C build
 
       - name: Package .deb
@@ -38,45 +44,45 @@ jobs:
 
           # Encontramos dependencias
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/opt/wayland1.24/lib -name "*.so*" -type f 2>/dev/null) \
+            $(find pkgroot/opt/${{ matrix.pkg_name }}/lib -name "*.so*" -type f 2>/dev/null) \
             2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
 
           cat > pkgroot/DEBIAN/control <<CTRL
-          Package: wayland1.24
+          Package: ${{ matrix.pkg_name }}
           Version: ${WAYLAND_VERSION}
           Section: libs
           Priority: optional
           Architecture: amd64
           Depends: ${DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-          Description: Wayland 1.24 installed in /opt/wayland1.24 (Backport)
+          Description: Wayland (${{ matrix.branch }}) installed in /opt/${{ matrix.pkg_name }} (Backport)
           CTRL
 
-          cat > pkgroot/DEBIAN/postinst <<'EOF'
+          cat > pkgroot/DEBIAN/postinst <<EOF
           #!/bin/sh
           set -e
-          echo "/opt/wayland1.24/lib/x86_64-linux-gnu" > /etc/ld.so.conf.d/wayland1.24.conf
-          echo "/opt/wayland1.24/lib" >> /etc/ld.so.conf.d/wayland1.24.conf
+          echo "/opt/${{ matrix.pkg_name }}/lib/x86_64-linux-gnu" > /etc/ld.so.conf.d/${{ matrix.pkg_name }}.conf
+          echo "/opt/${{ matrix.pkg_name }}/lib" >> /etc/ld.so.conf.d/${{ matrix.pkg_name }}.conf
           ldconfig
           exit 0
           EOF
 
-          cat > pkgroot/DEBIAN/postrm <<'EOF'
+          cat > pkgroot/DEBIAN/postrm <<EOF
           #!/bin/sh
           set -e
-          rm -f /etc/ld.so.conf.d/wayland1.24.conf
+          rm -f /etc/ld.so.conf.d/${{ matrix.pkg_name }}.conf
           ldconfig
           exit 0
           EOF
           chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
-          dpkg-deb --build --root-owner-group pkgroot "wayland1.24_${WAYLAND_VERSION}_amd64.deb"
-          mv "wayland1.24_${WAYLAND_VERSION}_amd64.deb" ..
+          dpkg-deb --build --root-owner-group pkgroot "${{ matrix.pkg_name }}_${WAYLAND_VERSION}_amd64.deb"
+          mv "${{ matrix.pkg_name }}_${WAYLAND_VERSION}_amd64.deb" ..
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wayland-deb
-          path: wayland1.24_*_amd64.deb
+          name: wayland-deb-${{ matrix.pkg_name }}
+          path: ${{ matrix.pkg_name }}_*_amd64.deb
 
   publish:
     needs: build
@@ -90,8 +96,9 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: wayland-deb
+          pattern: wayland-deb-*
           path: incoming
+          merge-multiple: true
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -130,5 +137,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add pool dists
-          git commit -m "Add wayland1.24 backport" || echo "No changes"
+          git commit -m "Update wayland backport packages" || echo "No changes"
           git push
