@@ -1260,6 +1260,32 @@ Priority: optional
 Description: PCManFM-Qt - extremely fast and lightweight file manager
  Extremely fast and lightweight file manager, part of LXQt.
 
+Package: scenefx0.4
+Version: 0.4.1~git0f06997
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/scenefx0.4_0.4.1~git0f06997_amd64.deb
+Size: 73084
+MD5sum: bea414f0671e3e01f5df658657eae04d
+SHA1: 5d5c982327dcd7df3ca6dfe43648642591c03ead
+SHA256: 86228d5a40848fe8ecb1d4fbdd263307ae4b92d6513d1aa8ac350ea8a43b7639
+Section: libs
+Priority: optional
+Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
+
+Package: scenefx0.5
+Version: 0.5.0~git45c6978
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Filename: pool/main/scenefx0.5_0.5.0~git45c6978_amd64.deb
+Size: 84144
+MD5sum: bed54d89f6028670e6647b21af7549b9
+SHA1: 14aed0f845b7018f0984d987a30ba218d86ce088
+SHA256: 9b18bc402a302edaafb13d0274d2ffe686b259ec2a1eda003378976b5712f66e
+Section: libs
+Priority: optional
+Description: scenefx (main) - drop-in replacement for wlr_scene
+
 Package: swayfx
 Version: 0.5.3
 Architecture: amd64
