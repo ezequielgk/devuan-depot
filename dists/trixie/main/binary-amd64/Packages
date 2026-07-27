@@ -17,10 +17,10 @@ Version: 1.27.0
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Filename: pool/main/foot_1.27.0_amd64.deb
-Size: 339492
-MD5sum: 189682eeba057f73dc5f93a061cb9829
-SHA1: 7138f3d8f9afeb60bc1044c16e32e80743b390bd
-SHA256: 8f0c14d62d6d1c0a9b7c240c9d443978143b0454d1459e7fdf02f2ca71623456
+Size: 337808
+MD5sum: 44aec815ab5ebd384862985ace77292b
+SHA1: 44e37d6062e8b3aee5028b2a8e2a6949b4edc02c
+SHA256: e43ecb6c24fc77fbb1f7d57844a5e5b5735c83a61633da238f933c33b374dacd
 Section: x11
 Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
