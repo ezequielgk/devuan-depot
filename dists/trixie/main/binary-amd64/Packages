@@ -83,3 +83,19 @@ Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
 
+Package: xwayland-satellite
+Version: 0.8.1
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: xwayland
+Filename: pool/main/xwayland-satellite_0.8.1_amd64.deb
+Size: 1809152
+MD5sum: 2179d924709625ce4a2a2fde46e5f045
+SHA1: 30947faa8f811ce2d8d1bf25c4c1f9777dcbd3fe
+SHA256: 87ca5ba9c8764514d7e3066f4750afbc89eac72978b2ec5c097f5f1977f607b6
+Section: x11
+Priority: optional
+Description: xwayland-satellite - Xwayland rootless para niri
+ Provee integracion Xwayland sin systemd para compositores
+ Wayland que no la implementan de forma nativa (ej. niri).
+
