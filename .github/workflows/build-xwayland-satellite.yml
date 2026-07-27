@@ -36,10 +36,13 @@ jobs:
 
           DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
             pkgroot/usr/bin/xwayland-satellite \
-            2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
-          # xwayland-satellite ejecuta el binario Xwayland en runtime,
-          # así que lo sumamos explícitamente además de las libs detectadas.
-          DEPS="${DEPS}, xwayland"
+            2>/dev/null | sed 's/^shlibs:Depends=//' || true)
+            
+          if [ -z "$DEPS" ]; then
+            DEPS="xwayland"
+          else
+            DEPS="${DEPS}, xwayland"
+          fi
 
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: xwayland-satellite
