@@ -25,7 +25,7 @@ jobs:
             libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
             libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
             libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
-            libliftoff-dev libdisplay-info-dev libpixman-1-dev \
+            libliftoff-dev libdisplay-info-dev libpixman-1-dev liblcms2-dev \
             hwdata libudev-dev xwayland libxml2-dev bison flex \
             libegl1-mesa-dev libgles2-mesa-dev libvulkan-dev \
             libxcb-composite0-dev libxcb-render0-dev libxcb-xfixes0-dev \
