@@ -26,6 +26,21 @@ Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
+Package: foot
+Version: 1.27.0.20260728.3~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libpixman-1-0 (>= 0.30.0), libutf8proc3 (>= 2.9.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
+Filename: pool/main/foot_1.27.0.20260728.3~devuandepot_amd64.deb
+Size: 337872
+MD5sum: 8fb45e5bf8e3396ac86ceb1f1c88ec5f
+SHA1: 11ddac8992a519672b278914ad089c230cd3b5e7
+SHA256: 7993cc5197de4d74ce3aa2b3f9a9b3008c1607339bff221171d20d833ae53a58
+Section: x11
+Priority: optional
+Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
+ A fast, lightweight and minimalistic Wayland terminal emulator.
+
 Package: libdisplay-info-bin
 Source: libdisplay-info
 Version: 0.3.0-1
