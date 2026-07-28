@@ -1,5 +1,6 @@
 # Ignorar archivos generados localmente durante pruebas de empaquetado
 *.deb
+!pool/main/*.deb
 *.asc
 !public.asc
 build/
