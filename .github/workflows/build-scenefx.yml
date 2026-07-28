@@ -51,6 +51,57 @@ jobs:
           SCENEFX_VERSION=$(git rev-parse --short HEAD)
           echo "SCENEFX_VERSION=${{ matrix.version }}~git${SCENEFX_VERSION}" >> $GITHUB_ENV
 
+      - name: Patch meson.build for versioned SONAME
+        working-directory: src
+        run: |
+          # Debian shlib tooling needs a versioned SONAME (libscenefx-0.X.so.0)
+          # to track dependencies. Upstream builds an unversioned .so, so inject
+          # version/soversion into the library() call. Fails loudly if the
+          # upstream layout changes unexpectedly.
+          python3 - <<'PYEOF'
+          import re, sys
+
+          with open('meson.build') as f:
+              lines = f.readlines()
+
+          start = None
+          for i, line in enumerate(lines):
+              if re.search(r'=\s*library\(', line):
+                  start = i
+                  break
+          if start is None:
+              sys.exit("ERROR: library() call not found in meson.build")
+
+          end = None
+          for i in range(start, len(lines)):
+              if lines[i].strip() == ')':
+                  end = i
+                  break
+          if end is None:
+              sys.exit("ERROR: end of library() block not found")
+
+          if any('soversion' in l for l in lines[start:end]):
+              print("soversion already set upstream; no patch needed")
+              sys.exit(0)
+
+          insert_at = None
+          for i in range(start + 1, end):
+              if 'install:' in lines[i]:
+                  insert_at = i
+                  break
+          if insert_at is None:
+              sys.exit("ERROR: no install: kwarg found in library() block")
+
+          lines[insert_at:insert_at] = [
+              "\tversion: meson.project_version(),\n",
+              "\tsoversion: '0',\n",
+          ]
+          with open('meson.build', 'w') as f:
+              f.writelines(lines)
+          print("Patched: added version+soversion to library()")
+          PYEOF
+          sed -n "/= library(/,/^)/p" meson.build
+
       - name: Compile scenefx
         working-directory: src
         run: |
@@ -63,9 +114,31 @@ jobs:
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
 
-          DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/usr/lib -name "*.so*" -type f 2>/dev/null) \
-            2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
+          # The meson patch must have produced a versioned library (lib*.so.*)
+          find pkgroot/usr/lib -name "lib*.so.*" -type f | grep -q . || {
+            echo "ERROR: no versioned shared library was installed"
+            exit 1
+          }
+
+          # Generate DEBIAN/shlibs so dependent packages can resolve this library
+          : > pkgroot/DEBIAN/shlibs
+          find pkgroot/usr/lib -name "lib*.so.*" -type f | while read -r so; do
+            soname=$(objdump -p "$so" | awk '/SONAME/ {print $2}')
+            libname=${soname%.so.*}
+            sover=${soname##*.so.}
+            if [ -z "$soname" ] || [ "$libname" = "$soname" ] || [ "$sover" = "$soname" ]; then
+              echo "ERROR: unexpected SONAME '$soname' on $so"
+              exit 1
+            fi
+            echo "${libname} ${sover} ${{ matrix.pkg_name }} (>= ${SCENEFX_VERSION})" >> pkgroot/DEBIAN/shlibs
+          done
+          echo "=== Generated shlibs ==="
+          cat pkgroot/DEBIAN/shlibs
+
+          DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/lib -name "*.so*" -type f) \
+            | sed 's/^shlibs:Depends=//')
+          echo "=== Resolved Depends: ${DEPS} ==="
           
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: ${{ matrix.pkg_name }}
