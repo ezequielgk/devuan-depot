@@ -90,7 +90,44 @@ runs:
         set -euo pipefail
 
         if [ -n "${FIND_EXPR}" ]; then
-          TARGETS=$(find ${FIND_EXPR})
+          # Split the expression into starting points (args before the first
+          # `-`-prefixed predicate) and predicates (the rest). find(1)
+          # aborts with "No such file or directory" if ANY starting point is
+          # missing even when others are valid — pcmanfm-qt hit this because
+          # it ships binaries in pkgroot/usr/bin but no pkgroot/usr/lib.
+          # Pre-filter the starting points to existing ones so a missing
+          # directory is not a fatal error, while keeping an explicit guard
+          # if NONE of them exist.
+          STARTS=()
+          PREDS=()
+          IN_PREDS=0
+          for tok in ${FIND_EXPR}; do
+            if [ $IN_PREDS -eq 1 ] || printf '%s' "${tok}" | grep -q '^-'; then
+              IN_PREDS=1
+              PREDS+=("${tok}")
+            else
+              STARTS+=("${tok}")
+            fi
+          done
+          EXISTING_STARTS=()
+          for s in "${STARTS[@]}"; do
+            if [ -e "${s}" ]; then
+              EXISTING_STARTS+=("${s}")
+            else
+              echo "::warning::find starting point '${s}' does not exist; skipping"
+            fi
+          done
+          if [ ${#EXISTING_STARTS[@]} -eq 0 ]; then
+            echo "::error::none of the find starting points exist"
+            echo "  find-expr=[${FIND_EXPR}]"
+            echo "  starting points=[${STARTS[*]}]"
+            exit 1
+          fi
+          if [ ${#PREDS[@]} -gt 0 ]; then
+            TARGETS=$(find "${EXISTING_STARTS[@]}" "${PREDS[@]}")
+          else
+            TARGETS=$(find "${EXISTING_STARTS[@]}")
+          fi
         else
           TARGETS="${BINARIES}"
         fi

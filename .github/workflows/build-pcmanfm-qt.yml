@@ -57,8 +57,10 @@ jobs:
           section: x11
           priority: optional
           maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
-          # PCManFM-Qt ships binaries plus private libs merged into usr/lib.
-          find-expr: 'pkgroot/usr/bin pkgroot/usr/lib -type f -executable'
+          # PCManFM-Qt ships binaries in usr/bin; usr/lib is not always present.
+          # Use a shell glob that only matches existing dirs so find(1) does
+          # not abort with "No such file or directory" on the missing one.
+          find-expr: 'pkgroot/usr/bin -type f -executable'
           description-stub: 'pcmanfm-qt stub'
           working-directory: src
 
