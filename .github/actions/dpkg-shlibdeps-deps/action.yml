@@ -43,7 +43,7 @@ outputs:
     description: >-
       The resolved Depends string (already stripped of the
       "shlibs:Depends=" prefix) suitable for direct interpolation in the
-      real DEBIAN/control file via ${{ steps.*.outputs.depends }}.
+      real DEBIAN/control file via ${{ steps.resolve.outputs.depends }}.
     value: ${{ steps.resolve.outputs.depends }}
 
 runs:
