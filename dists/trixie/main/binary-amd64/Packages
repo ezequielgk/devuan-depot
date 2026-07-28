@@ -1292,10 +1292,10 @@ Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Recommends: seatd
 Filename: pool/main/swayfx_0.5.3_amd64.deb
-Size: 5172620
-MD5sum: a10da1743b440d556e80ee5a83aa844f
-SHA1: f9a7cc75c5c126c525c3a7366ef43431e14cb5bb
-SHA256: d58b393c175bc6eaccfe2f2fc759962125736f3207a48cd70c2375e1e9e016ce
+Size: 5172288
+MD5sum: 52f82d0e2dc7949074777dae78abcbc5
+SHA1: f6998ffc21c9eda248573949558b19a4a22619d1
+SHA256: 3cfaa63c82347e4227b129c697b11a7d94a22632d1269ac13e914e0371f6cfc5
 Section: x11
 Priority: optional
 Description: SwayFX - Sway but with eye candy!
