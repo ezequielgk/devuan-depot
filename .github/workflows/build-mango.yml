@@ -68,13 +68,13 @@ jobs:
           Description: stub
           CTRLSTUB
 
-          RAW_DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable))
-          if [ $? -ne 0 ]; then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+          # Mango solo instala ejecutables, no librerias.
+          find pkgroot/usr/bin -type f -executable > bin_list.txt
+          RAW_DEPS=$(dpkg-shlibdeps -O $(cat bin_list.txt)) || {
+            echo "ERROR: dpkg-shlibdeps fallo"
             exit 1
-          fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
+          }
+          DEPS=$(echo "$RAW_DEPS" | sed -n 's/^shlibs:Depends=//p')
           echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL
