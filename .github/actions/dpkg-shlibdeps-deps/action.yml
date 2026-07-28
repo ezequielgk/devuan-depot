@@ -1,0 +1,130 @@
+name: 'dpkg-shlibdeps-deps'
+description: >-
+  Resolve the runtime Depends string of a .deb using dpkg-shlibdeps, with
+  hard guards against the silent-empty-Depends bug that broke swayfx and
+  mangowc before: it writes the required debian/control stub, runs
+  dpkg-shlibdeps against the freshly installed binaries, and FAILS LOUDLY
+  if the resolver returns an empty Depends string instead of shipping a
+  broken package.
+
+inputs:
+  package-name:
+    description: 'Source/Package name for the debian/control stub'
+    required: true
+  section:
+    description: 'Section field for the debian/control stub'
+    required: true
+  priority:
+    description: 'Priority field for the debian/control stub'
+    required: true
+  maintainer:
+    description: 'Maintainer field for the debian/control stub'
+    required: true
+  binaries:
+    description: >-
+      Literal paths to feed to dpkg-shlibdeps, space separated
+      (e.g. "pkgroot/usr/bin/mango pkgroot/usr/bin/mmsg").
+      Mutually exclusive with find-expr; one of them must be set.
+  find-expr:
+    description: >-
+      Arguments to find(1) to discover the targets, WITHOUT the leading
+      `find` keyword (e.g. "pkgroot/usr/bin -type f -executable"). Mutually
+      exclusive with binaries; one of them must be set. Note: avoid glob
+      patterns here (e.g. "*.so*") — they expand in the caller shell before
+      reaching find. For library workflows that scan *.so files, keep the
+      resolution inline in the workflow instead.
+  description-stub:
+    description: 'Short Description for the stub (used by dpkg-shlibdeps only).'
+    required: false
+    default: 'stub'
+
+outputs:
+  depends:
+    description: >-
+      The resolved Depends string (already stripped of the
+      "shlibs:Depends=" prefix) suitable for direct interpolation in the
+      real DEBIAN/control file via ${{ steps.*.outputs.depends }}.
+    value: ${{ steps.resolve.outputs.depends }}
+
+runs:
+  using: composite
+  steps:
+    - name: Write debian/control stub
+      shell: bash
+      env:
+        PKG_NAME: ${{ inputs.package-name }}
+        SECTION: ${{ inputs.section }}
+        PRIORITY: ${{ inputs.priority }}
+        MAINTAINER: ${{ inputs.maintainer }}
+        DESC_STUB: ${{ inputs.description-stub }}
+      run: |
+        set -euo pipefail
+        mkdir -p debian
+        cat > debian/control <<CTRLSTUB
+        Source: ${PKG_NAME}
+        Section: ${SECTION}
+        Priority: ${PRIORITY}
+        Maintainer: ${MAINTAINER}
+
+        Package: ${PKG_NAME}
+        Architecture: amd64
+        Description: ${DESC_STUB}
+        CTRLSTUB
+
+    - name: Resolve shlib dependencies
+      id: resolve
+      shell: bash
+      env:
+        BINARIES: ${{ inputs.binaries }}
+        FIND_EXPR: ${{ inputs.find-expr }}
+      run: |
+        set -euo pipefail
+
+        if [ -n "${FIND_EXPR}" ]; then
+          TARGETS=$(find ${FIND_EXPR})
+        else
+          TARGETS="${BINARIES}"
+        fi
+
+        if [ -z "${TARGETS}" ]; then
+          echo "::error::no binaries found to analyze with dpkg-shlibdeps"
+          echo "  find-expr=[${FIND_EXPR}]"
+          echo "  binaries=[${BINARIES}]"
+          exit 1
+        fi
+
+        echo "=== Analyzing targets: ${TARGETS} ==="
+        # Use the `cmd || { ...; }` form (NOT `if [ $? -ne 0 ]` after an
+        # assignment) so the exit status is checked on the actual command,
+        # not on an unrelated intermediate shell operation. The previous
+        # form broke silently when the assignment was wrapped in a
+        # subshell/pipe.
+        if ! RAW_DEPS=$(dpkg-shlibdeps -O ${TARGETS}); then
+          echo "::error::dpkg-shlibdeps exited non-zero, see warnings above"
+          exit 1
+        fi
+
+        DEPS=$(printf '%s\n' "${RAW_DEPS}" | sed 's/^shlibs:Depends=//')
+
+        echo "=== Raw shlibs:Depends line: ${RAW_DEPS} ==="
+        echo "=== Resolved Depends: ${DEPS} ==="
+
+        if [ -z "${DEPS}" ]; then
+          echo "::error::dpkg-shlibdeps returned an EMPTY Depends string."
+          echo "  This is the silent-empty-Depends bug that shipped broken"
+          echo "  swayfx/mangowc packages before. Aborting instead of"
+          echo "  publishing a package with no runtime dependencies."
+          echo "  Raw output was: [${RAW_DEPS}]"
+          echo "  Targets were: [${TARGETS}]"
+          # Dump NEEDEDs of each target for diagnosis
+          echo "=== NEEDED dump per target ==="
+          for t in ${TARGETS}; do
+            echo "--- ${t} ---"
+            objdump -p "${t}" 2>/dev/null | awk '/^  NEEDED/ {print $2}' || true
+          done
+          exit 1
+        fi
+
+        # Make DEPS newline-safe for GITHUB_OUTPUT (base64 would be overkill;
+        # dpkg-shlibdeps emits a single comma-separated line).
+        echo "depends=${DEPS}" >> "${GITHUB_OUTPUT}"
