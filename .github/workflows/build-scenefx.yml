@@ -135,9 +135,26 @@ jobs:
           echo "=== Generated shlibs ==="
           cat pkgroot/DEBIAN/shlibs
 
-          DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/lib -name "*.so*" -type f) \
-            | sed 's/^shlibs:Depends=//')
+          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          mkdir -p debian
+          cat > debian/control <<CTRLSTUB
+          Source: ${{ matrix.pkg_name }}
+          Section: libs
+          Priority: optional
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+          Package: ${{ matrix.pkg_name }}
+          Architecture: amd64
+          Description: scenefx
+          CTRLSTUB
+
+          RAW_DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/lib -name "*.so*" -type f))
+          if [ $? -ne 0 ]; then
+            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            exit 1
+          fi
+          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
           echo "=== Resolved Depends: ${DEPS} ==="
           
           cat > pkgroot/DEBIAN/control <<CTRL
@@ -229,3 +246,4 @@ jobs:
           git add pool dists
           git commit -m "Update scenefx packages" || echo "No changes"
           git push
+          
