@@ -1318,6 +1318,20 @@ Section: libs
 Priority: optional
 Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
 
+Package: scenefx0.4
+Version: 0.4.1~git0f06997.20260728.9~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2.20260728.16~devuandepot)
+Filename: pool/main/scenefx0.4_0.4.1~git0f06997.20260728.9~devuandepot_amd64.deb
+Size: 73192
+MD5sum: 02041455193a047cc237d49852da0d42
+SHA1: 4e1d929f002cd7cd91ae0a89efd89c2b205a62ec
+SHA256: cdb4edccbfe91ccbf4ead8432f27e112cb4e1e0e0710233dbc51b5fba6783e68
+Section: libs
+Priority: optional
+Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
+
 Package: scenefx0.5
 Version: 0.5.0~git45c6978
 Architecture: amd64
@@ -1342,6 +1356,20 @@ Size: 84352
 MD5sum: 6d304bc5ff7ff68806a8fc33e591cc1e
 SHA1: f4d14f59c22e8a6b7ebdb64894f79e3602547e58
 SHA256: d4336eb22913b31fb8b505c9ff8b6c0529cebfd4f854418201bdacee563e57e6
+Section: libs
+Priority: optional
+Description: scenefx (main) - drop-in replacement for wlr_scene
+
+Package: scenefx0.5
+Version: 0.5.0~git45c6978.20260728.9~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533.20260728.16~devuandepot)
+Filename: pool/main/scenefx0.5_0.5.0~git45c6978.20260728.9~devuandepot_amd64.deb
+Size: 84496
+MD5sum: 38d6aae2f72db550501b3aec4495733a
+SHA1: 0d6feca553913f3204faefec6ba2140303d53857
+SHA256: 77bae7e366fa203fb4ed81e1c94fa2ad78fd5432f94569a3e947701c87c0e3bc
 Section: libs
 Priority: optional
 Description: scenefx (main) - drop-in replacement for wlr_scene
