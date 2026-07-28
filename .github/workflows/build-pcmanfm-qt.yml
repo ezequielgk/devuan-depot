@@ -60,6 +60,7 @@ jobs:
           # PCManFM-Qt ships binaries plus private libs merged into usr/lib.
           find-expr: 'pkgroot/usr/bin pkgroot/usr/lib -type f -executable'
           description-stub: 'pcmanfm-qt stub'
+          working-directory: src
 
       - name: Write control file and build .deb
         working-directory: src

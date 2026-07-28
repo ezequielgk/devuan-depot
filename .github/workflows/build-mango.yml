@@ -74,6 +74,7 @@ jobs:
           # Cover both `mango` and `mmsg`; find-expr handles mmsg being absent.
           find-expr: 'pkgroot/usr/bin -type f -executable'
           description-stub: 'mangowc stub'
+          working-directory: src/mango
 
       - name: Write control and maintainer scripts
         working-directory: src/mango

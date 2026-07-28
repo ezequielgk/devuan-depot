@@ -52,6 +52,7 @@ jobs:
           maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
           binaries: 'pkgroot/usr/bin/xwayland-satellite'
           description-stub: 'xwayland-satellite stub'
+          working-directory: src
 
       - name: Write control file and build .deb
         working-directory: src

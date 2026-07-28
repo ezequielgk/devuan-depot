@@ -37,6 +37,13 @@ inputs:
     description: 'Short Description for the stub (used by dpkg-shlibdeps only).'
     required: false
     default: 'stub'
+  working-directory:
+    description: >-
+      Directory where the build produced pkgroot/ and where dpkg-shlibdeps
+      should run. Composite action steps do NOT inherit the caller step's
+      working-directory, so it must be passed explicitly.
+    required: false
+    default: '.'
 
 outputs:
   depends:
@@ -51,6 +58,7 @@ runs:
   steps:
     - name: Write debian/control stub
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       env:
         PKG_NAME: ${{ inputs.package-name }}
         SECTION: ${{ inputs.section }}
@@ -74,6 +82,7 @@ runs:
     - name: Resolve shlib dependencies
       id: resolve
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       env:
         BINARIES: ${{ inputs.binaries }}
         FIND_EXPR: ${{ inputs.find-expr }}

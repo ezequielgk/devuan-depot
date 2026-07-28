@@ -86,6 +86,7 @@ jobs:
           maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
           find-expr: 'pkgroot/usr/bin -type f -executable'
           description-stub: 'swayfx'
+          working-directory: src
 
       - name: Write control file, scripts and build .deb
         working-directory: src
