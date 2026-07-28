@@ -18,8 +18,6 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
-    container:
-      image: debian:trixie
     permissions:
       contents: write
     steps:
@@ -30,11 +28,10 @@ jobs:
 
       - name: Install tools
         run: |
-          apt-get update
-          apt-get install -y --no-install-recommends dpkg-dev python3 git
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends dpkg-dev python3 git
 
       - name: Identify candidates for removal
-        id: scan
         env:
           KEEP_COUNT: ${{ inputs.keep-count }}
           PACKAGES: ${{ inputs.packages }}
@@ -42,7 +39,7 @@ jobs:
         run: |
           set -eu
           python3 - <<'PYEOF'
-          import os, re, subprocess, sys
+          import os, subprocess
           from functools import cmp_to_key
           from collections import defaultdict
 
@@ -58,8 +55,10 @@ jobs:
           ours = [f for f in files if '~devuandepot' in f]
 
           def deb_pkg_ver(path):
-              """Return (package, version) parsed via dpkg-deb."""
-              out = subprocess.check_output(['dpkg-deb', '-f', path, 'Package', 'Version'], text=True)
+              """Return (package, version) parsed via dpkg-deb -f."""
+              out = subprocess.check_output(
+                  ['dpkg-deb', '-f', path, 'Package', 'Version'], text=True
+              )
               fields = {}
               for line in out.splitlines():
                   if ': ' in line:
@@ -68,17 +67,16 @@ jobs:
               return fields.get('Package', ''), fields.get('Version', '')
 
           def cmp_desc(a, b):
-              """Sort desc by version via dpkg --compare-versions."""
+              """Sort descending by version via dpkg --compare-versions."""
               va, vb = a[1], b[1]
-              if subprocess.run(['dpkg', '--compare-versions', va, 'eq', vb]).returncode == 0:
+              if subprocess.run(['dpkg', '--compare-versions', va, 'eq', vb],
+                                capture_output=True).returncode == 0:
                   return 0
-              if subprocess.run(['dpkg', '--compare-versions', va, 'lt', vb]).returncode == 0:
-                  return 1   # a < b -> a goes after b in desc sort
-              return -1      # a > b -> a goes before b
+              if subprocess.run(['dpkg', '--compare-versions', va, 'lt', vb],
+                                capture_output=True).returncode == 0:
+                  return 1   # a < b  -> a goes after b in desc sort
+              return -1      # a > b  -> a goes before b
 
-          # Group by package name based on the .deb's control metadata (more
-          # accurate than parsing the filename, which would mis-group e.g.
-          # scenefx0.4 vs scenefx0.5 if we stripped on the first _).
           groups = defaultdict(list)
           for f in ours:
               pkg, ver = deb_pkg_ver(os.path.join(pool, f))
@@ -106,7 +104,6 @@ jobs:
           print()
           print(f"=== Total to delete: {len(to_delete)} ===")
 
-          # Persist for the next steps
           with open(os.environ['GITHUB_ENV'], 'a') as env:
               env.write(f"DELETE_COUNT={len(to_delete)}\n")
           with open('/tmp/to_delete.txt', 'w') as out:
@@ -120,6 +117,7 @@ jobs:
 
       - name: Remove old .deb files and regenerate indices
         if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run != 'true' }}
+        working-directory: ${{ github.workspace }}
         run: |
           set -eu
           if [ ! -s /tmp/to_delete.txt ]; then
@@ -129,11 +127,8 @@ jobs:
           while IFS= read -r f; do
             git rm -f "pool/main/$f"
           done < /tmp/to_delete.txt
-          # Regenerate Packages with --multiversion so apt keeps seeing all
-          # remaining versions.
           dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
-          # Refresh Release with current hashes + Date.
           cd dists/trixie
           cat > Release <<REL
           Origin: devuan-depot
@@ -155,8 +150,8 @@ jobs:
 
       - name: Sign Release
         if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run != 'true' }}
+        working-directory: ${{ github.workspace }}/dists/trixie
         run: |
-          cd dists/trixie
           gpg --batch --yes \
             --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
           gpg --batch --yes \
@@ -164,6 +159,7 @@ jobs:
 
       - name: Commit and push
         if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run != 'true' }}
+        working-directory: ${{ github.workspace }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
