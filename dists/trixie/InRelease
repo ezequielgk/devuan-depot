@@ -7,37 +7,37 @@ Suite: trixie
 Codename: trixie
 Architectures: amd64
 Components: main
-Date: Tue, 28 Jul 2026 04:18:56 +0000
-Date: Tue, 28 Jul 2026 04:18:56 +0000
+Date: Tue, 28 Jul 2026 04:36:22 +0000
+Date: Tue, 28 Jul 2026 04:36:22 +0000
 MD5Sum:
- e67a7532fc5aaa9b537c3bea698802e7              200 Release
+ d7ce1d87ded4491dcafa59e6405b3a3c              200 Release
  77fec8d82850944a944a1003059b6fcf            53727 main/binary-amd64/Packages
- 61cc746f339cd2dd3c3fedf6a1f8325f            12726 main/binary-amd64/Packages.gz
+ ecb8c80ca7a23cf8de8dbe7366e2aea9            12726 main/binary-amd64/Packages.gz
 SHA1:
- e25c921fb85a547a1673cf4c70f0793e10022226              200 Release
+ a4dda65dd2ed21f28a5d1a5a8dcaa0728af69256              200 Release
  05e60eef7f5a95cfca15a4305871405b94c9ac64            53727 main/binary-amd64/Packages
- 2a23798adef886d81540e1ad672d3c2abbc66c52            12726 main/binary-amd64/Packages.gz
+ 310778a90f8f3a001e390b19128e8ec704d36af6            12726 main/binary-amd64/Packages.gz
 SHA256:
- 5ff1a3d42947cfc31814e53d1d3a0a7ebe4c51ada5b40e52038708a109fc1a76              200 Release
+ 38800e4647240bc4b9ea9cc6606cab91a65b2d5f0e563e023f6c5b126704e291              200 Release
  2c11e2b438c0e71f954f0ccafe5d7ffb72c3b8fa2094b55ade949c1d7be1c1c2            53727 main/binary-amd64/Packages
- 42e9f2ef5226a31852753ed566c825a484da9f0d1ff52f9ecfa0c7a357c96ef2            12726 main/binary-amd64/Packages.gz
+ f09530f52f67a1badf8d6cac9655abb8797d9dc4fa8ddb495475558f15d97e7e            12726 main/binary-amd64/Packages.gz
 SHA512:
- 191b07714555ea48c5320b5cc602a43350b736f5137eb4dcf5227119567c93303d36df72a88f521b844ce152ef178e72392651f518ba332183b4119067a12f7a              200 Release
+ 4a0af9619d1cd6b9197492db58cdc6535cdb2cb7a1a926e04e6f4902c86a1b0864b96333d9da579a7c43c6805f6ff24df34d0add6d575fc18d159c421c33161c              200 Release
  1d10c19f328c83a4b588d7b8fd5989cdbb168111417b204d09c494e51f484b02ba690221484789607afb44a2fce68d26546aa0366ab174ebde2484320920ffaf            53727 main/binary-amd64/Packages
- ce07b6f16d5138eccd7f5fed24be6766276bfcc870fa1966059f61d2c40a1a2d1d04b7d6d697b620b0cb1b7c00e1205d2ed56ca4414305ebfa95dcf814125ab5            12726 main/binary-amd64/Packages.gz
+ 3dc09b4017137e1ca956ef7f1d7455c6bd5cb3f8042c1a73b44c689d5450e4742d97b1417d03cd9cf45316229145bcc7007521f6806b4847a26f78a87cc2e8b2            12726 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpoLbEACgkQQefTvOiq
-LHQH4w/9HSLqeeyTXY64srCJsQRmGhACF+RoyaNZLbTH/TbLU7Pv47WM49BlgQqg
-PlvmgsIjE4qspjRZmrjJulis9ToEZaCaCoaAnJoDsstSSrXdVZ4r5/Cc55mNXGbP
-s9is/l4tFFg3Ncu4LnbftAHrqNXa0aEeWlbGx1CTRTFxIBpeI6Skp1jX3i2e/rhP
-8Elwe1jjDMHvkOrKirqrK9p3+VASnOY9Op/aB+qHZvVW+SruUsZDpzc6WWd4hxwn
-yDJXG5ABbzok497UGNEcCKOt6C0KI/pANYe2atJ6HhTMW4rbmdNuWf4lx6oyX5/3
-rZ1eRv9p3/UXXYkIx8C0XmaAS9YgOo5laomc2JPDbaBTRKvdvzrrSl/5wRIS9/tm
-DOmdnhLlv4lu97mYn+Q23+hMi6aGEyOvfF6D55WhGZtVVkNrO3gW67P/pFts41LM
-Qe8ciUWpHIf8LDWjjSh+oV9Eo5Vne5/SAmOgW7Ag3EDhtNmWTED+hlDzoKlaYk4F
-mw7ORIc8OD38BHYr0GFMRbM+OOA3FmcTgr9D11Xf5kYswgKiwe75T8Of27FBkwhr
-o4W05cTS7AlZuUjpL/KFb5L0UsSBJXVaZtrg3dKH3xbqqGl8MmvgGzvR5kUNRK/F
-SeVdUrIvuVSrQSTw8Nep9rSvWRtkaCncuqfN8iRcclabc2ncYqU=
-=bZZo
+iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpoMccACgkQQefTvOiq
+LHRCog//X1deJHNlf+7yZ+1Cms3d+E0C7b4p9BZh8oUWjSvjpkKVquHXA49xuVK8
+kUxQ/SlowIM60CmcQKEYtD84bt+lUVKjirrwFHQ5MSj5mj7eV+MrKdkCA9YKBblk
+8gp64kyV46zfeq54n53aLkGCpcaQb9jPHbwMHJoXlzeZvzPLkoffX9NtYC9eh67Y
+XQisDhXPNKNV5KewGjDKACz4SK/VjGCvRFOyQcu616KrX3nWA5wDrPejsqnhNMNs
+3SGgjDJJwvGfmP0oiTlV0z8ySetZBoUJr60knr9+Y9WESQxT+MpCwmDgZKAo9vle
+W+azgCaSYx5e5ANURG//3xW6MqJnbBKuFrJhsgnzGnLuGNlllKR9L2CsJqEHuKvB
+LVKlcLPz82HOHh/4rJnvwronU5q+hVDm+nqRXytKcqhMFMu4cb6H4oyjDfPkokOD
+Q5QDkChe3NgBsztckOEcZzTArLodI7eq0BDeQXREqrfAn7BoRpIu4qmZZkinCtEL
+swbeumk5EyJEcDxDYsYAFgTryhob1RKvAPt7GeYh4Vb10gBPmwg2gikVI4f6i2XH
+s7IrHg9DGoP3u4k6cR8+OQN2LkBVFyQ3+gqN1BjYC1NotOZCflbc6bo0Qifo2eW9
+1b2gJZLq7W+3CiPNR9tw132fDYVn48jlc3seAZrTiqh573fjguo=
+=rVOk
 -----END PGP SIGNATURE-----
