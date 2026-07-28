@@ -152,7 +152,7 @@ jobs:
           sudo apt-get install -y dpkg-dev
           mkdir -p pool/main dists/trixie/main/binary-amd64
           cp incoming/*.deb pool/main/
-          dpkg-scanpackages --arch amd64 pool/ > dists/trixie/main/binary-amd64/Packages
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
 
       - name: Generate and sign Release
