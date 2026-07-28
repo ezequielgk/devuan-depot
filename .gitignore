@@ -1,4 +1,5 @@
 *.deb
+!pool/main/*.deb
 *.asc
 !public.asc
 build/
