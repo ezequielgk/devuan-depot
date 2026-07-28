@@ -41,9 +41,26 @@ jobs:
           
           mkdir -p pkgroot/DEBIAN
           
-          DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/bin -type f -executable) \
-            | sed 's/^shlibs:Depends=//')
+          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          mkdir -p debian
+          cat > debian/control <<'CTRLSTUB'
+          Source: foot
+          Section: x11
+          Priority: optional
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+          Package: foot
+          Architecture: amd64
+          Description: stub
+          CTRLSTUB
+
+          RAW_DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/bin -type f -executable))
+          if [ $? -ne 0 ]; then
+            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            exit 1
+          fi
+          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
           echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL

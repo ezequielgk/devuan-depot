@@ -55,9 +55,26 @@ jobs:
 
           # Fail loudly if any NEEDED library cannot be mapped to a package:
           # silent empty Depends is what broke swayfx installations previously.
-          DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable) \
-            | sed 's/^shlibs:Depends=//')
+          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          mkdir -p debian
+          cat > debian/control <<'CTRLSTUB'
+          Source: mangowc
+          Section: x11
+          Priority: optional
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+          Package: mangowc
+          Architecture: amd64
+          Description: stub
+          CTRLSTUB
+
+          RAW_DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable))
+          if [ $? -ne 0 ]; then
+            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            exit 1
+          fi
+          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
           echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL

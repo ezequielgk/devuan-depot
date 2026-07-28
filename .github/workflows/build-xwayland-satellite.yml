@@ -34,9 +34,26 @@ jobs:
           mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
           cp target/release/xwayland-satellite pkgroot/usr/bin/
 
-          DEPS=$(dpkg-shlibdeps -O \
-            pkgroot/usr/bin/xwayland-satellite \
-            | sed 's/^shlibs:Depends=//')
+          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          mkdir -p debian
+          cat > debian/control <<'CTRLSTUB'
+          Source: xwayland-satellite
+          Section: x11
+          Priority: optional
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+          Package: xwayland-satellite
+          Architecture: amd64
+          Description: stub
+          CTRLSTUB
+
+          RAW_DEPS=$(dpkg-shlibdeps -O \
+            pkgroot/usr/bin/xwayland-satellite)
+          if [ $? -ne 0 ]; then
+            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            exit 1
+          fi
+          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
 
           # xwayland is a runtime dependency that shlib analysis cannot see
           DEPS="${DEPS}, xwayland"
