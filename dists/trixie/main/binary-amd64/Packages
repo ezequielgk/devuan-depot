@@ -1306,6 +1306,22 @@ Priority: optional
 Description: Niri - A scrollable-tiling Wayland compositor
  Niri is a scrollable-tiling Wayland compositor.
 
+Package: niri
+Version: 26.04.20260728.3~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.39), libcairo2 (>= 1.4.10), libdisplay-info2 (>= 0.2.0), libgbm1 (>= 21.3.0~rc1), libgcc-s1 (>= 4.2), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.21.0), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.14.0), libpipewire-0.3-0t64 (>= 0.3.75), libpixman-1-0 (>= 0.30.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libxkbcommon0 (>= 0.5.0)
+Recommends: xwayland-satellite
+Filename: pool/main/niri_26.04.20260728.3~devuandepot_amd64.deb
+Size: 23335476
+MD5sum: e6f3d045aa27d459aa6d04626cdcd420
+SHA1: cba98404dd7d987254d2504ed109585c3180a8d5
+SHA256: 4179ebcf54ddab4fa55262b5c858815b581c1ebee692963ad9171d9fecd2fdee
+Section: x11
+Priority: optional
+Description: Niri - A scrollable-tiling Wayland compositor
+ Niri is a scrollable-tiling Wayland compositor.
+
 Package: pcmanfm-qt
 Version: 2.1.0-99~devuandepot
 Architecture: amd64
