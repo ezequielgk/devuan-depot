@@ -238,9 +238,21 @@ jobs:
 
       - name: Add to pool and regenerate indices
         run: |
+          set -eu
           sudo apt-get install -y dpkg-dev
           mkdir -p pool/main dists/trixie/main/binary-amd64
-          cp incoming/*.deb pool/main/
+          # download-artifact with `pattern:` + `merge-multiple: true` nests
+          # each artifact under its own subdir (incoming/scenefx-deb-scenefx0.4/...),
+          # so `incoming/*.deb` does NOT match. Use find(1) to collect every
+          # .deb recursively, mirroring the wlroots publish fix for the same
+          # kind of stale-Packages corruption.
+          find incoming -type f -name '*.deb' -print -exec cp -v {} pool/main/ \;
+          if ! ls pool/main/*.deb >/dev/null 2>&1; then
+            echo "::error::no .deb files were copied from incoming/ to pool/main/"
+            echo "incoming/ contents:"
+            find incoming -type f -o -type d | head -50
+            exit 1
+          fi
           dpkg-scanpackages --arch amd64 pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
 

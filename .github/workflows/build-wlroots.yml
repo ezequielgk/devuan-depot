@@ -238,9 +238,23 @@ jobs:
 
       - name: Add to pool and regenerate indices
         run: |
+          set -eu
           sudo apt-get install -y dpkg-dev
           mkdir -p pool/main dists/trixie/main/binary-amd64
-          cp incoming/*.deb pool/main/
+          # download-artifact with `pattern:` + `merge-multiple: true` nests
+          # each artifact under its own subdir (incoming/wlroots-deb-wlroots0.19/...),
+          # so `incoming/*.deb` does NOT match. Use find(1) to collect every
+          # .deb recursively. Without this the pool is silently left untouched
+          # but the Packages file is regenerated from the stale pool — which
+          # is exactly the c2ec6e5 corruption that shipped +13 references to
+          # .deb files that were never actually committed to pool/.
+          find incoming -type f -name '*.deb' -print -exec cp -v {} pool/main/ \;
+          if ! ls pool/main/*.deb >/dev/null 2>&1; then
+            echo "::error::no .deb files were copied from incoming/ to pool/main/"
+            echo "incoming/ contents:"
+            find incoming -type f -o -type d | head -50
+            exit 1
+          fi
           dpkg-scanpackages --arch amd64 pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
 
