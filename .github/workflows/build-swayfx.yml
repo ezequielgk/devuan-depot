@@ -9,16 +9,21 @@ jobs:
       image: debian:trixie
 
     steps:
+      # Composite action lives in the default branch; sparse-checkout only.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
       - name: Install git and build dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates curl jq wget
-          
+
           # Add the devuan-depot repository to install wlroots0.19 and scenefx0.4
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           apt-get upgrade -y
-          
+
           apt-get install -y --no-install-recommends \
             build-essential meson pkg-config cmake git scdoc dpkg-dev \
             wayland-protocols libwayland-dev libpcre2-dev libjson-c-dev \
@@ -49,13 +54,17 @@ jobs:
           meson setup build --buildtype=release --prefix=/usr
           ninja -C build
 
-      - name: Package .deb
+      - name: Stage pkgroot
         working-directory: src
         run: |
-          # Remove 'v' from tag if present (e.g. v0.5.2 -> 0.5.2)
-          VERSION="${SWAYFX_VERSION#v}"
+          # Remove 'v' from tag if present (e.g. v0.5.2 -> 0.5.2) and append
+          # github.run_number so every re-run ships a strictly higher .deb
+          # version (otherwise apt would never re-offer the same tag).
+          VERSION="${SWAYFX_VERSION#v}-${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
           mkdir -p pkgroot/DEBIAN
-          DESTDIR=$PWD/pkgroot ninja -C build install
+          DESTDIR="$PWD/pkgroot" ninja -C build install
 
           # Modify wayland-sessions desktop file
           mv pkgroot/usr/share/wayland-sessions/sway.desktop pkgroot/usr/share/wayland-sessions/swayfx.desktop
@@ -67,30 +76,22 @@ jobs:
           Type=Application
           SESSION
 
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar,
-          # y el error silencioso previo (Depends vacio) fue lo que rompio
-          # las instalaciones de swayfx antes de este fix.
-          mkdir -p debian
-          cat > debian/control <<CTRLSTUB
-          Source: swayfx
-          Section: x11
-          Priority: optional
-          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: swayfx
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          find-expr: 'pkgroot/usr/bin -type f -executable'
+          description-stub: 'swayfx'
 
-          Package: swayfx
-          Architecture: amd64
-          Description: SwayFX
-          CTRLSTUB
-
-          RAW_DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/bin -type f -executable))
-          if [ $? -ne 0 ]; then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
-            exit 1
-          fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-          echo "=== Resolved Depends: ${DEPS} ==="
-
+      - name: Write control file, scripts and build .deb
+        working-directory: src
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: swayfx
           Version: ${VERSION}
@@ -190,4 +191,3 @@ jobs:
           git add pool dists
           git commit -m "Update swayfx" || echo "No changes"
           git push
-          

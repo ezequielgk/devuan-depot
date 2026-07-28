@@ -49,7 +49,9 @@ jobs:
           git clone --branch ${{ matrix.branch }} --depth 1 https://github.com/wlrfx/scenefx.git src
           cd src
           SCENEFX_VERSION=$(git rev-parse --short HEAD)
-          echo "SCENEFX_VERSION=${{ matrix.version }}~git${SCENEFX_VERSION}" >> $GITHUB_ENV
+          # Append github.run_number so every re-run of the workflow produces
+          # a strictly higher .deb version than the previous pool copy.
+          echo "SCENEFX_VERSION=${{ matrix.version }}~git${SCENEFX_VERSION}+${{ github.run_number }}~devuandepot" >> $GITHUB_ENV
 
       - name: Patch meson.build for versioned SONAME
         working-directory: src
@@ -148,14 +150,35 @@ jobs:
           Description: scenefx
           CTRLSTUB
 
-          RAW_DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/lib -name "*.so*" -type f))
-          if [ $? -ne 0 ]; then
+          # Hardened shlib resolution: check the command's exit status with
+          # `cmd || { ...; }` (NOT `if [ $? -ne 0 ]` after an assignment, which
+          # is fragile if the assignment is later wrapped in a pipeline), and
+          # fail loudly on an EMPTY Depends string. The silent-empty-Depends
+          # bug shipped broken swayfx/mangowc packages before; abort here instead.
+          set -u
+          SO_TARGETS=$(find pkgroot/usr/lib -name "*.so*" -type f)
+          if [ -z "$SO_TARGETS" ]; then
+            echo "ERROR: no versioned shared libraries found to scan"
+            exit 1
+          fi
+          if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
             echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
             exit 1
           fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
+          DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
+          echo "=== Raw shlibs:Depends line: ${RAW_DEPS} ==="
           echo "=== Resolved Depends: ${DEPS} ==="
+          if [ -z "$DEPS" ]; then
+            echo "ERROR: dpkg-shlibdeps resolved an EMPTY Depends for ${{ matrix.pkg_name }}"
+            echo "  Aborting instead of publishing a lib with no runtime deps."
+            echo "  Targets were: [$SO_TARGETS]"
+            for t in $SO_TARGETS; do
+              echo "--- $t NEEDED ---"
+              objdump -p "$t" 2>/dev/null | awk '/^  NEEDED/ {print $2}' || true
+            done
+            exit 1
+          fi
+          set +u
           
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: ${{ matrix.pkg_name }}

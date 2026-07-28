@@ -11,6 +11,11 @@ jobs:
     container:
       image: debian:trixie
     steps:
+      # Composite action lives in the default branch; sparse-checkout only.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
       - name: Instalar toolchain y dependencias de build
         run: |
           apt-get update
@@ -27,45 +32,42 @@ jobs:
         working-directory: src
         run: cargo build --release --locked
 
-      - name: Empaquetar .deb
+      - name: Stage pkgroot
         working-directory: src
         run: |
-          VERSION="0.8.1"
+          # Append github.run_number so re-runs of the same upstream tag ship a
+          # strictly higher .deb version than the previous pool copy.
+          VERSION="0.8.1-${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
           mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
           cp target/release/xwayland-satellite pkgroot/usr/bin/
 
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
-          mkdir -p debian
-          cat > debian/control <<'CTRLSTUB'
-          Source: xwayland-satellite
-          Section: x11
-          Priority: optional
-          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: xwayland-satellite
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          binaries: 'pkgroot/usr/bin/xwayland-satellite'
+          description-stub: 'xwayland-satellite stub'
 
-          Package: xwayland-satellite
-          Architecture: amd64
-          Description: stub
-          CTRLSTUB
-
-          RAW_DEPS=$(dpkg-shlibdeps -O \
-            pkgroot/usr/bin/xwayland-satellite)
-          if [ $? -ne 0 ]; then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
-            exit 1
-          fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-
-          # xwayland is a runtime dependency that shlib analysis cannot see
-          DEPS="${DEPS}, xwayland"
-          echo "=== Resolved Depends: ${DEPS} ==="
-
+      - name: Write control file and build .deb
+        working-directory: src
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
+          # Xwayland is a runtime dependency that shlib analysis cannot see.
+          FINAL_DEPS="${DEPS}, xwayland"
+          echo "=== Final Depends: ${FINAL_DEPS} ==="
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: xwayland-satellite
           Version: ${VERSION}
           Section: x11
           Priority: optional
           Architecture: amd64
-          Depends: ${DEPS}
+          Depends: ${FINAL_DEPS}
           Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
           Description: xwayland-satellite - Xwayland rootless para niri
            Provee integracion Xwayland sin systemd para compositores

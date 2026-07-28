@@ -8,16 +8,22 @@ jobs:
     container:
       image: debian:trixie
     steps:
+      # The composite action lives in the default branch; sparse-checkout
+      # is enough — the build downloads its own upstream source below.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
       - name: Install build dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates curl jq wget
-          
+
           # Add the devuan-depot repository to install backports, wlroots0.20 and scenefx0.5
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           apt-get upgrade -y
-          
+
           apt-get install -y --no-install-recommends \
             build-essential meson pkg-config cmake git scdoc dpkg-dev \
             wayland-protocols libwayland-dev libpcre2-dev libcjson-dev \
@@ -43,39 +49,39 @@ jobs:
           meson setup build --buildtype=release --prefix=/usr --wrap-mode=default -Dwerror=false
           ninja -C build
 
-      - name: Package .deb
+      - name: Stage pkgroot
         working-directory: src/mango
         run: |
-          # Use a short commit hash for the version since we are building from main
+          # Use a short commit hash for the version since we are building from main.
+          # Append github.run_number so every re-run of the workflow produces a
+          # monotonically higher .deb version (otherwise apt never offers an
+          # upgrade when the upstream commit hash did not change — the bug that
+          # kept distributing the same 0.0.0+gitcc4fdec indefinitely).
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          VERSION="0.0.0+git${COMMIT_HASH}"
-          
+          echo "COMMIT_HASH=${COMMIT_HASH}" >> "$GITHUB_ENV"
+
           mkdir -p pkgroot/DEBIAN
           DESTDIR=$PWD/pkgroot ninja -C build install
 
-          # Fail loudly if any NEEDED library cannot be mapped to a package:
-          # silent empty Depends is what broke swayfx installations previously.
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
-          mkdir -p debian
-          cat > debian/control <<'CTRLSTUB'
-          Source: mangowc
-          Section: x11
-          Priority: optional
-          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: mangowc
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          # Cover both `mango` and `mmsg`; find-expr handles mmsg being absent.
+          find-expr: 'pkgroot/usr/bin -type f -executable'
+          description-stub: 'mangowc stub'
 
-          Package: mangowc
-          Architecture: amd64
-          Description: stub
-          CTRLSTUB
-
-          # Explicitly target mango to avoid any find issues
-          RAW_DEPS=$(dpkg-shlibdeps -O pkgroot/usr/bin/mango)
-          if [ $? -ne 0 ]; then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
-            exit 1
-          fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-          echo "=== Resolved Depends: ${DEPS} ==="
+      - name: Write control and maintainer scripts
+        working-directory: src/mango
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
+          VERSION="0.0.0+git${COMMIT_HASH}+${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: mangowc

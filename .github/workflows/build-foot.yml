@@ -8,6 +8,11 @@ jobs:
     container:
       image: debian:trixie
     steps:
+      # Composite action lives in the default branch; sparse-checkout only.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
       - name: Install build dependencies
         run: |
           apt-get update
@@ -22,7 +27,7 @@ jobs:
           LATEST_TAG=$(git ls-remote --tags --sort=v:refname https://codeberg.org/dnkl/foot.git | grep -v "\^{}" | tail -n 1 | awk -F/ '{print $3}')
           echo "Obtained latest version: $LATEST_TAG"
           echo "FOOT_VERSION=$LATEST_TAG" >> $GITHUB_ENV
-          
+
           git clone --branch $LATEST_TAG --depth 1 https://codeberg.org/dnkl/foot.git src
 
       - name: Compile
@@ -32,37 +37,31 @@ jobs:
           meson setup build --buildtype=release --prefix=/usr -Db_lto=true -Dterminfo=disabled
           ninja -C build
 
-      - name: Package .deb
+      - name: Stage pkgroot
         working-directory: src
         run: |
-          VERSION="${FOOT_VERSION#v}"
-          DESTDIR=$(pwd)/pkgroot
-          DESTDIR=$DESTDIR ninja -C build install
-          
+          VERSION="${FOOT_VERSION#v}-${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          DESTDIR="$(pwd)/pkgroot"
+          DESTDIR="$DESTDIR" ninja -C build install
           mkdir -p pkgroot/DEBIAN
-          
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
-          mkdir -p debian
-          cat > debian/control <<'CTRLSTUB'
-          Source: foot
-          Section: x11
-          Priority: optional
-          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 
-          Package: foot
-          Architecture: amd64
-          Description: stub
-          CTRLSTUB
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: foot
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          find-expr: 'pkgroot/usr/bin -type f -executable'
+          description-stub: 'foot stub'
 
-          RAW_DEPS=$(dpkg-shlibdeps -O \
-            $(find pkgroot/usr/bin -type f -executable))
-          if [ $? -ne 0 ]; then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
-            exit 1
-          fi
-          DEPS=$(echo "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-          echo "=== Resolved Depends: ${DEPS} ==="
-
+      - name: Write control file and build .deb
+        working-directory: src
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: foot
           Version: ${VERSION}
