@@ -44,7 +44,7 @@ jobs:
           # Strip a leading 'v' from the tag (e.g. v0.1.0 -> 0.1.0) and append
           # github.run_number so every re-run ships a strictly higher .deb
           # version, preventing a stale pool entry from winning apt upgrades.
-          VERSION="${CONCORD_VERSION#v}-${{ github.run_number }}~devuandepot"
+          VERSION="${CONCORD_VERSION#v}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
           mkdir -p pkgroot/DEBIAN pkgroot/usr/bin

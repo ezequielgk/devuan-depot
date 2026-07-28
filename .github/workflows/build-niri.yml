@@ -42,7 +42,7 @@ jobs:
         run: |
           # Strip a leading 'v' from the tag if present and append
           # github.run_number so every re-run ships a strictly higher .deb.
-          VERSION="${NIRI_VERSION#v}-${{ github.run_number }}~devuandepot"
+          VERSION="${NIRI_VERSION#v}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
           mkdir -p pkgroot/DEBIAN

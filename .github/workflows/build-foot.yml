@@ -40,7 +40,7 @@ jobs:
       - name: Stage pkgroot
         working-directory: src
         run: |
-          VERSION="${FOOT_VERSION#v}-${{ github.run_number }}~devuandepot"
+          VERSION="${FOOT_VERSION#v}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
           DESTDIR="$(pwd)/pkgroot"
           DESTDIR="$DESTDIR" ninja -C build install

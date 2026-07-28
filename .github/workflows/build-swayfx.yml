@@ -60,7 +60,7 @@ jobs:
           # Remove 'v' from tag if present (e.g. v0.5.2 -> 0.5.2) and append
           # github.run_number so every re-run ships a strictly higher .deb
           # version (otherwise apt would never re-offer the same tag).
-          VERSION="${SWAYFX_VERSION#v}-${{ github.run_number }}~devuandepot"
+          VERSION="${SWAYFX_VERSION#v}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
           mkdir -p pkgroot/DEBIAN

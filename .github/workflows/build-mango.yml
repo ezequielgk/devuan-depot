@@ -81,7 +81,7 @@ jobs:
         env:
           DEPS: ${{ steps.deps.outputs.depends }}
         run: |
-          VERSION="0.0.0+git${COMMIT_HASH}+${{ github.run_number }}~devuandepot"
+          VERSION="0.$(date -u +%Y%m%d)+git${COMMIT_HASH}.${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
           cat > pkgroot/DEBIAN/control <<CTRL

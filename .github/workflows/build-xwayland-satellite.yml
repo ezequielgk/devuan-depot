@@ -37,7 +37,7 @@ jobs:
         run: |
           # Append github.run_number so re-runs of the same upstream tag ship a
           # strictly higher .deb version than the previous pool copy.
-          VERSION="0.8.1-${{ github.run_number }}~devuandepot"
+          VERSION="0.8.1.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
           mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
           cp target/release/xwayland-satellite pkgroot/usr/bin/
