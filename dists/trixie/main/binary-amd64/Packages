@@ -1371,12 +1371,12 @@ Package: xwayland-satellite
 Version: 0.8.1
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: xwayland
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libxcb-cursor0 (>= 0.0.99), libxcb1 (>= 1.11.1), xwayland
 Filename: pool/main/xwayland-satellite_0.8.1_amd64.deb
-Size: 1809152
-MD5sum: 2179d924709625ce4a2a2fde46e5f045
-SHA1: 30947faa8f811ce2d8d1bf25c4c1f9777dcbd3fe
-SHA256: 87ca5ba9c8764514d7e3066f4750afbc89eac72978b2ec5c097f5f1977f607b6
+Size: 1810264
+MD5sum: e72df0ff9adcd9a0171123590294df69
+SHA1: aef5e760130850b86c5abcd4e3cda6e92ceaab2b
+SHA256: 8605e9b84207627953acea1ec363b54ed90e88e81b0fcf9838dee75a99b0f78f
 Section: x11
 Priority: optional
 Description: xwayland-satellite - Xwayland rootless para niri
