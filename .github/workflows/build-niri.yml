@@ -52,9 +52,10 @@ jobs:
             cp resources/niri.desktop pkgroot/usr/share/wayland-sessions/
           fi
 
-          DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/usr/bin -type f -executable 2>/dev/null) \
-            2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
+          DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/bin -type f -executable) \
+            | sed 's/^shlibs:Depends=//')
+          echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: niri

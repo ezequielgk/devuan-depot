@@ -67,9 +67,12 @@ jobs:
           Type=Application
           SESSION
 
-          DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
-            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable 2>/dev/null) \
-            2>/dev/null | sed 's/^shlibs:Depends=//' || echo "")
+          # Fail loudly if any NEEDED library cannot be mapped to a package:
+          # silent empty Depends is what broke swayfx installations previously.
+          DEPS=$(dpkg-shlibdeps -O \
+            $(find pkgroot/usr/bin pkgroot/usr/lib -type f -executable) \
+            | sed 's/^shlibs:Depends=//')
+          echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: swayfx

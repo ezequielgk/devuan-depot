@@ -34,15 +34,13 @@ jobs:
           mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
           cp target/release/xwayland-satellite pkgroot/usr/bin/
 
-          DEPS=$(dpkg-shlibdeps --ignore-missing-info -O \
+          DEPS=$(dpkg-shlibdeps -O \
             pkgroot/usr/bin/xwayland-satellite \
-            2>/dev/null | sed 's/^shlibs:Depends=//' || true)
-            
-          if [ -z "$DEPS" ]; then
-            DEPS="xwayland"
-          else
-            DEPS="${DEPS}, xwayland"
-          fi
+            | sed 's/^shlibs:Depends=//')
+
+          # xwayland is a runtime dependency that shlib analysis cannot see
+          DEPS="${DEPS}, xwayland"
+          echo "=== Resolved Depends: ${DEPS} ==="
 
           cat > pkgroot/DEBIAN/control <<CTRL
           Package: xwayland-satellite
