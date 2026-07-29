@@ -1240,36 +1240,6 @@ Description: debug symbols for libxkbregistry0
 Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
 
 Package: mangowc
-Version: 0.0.0+git9ce833b+22~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-server0 (>= 1.14.91), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978+8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533+15~devuandepot)
-Filename: pool/main/mangowc_0.0.0+git9ce833b+22~devuandepot_amd64.deb
-Size: 609884
-MD5sum: 25fe5a7dc4b27c4e0634f3751c0b10e1
-SHA1: a335260ee9f3deb31356baf246d46ef5f67dd1d6
-SHA256: 99123bdc7581567bd96b7db1aa1c9ba774cf95d683f19401a18d4cf7521dc50a
-Section: x11
-Priority: optional
-Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
- Practical and Powerful wayland compositor (dwm but wayland).
-
-Package: mangowc
-Version: 0.15.5.20260729.2~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-server0 (>= 1.14.91), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
-Filename: pool/main/mangowc_0.15.5.20260729.2~devuandepot_amd64.deb
-Size: 609648
-MD5sum: 58f0921869e469496d2ee1fb3d70229f
-SHA1: 4717bf8f1e1e3899697f39766f021ce4ab43e585
-SHA256: e5b0f021596243ec128be00f089e578ec97d3b47d94757f712933a2c8f62e2e9
-Section: x11
-Priority: optional
-Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
- Practical and Powerful wayland compositor (dwm but wayland).
-
-Package: mangowc
 Version: 0.15.5.20260729.3~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1366,34 +1336,6 @@ Description: Software for playing Microsoft Windows games and launchers.
 License: MIT
 
 Package: scenefx0.4
-Version: 0.4.1~git0f06997+8~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2+15~devuandepot)
-Filename: pool/main/scenefx0.4_0.4.1~git0f06997+8~devuandepot_amd64.deb
-Size: 73448
-MD5sum: 7b837a9048a86d5982caa6d6242693b3
-SHA1: 57a5b60754e77787994fb2894cdbe9f8572452a8
-SHA256: bf275f0b63866f1946733c1719ba3b616d7080aa992b590ed936413010f43703
-Section: libs
-Priority: optional
-Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
-
-Package: scenefx0.4
-Version: 0.4.1~git0f06997.20260728.9~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2.20260728.16~devuandepot)
-Filename: pool/main/scenefx0.4_0.4.1~git0f06997.20260728.9~devuandepot_amd64.deb
-Size: 73192
-MD5sum: 02041455193a047cc237d49852da0d42
-SHA1: 4e1d929f002cd7cd91ae0a89efd89c2b205a62ec
-SHA256: cdb4edccbfe91ccbf4ead8432f27e112cb4e1e0e0710233dbc51b5fba6783e68
-Section: libs
-Priority: optional
-Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
-
-Package: scenefx0.4
 Version: 0.4.1~git0f06997.20260729.7~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1420,34 +1362,6 @@ SHA256: 88667326d6be11ec130686adff28c43cf22756c6313691269886e395576fcb34
 Section: libs
 Priority: optional
 Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
-
-Package: scenefx0.5
-Version: 0.5.0~git45c6978+8~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533+15~devuandepot)
-Filename: pool/main/scenefx0.5_0.5.0~git45c6978+8~devuandepot_amd64.deb
-Size: 84352
-MD5sum: 6d304bc5ff7ff68806a8fc33e591cc1e
-SHA1: f4d14f59c22e8a6b7ebdb64894f79e3602547e58
-SHA256: d4336eb22913b31fb8b505c9ff8b6c0529cebfd4f854418201bdacee563e57e6
-Section: libs
-Priority: optional
-Description: scenefx (main) - drop-in replacement for wlr_scene
-
-Package: scenefx0.5
-Version: 0.5.0~git45c6978.20260728.9~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533.20260728.16~devuandepot)
-Filename: pool/main/scenefx0.5_0.5.0~git45c6978.20260728.9~devuandepot_amd64.deb
-Size: 84496
-MD5sum: 38d6aae2f72db550501b3aec4495733a
-SHA1: 0d6feca553913f3204faefec6ba2140303d53857
-SHA256: 77bae7e366fa203fb4ed81e1c94fa2ad78fd5432f94569a3e947701c87c0e3bc
-Section: libs
-Priority: optional
-Description: scenefx (main) - drop-in replacement for wlr_scene
 
 Package: scenefx0.5
 Version: 0.5.0~git45c6978.20260729.7~devuandepot
@@ -1547,34 +1461,6 @@ Priority: optional
 Description: Wayland (1.24.0) installed in /opt/wayland1.24 (Backport)
 
 Package: wlroots0.19
-Version: 0.19.0~git13a62a2+15~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.19_0.19.0~git13a62a2+15~devuandepot_amd64.deb
-Size: 524600
-MD5sum: fca2de07f8928e0342d03f185b634994
-SHA1: ecd04c8f9d7a79d08fc616e2117ecee580b37fc6
-SHA256: 50610dc0a5a9a826838c82abf409a16fd584b14b2c82489365a4fc6cef9561d2
-Section: libs
-Priority: optional
-Description: wlroots (0.19.0) modular Wayland compositor library
-
-Package: wlroots0.19
-Version: 0.19.0~git13a62a2.20260728.16~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.19_0.19.0~git13a62a2.20260728.16~devuandepot_amd64.deb
-Size: 524312
-MD5sum: 562eadaf10875c69e30c684492d557ca
-SHA1: 0632a4f9dc34f5312360fba54984b35e1af55588
-SHA256: b83ddc2e2c7b3c7857180f0d356a798a8d9c9de69a064d2aca5e3792d01eba9b
-Section: libs
-Priority: optional
-Description: wlroots (0.19.0) modular Wayland compositor library
-
-Package: wlroots0.19
 Version: 0.19.0~git13a62a2.20260729.4~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1601,34 +1487,6 @@ SHA256: af3d82fa77959f7a612e83ea130a2d8f589a45d9273ead20478f1c76c0945131
 Section: libs
 Priority: optional
 Description: wlroots (0.19.0) modular Wayland compositor library
-
-Package: wlroots0.20
-Version: 0.20.2~gitd783533+15~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.20_0.20.2~gitd783533+15~devuandepot_amd64.deb
-Size: 549904
-MD5sum: e2c594a29fdf6867ca479dc0d7280db4
-SHA1: 46000bef8252f09890748c7a049fefe31e762116
-SHA256: 246bd504372fba762df112362b4841995fccd776f06957fe09f3ad853b317d32
-Section: libs
-Priority: optional
-Description: wlroots (0.20.2) modular Wayland compositor library
-
-Package: wlroots0.20
-Version: 0.20.2~gitd783533.20260728.16~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.20_0.20.2~gitd783533.20260728.16~devuandepot_amd64.deb
-Size: 550148
-MD5sum: 3b7398bbcdd0ff91a1e73b9c2a58c2ea
-SHA1: 483b8edfd5b8863277420dfe3ca62dffb14b4472
-SHA256: 4542839f87606ae1197f99364b25637017d66411c106c520e0193afea8e31d99
-Section: libs
-Priority: optional
-Description: wlroots (0.20.2) modular Wayland compositor library
 
 Package: wlroots0.20
 Version: 0.20.2~gitd783533.20260729.4~devuandepot
