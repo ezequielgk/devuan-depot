@@ -1,0 +1,17 @@
+{
+  "script": "build-foot.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "meson", "ninja-build", "gcc", "build-essential", "cmake", "git", "dpkg-dev",
+    "libfontconfig1-dev", "libfreetype6-dev", "libpixman-1-dev", "libwayland-dev",
+    "libxkbcommon-dev", "libutf8proc-dev", "libutempter-dev", "libsystemd-dev",
+    "scdoc", "ncurses-dev", "wayland-protocols", "libfcft-dev", "libtllist-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

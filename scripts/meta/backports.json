@@ -1,0 +1,42 @@
+{
+  "script": "build-backports.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": ["curl", "gnupg", "dpkg-dev", "devscripts", "build-essential", "fakeroot"],
+  "variants": [
+    {
+      "artifact_suffix": "wayland",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "wayland" }
+    },
+    {
+      "artifact_suffix": "libdrm",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "libdrm" }
+    },
+    {
+      "artifact_suffix": "libxkbcommon",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "libxkbcommon" }
+    },
+    {
+      "artifact_suffix": "wayland-protocols",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "wayland-protocols" }
+    },
+    {
+      "artifact_suffix": "libdisplay-info",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "libdisplay-info" }
+    },
+    {
+      "artifact_suffix": "libliftoff",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "libliftoff" }
+    },
+    {
+      "artifact_suffix": "pixman",
+      "extra_apt_packages": [],
+      "env": { "DEBIAN_PKG": "pixman" }
+    }
+  ]
+}

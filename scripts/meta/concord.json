@@ -1,0 +1,15 @@
+{
+  "script": "build-concord.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "gcc", "build-essential", "pkg-config", "cmake", "git", "dpkg-dev",
+    "libopus-dev", "libasound2-dev", "libssl-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

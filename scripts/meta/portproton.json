@@ -1,0 +1,12 @@
+{
+  "script": "build-portproton.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": ["curl", "jq", "dpkg-dev", "wget"],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

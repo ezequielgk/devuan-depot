@@ -1,0 +1,26 @@
+{
+  "script": "build-mangowc.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "build-essential", "meson", "pkg-config", "cmake", "git", "scdoc", "dpkg-dev",
+    "wayland-protocols", "libwayland-dev", "libpcre2-dev", "libcjson-dev",
+    "libpango1.0-dev", "libcairo2-dev",
+    "libdrm-dev", "libgbm-dev", "libinput-dev", "libseat-dev", "libxkbcommon-dev",
+    "libxcb-dri3-dev", "libxcb-present-dev", "libxcb-res0-dev",
+    "libxcb-render-util0-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev",
+    "libliftoff-dev", "libdisplay-info-dev", "libpixman-1-dev", "liblcms2-dev",
+    "hwdata", "libudev-dev", "xwayland", "libxml2-dev", "bison", "flex",
+    "libegl1-mesa-dev", "libgles2-mesa-dev", "libvulkan-dev",
+    "libxcb-composite0-dev", "libxcb-render0-dev", "libxcb-xfixes0-dev",
+    "libxcb-shape0-dev", "libxcb-errors-dev",
+    "glslang-tools",
+    "wlroots0.20", "scenefx0.5"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "script": "build-mullvad-libre.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "curl", "wget", "jq", "xz-utils", "tar", "arj", "fakeroot", "dpkg-dev", "git"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

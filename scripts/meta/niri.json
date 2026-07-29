@@ -1,0 +1,17 @@
+{
+  "script": "build-niri.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "gcc", "clang", "libudev-dev", "libgbm-dev", "libxkbcommon-dev", "libegl1-mesa-dev",
+    "libwayland-dev", "libinput-dev", "libdbus-1-dev", "libsystemd-dev", "libseat-dev",
+    "libpipewire-0.3-dev", "libpango1.0-dev", "libdisplay-info-dev", "libclang-dev",
+    "cargo", "rustc", "pkg-config", "cmake", "git", "dpkg-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
