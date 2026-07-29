@@ -15,7 +15,7 @@ jobs:
       variants: ${{ steps.parse.outputs.variants }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Parse metadata
         id: parse
@@ -41,7 +41,7 @@ jobs:
       image: debian:trixie
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         env:
@@ -99,7 +99,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout gh-pages
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
           fetch-depth: 0
