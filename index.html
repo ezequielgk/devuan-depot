@@ -522,11 +522,30 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
                 if (!res.ok) throw new Error('not found');
                 const rawPackages = parsePackages(await res.text());
                 
-                // Deduplicate packages by name (keep first occurrence)
+                // Deduplicate packages by name (prioritize our ~devuandepot builds, then highest version)
                 const deduped = new Map();
                 for (const p of rawPackages) {
-                    if (p.Package && !deduped.has(p.Package)) {
+                    if (!p.Package) continue;
+                    
+                    const existing = deduped.get(p.Package);
+                    if (!existing) {
                         deduped.set(p.Package, p);
+                    } else {
+                        const curVer = p.Version || '';
+                        const exVer = existing.Version || '';
+                        const curIsOurs = curVer.includes('~devuandepot');
+                        const exIsOurs = exVer.includes('~devuandepot');
+                        
+                        // Prefer our package over upstream backports, or higher version if tied
+                        if (curIsOurs && !exIsOurs) {
+                            deduped.set(p.Package, p);
+                        } else if (curIsOurs === exIsOurs) {
+                            // Use basic string comparison as a proxy for version check
+                            // dpkg-scanpackages orders by filename, usually last = newest
+                            if (curVer.localeCompare(exVer) > 0) {
+                                deduped.set(p.Package, p);
+                            }
+                        }
                     }
                 }
                 allPackages = Array.from(deduped.values());
