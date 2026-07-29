@@ -1488,6 +1488,20 @@ Section: libs
 Priority: optional
 Description: wlroots (0.19.0) modular Wayland compositor library
 
+Package: wlroots0.19
+Version: 0.19.0~git13a62a2.20260729.4~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
+Filename: pool/main/wlroots0.19_0.19.0~git13a62a2.20260729.4~devuandepot_amd64.deb
+Size: 525592
+MD5sum: 4f90ebc8a9362c98ecd3a5e7943f2faf
+SHA1: 0c8d6be6e769d1e097b86bd11a356d2027bfb805
+SHA256: 600f4c1e05e45388b7f367cf80e74f6974b0e86d6f109cfb1fe7c85d92ff30d9
+Section: libs
+Priority: optional
+Description: wlroots (0.19.0) modular Wayland compositor library
+
 Package: wlroots0.20
 Version: 0.20.2~gitd783533+15~devuandepot
 Architecture: amd64
@@ -1512,6 +1526,20 @@ Size: 550148
 MD5sum: 3b7398bbcdd0ff91a1e73b9c2a58c2ea
 SHA1: 483b8edfd5b8863277420dfe3ca62dffb14b4472
 SHA256: 4542839f87606ae1197f99364b25637017d66411c106c520e0193afea8e31d99
+Section: libs
+Priority: optional
+Description: wlroots (0.20.2) modular Wayland compositor library
+
+Package: wlroots0.20
+Version: 0.20.2~gitd783533.20260729.4~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
+Filename: pool/main/wlroots0.20_0.20.2~gitd783533.20260729.4~devuandepot_amd64.deb
+Size: 550604
+MD5sum: dbc8480c5c7727b45d0ca7e2d144fda1
+SHA1: 13dc8d4de4a3a4a00e6404ae845dc4ba792847e1
+SHA256: bb2efeb75a89254a8c6098e315a6052f46b4bd84ca0600ecb42830db45f4f4aa
 Section: libs
 Priority: optional
 Description: wlroots (0.20.2) modular Wayland compositor library
