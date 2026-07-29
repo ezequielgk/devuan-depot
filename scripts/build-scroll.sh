@@ -17,8 +17,8 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/dawsers/scroll.git
 cd src/scroll
 
 echo "Compiling scroll..."
-# Devuan uses elogind instead of systemd
-meson setup build -Dprefix=/usr -Dsd-bus-provider=libelogind -Dwerror=false -Db_ndebug=true
+# Devuan uses elogind instead of systemd, but we build on Debian CI so we link against libsystemd. Devuan's libsystemd0 package satisfies it natively via elogind.
+meson setup build -Dprefix=/usr -Dsd-bus-provider=libsystemd -Dwerror=false -Db_ndebug=true
 ninja -C build
 
 echo "Staging pkgroot..."
