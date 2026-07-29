@@ -3,15 +3,23 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
+echo "Installing latest Rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH="$HOME/.cargo/bin:$PATH"
+
+echo "Getting latest tag..."
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/Supreeeme/xwayland-satellite/tags | jq -r '.[0].name')
+echo "Obtained latest version: $LATEST_TAG"
+
 echo "Cloning xwayland-satellite..."
-git clone --branch v0.8.1 --depth 1 https://github.com/Supreeeme/xwayland-satellite.git src
+git clone --branch "$LATEST_TAG" --depth 1 https://github.com/Supreeeme/xwayland-satellite.git src
 cd src
 
 echo "Compiling..."
 cargo build --release --locked
 
 echo "Staging pkgroot..."
-VERSION="0.8.1.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
+VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 mkdir -p pkgroot/DEBIAN pkgroot/usr/bin

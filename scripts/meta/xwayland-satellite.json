@@ -2,7 +2,7 @@
   "script": "build-xwayland-satellite.sh",
   "needs_devuan_depot_repo": false,
   "base_apt_packages": [
-    "build-essential", "cargo", "rustc", "pkg-config", "git", "dpkg-dev",
+    "build-essential", "pkg-config", "git", "dpkg-dev", "curl", "jq",
     "libxcb1-dev", "libxcb-render0-dev", "libxcb-shape0-dev", "libxcb-cursor-dev",
     "libxkbcommon-dev", "libwayland-dev", "clang", "libclang-dev"
   ],
