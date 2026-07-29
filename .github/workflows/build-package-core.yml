@@ -20,9 +20,9 @@ jobs:
       - name: Parse metadata
         id: parse
         run: |
-          META_FILE="scripts/meta/${{ inputs.package }}.json"
-          if [ ! -f "$META_FILE" ]; then
-            echo "Error: Metadata file $META_FILE not found"
+          META_FILE=$(find scripts -type f -name "${{ inputs.package }}.json" | head -n 1)
+          if [ -z "$META_FILE" ]; then
+            echo "Error: Metadata file for ${{ inputs.package }} not found"
             exit 1
           fi
           
@@ -51,7 +51,7 @@ jobs:
           apt-get update
           apt-get install -y jq curl wget ca-certificates
           
-          META_FILE="scripts/meta/${{ inputs.package }}.json"
+          META_FILE=$(find scripts -type f -name "${{ inputs.package }}.json" | head -n 1)
           
           # Check if we need devuan-depot repo
           NEEDS_REPO=$(jq -r '.needs_devuan_depot_repo' "$META_FILE")
@@ -83,7 +83,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          SCRIPT_NAME=$(jq -r '.script' "scripts/meta/${{ inputs.package }}.json")
+          META_FILE=$(find scripts -type f -name "${{ inputs.package }}.json" | head -n 1)
+          SCRIPT_NAME=$(jq -r '.script' "$META_FILE")
           chmod +x "scripts/$SCRIPT_NAME"
           # Run the script
           bash "scripts/$SCRIPT_NAME"

@@ -1,0 +1,19 @@
+{
+  "script": "hyprland/build-hyprlang.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "build-essential",
+    "cmake",
+    "pkg-config",
+    "clang-19",
+    "llvm-19",
+    "hyprutils"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

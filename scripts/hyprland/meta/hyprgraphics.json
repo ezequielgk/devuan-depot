@@ -1,0 +1,26 @@
+{
+  "script": "hyprland/build-hyprgraphics.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "build-essential",
+    "cmake",
+    "pkg-config",
+    "clang-19",
+    "llvm-19",
+    "hyprutils",
+    "libpixman-1-dev",
+    "libcairo2-dev",
+    "libpango1.0-dev",
+    "libjpeg-dev",
+    "libwebp-dev",
+    "hwdata",
+    "libmagic-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

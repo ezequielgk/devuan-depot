@@ -12,6 +12,12 @@ on:
           - wlroots
           - xwayland-satellite
           - backports
+          - hyprwayland-scanner
+          - hyprutils
+          - hyprlang
+          - hyprcursor
+          - hyprgraphics
+          - aquamarine
 
 permissions:
   contents: write
