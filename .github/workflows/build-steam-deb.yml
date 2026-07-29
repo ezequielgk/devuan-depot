@@ -59,45 +59,23 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          fetch-depth: 0
-
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: steam-bundled-deb
-          path: incoming/
+          path: .
 
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v7
+      - name: Extract version
+        id: version
+        run: |
+          DEB=$(ls *.deb | head -n 1)
+          VERSION=$(dpkg-deb -f "$DEB" Version)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-
-      - name: Add to pool and regenerate indices
-        run: |
-          set -eu
-          sudo apt-get update && sudo apt-get install -y dpkg-dev
-          mkdir -p pool/main dists/trixie/main/binary-amd64
-          cp incoming/*.deb pool/main/
-          
-          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
-          gzip -9fk dists/trixie/main/binary-amd64/Packages
-
-      - name: Generate and sign Release
-        run: |
-          cd dists/trixie
-          rm -f Release Release.gpg InRelease
-          apt-ftparchive release . > Release
-          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
-          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
-
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pool/ dists/
-          git commit -m "chore(repo): add steam-bundled ${{ steps.version.outputs.version }}" || echo "No changes to commit"
-          git push
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Steam Bundled ${{ steps.version.outputs.version }}
+          files: ./*.deb
+          fail_on_unmatched_files: true
