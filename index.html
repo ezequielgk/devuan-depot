@@ -406,6 +406,7 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="packages">Packages</button>
                     <button class="filter-btn" data-filter="backports">Backports</button>
+                    <a href="https://github.com/ezequielgk/devuan-depot/blob/gh-pages/dists/trixie/main/binary-amd64/Packages" target="_blank" class="filter-btn" style="text-decoration: none;">Source</a>
                 </div>
                 <div class="search-container">
                     <input type="text" id="search-input" class="search-input" placeholder="Search packages...">
@@ -519,7 +520,16 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             try {
                 const res = await fetch('dists/trixie/main/binary-amd64/Packages');
                 if (!res.ok) throw new Error('not found');
-                allPackages = parsePackages(await res.text());
+                const rawPackages = parsePackages(await res.text());
+                
+                // Deduplicate packages by name (keep first occurrence)
+                const deduped = new Map();
+                for (const p of rawPackages) {
+                    if (p.Package && !deduped.has(p.Package)) {
+                        deduped.set(p.Package, p);
+                    }
+                }
+                allPackages = Array.from(deduped.values());
 
                 renderPackages();
 
