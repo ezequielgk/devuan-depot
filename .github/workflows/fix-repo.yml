@@ -1,0 +1,53 @@
+name: Force Regenerate Repo Indices
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-repo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout devuan-depot (gh-pages)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Regenerate indices and sign Release
+        run: |
+          set -eu
+          sudo apt-get update -qq && sudo apt-get install -y -qq dpkg-dev
+          
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+          
+          cd dists/trixie
+          rm -f Release Release.gpg InRelease
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pool/ dists/
+          git commit -m "chore(repo): force regenerate indices to fix Release headers" || echo "No changes to commit"
+          git push
