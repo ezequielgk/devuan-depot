@@ -1,18 +1,4 @@
 Package: concord
-Version: 2.4.6
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/concord_2.4.6_amd64.deb
-Size: 10968464
-MD5sum: 0143637708c9f1b6f62bef6b5ff4989c
-SHA1: f7f45394cba95bd6f033ed87cafe63673a861625
-SHA256: 47ccebcef6be6951856b727870192cd15f40894a3e7b61ee5c5ab88118b047c8
-Section: x11
-Priority: optional
-Description: Concord - A Discord terminal client
- Concord is a fast and simple terminal Discord client written in Rust.
-
-Package: concord
 Version: 2.4.8.20260728.4~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -26,20 +12,6 @@ Section: x11
 Priority: optional
 Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
-
-Package: foot
-Version: 1.27.0
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/foot_1.27.0_amd64.deb
-Size: 337808
-MD5sum: 44aec815ab5ebd384862985ace77292b
-SHA1: 44e37d6062e8b3aee5028b2a8e2a6949b4edc02c
-SHA256: e43ecb6c24fc77fbb1f7d57844a5e5b5735c83a61633da238f933c33b374dacd
-Section: x11
-Priority: optional
-Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
- A fast, lightweight and minimalistic Wayland terminal emulator.
 
 Package: foot
 Version: 1.27.0.20260728.3~devuandepot
@@ -1283,20 +1255,6 @@ Description: mangowc - Practical and Powerful wayland compositor (dwm but waylan
  Practical and Powerful wayland compositor (dwm but wayland).
 
 Package: mangowc
-Version: 0.0.0+gitcc4fdec
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/mangowc_0.0.0+gitcc4fdec_amd64.deb
-Size: 609604
-MD5sum: d1938554ee9a09e47b4637be6aad5536
-SHA1: 53bb1673d17fb21ea3d3fa77f1d6f527fbafd675
-SHA256: 31b4b830c29fbbe20ede7df0714a4399093530e08ad3137721ff2bd0f6383e99
-Section: x11
-Priority: optional
-Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
- Practical and Powerful wayland compositor (dwm but wayland).
-
-Package: mangowc
 Version: 0.20260728+git9ce833b.23~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1310,20 +1268,6 @@ Section: x11
 Priority: optional
 Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
  Practical and Powerful wayland compositor (dwm but wayland).
-
-Package: niri
-Version: 26.04
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/niri_26.04_amd64.deb
-Size: 23336040
-MD5sum: 1e29733440647489b5a5bfcc98112374
-SHA1: 0ab1cd857112d17f6816db4a27f03804d518b1d6
-SHA256: 475e68f2bca39458d28ae7735ebcc90967d1fb14b4fcfa2466e3f0a627505139
-Section: x11
-Priority: optional
-Description: Niri - A scrollable-tiling Wayland compositor
- Niri is a scrollable-tiling Wayland compositor.
 
 Package: niri
 Version: 26.04.20260728.3~devuandepot
@@ -1370,19 +1314,26 @@ Priority: optional
 Description: PCManFM-Qt - extremely fast and lightweight file manager
  Extremely fast and lightweight file manager, part of LXQt.
 
-Package: scenefx0.4
-Version: 0.4.1~git0f06997
+Package: portproton
+Version: 1.7.5
 Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2)
-Filename: pool/main/scenefx0.4_0.4.1~git0f06997_amd64.deb
-Size: 73444
-MD5sum: eb94320774ed57b09c2d4324ddc59ea2
-SHA1: 6abf4b8056dc413a9d38f9b89a5378961bffa9d8
-SHA256: 6c70f3900adf434fde263e815669971aca7edcc8db9bff87b1e97f547290dd07
-Section: libs
+Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
+Installed-Size: 450
+Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
+Recommends: gamemode, inxi
+Filename: pool/main/portproton_amd64.deb
+Size: 55668
+MD5sum: b15d326ae125034b3a381f908eb15966
+SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
+SHA256: 0508fb8ebce551e6ee720d2181a779a74bff5f546f26033c055fc5d17c2af223
+Section: games
 Priority: optional
-Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
+Multi-Arch: foreign
+Homepage: https://linux-gaming.ru
+Description: Software for playing Microsoft Windows games and launchers.
+ On Debian, you may need to run as root:
+ dpkg --add-architecture i386; apt update
+License: MIT
 
 Package: scenefx0.4
 Version: 0.4.1~git0f06997+8~devuandepot
@@ -1413,20 +1364,6 @@ Priority: optional
 Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
 
 Package: scenefx0.5
-Version: 0.5.0~git45c6978
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533)
-Filename: pool/main/scenefx0.5_0.5.0~git45c6978_amd64.deb
-Size: 84160
-MD5sum: 105eee07e983a64bd3adadb9b04ad4ee
-SHA1: 8eba0ea02e390b5420e78d934a0fe47476f31ad3
-SHA256: 790c7cabb02debfa3ecaa2c390a219bfdaf7cf4b5d25b4b1605a65638cbb4ede
-Section: libs
-Priority: optional
-Description: scenefx (main) - drop-in replacement for wlr_scene
-
-Package: scenefx0.5
 Version: 0.5.0~git45c6978+8~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1453,39 +1390,6 @@ SHA256: 77bae7e366fa203fb4ed81e1c94fa2ad78fd5432f94569a3e947701c87c0e3bc
 Section: libs
 Priority: optional
 Description: scenefx (main) - drop-in replacement for wlr_scene
-
-Package: swayfx
-Version: 0.5.2
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Filename: pool/main/swayfx_0.5.2_amd64.deb
-Size: 5659704
-MD5sum: 96b24ebec7c9265624ae5e38955bc6b0
-SHA1: aef9a931a81a00a77658f57719c7732a1dcf6a03
-SHA256: a058f70f0785f896bb4e98c4b1dee56af6316475f89c63f537f0721ac950e493
-Section: x11
-Priority: optional
-Description: SwayFX - Sway but with eye candy!
- Sway fork with blur, shadows and rounded corners.
- Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
-
-Package: swayfx
-Version: 0.5.3
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.34), libcairo2 (>= 1.10.0), libdrm2 (>= 2.4.113), libevdev2 (>= 0.9.1), libgdk-pixbuf-2.0-0 (>= 2.31.1), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.26.0), libjson-c5 (>= 0.15), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.25.2), libudev1 (>= 183), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 0.7.0), scenefx0.4 (>= 0.4.1~git0f06997), wlroots0.19 (>= 0.19.0~git13a62a2)
-Recommends: seatd
-Filename: pool/main/swayfx_0.5.3_amd64.deb
-Size: 5173208
-MD5sum: 21e3285c063b5f8ca7bb1e14a7597a01
-SHA1: 548f4dee4acbc22f54b807b34dcf5fa65ddea595
-SHA256: 66939382031d2cd55deb0c13fe7be67dfd042e2427bec0fdcf6666b67c5ec1f8
-Section: x11
-Priority: optional
-Description: SwayFX - Sway but with eye candy!
- Sway fork with blur, shadows and rounded corners.
- Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
- Built with Xwayland support enabled.
 
 Package: swayfx
 Version: 0.5.3-33~devuandepot
@@ -1557,20 +1461,6 @@ Priority: optional
 Description: Wayland (1.24.0) installed in /opt/wayland1.24 (Backport)
 
 Package: wlroots0.19
-Version: 0.19.0~git13a62a2
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.19_0.19.0~git13a62a2_amd64.deb
-Size: 523992
-MD5sum: c2a4598a86cfc118aae1277020b5e66b
-SHA1: ebf0d365fc74456eb141d0e462476729b09faa28
-SHA256: b507a0d1900235783899a46af3568aedf02062f164174c811caeca1397d1b4dd
-Section: libs
-Priority: optional
-Description: wlroots (0.19.0) modular Wayland compositor library
-
-Package: wlroots0.19
 Version: 0.19.0~git13a62a2+15~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1599,20 +1489,6 @@ Priority: optional
 Description: wlroots (0.19.0) modular Wayland compositor library
 
 Package: wlroots0.20
-Version: 0.20.2~gitd783533
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
-Filename: pool/main/wlroots0.20_0.20.2~gitd783533_amd64.deb
-Size: 550416
-MD5sum: 9be3f5ce342d5774f656a92316abe772
-SHA1: 5d877d5eb7af088b36c71b443a5e74682d58d0dd
-SHA256: 3eda05867346e8b6ae03f0dd423e070c6385cffc61895956471aa90e24f8551d
-Section: libs
-Priority: optional
-Description: wlroots (0.20.2) modular Wayland compositor library
-
-Package: wlroots0.20
 Version: 0.20.2~gitd783533+15~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1639,22 +1515,6 @@ SHA256: 4542839f87606ae1197f99364b25637017d66411c106c520e0193afea8e31d99
 Section: libs
 Priority: optional
 Description: wlroots (0.20.2) modular Wayland compositor library
-
-Package: xwayland-satellite
-Version: 0.8.1
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libxcb-cursor0 (>= 0.0.99), libxcb1 (>= 1.11.1), xwayland
-Filename: pool/main/xwayland-satellite_0.8.1_amd64.deb
-Size: 1810264
-MD5sum: e72df0ff9adcd9a0171123590294df69
-SHA1: aef5e760130850b86c5abcd4e3cda6e92ceaab2b
-SHA256: 8605e9b84207627953acea1ec363b54ed90e88e81b0fcf9838dee75a99b0f78f
-Section: x11
-Priority: optional
-Description: xwayland-satellite - Xwayland rootless para niri
- Provee integracion Xwayland sin systemd para compositores
- Wayland que no la implementan de forma nativa (ej. niri).
 
 Package: xwayland-satellite
 Version: 0.8.1.20260728.5~devuandepot
