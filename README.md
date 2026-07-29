@@ -1,15 +1,20 @@
 # devuan-depot
 
+![Devuan Trixie](https://img.shields.io/badge/Devuan-Trixie-315A72?logo=linux)
+![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?logo=debian)
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ezequielgk.github.io/devuan-depot/)
+
+### Infrastructure & CI/CD
 [![Check Updates](https://github.com/ezequielgk/devuan-depot/actions/workflows/check-updates.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/check-updates.yml)
 [![Deploy Pages](https://github.com/ezequielgk/devuan-depot/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/deploy-pages.yml)
+
+### Package Build Status
 [![Build Niri](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-niri.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-niri.yml)
 [![Build SwayFX](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-swayfx.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-swayfx.yml)
 [![Build Foot](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml)
 [![Build wlroots](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml)
 [![Build pcmanfm-qt](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml)
 [![Build xwayland-satellite](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-xwayland-satellite.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-xwayland-satellite.yml)
-
-**Website:** [https://ezequielgk.github.io/devuan-depot/](https://ezequielgk.github.io/devuan-depot/)
 
 Personal APT repository. Workflows in `.github/workflows/` build projects and publish `.deb` packages ready to install via GitHub Pages.
 
