@@ -1,3 +1,6 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
 Origin: devuan-depot
 Label: devuan-depot Personal Repo
 Suite: trixie
@@ -22,3 +25,19 @@ SHA512:
  f50f0dc960b4d23bc37f04dc85b54d8f7621f4eba9f79231ce2814bc0f51f36c340002e6409a7dc5f21083b4e414fa971ddf41bf5be2ea0ecaf4c60b4cd0c027              200 Release
  0467faa7901c7f2bc2ffe6158849328a005aeced3fba78aa53682461e448040e5aa729947b39ff33ac4119971d5b35f940f8d73e814482b30a1924d9d83a202e            64005 main/binary-amd64/Packages
  e94200ac9560c7f126df68524ecd4f5363adaae7750a7bf873c01c8cda21beedeed687c7fabe7853c101a6711765333fe191cf1fd87e802033b1d3ce531c08be            15068 main/binary-amd64/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpqZtwACgkQQefTvOiq
+LHSIng/7BT+fm/jaxXGJcENxjm0atBrOjK5pLPaqN7kJAqchzVtHO7tExoxm3b2I
+KSsv6a/jKxuFbJVSaKM5SUbUk9LEWojS7Mql5kulMu+PFHbhUTxirIYJyZR667xz
+9b3Nf1sIe5rh22J4FEceX3nWP+3DhbNVPf88weBkPwLaGaHYmc4FpFByXgw47BEX
+j1y2YwBQP/oegJ0KBacMiXsY/MyGb09RLFPm/ZkEQ4CVFV+4/8rbYh7h1FD5Tq9D
+Mn6qdXrtvMdZJsxsmVla3ybU+uelWvix/m7yPHzpQgfIGbmORGkCcir5VDTFJlfY
+NELLSv40gOuIXnTQc9ArmVcogemCILgHfLu6nfSimNByIUS0bWRj7hHtb1euqvJY
+5A51VEJAjXPmSmpfht3WK5gzl9MUUvDuV/t0Pp7e/hGNsoohR+QJb8fjzpnl4cjT
+bzyDXrCcJNuO6YEZnrwN3bdmC51wFtecY9x8TbNMAPZqd/hqqvItTv5dI6jBKbMP
+d/Wxri4/eKx1iTtd1dLLJTKzG6/+d5v6Rn2NPCG9V5Ue1Y79dtldgT5tq/Qdb+o+
+7jxmFL+q9f06/GhQ+Bsryl3DWNGv95DAGKqh0du/yUC4i5O8d/WV6sV2gqKCNGna
+akpjZFZGwNbrS7IPFlFrN036JdOL4EouAZCaxmW/Zi8+C/lINrg=
+=AyZw
+-----END PGP SIGNATURE-----
