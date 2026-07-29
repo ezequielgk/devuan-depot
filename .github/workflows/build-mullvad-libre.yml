@@ -1,0 +1,226 @@
+name: Build Mullvad-Libre
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get install -y curl wget jq xz-utils tar arj fakeroot dpkg-dev git
+
+    - name: Get latest Mullvad release
+      id: mullvad_version
+      run: |
+        # Use Codeberg API or Github API. Mullvad is on github.
+        LATEST_TAG=$(curl -sL https://api.github.com/repos/mullvad/mullvadvpn-app/tags | jq -r '.[0].name')
+        echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+        # Remove v prefix if exists
+        VERSION=${LATEST_TAG#v}
+        echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+    - name: Download and extract original .deb
+      run: |
+        wget -qO original.deb "https://github.com/mullvad/mullvadvpn-app/releases/download/${LATEST_TAG}/MullvadVPN-${VERSION}_amd64.deb"
+        mkdir pkgroot
+        dpkg-deb -R original.deb pkgroot
+
+    - name: Remove systemd and configure Devuan init scripts
+      run: |
+        # 1. Remove systemd
+        rm -rf pkgroot/usr/lib/systemd
+        rm -rf pkgroot/etc/systemd 2>/dev/null || true
+
+        # 2. Modify control file
+        sed -i 's/Package: mullvad-vpn/Package: mullvad-libre/' pkgroot/DEBIAN/control
+        
+        # Keep original depends but we can strip systemd if it was explicitly there (it wasn't in Depends, just installed files)
+        
+        # 3. Create runit scripts
+        mkdir -p pkgroot/etc/sv/mullvad-daemon/log
+        
+        cat << 'EOF' > pkgroot/etc/sv/mullvad-daemon/run
+        #!/bin/sh
+        MULLVAD_RESOURCE_DIR="/opt/Mullvad VPN/resources/"
+        export MULLVAD_RESOURCE_DIR
+        exec 2>&1
+        exec /usr/bin/mullvad-daemon -vv --disable-stdout-timestamps
+        EOF
+        chmod 0755 pkgroot/etc/sv/mullvad-daemon/run
+        
+        cat << 'EOF' > pkgroot/etc/sv/mullvad-daemon/log/run
+        #!/bin/sh
+        mkdir -p /var/log/mullvad-daemon
+        exec svlogd -tt /var/log/mullvad-daemon
+        EOF
+        chmod 0755 pkgroot/etc/sv/mullvad-daemon/log/run
+
+        # 4. Create sysvinit script
+        mkdir -p pkgroot/etc/init.d
+        cat << 'EOF' > pkgroot/etc/init.d/mullvad-daemon
+        #!/bin/sh
+        ### BEGIN INIT INFO
+        # Provides:          mullvad-daemon
+        # Required-Start:    $network $remote_fs $syslog
+        # Required-Stop:     $network $remote_fs $syslog
+        # Default-Start:     2 3 4 5
+        # Default-Stop:      0 1 6
+        # Short-Description: Mullvad VPN daemon
+        ### END INIT INFO
+
+        DAEMON=/usr/bin/mullvad-daemon
+        NAME=mullvad-daemon
+        export MULLVAD_RESOURCE_DIR="/opt/Mullvad VPN/resources/"
+
+        test -x $DAEMON || exit 0
+
+        case "$1" in
+          start)
+            echo "Starting $NAME..."
+            start-stop-daemon --start --background --exec $DAEMON -- -vv --disable-stdout-timestamps
+            ;;
+          stop)
+            echo "Stopping $NAME..."
+            start-stop-daemon --stop --exec $DAEMON
+            ;;
+          restart)
+            $0 stop
+            sleep 1
+            $0 start
+            ;;
+          *)
+            echo "Usage: /etc/init.d/mullvad-daemon {start|stop|restart}"
+            exit 1
+            ;;
+        esac
+        exit 0
+        EOF
+        chmod 0755 pkgroot/etc/init.d/mullvad-daemon
+
+        # 5. Replace Debian scripts (postinst, prerm, postrm) to remove systemctl
+        cat << 'EOF' > pkgroot/DEBIAN/postinst
+        #!/usr/bin/env bash
+        set -eu
+        chmod u+s "/usr/bin/mullvad-exclude"
+        
+        # Register sysvinit service if update-rc.d exists
+        if command -v update-rc.d >/dev/null 2>&1; then
+            update-rc.d mullvad-daemon defaults || true
+        fi
+
+        function supported_apparmor() {
+            [[ -e /etc/apparmor.d/abi/4.0 ]]
+        }
+        if supported_apparmor; then
+            echo "Creating apparmor profile"
+            cp /opt/Mullvad\ VPN/resources/apparmor_mullvad /etc/apparmor.d/mullvad
+            apparmor_parser -r /etc/apparmor.d/mullvad || echo "Failed to reload apparmor profile"
+        fi
+        EOF
+        chmod 0755 pkgroot/DEBIAN/postinst
+
+        cat << 'EOF' > pkgroot/DEBIAN/prerm
+        #!/usr/bin/env bash
+        set -eu
+        # Stop daemon gracefully if running via sysvinit
+        if [ -x "/etc/init.d/mullvad-daemon" ]; then
+            invoke-rc.d mullvad-daemon stop || true
+        fi
+        EOF
+        chmod 0755 pkgroot/DEBIAN/prerm
+
+        cat << 'EOF' > pkgroot/DEBIAN/postrm
+        #!/usr/bin/env bash
+        set -eu
+        if [ "$1" = "purge" ] && command -v update-rc.d >/dev/null 2>&1; then
+            update-rc.d mullvad-daemon remove || true
+        fi
+        if supported_apparmor; then
+            rm -f /etc/apparmor.d/mullvad
+        fi
+        EOF
+        chmod 0755 pkgroot/DEBIAN/postrm
+
+        # 6. Create README.devuan
+        mkdir -p pkgroot/usr/share/doc/mullvad-libre
+        cat << 'EOF' > pkgroot/usr/share/doc/mullvad-libre/README.devuan
+        Mullvad VPN for Devuan (No Systemd)
+        
+        1. Start the service:
+           - SysVinit / OpenRC: sudo service mullvad-daemon start
+             (or: sudo rc-service mullvad-daemon start)
+           - Runit: sudo ln -s /etc/sv/mullvad-daemon /var/service/
+        
+        2. Usage:
+           mullvad account login <your-account-number>
+           mullvad connect
+        EOF
+
+    - name: Package
+      run: |
+        # Set version string
+        TIMESTAMP=$(date +%Y%m%d)
+        FULL_VERSION="${VERSION}.${TIMESTAMP}.${{ github.run_number }}~devuandepot"
+        
+        # Update control file version
+        sed -i "s/Version: .*/Version: ${FULL_VERSION}/" pkgroot/DEBIAN/control
+        
+        dpkg-deb --build pkgroot "mullvad-libre_${FULL_VERSION}_amd64.deb"
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: mullvad-libre-deb
+        path: mullvad-libre_*.deb
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout gh-pages
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        fetch-depth: 0
+
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: mullvad-libre-deb
+        path: incoming/
+
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+    - name: Move to pool and scan
+      run: |
+        mkdir -p pool/main
+        cp incoming/*.deb pool/main/
+        
+        dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+        gzip -9fk dists/trixie/main/binary-amd64/Packages
+        
+        cd dists/trixie
+        rm -f Release Release.gpg InRelease
+        apt-ftparchive release . > Release
+        gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
+        gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
+
+    - name: Commit and push
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add pool/ dists/
+        git commit -m "chore(repo): add mullvad-libre $(ls incoming/ | grep -Po '(?<=_).*(?=_amd64)')" || echo "No changes to commit"
+        git push
