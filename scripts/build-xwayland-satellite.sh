@@ -4,8 +4,10 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
 echo "Installing latest Rust..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-export PATH="$HOME/.cargo/bin:$PATH"
+export RUSTUP_HOME=/usr/local/rustup
+export CARGO_HOME=/usr/local/cargo
+export PATH="$CARGO_HOME/bin:$PATH"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 
 echo "Getting latest tag..."
 LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/Supreeeme/xwayland-satellite/tags | jq -r '.[0].name')
