@@ -1,0 +1,28 @@
+{
+  "script": "build-wlroots.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "build-essential", "meson", "pkg-config", "cmake", "git", "curl", "jq",
+    "wayland-protocols", "libwayland-dev", "libdrm-dev", "libgbm-dev", 
+    "libinput-dev", "libseat-dev", "libxkbcommon-dev", "libxcb-dri3-dev", 
+    "libxcb-present-dev", "libxcb-res0-dev", "libxcb-render-util0-dev", 
+    "libxcb-ewmh-dev", "libxcb-icccm4-dev", "libliftoff-dev", 
+    "libdisplay-info-dev", "liblcms2-dev", "libpixman-1-dev", 
+    "libgles2-mesa-dev", "hwdata", "libudev-dev", "libxcb-composite0-dev", 
+    "libxcb-xfixes0-dev", "libxcb-errors-dev", "xwayland", "libxcb1-dev", 
+    "libxcb-render0-dev", "libxcb-image0-dev", "libx11-xcb-dev", 
+    "libxcb-cursor-dev", "libvulkan-dev", "glslang-tools"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "wlroots0.19",
+      "extra_apt_packages": [],
+      "env": { "BRANCH": "0.19.0", "PKG_NAME": "wlroots0.19" }
+    },
+    {
+      "artifact_suffix": "wlroots0.20",
+      "extra_apt_packages": [],
+      "env": { "BRANCH": "0.20.2", "PKG_NAME": "wlroots0.20" }
+    }
+  ]
+}

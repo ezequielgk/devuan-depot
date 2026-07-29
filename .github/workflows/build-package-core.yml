@@ -1,0 +1,157 @@
+name: Build Package Core
+
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+        description: 'Name of the package to build (matches scripts/meta/<package>.json)'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.parse.outputs.variants }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Parse metadata
+        id: parse
+        run: |
+          META_FILE="scripts/meta/${{ inputs.package }}.json"
+          if [ ! -f "$META_FILE" ]; then
+            echo "Error: Metadata file $META_FILE not found"
+            exit 1
+          fi
+          
+          # Extract variants array as a compact JSON string for strategy.matrix
+          VARIANTS=$(jq -c '.variants' "$META_FILE")
+          echo "variants=${VARIANTS}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJson(needs.prepare.outputs.variants) }}
+    container:
+      image: debian:trixie
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        env:
+          EXTRA_PKGS_JSON: ${{ toJSON(matrix.variant.extra_apt_packages) }}
+        run: |
+          apt-get update
+          apt-get install -y jq curl wget ca-certificates
+          
+          META_FILE="scripts/meta/${{ inputs.package }}.json"
+          
+          # Check if we need devuan-depot repo
+          NEEDS_REPO=$(jq -r '.needs_devuan_depot_repo' "$META_FILE")
+          if [ "$NEEDS_REPO" = "true" ]; then
+            echo "Adding devuan-depot repository..."
+            apt-get install -y gnupg
+            wget -qO- https://ezequielgk.github.io/devuan-depot/Release.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/devuan-depot.gpg
+            echo "deb https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+            apt-get update
+            apt-get upgrade -y
+          fi
+
+          # Install base_apt_packages
+          BASE_PKGS=$(jq -r '.base_apt_packages | join(" ")' "$META_FILE")
+          
+          # Parse the extra pkgs array using jq from the matrix variant
+          EXTRA_PKGS=$(echo "$EXTRA_PKGS_JSON" | jq -r '. | join(" ")')
+          
+          # Install all required apt packages
+          if [ -n "$BASE_PKGS" ] || [ -n "$EXTRA_PKGS" ]; then
+            apt-get install -y $BASE_PKGS $EXTRA_PKGS
+          fi
+
+      - name: Set environment variables
+        env:
+          ENV_JSON: ${{ toJSON(matrix.variant.env) }}
+        run: |
+          echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
+
+      - name: Execute build script
+        run: |
+          SCRIPT_NAME=$(jq -r '.script' "scripts/meta/${{ inputs.package }}.json")
+          chmod +x "scripts/$SCRIPT_NAME"
+          # Run the script
+          bash "scripts/$SCRIPT_NAME"
+          
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-${{ inputs.package }}-${{ matrix.variant.artifact_suffix }}
+          path: "*.deb"
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: incoming/
+          pattern: deb-${{ inputs.package }}-*
+          merge-multiple: true
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Move to pool and scan
+        env:
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          mkdir -p pool/main
+          cp incoming/*.deb pool/main/
+          
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+          
+          cd dists/trixie
+          rm -f Release Release.gpg InRelease
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --default-key "$GPG_KEY_ID" --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" -abs -o Release.gpg Release
+          gpg --default-key "$GPG_KEY_ID" --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --clearsign -o InRelease Release
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pool/ dists/
+          
+          # Try to extract package names gracefully for the commit message
+          PKG_NAMES=$(ls incoming/ | grep -Po '^[^_]+' | sort -u | tr '\n' ' ' | sed 's/ $//' || echo "${{ inputs.package }}")
+          if [ -z "$PKG_NAMES" ]; then PKG_NAMES="${{ inputs.package }}"; fi
+          
+          git commit -m "chore(repo): add/update ${PKG_NAMES}" || echo "No changes to commit"
+          git push

@@ -1,0 +1,22 @@
+name: Build Applications
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to build'
+        required: true
+        type: choice
+        options:
+          - mullvad-libre
+          - foot
+          - concord
+          - pcmanfm-qt
+          - portproton
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-package-core.yml
+    with:
+      package: ${{ inputs.package }}
+    secrets: inherit

@@ -1,0 +1,20 @@
+name: Build Window Managers
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to build'
+        required: true
+        type: choice
+        options:
+          - swayfx
+          - niri
+          - mangowc
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-package-core.yml
+    with:
+      package: ${{ inputs.package }}
+    secrets: inherit

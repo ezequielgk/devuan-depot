@@ -1,0 +1,21 @@
+name: Build Libraries
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to build'
+        required: true
+        type: choice
+        options:
+          - scenefx
+          - wlroots
+          - xwayland-satellite
+          - backports
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-package-core.yml
+    with:
+      package: ${{ inputs.package }}
+    secrets: inherit
