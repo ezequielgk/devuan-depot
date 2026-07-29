@@ -1,0 +1,101 @@
+name: Build Steam bundled .deb
+
+on:
+  workflow_dispatch:
+  schedule:
+    # una vez por semana, para agarrar actualizaciones de steam en el repo de Arch
+    - cron: '0 4 * * 1'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias del host
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fuse libfuse2 dpkg-dev wget curl zsync git
+
+      - name: Permitir user namespaces sin privilegios (requerido por RunImage)
+        run: |
+          # Ubuntu 23.10+ restringe esto por AppArmor; RunImage lo necesita para
+          # correr el contenedor Arch sin root real.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+
+      - name: Dar permisos de ejecución a los scripts
+        run: chmod +x .github/scripts/build-steam-bundle.sh .github/scripts/package-deb.sh
+
+      - name: Armar el bundle de Steam (RunImage + pacman)
+        run: ./.github/scripts/build-steam-bundle.sh
+
+      - name: Empaquetar como .deb
+        run: ./.github/scripts/package-deb.sh
+
+      - name: Subir .deb como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: steam-bundled-deb
+          path: ./*.deb
+
+      - name: Leer versión para el release
+        id: version
+        run: echo "version=$(cat ~/version)" >> "$GITHUB_OUTPUT"
+
+      - name: Crear/actualizar release con el .deb
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Steam ${{ steps.version.outputs.version }} (bundled .deb)
+          files: ./*.deb
+          fail_on_unmatched_files: true
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: steam-bundled-deb
+          path: incoming/
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        run: |
+          set -eu
+          sudo apt-get update && sudo apt-get install -y dpkg-dev
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          cp incoming/*.deb pool/main/
+          
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        run: |
+          cd dists/trixie
+          rm -f Release Release.gpg InRelease
+          apt-ftparchive release . > Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pool/ dists/
+          git commit -m "chore(repo): add steam-bundled ${{ steps.version.outputs.version }}" || echo "No changes to commit"
+          git push
