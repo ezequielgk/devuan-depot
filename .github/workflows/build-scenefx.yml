@@ -137,7 +137,7 @@ jobs:
           echo "=== Generated shlibs ==="
           cat pkgroot/DEBIAN/shlibs
 
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          # dpkg-shlibdeps needs a debian/control in the cwd to work
           mkdir -p debian
           cat > debian/control <<CTRLSTUB
           Source: ${{ matrix.pkg_name }}
@@ -162,7 +162,7 @@ jobs:
             exit 1
           fi
           if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            echo "ERROR: dpkg-shlibdeps failed, check the log above"
             exit 1
           fi
           DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')

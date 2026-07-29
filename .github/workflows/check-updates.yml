@@ -3,7 +3,7 @@ name: Check Upstream Updates
 on:
   workflow_dispatch:
   schedule:
-    # Corre todos los lunes y jueves a las 08:00 UTC (madrugada de Latinoamérica)
+    # Runs every Monday and Thursday at 08:00 UTC
     - cron: '0 8 * * 1,4'
 
 jobs:
@@ -31,6 +31,6 @@ jobs:
         if: steps.check.outputs.HAS_UPDATES == 'true'
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: "Actualizaciones Disponibles para Compilar 📦"
+          title: "Updates Available to Compile 📦"
           content-filepath: ./updates.md
-          labels: "actualización"
+          labels: "update"

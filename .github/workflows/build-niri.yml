@@ -25,7 +25,7 @@ jobs:
 
       - name: Clone Niri
         run: |
-          # Obtenemos el último tag oficial de Niri
+          # Get the latest official tag for Niri
           LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/YaLTeR/niri/tags | jq -r '.[0].name')
           echo "Obtained latest version: $LATEST_TAG"
           echo "NIRI_VERSION=$LATEST_TAG" >> $GITHUB_ENV
@@ -49,13 +49,13 @@ jobs:
           mkdir -p pkgroot/usr/bin
           mkdir -p pkgroot/usr/share/wayland-sessions
 
-          # Copiamos los binarios principales
+          # Copy main binaries
           cp target/release/niri pkgroot/usr/bin/
           if [ -f target/release/niri-msg ]; then
             cp target/release/niri-msg pkgroot/usr/bin/
           fi
 
-          # Copiamos el archivo desktop para que aparezca en el Display Manager
+          # Copy the desktop file so it appears in the Display Manager
           if [ -f resources/niri.desktop ]; then
             cp resources/niri.desktop pkgroot/usr/share/wayland-sessions/
           fi

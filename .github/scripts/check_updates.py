@@ -108,9 +108,9 @@ def main():
                 break
                 
         if not is_built:
-            msg = f"- **{pkg}**: nueva versión disponible (`{latest_version}`) en [{repo}](https://github.com/{repo})"
+            msg = f"- **{pkg}**: new version available (`{latest_version}`) in [{repo}](https://github.com/{repo})"
             if ctype == "codeberg_tag":
-                msg = f"- **{pkg}**: nueva versión disponible (`{latest_version}`) en [{repo}](https://codeberg.org/{repo})"
+                msg = f"- **{pkg}**: new version available (`{latest_version}`) in [{repo}](https://codeberg.org/{repo})"
             updates_found.append(msg)
             
     if updates_found:
@@ -123,7 +123,7 @@ def main():
             f.write("HAS_UPDATES=true\n")
             
         with open('updates.md', 'w') as f:
-            f.write("Se encontraron nuevas versiones en los repositorios originales que todavía no compilaste en tu repositorio:\n\n")
+            f.write("New versions were found in the upstream repositories that have not yet been compiled in your repository:\n\n")
             for u in updates_found:
                 f.write(f"{u}\n")
     else:

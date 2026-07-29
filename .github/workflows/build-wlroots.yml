@@ -23,12 +23,12 @@ jobs:
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates
           
-          # Agregar nuestro propio repositorio Devuan-Depot (que contiene los backports de libdrm y wayland)
+          # Add our own Devuan-Depot repository (which contains backports of libdrm and wayland)
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           
-          # Forzamos la actualización de paquetes base (como libpixman-1-0 o libwayland-client0)
-          # para que APT no intente instalar versiones -dev viejas compatibles con las librerías base.
+          # Force update of base packages (like libpixman-1-0 or libwayland-client0)
+          # so APT does not try to install old -dev versions compatible with base libraries.
           apt-get upgrade -y
           
           # Instalar dependencias. Al estar nuestro repo, apt usará nuestras versiones más nuevas automáticamente.
@@ -137,7 +137,7 @@ jobs:
           echo "=== Generated shlibs ==="
           cat pkgroot/DEBIAN/shlibs
 
-          # dpkg-shlibdeps necesita un debian/control en el cwd para funcionar
+          # dpkg-shlibdeps needs a debian/control in the cwd to work
           mkdir -p debian
           cat > debian/control <<CTRLSTUB
           Source: ${{ matrix.pkg_name }}
@@ -162,7 +162,7 @@ jobs:
             exit 1
           fi
           if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
-            echo "ERROR: dpkg-shlibdeps fallo, revisar el log arriba"
+            echo "ERROR: dpkg-shlibdeps failed, check the log above"
             exit 1
           fi
           DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
