@@ -1,4 +1,4 @@
-name: "Mantenimiento: Forzar Regeneración de Índices"
+name: "Maintenance: Force Regenerate Indices"
 
 on:
   workflow_dispatch:

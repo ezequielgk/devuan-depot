@@ -79,6 +79,8 @@ jobs:
           echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
 
       - name: Execute build script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           SCRIPT_NAME=$(jq -r '.script' "scripts/meta/${{ inputs.package }}.json")
           chmod +x "scripts/$SCRIPT_NAME"

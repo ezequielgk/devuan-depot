@@ -1,56 +1,56 @@
-# Guía de Ejecución de GitHub Actions
+# GitHub Actions Workflows Guide
 
-Este documento explica el orden correcto en el que deben ejecutarse los flujos de trabajo (workflows) en GitHub Actions para asegurar que todas las dependencias se construyan correctamente y el repositorio funcione sin problemas.
+This document explains the correct order in which the GitHub Actions workflows must be executed to ensure all dependencies are built correctly and the repository works flawlessly.
 
-## Orden de Construcción (Build Order)
+## Build Order
 
-Dado que algunos paquetes dependen de otros para compilarse o para ejecutarse, es **crítico** seguir este orden si se está reconstruyendo el repositorio desde cero, o si hay actualizaciones masivas.
+Since some packages depend on others to build or run, it is **critical** to follow this order if you are rebuilding the repository from scratch or dealing with massive updates.
 
-### 1. Librerías Base (Backports)
-**Workflow:** `Build Libraries` -> Seleccionar paquete: `backports`
-Los backports (`wayland`, `libdrm`, `pixman`, etc.) son los cimientos del sistema. Muchos paquetes modernos necesitan versiones recientes de estas librerías que no se encuentran en la versión estable de Devuan/Debian. Deben compilarse y publicarse primero para que estén disponibles en el entorno de build de los siguientes paquetes.
+### 1. Base Libraries (Backports)
+**Workflow:** `Build Libraries` -> Select package: `backports`
+Backports (`wayland`, `libdrm`, `pixman`, etc.) are the foundation of the system. Many modern packages require recent versions of these libraries that are not found in the stable version of Devuan/Debian. They must be compiled and published first so they are available in the build environment for the subsequent packages.
 
-### 2. Librerías Core (Wayland)
+### 2. Core Libraries (Wayland)
 **Workflow:** `Build Libraries`
-Estas son las librerías específicas del ecosistema Wayland que utilizan los compositores.
-- Seleccionar: `wlroots`
-- Seleccionar: `scenefx` (Depende de wlroots)
-- Seleccionar: `xwayland-satellite` (Independiente, pero útil construirlo aquí)
+These are the Wayland-specific libraries used by the compositors.
+- Select: `wlroots`
+- Select: `scenefx` (Depends on wlroots)
+- Select: `xwayland-satellite` (Independent, but useful to build here)
 
-### 3. Window Managers (Compositores)
+### 3. Window Managers (Compositors)
 **Workflow:** `Build Window Managers`
-Una vez que `wlroots`, `scenefx` y los `backports` están publicados en el repositorio `gh-pages`, los gestores de ventanas pueden compilarse correctamente obteniéndolos mediante `apt`.
-- Seleccionar: `swayfx`
-- Seleccionar: `niri`
-- Seleccionar: `mangowc`
+Once `wlroots`, `scenefx`, and the `backports` are published in the `gh-pages` repository, window managers can compile properly by fetching them via `apt`.
+- Select: `swayfx`
+- Select: `niri`
+- Select: `mangowc`
 
-### 4. Aplicaciones
+### 4. Applications
 **Workflow:** `Build Apps`
-Las aplicaciones suelen ser hojas en el árbol de dependencias, por lo que pueden compilarse al final o de manera completamente independiente en cualquier momento.
-- Seleccionar: `foot`
-- Seleccionar: `concord`
-- Seleccionar: `pcmanfm-qt`
-- Seleccionar: `mullvad-libre`
-- Seleccionar: `portproton`
+Applications are usually the leaves in the dependency tree, so they can be compiled at the end or completely independently at any time.
+- Select: `foot`
+- Select: `concord`
+- Select: `pcmanfm-qt`
+- Select: `mullvad-libre`
+- Select: `portproton`
 
 ---
 
-## Workflows de Mantenimiento
+## Maintenance Workflows
 
-Los flujos de mantenimiento no construyen paquetes, sino que mantienen la salud del repositorio `apt`. 
+Maintenance workflows do not build packages, but rather keep the `apt` repository healthy.
 
-### `Mantenimiento: Buscar Actualizaciones Upstream`
-- **Uso:** Se ejecuta de forma automática (con un cron schedule) los días Lunes y Jueves.
-- **Función:** Ejecuta un script en Python que revisa las APIs de GitHub buscando nuevos tags de los paquetes originales. Si hay actualizaciones, te crea un "Issue" en el repositorio avisándote para que vayas y dispares el Build correspondiente.
+### `Maintenance: Check Upstream Updates`
+- **Usage:** Runs automatically (via cron schedule) on Mondays and Thursdays.
+- **Function:** Runs a Python script that checks the GitHub APIs for new tags of the original packages. If updates are found, it creates an "Issue" in the repository notifying you so you can trigger the corresponding Build.
 
-### `Mantenimiento: Limpiar Repositorio`
-- **Uso:** Manual. Ejecutar cuando el pool del repositorio empiece a ocupar demasiado espacio o haya demasiadas versiones antiguas.
-- **Función:** Analiza los `.deb` publicados. Te permite elegir si limpiar el pool (`~devuandepot`), los legacy (paquetes huérfanos sin el sufijo) o los backports (upstream sid). Por defecto guarda las últimas 2 versiones y elimina el resto. Siempre usa `dry-run: true` primero para verificar qué va a borrar.
+### `Maintenance: Cleanup Repository`
+- **Usage:** Manual. Run this when the repository pool starts taking up too much space or there are too many old versions.
+- **Function:** Analyzes the published `.deb` files. It allows you to choose whether to clean the pool (`~devuandepot`), legacy files (orphaned packages without the suffix), or backports (upstream sid). By default, it keeps the last 2 versions and deletes the rest. Always use `dry-run: true` first to verify what will be deleted.
 
-### `Mantenimiento: Forzar Regeneración de Índices`
-- **Uso:** Manual. Solo para emergencias.
-- **Función:** Si alguna vez un usuario reporta errores como *Hash Sum mismatch* o *404 Not Found* al hacer `apt-get update`, ejecuta este workflow. Volverá a escanear todos los `.deb` existentes y reconstruirá los archivos `Packages`, `Release` e `InRelease` firmándolos con tu llave GPG.
+### `Maintenance: Force Regenerate Indices`
+- **Usage:** Manual. For emergencies only.
+- **Function:** If a user ever reports errors like *Hash Sum mismatch* or *404 Not Found* when running `apt-get update`, execute this workflow. It will re-scan all existing `.deb` files and rebuild the `Packages`, `Release`, and `InRelease` files, signing them with your GPG key.
 
-### `Sistema: Deploy GitHub Pages`
-- **Uso:** Automático.
-- **Función:** Cada vez que uno de los workflows de Build o Mantenimiento hace un `git push` a la rama `gh-pages`, GitHub ejecuta este workflow en segundo plano para publicar los archivos estáticos y que sean accesibles vía web (para `apt`). No necesitas tocarlo.
+### `System: Deploy GitHub Pages`
+- **Usage:** Automatic.
+- **Function:** Whenever one of the Build or Maintenance workflows does a `git push` to the `gh-pages` branch, GitHub runs this workflow in the background to publish the static files so they are accessible via the web (for `apt`). You do not need to touch this.

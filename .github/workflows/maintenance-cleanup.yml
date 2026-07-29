@@ -1,4 +1,4 @@
-name: "Mantenimiento: Limpiar Repositorio"
+name: "Maintenance: Cleanup Repository"
 on:
   workflow_dispatch:
     inputs:
