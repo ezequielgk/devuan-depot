@@ -449,7 +449,7 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             });
         });
 
-        // Parsea el archivo "Packages" (formato de control de Debian: stanzas
+        // Parse the file "Packages" (formato de control de Debian: stanzas
         // separadas por línea en blanco, campos "Clave: valor") y renderiza
         // la lista de paquetes disponibles en el repo dinámicamente.
         function parsePackages(text) {
@@ -482,7 +482,7 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             }
 
             const filtered = allPackages.filter(p => {
-                // Considera backports a todas las librerías base de debian que estamos compilando
+                // Consider backports to all debian base libraries que estamos compilando
                 const isBackport = p.Package.startsWith('lib') || p.Package.startsWith('wayland') || p.Package.startsWith('pixman');
                 
                 if (currentFilter === 'packages' && isBackport) return false;
