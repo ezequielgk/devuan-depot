@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import os
+import re
 
 CHECKS = [
     {"pkg": "niri", "type": "github_tag", "repo": "YaLTeR/niri"},
@@ -42,7 +43,7 @@ def get_github_latest_tag(repo, token):
         with urllib.request.urlopen(req) as response:
             tags = json.loads(response.read().decode('utf-8'))
             for tag in tags:
-                if any(c.isdigit() for c in tag['name']):
+                if re.match(r'^v?\d+(\.\d+)+', tag['name']):
                     return tag['name']
     except Exception as e:
         print(f"Error fetching tags for {repo}: {e}")
@@ -54,7 +55,7 @@ def get_codeberg_latest_tag(repo):
         with urllib.request.urlopen(req) as response:
             tags = json.loads(response.read().decode('utf-8'))
             for tag in tags:
-                if any(c.isdigit() for c in tag['name']):
+                if re.match(r'^v?\d+(\.\d+)+', tag['name']):
                     return tag['name']
     except Exception as e:
         print(f"Error fetching tags for {repo}: {e}")
