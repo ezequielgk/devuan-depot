@@ -13,6 +13,21 @@ Priority: optional
 Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
 
+Package: concord
+Version: 2.4.8.20260729.5~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libasound2t64 (>= 1.1.0), libc6 (>= 2.39), libgcc-s1 (>= 4.2), libopus0 (>= 1.1)
+Filename: pool/main/concord_2.4.8.20260729.5~devuandepot_amd64.deb
+Size: 11675756
+MD5sum: 2c40b57176d575fd3b0b5a0b7fffe66d
+SHA1: 04641f5c66b5f566cae66ad573ea9b38072a1378
+SHA256: 75cfce552c786c674002236636cc2bec9884e38bf2da1cb0ae6288cb3ec35b87
+Section: x11
+Priority: optional
+Description: Concord - A Discord terminal client
+ Concord is a fast and simple terminal Discord client written in Rust.
+
 Package: foot
 Version: 1.27.0.20260728.3~devuandepot
 Architecture: amd64
