@@ -25,6 +25,19 @@ DESTDIR="$(pwd)/pkgroot"
 mkdir -p pkgroot/DEBIAN
 
 echo "Resolving shlib dependencies..."
+
+mkdir -p debian
+cat > debian/control <<CTRLSTUB
+Source: pcmanfm-qt
+Section: x11
+Priority: optional
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+Package: pcmanfm-qt
+Architecture: amd64
+Description: pcmanfm-qt stub
+CTRLSTUB
+
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
 if [ -z "$SO_TARGETS" ]; then

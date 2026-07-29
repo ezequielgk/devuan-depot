@@ -34,6 +34,19 @@ Type=Application
 SESSION
 
 echo "Resolving shlib dependencies..."
+
+mkdir -p debian
+cat > debian/control <<CTRLSTUB
+Source: swayfx
+Section: x11
+Priority: optional
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+Package: swayfx
+Architecture: amd64
+Description: swayfx stub
+CTRLSTUB
+
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
 if [ -z "$SO_TARGETS" ]; then

@@ -34,6 +34,19 @@ if [ -f resources/niri.desktop ]; then
 fi
 
 echo "Resolving shlib dependencies..."
+
+mkdir -p debian
+cat > debian/control <<CTRLSTUB
+Source: niri
+Section: x11
+Priority: optional
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+Package: niri
+Architecture: amd64
+Description: niri stub
+CTRLSTUB
+
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
 if [ -z "$SO_TARGETS" ]; then

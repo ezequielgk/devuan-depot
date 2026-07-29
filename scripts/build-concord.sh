@@ -28,6 +28,19 @@ mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
 cp target/release/concord pkgroot/usr/bin/
 
 echo "Resolving shlib dependencies..."
+
+mkdir -p debian
+cat > debian/control <<CTRLSTUB
+Source: concord
+Section: x11
+Priority: optional
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+Package: concord
+Architecture: amd64
+Description: concord stub
+CTRLSTUB
+
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
 if [ -z "$SO_TARGETS" ]; then

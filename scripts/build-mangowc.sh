@@ -19,6 +19,19 @@ mkdir -p pkgroot/DEBIAN
 DESTDIR=$PWD/pkgroot ninja -C build install
 
 echo "Resolving shlib dependencies..."
+
+mkdir -p debian
+cat > debian/control <<CTRLSTUB
+Source: mangowc
+Section: x11
+Priority: optional
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+Package: mangowc
+Architecture: amd64
+Description: mangowc stub
+CTRLSTUB
+
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
 if [ -z "$SO_TARGETS" ]; then
