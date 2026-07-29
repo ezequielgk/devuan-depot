@@ -1,0 +1,101 @@
+name: Mirror PortProton .deb to devuan-depot
+
+on:
+  workflow_dispatch:
+  schedule:
+    # una vez por día alcanza; PortProton no libera tan seguido
+    - cron: '30 5 * * *'
+
+concurrency:
+  group: devuan-depot-publish
+  cancel-in-progress: false
+
+env:
+  UPSTREAM_REPO: Castro-Fidel/PortProton_dpkg
+  ASSET_NAME: portproton_amd64.deb
+  CODENAME: trixie
+
+jobs:
+  check-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Descargar el último release de PortProton
+        run: |
+          set -e
+          API_URL="https://api.github.com/repos/${UPSTREAM_REPO}/releases/latest"
+          curl -sSL "$API_URL" -o release.json
+
+          DOWNLOAD_URL=$(jq -r --arg name "$ASSET_NAME" \
+            '.assets[] | select(.name == $name) | .browser_download_url' release.json)
+
+          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" = "null" ]; then
+            echo "No se encontró el asset $ASSET_NAME en el último release." >&2
+            exit 1
+          fi
+
+          echo "Descargando $DOWNLOAD_URL"
+          curl -sSL "$DOWNLOAD_URL" -o "$ASSET_NAME"
+
+      - name: Extraer versión real del .deb
+        id: debver
+        run: |
+          set -e
+          sudo apt-get update -qq && sudo apt-get install -y -qq dpkg-dev
+          VERSION=$(dpkg-deb -f "$ASSET_NAME" Version)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Versión detectada en el .deb: $VERSION"
+
+      - name: Checkout devuan-depot (gh-pages)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Chequear si esta versión ya está publicada
+        id: check
+        run: |
+          set -e
+          ALREADY=$(awk -v ver="${{ steps.debver.outputs.version }}" '/^Package: portproton$/,/^$/ { if ($1 == "Version:" && $2 == ver) print "found" }' dists/trixie/main/binary-amd64/Packages || true)
+          if [ -n "$ALREADY" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "La versión ${{ steps.debver.outputs.version }} ya está publicada, no hay nada que hacer."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Import GPG key
+        if: steps.check.outputs.skip == 'false'
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          set -eu
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          cp "$ASSET_NAME" pool/main/
+          
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          cd dists/trixie
+          rm -f Release Release.gpg InRelease
+          apt-ftparchive release . > Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
+          gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
+
+      - name: Commit and push
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pool/ dists/
+          git commit -m "chore(repo): add portproton ${{ steps.debver.outputs.version }} (mirror upstream)"
+          git push
