@@ -41,8 +41,9 @@ def get_github_latest_tag(repo, token):
     try:
         with urllib.request.urlopen(req) as response:
             tags = json.loads(response.read().decode('utf-8'))
-            if tags:
-                return tags[0]['name']
+            for tag in tags:
+                if any(c.isdigit() for c in tag['name']):
+                    return tag['name']
     except Exception as e:
         print(f"Error fetching tags for {repo}: {e}")
     return None
@@ -52,8 +53,9 @@ def get_codeberg_latest_tag(repo):
     try:
         with urllib.request.urlopen(req) as response:
             tags = json.loads(response.read().decode('utf-8'))
-            if tags:
-                return tags[0]['name']
+            for tag in tags:
+                if any(c.isdigit() for c in tag['name']):
+                    return tag['name']
     except Exception as e:
         print(f"Error fetching tags for {repo}: {e}")
     return None
