@@ -213,7 +213,16 @@ jobs:
         
         cd dists/trixie
         rm -f Release Release.gpg InRelease
-        apt-ftparchive release . > Release
+        cat > Release <<REL
+        Origin: devuan-depot
+        Label: devuan-depot Personal Repo
+        Suite: trixie
+        Codename: trixie
+        Architectures: amd64
+        Components: main
+        Date: $(date -Ru)
+        REL
+        apt-ftparchive release . >> Release
         gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
         gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
 
