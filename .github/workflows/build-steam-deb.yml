@@ -71,11 +71,15 @@ jobs:
           DEB=$(ls *.deb | head -n 1)
           VERSION=$(dpkg-deb -f "$DEB" Version)
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          
+          # Git tags no pueden contener el carácter '~', así que lo reemplazamos por '-'
+          TAG_VERSION=$(echo "$VERSION" | tr '~' '-')
+          echo "tag=$TAG_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.version.outputs.version }}
+          tag_name: v${{ steps.version.outputs.tag }}
           name: Steam Bundled ${{ steps.version.outputs.version }}
           files: ./*.deb
           fail_on_unmatched_files: true
