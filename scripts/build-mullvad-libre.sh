@@ -4,7 +4,7 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
 echo "Getting latest Mullvad release..."
-LATEST_TAG=$(curl -sL https://api.github.com/repos/mullvad/mullvadvpn-app/tags | jq -r '.[0].name')
+LATEST_TAG=$(curl -sL https://api.github.com/repos/mullvad/mullvadvpn-app/releases | jq -r '.[].tag_name | select(test("^[0-9]")) | select(contains("beta") | not)' | head -n 1)
 echo "LATEST_TAG=${LATEST_TAG}"
 # Remove v prefix if exists
 VERSION=${LATEST_TAG#v}
