@@ -380,7 +380,7 @@ sudo chmod a+r /usr/share/keyrings/devuan-depot.gpg</pre>
             </div>
             <div class="term-body">
                 <button class="copy-btn">copy</button>
-                <pre>echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
+                <pre>echo "deb [arch=amd64 signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
   | sudo tee /etc/apt/sources.list.d/devuan-depot.list
 sudo chmod a+r /etc/apt/sources.list.d/devuan-depot.list</pre>
             </div>
