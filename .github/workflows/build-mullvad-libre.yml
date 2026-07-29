@@ -204,6 +204,9 @@ jobs:
         passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
     - name: Move to pool and scan
+      env:
+        GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       run: |
         mkdir -p pool/main
         cp incoming/*.deb pool/main/
@@ -223,8 +226,8 @@ jobs:
         Date: $(date -Ru)
         REL
         apt-ftparchive release . >> Release
-        gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -abs -o Release.gpg Release
-        gpg --default-key ${{ secrets.GPG_KEY_ID }} --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --clearsign -o InRelease Release
+        gpg --default-key "$GPG_KEY_ID" --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" -abs -o Release.gpg Release
+        gpg --default-key "$GPG_KEY_ID" --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --clearsign -o InRelease Release
 
     - name: Commit and push
       run: |
