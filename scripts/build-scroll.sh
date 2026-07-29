@@ -18,6 +18,7 @@ cd src/scroll
 
 echo "Compiling scroll..."
 # Devuan uses elogind instead of systemd, but we build on Debian CI so we link against libsystemd. Devuan's libsystemd0 package satisfies it natively via elogind.
+export CFLAGS="-Wno-error"
 meson setup build -Dprefix=/usr -Dsd-bus-provider=libsystemd -Dwerror=false -Db_ndebug=true
 ninja -C build
 
