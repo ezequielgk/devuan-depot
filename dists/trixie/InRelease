@@ -1,36 +1,43 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Date: Wed, 29 Jul 2026 04:55:54 +0000
+Origin: devuan-depot
+Label: devuan-depot Personal Repo
+Suite: trixie
+Codename: trixie
+Architectures: amd64
+Components: main
+Date: Wed, 29 Jul 2026 05:30:40 +0000
+Date: Wed, 29 Jul 2026 05:30:40 +0000
 MD5Sum:
- 5b132d674a49d6757e53bd7b4cfb799f               38 Release
+ 114fa6b56d1219cb1bba78764be3a1f2              200 Release
  b255fb9835bb84c5d430a40e5421c961            64202 main/binary-amd64/Packages
- 7672e3d45de97f5437db20226bd7319b            15081 main/binary-amd64/Packages.gz
+ 0bd92ad59a57d7500999868000507934            15081 main/binary-amd64/Packages.gz
 SHA1:
- 89bbf4dae69daea92497270d770b33db050a0757               38 Release
+ 8854dc2e47a211970daebbfe741c2508b8cea0ec              200 Release
  5b7e20b1c51c82cbcdf51b68b7b95206f1bf9bbd            64202 main/binary-amd64/Packages
- 1d7a8f2b351ea3f63b7bec9866babffb2a7660fb            15081 main/binary-amd64/Packages.gz
+ 7a5aada985ae50308555564422f404a1cdb762a7            15081 main/binary-amd64/Packages.gz
 SHA256:
- a513126ce247e6b1c3076c72cd36c648314f32a887fa7fa3ef6cc4c541892f95               38 Release
+ 649c26fc83ea456242dcf19626645ad3b4545d7cb3be1c0bac6e4900e033a964              200 Release
  2aa6b5b8fdc0f602f5090c1ead86745a404aaae94685c7b58973a9e4f02a1109            64202 main/binary-amd64/Packages
- 75eaa42c0d458e6c402d425641fa5c766aea1e50bfbf34067b85eaf4ac2ca009            15081 main/binary-amd64/Packages.gz
+ a7595654f786e5edf18cb990967abd81660a7fa19a892aa2153596a2a12e5ed7            15081 main/binary-amd64/Packages.gz
 SHA512:
- 850483998db0e1fead8ac44a2cda8a36fe9f49354b6aea68e109889fe93470f7540cf6a6920bc509f16a5f9cdb11a0d67a5a32e68779a13d8f6c16024fa55f01               38 Release
+ 8097e1913dd4d862819153e8e39d635d8be3c26438d83b2129b55d26d9d8532edee0c56a9c2df02c149a75a230d3b9df08daea1b18363a44a10df59ea2faa38c              200 Release
  dcc678e7e225b28531f39c3d099a6930d5947bf75dd9c5be2286a382a86410b494fd9aa0724d00b4ea4cf90a7e5e54065c334eab427a6072f25eaa0b43150981            64202 main/binary-amd64/Packages
- 7dc4abc70361f23f4852c6d4a6814a6d8f218d33ae8e30ac9be117eba266cd53ccf34e758fdff1add11ba4c1ddbae877dcca2b0b67c7b01d6ee582190530f1fe            15081 main/binary-amd64/Packages.gz
+ c3cdd65bfc5fab24a925b1a657a30f63738d3b861bc90352f26188bcef3c35ec3d79623822ec8371ea34a13185ed583468f3cc43bf33d7b1a228ad6b217b0eb6            15081 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmpph9sACgkQQefTvOiq
-LHQ36g/44P24uoa8PYP4zBR1Xqws6QjadI4KiH/tMNtovrY5pOC9/vwG5BrSpdMb
-Oj1Dfh50OMq16t/iLBFXaEiyPb6qzxzl7kyNhgZo3bJFRpM+NKujIdimAtcoMsPs
-eP8uoOq0ltLq928AaUwVfKI57BcxbVrW9ea5dEvf2ZEue0KaCxLzdQ8ePrezYJtY
-EDDPgpJUpQpWOuNSgbV3eQxyGS2Z7obrXw3JEJ3VHnbY41BPi5/ZwPpijxQTMusM
-klJXfaF9vsGtkfCIAmqscFHGbDbhUx1J+y4YFBmWeSMOZiAu5ifRMScFY2LeDMaj
-X+EugZYd0UIzUtxMkOolA0M1I3MGYKoAOH0etamj3wbvFWNyH4M0hIvGxTB4rTZZ
-/GrAIGpqm3Q8XIlpDIx9AFqi4R0mNGjnK4WKXMcqkWPkqf2EsYR/65oYK4P5rR9Z
-v6fXctor+jDQgR1lWwI4ABJ+sOdoPLmEI2ZC8afL5mrK6zpJaht5e7X9UT9tFFL6
-kUXm1qZgcUgAZ2h/ujcI890PRRagacmODqMHvzeZdnJhuD6X8Rl5jZ4KGhsVsS5N
-dTAdg0Pb8kIqa5sEwka4JvMAVe2yRriatbBJ1nRycxAhQkZDQaMMQEAFKC2ZRWUQ
-9q9+evofKPRZhTE/JkG7LB9XZyADKO7GLMYN86+lhc8K8lz+pg==
-=PqP5
+iQIzBAEBCgAdFiEE/G+PFNL5IQAcH4zvQefTvOiqLHQFAmppkAEACgkQQefTvOiq
+LHQ6pxAAmvVMHtRyUJBz3oOFxlDDlZfNbKXnx4ThlOFr4Apv4w1GkHAo2Vu1Yv0s
+7bOgG7f66pw2oAvf2JKGmtaZz3QFvxqZTM78jSvy6zCDRNDFlzAlh/3Z3jK7Z/Nz
++x/Bo7aQp4O9ByMbCUk/wMUw3b0j8DfXd7KvJT1rIQf0pkXnrKaRV28OGb/xIsrM
+ZN/O4uVTa6vgtUX5uGN/NGVEXCNYeoHeX1KnBfo1LrHTSbbJu20T/219WKuXcAdY
+YWnVD02RHdNx19tWUL0ocMyglW7aJJgGfVL3RDbQLOWVSJV4E/pG8kddvrcjm/yi
+UoxWnbOogkUegVhtce2FhLe1kSmOTEp+02DuSiwh76mHLQpjXUC1b0ui2C9sq5p3
+7nA429cZ4IWxPKA3lYfmLzIe290PqFoFXVytvc9n9+/252KmtcZyaAgDDgEKchOg
+9UqjzDEPewaA/F8vh1tLktnGizTLSlwiIiFXMmHGYl1/CfAHvaVvX15pcm221CUl
+yZ8CgglgPOAebYpuvDggphm2RZqEOrKQggD3XZIclavSdIZR1KMQIbQvIUvEIvaB
+CgNNgmhd37EtCkCi4pA1hMyiNCw7AQW3EVJ4wPd3vYrquEo8fP2945J39LayWhjF
+hQ0i/CfMlct0HgrynM6kmIknyeecOKhTV1TSNO4TUcIaIv6kqF8=
+=HFyB
 -----END PGP SIGNATURE-----
