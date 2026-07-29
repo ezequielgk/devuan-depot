@@ -56,9 +56,7 @@ jobs:
           NEEDS_REPO=$(jq -r '.needs_devuan_depot_repo' "$META_FILE")
           if [ "$NEEDS_REPO" = "true" ]; then
             echo "Adding devuan-depot repository..."
-            apt-get install -y gnupg
-            wget -qO- https://ezequielgk.github.io/devuan-depot/Release.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/devuan-depot.gpg
-            echo "deb https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+            echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
             apt-get update
             apt-get upgrade -y
           fi
