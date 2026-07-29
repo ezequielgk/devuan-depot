@@ -1458,6 +1458,20 @@ Section: libs
 Priority: optional
 Description: scenefx (main) - drop-in replacement for wlr_scene
 
+Package: scroll
+Version: 1.12.17.20260729.12~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6
+Filename: pool/main/scroll_1.12.17.20260729.12~devuandepot_amd64.deb
+Size: 7557208
+MD5sum: ee582567fb5c1b0460ae72fbc89a66a9
+SHA1: 0a3ce35a690661946657d5cd1b2301f833aec24b
+SHA256: a5082cf34c9e52651d5da3e2ca8aaffc4389439f6099673296db0a2c3ac2b232
+Section: x11
+Priority: optional
+Description: scroll - Wayland compositor forked from sway with scrolling layout
+
 Package: swayfx
 Version: 0.5.3-33~devuandepot
 Architecture: amd64
