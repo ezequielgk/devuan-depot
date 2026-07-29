@@ -26,6 +26,9 @@ run_install() {
 		mangohud lib32-mangohud gamescope gamemode zenity-gtk3 steam-screensaver-fix
 	)
 
+	echo '== disabling blackarch to prevent timeouts'
+	sed -i '/\[blackarch\]/,$d' /etc/pacman.conf
+
 	echo '== checking for updates'
 	rim-update
 
