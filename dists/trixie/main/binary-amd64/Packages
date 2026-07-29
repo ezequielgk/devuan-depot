@@ -1335,6 +1335,27 @@ Description: Software for playing Microsoft Windows games and launchers.
  dpkg --add-architecture i386; apt update
 License: MIT
 
+Package: portproton
+Version: 1.7.5
+Architecture: amd64
+Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
+Installed-Size: 450
+Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
+Recommends: gamemode, inxi
+Filename: pool/main/portproton_1.7.5_amd64.deb
+Size: 55668
+MD5sum: b15d326ae125034b3a381f908eb15966
+SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
+SHA256: 0508fb8ebce551e6ee720d2181a779a74bff5f546f26033c055fc5d17c2af223
+Section: games
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://linux-gaming.ru
+Description: Software for playing Microsoft Windows games and launchers.
+ On Debian, you may need to run as root:
+ dpkg --add-architecture i386; apt update
+License: MIT
+
 Package: scenefx0.4
 Version: 0.4.1~git0f06997.20260729.7~devuandepot
 Architecture: amd64
