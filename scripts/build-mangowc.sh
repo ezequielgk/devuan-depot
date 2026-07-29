@@ -3,8 +3,12 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
+echo "Getting latest mangowm tag..."
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mangowm/mango/tags | jq -r '.[0].name')
+echo "Obtained latest version: $LATEST_TAG"
+
 echo "Cloning mangowm..."
-git clone --depth 1 https://github.com/mangowm/mango.git src/mango
+git clone --branch "$LATEST_TAG" --depth 1 https://github.com/mangowm/mango.git src/mango
 cd src/mango
 
 echo "Compiling mango..."
@@ -51,7 +55,7 @@ fi
 set +u
 
 echo "Writing control file and building .deb..."
-VERSION="0.$(date -u +%Y%m%d)+git${COMMIT_HASH}.${RUN_NUMBER}~devuandepot"
+VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 cat > pkgroot/DEBIAN/control <<CTRL
