@@ -1644,3 +1644,19 @@ Description: xwayland-satellite - Xwayland rootless para niri
  Provee integracion Xwayland sin systemd para compositores
  Wayland que no la implementan de forma nativa (ej. niri).
 
+Package: xwayland-satellite
+Version: 0.8.2.20260729.12~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libxcb-cursor0 (>= 0.0.99), libxcb1 (>= 1.11.1), xwayland
+Filename: pool/main/xwayland-satellite_0.8.2.20260729.12~devuandepot_amd64.deb
+Size: 1669864
+MD5sum: ba07486b4917694e313b50b2f4587962
+SHA1: bb4838d005c21595b7b107c621dc95fc790549af
+SHA256: e16310bc015b56cf298d4e850d460a794ed2f8dfc57db742740f7d1994a7c7f6
+Section: x11
+Priority: optional
+Description: xwayland-satellite - Xwayland rootless para niri
+ Provee integracion Xwayland sin systemd para compositores
+ Wayland que no la implementan de forma nativa (ej. niri).
+
