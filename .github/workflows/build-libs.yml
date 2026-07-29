@@ -8,16 +8,10 @@ on:
         required: true
         type: choice
         options:
-          - scenefx
           - wlroots
+          - scenefx
           - xwayland-satellite
           - backports
-          - hyprwayland-scanner
-          - hyprutils
-          - hyprlang
-          - hyprcursor
-          - hyprgraphics
-          - aquamarine
 
 permissions:
   contents: write
