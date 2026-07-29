@@ -1285,21 +1285,6 @@ Description: mangowc - Practical and Powerful wayland compositor (dwm but waylan
  Practical and Powerful wayland compositor (dwm but wayland).
 
 Package: mangowc
-Version: 0.20260728+git9ce833b.23~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-server0 (>= 1.14.91), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978.20260728.9~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260728.16~devuandepot)
-Filename: pool/main/mangowc_0.20260728+git9ce833b.23~devuandepot_amd64.deb
-Size: 609724
-MD5sum: 7140f47030d5c266727b13b6f1cf7c1b
-SHA1: 5d416e4e482e658ad9da84650f03b3e98ca17b5f
-SHA256: 242164d29d498cbddeb15b2f604b79fa8b7fea00aa43026e73ab462ecd440d04
-Section: x11
-Priority: optional
-Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
- Practical and Powerful wayland compositor (dwm but wayland).
-
-Package: mangowc
 Version: 0.20260729+git9ce833b.1~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
