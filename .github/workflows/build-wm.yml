@@ -12,6 +12,9 @@ on:
           - niri
           - mangowc
 
+permissions:
+  contents: write
+
 jobs:
   build:
     uses: ./.github/workflows/build-package-core.yml
