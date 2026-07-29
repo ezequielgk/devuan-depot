@@ -1,4 +1,4 @@
-name: Force Regenerate Repo Indices
+name: "Mantenimiento: Forzar Regeneración de Índices"
 
 on:
   workflow_dispatch:

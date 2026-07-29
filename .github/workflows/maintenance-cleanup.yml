@@ -1,0 +1,203 @@
+name: "Mantenimiento: Limpiar Repositorio"
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Objetivo de limpieza'
+        required: true
+        type: choice
+        options:
+          - 'all'
+          - 'pool (solo devuandepot)'
+          - 'backports (solo upstream)'
+          - 'legacy (sin devuandepot si ya existe)'
+        default: 'all'
+      keep-count:
+        description: 'Número de versiones a mantener (aplica a pool y backports)'
+        required: false
+        default: '2'
+      dry-run:
+        description: 'Si es true, solo imprime lo que se borraría'
+        type: boolean
+        required: false
+        default: true
+      packages:
+        description: 'Nombres de paquetes separados por comas (vacío = todos)'
+        required: false
+        default: ''
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends dpkg-dev python3 git
+
+      - name: Identify candidates for removal
+        env:
+          TARGET: ${{ inputs.target }}
+          KEEP_COUNT: ${{ inputs.keep-count }}
+          PACKAGES: ${{ inputs.packages }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          set -eu
+          python3 - <<'PYEOF'
+          import os, subprocess
+          from functools import cmp_to_key
+          from collections import defaultdict
+
+          target = os.environ.get('TARGET', 'all').split(' ')[0]
+          keep = int(os.environ.get('KEEP_COUNT', '2') or '2')
+          packages_filter = [p.strip() for p in os.environ.get('PACKAGES', '').split(',') if p.strip()]
+          dry_run = os.environ.get('DRY_RUN', 'true').lower() in ('1', 'true', 'yes')
+
+          pool = 'pool/main'
+          if not os.path.isdir(pool):
+              print(f"WARN: Directory {pool} does not exist.")
+              files = []
+          else:
+              files = [f for f in os.listdir(pool) if f.endswith('.deb')]
+
+          def deb_pkg_ver(path):
+              out = subprocess.check_output(
+                  ['dpkg-deb', '-f', path, 'Package', 'Version'], text=True
+              )
+              fields = {}
+              for line in out.splitlines():
+                  if ': ' in line:
+                      k, v = line.split(': ', 1)
+                      fields[k] = v
+              return fields.get('Package', ''), fields.get('Version', '')
+
+          def cmp_desc(a, b):
+              va, vb = a[1], b[1]
+              if subprocess.run(['dpkg', '--compare-versions', va, 'eq', vb], capture_output=True).returncode == 0:
+                  return 0
+              if subprocess.run(['dpkg', '--compare-versions', va, 'lt', vb], capture_output=True).returncode == 0:
+                  return 1
+              return -1
+
+          to_delete = []
+
+          # === LEGACY CLEANUP ===
+          if target in ('all', 'legacy'):
+              groups_legacy = defaultdict(list)
+              for f in files:
+                  pkg, ver = deb_pkg_ver(os.path.join(pool, f))
+                  if pkg:
+                      groups_legacy[pkg].append((ver, f))
+              
+              for pkg, entries in groups_legacy.items():
+                  if packages_filter and pkg not in packages_filter:
+                      continue
+                  has_devuandepot = any('~devuandepot' in f for v, f in entries)
+                  if has_devuandepot:
+                      for v, f in entries:
+                          if '~devuandepot' not in f:
+                              print(f"[Legacy] DROP {pkg} {v} ({f})")
+                              to_delete.append(f)
+              files = [f for f in files if f not in to_delete] # update file list
+
+          # === CLEANUP LOGIC (POOL & BACKPORTS) ===
+          def run_retention_cleanup(file_subset, label):
+              groups = defaultdict(list)
+              for f in file_subset:
+                  pkg, ver = deb_pkg_ver(os.path.join(pool, f))
+                  if pkg:
+                      if packages_filter and pkg not in packages_filter:
+                          continue
+                      groups[pkg].append((ver, f))
+              
+              for pkg, entries in sorted(groups.items()):
+                  sorted_entries = sorted(entries, key=cmp_to_key(cmp_desc))
+                  keep_n = min(keep, len(sorted_entries))
+                  keeping = sorted_entries[:keep_n]
+                  dropping = sorted_entries[keep_n:]
+                  for v, f in dropping:
+                      print(f"[{label}] DROP {pkg} {v} ({f})")
+                      to_delete.append(f)
+
+          # === POOL CLEANUP ===
+          if target in ('all', 'pool'):
+              ours = [f for f in files if '~devuandepot' in f]
+              run_retention_cleanup(ours, 'Pool')
+          
+          # === BACKPORTS CLEANUP ===
+          if target in ('all', 'backports'):
+              backports = [f for f in files if '~devuandepot' not in f]
+              run_retention_cleanup(backports, 'Backports')
+
+          # Remove duplicates
+          to_delete = list(set(to_delete))
+
+          print(f"\n=== Total to delete: {len(to_delete)} ===")
+          with open(os.environ['GITHUB_ENV'], 'a') as env:
+              env.write(f"DELETE_COUNT={len(to_delete)}\n")
+          with open('/tmp/to_delete.txt', 'w') as out:
+              for f in to_delete:
+                  out.write(f + '\n')
+          
+          if dry_run:
+              print("DRY-RUN: no se eliminará ningún archivo.")
+          else:
+              print("DRY-RUN=false: los archivos se eliminarán con git rm.")
+          PYEOF
+
+      - name: Remove old .deb files and regenerate indices
+        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        run: |
+          set -eu
+          if [ ! -s /tmp/to_delete.txt ]; then
+            echo "Nothing to delete."
+            exit 0
+          fi
+          while IFS= read -r f; do
+            git rm -f "pool/main/$f"
+          done < /tmp/to_delete.txt
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+          cd dists/trixie
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+
+      - name: Import GPG key
+        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Sign Release
+        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        working-directory: dists/trixie
+        run: |
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+
+      - name: Commit and push
+        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pool dists
+          git commit -m "chore(pool): limpieza de repositorio (target=${{ inputs.target }}, keep=${{ inputs.keep-count }})"
+          git push

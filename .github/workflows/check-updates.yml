@@ -1,4 +1,4 @@
-name: Check Upstream Updates
+name: "Mantenimiento: Buscar Actualizaciones Upstream"
 
 on:
   workflow_dispatch:

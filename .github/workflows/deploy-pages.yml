@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: "Sistema: Deploy GitHub Pages"
 
 on:
   push:
