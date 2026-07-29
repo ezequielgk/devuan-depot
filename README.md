@@ -14,7 +14,7 @@ curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
 
 ### 2. Add the repo
 ```bash
-echo "deb [signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
   | sudo tee /etc/apt/sources.list.d/devuan-depot.list
 ```
 
