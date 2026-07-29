@@ -21,6 +21,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout devuan-depot (gh-pages)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
       - name: Descargar el último release de PortProton
         run: |
           set -e
@@ -47,11 +52,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Versión detectada en el .deb: $VERSION"
 
-      - name: Checkout devuan-depot (gh-pages)
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          fetch-depth: 0
+
 
       - name: Chequear si esta versión ya está publicada
         id: check
