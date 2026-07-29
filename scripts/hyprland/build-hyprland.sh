@@ -22,7 +22,7 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/hyprwm/Hyprland.gi
 cd src/hyprland
 
 echo "Compiling hyprland..."
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -B build
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DNO_SYSTEMD=true -B build
 cmake --build build -j$(nproc)
 
 echo "Staging pkgroot..."
