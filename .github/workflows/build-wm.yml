@@ -11,6 +11,7 @@ on:
           - swayfx
           - niri
           - mangowc
+          - scroll
 
 permissions:
   contents: write
