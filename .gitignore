@@ -8,3 +8,4 @@ pkgroot/
 /logs_mangowc
 wiki/
 workflows_backup/
+/fzf-workflows.sh
