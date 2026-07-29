@@ -54,15 +54,16 @@ jobs:
           dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
           gzip -9fk dists/trixie/main/binary-amd64/Packages
           cd dists/trixie
-          cat > Release <<-EOF
-Origin: devuan-depot
-Label: devuan-depot Personal Repo
-Suite: trixie
-Codename: trixie
-Architectures: amd64
-Components: main
-Date: $(date -Ru)
-EOF
+          cat > Release <<EOF
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: \$(date -Ru)
+          EOF
+          sed -i 's/^ *//' Release
           apt-ftparchive release . >> Release
 
       - name: Import GPG key
