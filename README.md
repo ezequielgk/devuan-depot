@@ -1,6 +1,6 @@
 # devuan-depot
 
-![Devuan Trixie](https://img.shields.io/badge/Devuan-Trixie-315A72?logo=linux)
+![Devuan Excalibur](https://img.shields.io/badge/Devuan-Excalibur-315A72?logo=linux)
 ![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?logo=debian)
 [![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ezequielgk.github.io/devuan-depot/)
 
