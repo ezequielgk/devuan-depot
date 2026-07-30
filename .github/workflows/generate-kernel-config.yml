@@ -1,0 +1,110 @@
+name: Generate Kernel Config
+
+on:
+  workflow_dispatch:
+    inputs:
+      trigger_build:
+        description: 'Trigger the build workflow after generation?'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Enable deb-src and update
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+          if [ -f /etc/apt/sources.list.d/debian.sources ]; then
+            sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
+          else
+            echo "deb-src http://deb.debian.org/debian trixie main" >> /etc/apt/sources.list
+          fi
+          apt-get update
+
+      - name: Install config generation dependencies
+        run: |
+          apt-get install -y --no-install-recommends \
+            build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dpkg-dev
+
+      - name: Download linux source
+        run: |
+          mkdir -p /build && cd /build
+          apt-get source linux
+          ls -d linux-*/ | head -1 > /build/srcdir.txt
+
+      - name: Apply base config and localmodconfig
+        run: |
+          SRCDIR=$(cat /build/srcdir.txt)
+          cd "/build/${SRCDIR}"
+          
+          # 1. Copy base config
+          cp "$GITHUB_WORKSPACE/kernel-config/base.config" .config
+          make olddefconfig
+          
+          # 2. Trim modules using the user's lsmod
+          yes n | make LSMOD="$GITHUB_WORKSPACE/kernel-config/lsmod.txt" localmodconfig
+          
+          # 3. Manual Trims via scripts/config
+          # GPUs
+          scripts/config --disable NOUVEAU
+          scripts/config --disable DRM_I915
+          scripts/config --disable DRM_RADEON
+          scripts/config --disable DRM_NOUVEAU
+          
+          # Filesystems - Built-in
+          scripts/config --enable EXT4_FS
+          scripts/config --enable MSDOS_FS
+          scripts/config --enable VFAT_FS
+          
+          # Filesystems - Modules
+          scripts/config --module BTRFS_FS
+          scripts/config --module XFS_FS
+          scripts/config --module JFS_FS
+          scripts/config --module REISERFS_FS
+          scripts/config --module NTFS_FS
+          scripts/config --module NTFS3_FS
+          scripts/config --module EXFAT_FS
+          
+          # Network Filesystems - Disabled
+          scripts/config --disable NETWORK_FILESYSTEMS
+          scripts/config --disable NFS_FS
+          scripts/config --disable NFSD
+          scripts/config --disable CIFS
+          
+          # Debug - Disabled
+          scripts/config --disable DEBUG_INFO
+          scripts/config --disable DEBUG_INFO_BTF
+          scripts/config --disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
+          scripts/config --disable DEBUG_INFO_DWARF4
+          scripts/config --disable DEBUG_INFO_DWARF5
+          
+          # Finalize config
+          make olddefconfig
+          
+          # Copy back to workspace
+          cp .config "$GITHUB_WORKSPACE/kernel-config/.config"
+
+      - name: Commit and push generated .config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add kernel-config/.config
+          
+          COMMIT_MSG="config: generate excalibur via localmodconfig"
+          if [ "${{ github.event.inputs.trigger_build }}" = "false" ]; then
+            COMMIT_MSG="$COMMIT_MSG [skip ci]"
+          fi
+          
+          git diff --cached --quiet && echo "No changes generated" || \
+            (git commit -m "$COMMIT_MSG" && git push)
