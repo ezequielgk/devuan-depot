@@ -1,23 +1,80 @@
-name: Build Custom Kernel (Devuan/Debian trixie)
+name: Build Custom Kernel - Excalibur (Devuan/Debian trixie)
 
 on:
   workflow_dispatch:
     inputs:
       kernel_source_version:
-        description: 'Exact version of the "linux" source package in trixie (empty = latest available in the repo)'
+        description: 'Exact version of the "linux" source package in trixie (empty = latest available)'
         required: false
         default: ''
       localversion:
         description: 'LOCALVERSION suffix'
         required: false
-        default: '-custom'
+        default: '-excalibur'
   push:
     paths:
       - 'kernel-config/.config'
       - '.github/workflows/build-kernel-devuan.yml'
+  schedule:
+    # Runs every day at 06:00 UTC. If there is no new version in the
+    # Debian repo, the build job skips itself (see "check" job).
+    - cron: '0 6 * * *'
+
+permissions:
+  contents: write
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    outputs:
+      version: ${{ steps.decide.outputs.version }}
+      should_build: ${{ steps.decide.outputs.should_build }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check latest available version in trixie
+        id: latest
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends apt-utils > /dev/null
+          LATEST=$(apt-cache madison linux | head -1 | awk '{print $3}')
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "Latest version in trixie: $LATEST"
+
+      - name: Decide whether to compile
+        id: decide
+        run: |
+          LAST_BUILT="none"
+          if [ -f kernel-config/last-built-version.txt ]; then
+            LAST_BUILT=$(cat kernel-config/last-built-version.txt)
+          fi
+          echo "Last compiled: $LAST_BUILT"
+          echo "Available now: ${{ steps.latest.outputs.latest }}"
+
+          if [ -n "${{ github.event.inputs.kernel_source_version }}" ]; then
+            VERSION="${{ github.event.inputs.kernel_source_version }}"
+            SHOULD_BUILD=true
+          elif [ "${{ github.event_name }}" != "schedule" ]; then
+            VERSION="${{ steps.latest.outputs.latest }}"
+            SHOULD_BUILD=true
+          elif [ "${{ steps.latest.outputs.latest }}" != "$LAST_BUILT" ]; then
+            VERSION="${{ steps.latest.outputs.latest }}"
+            SHOULD_BUILD=true
+          else
+            VERSION="${{ steps.latest.outputs.latest }}"
+            SHOULD_BUILD=false
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "should_build=$SHOULD_BUILD" >> "$GITHUB_OUTPUT"
+          echo "Should compile?: $SHOULD_BUILD (version: $VERSION)"
+
   build:
+    needs: check
+    if: needs.check.outputs.should_build == 'true'
     runs-on: ubuntu-latest
     container:
       image: debian:trixie
@@ -29,8 +86,6 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates
-          # The debian:trixie container brings sources in deb822 format (Types: deb).
-          # We add deb-src to be able to download the kernel source package.
           if [ -f /etc/apt/sources.list.d/debian.sources ]; then
             sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
           else
@@ -45,19 +100,14 @@ jobs:
             fakeroot dpkg-dev debhelper bc rsync kmod cpio wget xz-utils \
             dpkg-source python3 dwarves
 
-      - name: Download the "linux" source package (the same one Devuan packages)
+      - name: Download the "linux" source package (version decided by the check job)
         run: |
           mkdir -p /build && cd /build
-          if [ -n "${{ github.event.inputs.kernel_source_version }}" ]; then
-            apt-get source linux=${{ github.event.inputs.kernel_source_version }}
-          else
-            apt-get source linux
-          fi
-          # Extracted to /build/linux-<version>/
+          apt-get source linux=${{ needs.check.outputs.version }}
           ls -d linux-*/ | head -1 > /build/srcdir.txt
           cat /build/srcdir.txt
 
-      - name: Copy the committed .config (generated with menuconfig on your Devuan)
+      - name: Copy the committed .config
         run: |
           SRCDIR=$(cat /build/srcdir.txt)
           if [ ! -f "kernel-config/.config" ]; then
@@ -77,9 +127,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /root/.ccache
-          key: ccache-devuan-${{ hashFiles('kernel-config/.config') }}
+          key: ccache-excalibur-${{ hashFiles('kernel-config/.config') }}
           restore-keys: |
-            ccache-devuan-
+            ccache-excalibur-
 
       - name: Install ccache
         run: apt-get install -y --no-install-recommends ccache
@@ -89,7 +139,7 @@ jobs:
           SRCDIR=$(cat /build/srcdir.txt)
           cd "/build/${SRCDIR}"
           export PATH="/usr/lib/ccache:$PATH"
-          make -j$(nproc) deb-pkg LOCALVERSION=${{ github.event.inputs.localversion || '-custom' }}
+          make -j$(nproc) deb-pkg LOCALVERSION=${{ github.event.inputs.localversion || '-excalibur' }}
 
       - name: Gather generated .deb files
         run: |
@@ -106,21 +156,20 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}
+          name: excalibur-${{ needs.check.outputs.version }}
           path: dist/
           retention-days: 30
 
-      - name: Create release (only push to main)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}-${{ github.run_number }}
-          name: Custom Devuan Kernel (build ${{ github.run_number }})
+          tag_name: excalibur-${{ needs.check.outputs.version }}-${{ github.run_number }}
+          name: Excalibur ${{ needs.check.outputs.version }} (build ${{ github.run_number }})
           files: dist/*
           body: |
-            Compiled from the `linux` source package of trixie/deb13 (the same
-            one Devuan repackages), with the `.config` from `kernel-config/.config`
-            (commit ${{ github.sha }}).
+            Custom Devuan kernel "excalibur", compiled from the `linux` source package
+            version `${{ needs.check.outputs.version }}` of trixie/deb13,
+            with the `.config` from `kernel-config/.config` (commit ${{ github.sha }}).
 
             Installation on your Devuan:
             ```
@@ -129,6 +178,15 @@ jobs:
             The Debian/Devuan postinst hooks should regenerate initramfs
             and grub automatically. If not:
             ```
-            sudo update-initramfs -c -k <version>
+            sudo update-initramfs -c -k <version>-excalibur
             sudo update-grub
             ```
+
+      - name: Register compiled version (for future automatic checking)
+        run: |
+          echo "${{ needs.check.outputs.version }}" > kernel-config/last-built-version.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add kernel-config/last-built-version.txt
+          git diff --cached --quiet && echo "No changes to commit" || \
+            (git commit -m "chore: excalibur ${{ needs.check.outputs.version }} compiled [skip ci]" && git push)

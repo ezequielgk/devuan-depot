@@ -1,79 +1,88 @@
-# kernel-build-action (Devuan)
+# kernel-build-action — Excalibur (Devuan)
 
-Compile your custom Devuan kernel via GitHub Actions, from a
-`.config` you create yourself on your machine (using `localmodconfig` +
-`menuconfig`).
+Compile your custom Devuan kernel "excalibur" via GitHub Actions, from
+a `.config` you create yourself on your machine (using `localmodconfig` +
+`menuconfig`), and let it keep itself updated with the versions published
+by Debian trixie.
 
-## Why the workflow runs inside a `debian:trixie` container
+## How it decides when to compile
 
-Your current kernel (`6.12.95+deb13-amd64`) is literally the Debian 13 (trixie)
-package that Devuan repackages without touching the kernel itself — Devuan
-only changes the init system (systemd → runit/sysvinit), not the kernel. Therefore,
-the correct source package to compile is the `linux` package from trixie, containing
-all the patches and **postinst hooks** (the ones that regenerate initramfs and
-update grub automatically when you install the `.deb`).
+The workflow has three triggers:
 
-If you instead download the vanilla tarball from kernel.org and build the `.deb` by
-hand, you lose those hooks — it works, but you have to run `update-initramfs` and
-`update-grub` manually every time. That's why the workflow uses
-`container: image: debian:trixie` in the job: this way, `apt-get source linux`
-gets you exactly the same package used by your Devuan installation.
+1. **`push`** to `kernel-config/.config` (you changed the config manually) →
+   always compiles, using the latest version available in trixie.
+2. **`workflow_dispatch`** (you run it manually) → always compiles.
+   If you provide `kernel_source_version`, it uses that; if left empty, it uses the
+   latest available.
+3. **`schedule`** (daily cron, 06:00 UTC) → this is where the automatic
+   check comes in: a `check` job runs first, checks the latest version of `linux`
+   in the trixie repo, compares it against `kernel-config/last-built-version.txt`
+   (which the workflow itself updates after every successful build), and
+   **only triggers the build if it changed**. If there is no new version, the
+   compilation job is skipped entirely — it doesn't waste Actions minutes
+   compiling the same thing every day.
+
+## Why it runs inside a `debian:trixie` container
+
+Your current kernel is literally the Debian 13 (trixie) package that
+Devuan repackages without touching it — Devuan only changes the init system.
+That's why `apt-get source linux` inside that container brings you the
+correct package, with the **postinst hooks** that automatically regenerate
+initramfs and grub when the `.deb` is installed.
 
 ## Initial Setup (only once, on your real Devuan machine)
 
-Follow the guide in this repo (below) to generate the
-`.config`: you copy the config of your current kernel, run `localmodconfig`
-(with `yes n |` because bluetooth/kvm/gamepad are already loaded), and adjust
-in `menuconfig` the filesystems as modules, remove the GPUs you don't have,
-and remove network filesystems.
+Follow `GUIA-KERNEL-CUSTOM.md` in this repo to generate the `.config`:
+copy the config of your current kernel, run `localmodconfig` (with
+`yes n |`, since bluetooth/kvm/gamepad stay because you use them), and
+adjust in `menuconfig` the filesystems as modules, exclude the GPUs you
+don't have, and exclude network filesystems.
 
 ```bash
 cp .config /path/to/repo/kernel-config/.config
 git add kernel-config/.config
-git commit -m "config: baseline with bluetooth/kvm/gamepad + fs as modules"
+git commit -m "config: baseline excalibur"
 git push
 ```
 
-This triggers the workflow automatically (the `push` trigger watches for
-changes in `kernel-config/.config`).
+This triggers the first build automatically.
 
 ## Manual Usage
 
-Actions → "Build Custom Kernel (Devuan/Debian trixie)" → "Run workflow".
-Optional inputs:
+Actions → "Build Custom Kernel - Excalibur (Devuan/Debian trixie)" → "Run
+workflow". Optional inputs:
 
 - `kernel_source_version`: exact version of the `linux` source package in
-  trixie (e.g. `6.12.48-1`). Empty = grabs the latest available in the
-  Debian repo at that moment.
-- `localversion`: suffix for the compiled kernel name (default
-  `-custom`).
+  trixie (e.g. `6.12.48-1`). Empty = latest available at that moment.
+- `localversion`: name suffix (default `-excalibur`, you will almost never
+  need to change it).
 
 ## What you get back
 
 - **Artifact** (30 days): `linux-image-*.deb`, `linux-headers-*.deb`,
-  `SHA256SUMS.txt`.
-- If the push was to `main`, a GitHub **Release** is created with the same
-  files and installation instructions in the body.
+  `SHA256SUMS.txt`, named `excalibur-<version>`.
+- It always creates a GitHub **Release** with those same files
+  (`excalibur-<version>-<run_number>`), with installation instructions
+  in the body.
 
 ## Install on your Devuan
 
 ```bash
-sudo dpkg -i linux-image-*.deb linux-headers-*.deb
+sudo dpkg -i linux-image-*-excalibur*.deb linux-headers-*-excalibur*.deb
 ```
 
-Since the package comes with the Debian/Devuan hooks, the `postinst`
-script should regenerate the initramfs and update grub by itself. If for
-some reason it doesn't:
+Since the package brings the Debian/Devuan hooks, the `postinst` script
+should regenerate initramfs and update grub by itself. If for some reason it doesn't:
 
 ```bash
-sudo update-initramfs -c -k <version>
+sudo update-initramfs -c -k <version>-excalibur
 sudo update-grub
 ```
 
 Boot it from the grub menu without setting it as default until you confirm that
 bluetooth, the VM, and the gamepad still work fine.
 
-## Update to a new kernel version
+## Updating the `.config` in the future
 
 There's no need to repeat `menuconfig` from scratch. On your machine:
 
@@ -83,16 +92,20 @@ cd linux-*/
 cp /path/to/repo/kernel-config/.config .
 make oldconfig          # only prompts you for the new options
 cp .config /path/to/repo/kernel-config/.config
-git add kernel-config/.config && git commit -m "config: bump version" && git push
+git add kernel-config/.config && git commit -m "config: bump" && git push
 ```
 
 ## Notes
 
+- `kernel-config/last-built-version.txt` is maintained by the workflow alone —
+  do not edit it manually, it's what the daily check uses to know if it has
+  already compiled that version or not.
 - The `ccache` cache speeds up recompilations of the same `.config`, but
-  the first build of a new version will take just as long (full kernel
-  from scratch, ~40-60 min on standard GitHub runners).
-- If you ever add proprietary firmware or extra patches specific to your
-  hardware, they should be added as an extra step before "Compile".
+  the first build of a new version will take just as long (~40-60 min on
+  standard GitHub runners).
+- The job needs write permission to the repo (`permissions: contents: write`
+  in the workflow) to be able to commit the version file after each
+  successful build.
 
 
 # Custom Kernel — trimming unused hardware/subsystems
