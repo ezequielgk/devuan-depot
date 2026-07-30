@@ -82,47 +82,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Enable deb-src and update
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          if [ -f /etc/apt/sources.list.d/debian.sources ]; then
-            sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
-          else
-            echo "deb-src http://deb.debian.org/debian trixie main" >> /etc/apt/sources.list
-          fi
-          apt-get update
-
-      - name: Install build dependencies
-        run: |
-          apt-get install -y --no-install-recommends \
-            build-essential libncurses-dev bison flex libssl-dev libelf-dev \
-            fakeroot dpkg-dev debhelper bc rsync kmod cpio wget xz-utils \
-            python3 dwarves
-
-      - name: Download the "linux" source package (version decided by the check job)
-        run: |
-          mkdir -p /build && cd /build
-          apt-get source linux=${{ needs.check.outputs.version }}
-          ls -d linux-*/ | head -1 > /build/srcdir.txt
-          cat /build/srcdir.txt
-
-      - name: Copy the committed .config
-        run: |
-          SRCDIR=$(cat /build/srcdir.txt)
-          if [ ! -f "kernel-config/.config" ]; then
-            echo "kernel-config/.config is missing in the repo. Generate it on your machine with"
-            echo "localmodconfig + menuconfig and commit it before running this."
-            exit 1
-          fi
-          cp kernel-config/.config "/build/${SRCDIR}.config"
-
-      - name: Adapt config to this exact source version
-        run: |
-          SRCDIR=$(cat /build/srcdir.txt)
-          cd "/build/${SRCDIR}"
-          make olddefconfig
-
       - name: ccache Cache
         uses: actions/cache@v4
         with:
@@ -131,27 +90,21 @@ jobs:
           restore-keys: |
             ccache-excalibur-
 
-      - name: Install ccache
-        run: apt-get install -y --no-install-recommends ccache
-
-      - name: Compile (.deb with intact Debian/Devuan hooks)
+      - name: Install dependencies from JSON and run build script
+        env:
+          KERNEL_SOURCE_VERSION: ${{ needs.check.outputs.version }}
+          LOCALVERSION: ${{ github.event.inputs.localversion || '-excalibur' }}
         run: |
-          SRCDIR=$(cat /build/srcdir.txt)
-          cd "/build/${SRCDIR}"
-          export PATH="/usr/lib/ccache:$PATH"
-          make -j$(nproc) deb-pkg LOCALVERSION=${{ github.event.inputs.localversion || '-excalibur' }}
-
-      - name: Gather generated .deb files
-        run: |
-          mkdir -p dist
-          mv /build/linux-image-*.deb dist/ 2>/dev/null || true
-          mv /build/linux-headers-*.deb dist/ 2>/dev/null || true
-          mv /build/linux-libc-dev*.deb dist/ 2>/dev/null || true
-          ls -lh dist/
-
-      - name: Checksums
-        working-directory: dist
-        run: sha256sum *.deb > SHA256SUMS.txt
+          apt-get update
+          apt-get install -y jq curl wget ca-certificates
+          
+          # Parse dependencies from JSON
+          META_FILE="scripts/meta/kernel-excalibur.json"
+          BASE_PKGS=$(jq -r '.base_apt_packages | join(" ")' "$META_FILE")
+          apt-get install -y --no-install-recommends $BASE_PKGS
+          
+          # Run the build script
+          bash scripts/build-kernel-excalibur.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

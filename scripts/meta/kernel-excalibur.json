@@ -1,0 +1,16 @@
+{
+  "script": "build-kernel-excalibur.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "ca-certificates", "build-essential", "libncurses-dev", "bison", "flex", 
+    "libssl-dev", "libelf-dev", "fakeroot", "dpkg-dev", "debhelper", "bc", 
+    "rsync", "kmod", "cpio", "wget", "xz-utils", "python3", "dwarves", "ccache"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
