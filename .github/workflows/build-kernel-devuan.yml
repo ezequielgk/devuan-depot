@@ -32,6 +32,11 @@ jobs:
       version: ${{ steps.decide.outputs.version }}
       should_build: ${{ steps.decide.outputs.should_build }}
     steps:
+      - name: Install git for checkout
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git ca-certificates
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -79,6 +84,11 @@ jobs:
     container:
       image: debian:trixie
     steps:
+      - name: Install git for checkout
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git ca-certificates
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
