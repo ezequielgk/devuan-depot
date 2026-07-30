@@ -13,6 +13,9 @@ else
 fi
 apt-get update
 
+# Save the repo root
+REPO_ROOT=$(pwd)
+
 echo "Downloading linux source package..."
 mkdir -p /build && cd /build
 if [ -n "$KERNEL_SOURCE_VERSION" ]; then
@@ -27,14 +30,14 @@ SRCDIR=$(cat /build/srcdir.txt)
 echo "Source directory: $SRCDIR"
 
 # We must be in the repository root when running this script
-if [ ! -f "kernel-config/.config" ]; then
+if [ ! -f "$REPO_ROOT/kernel-config/.config" ]; then
   echo "Error: kernel-config/.config is missing in the repo."
   echo "Generate it on your machine with localmodconfig + menuconfig and commit it."
   exit 1
 fi
 
 echo "Copying committed .config..."
-cp kernel-config/.config "/build/${SRCDIR}.config"
+cp "$REPO_ROOT/kernel-config/.config" "/build/${SRCDIR}.config"
 
 echo "Adapting config to this exact source version..."
 cd "/build/${SRCDIR}"
@@ -57,4 +60,4 @@ cd dist
 sha256sum *.deb > SHA256SUMS.txt
 
 # Move dist to the repo workspace so the workflow can upload it
-mv /build/dist $GITHUB_WORKSPACE/
+mv /build/dist "$REPO_ROOT/"
