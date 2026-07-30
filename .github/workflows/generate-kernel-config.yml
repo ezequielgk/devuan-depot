@@ -18,9 +18,6 @@ jobs:
     container:
       image: debian:trixie
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
       - name: Enable deb-src and update
         run: |
           apt-get update
@@ -36,6 +33,9 @@ jobs:
         run: |
           apt-get install -y --no-install-recommends \
             build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dpkg-dev git
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Download linux source
         run: |
@@ -105,6 +105,14 @@ jobs:
       - name: Commit and push generated .config
         run: |
           cd "$GITHUB_WORKSPACE"
+          if [ ! -d .git ]; then
+            echo "Reconstructing git repository..."
+            git init
+            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+            git fetch
+            git reset --soft origin/main
+            git branch -M main
+          fi
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

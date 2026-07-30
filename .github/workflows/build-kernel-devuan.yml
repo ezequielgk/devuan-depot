@@ -148,6 +148,14 @@ jobs:
       - name: Register compiled version (for future automatic checking)
         run: |
           cd "$GITHUB_WORKSPACE"
+          if [ ! -d .git ]; then
+            echo "Reconstructing git repository..."
+            git init
+            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+            git fetch
+            git reset --soft origin/main
+            git branch -M main
+          fi
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           echo "${{ needs.check.outputs.version }}" > kernel-config/last-built-version.txt
           git config user.name "github-actions[bot]"
