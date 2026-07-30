@@ -1,114 +1,113 @@
 # kernel-build-action (Devuan)
 
-Compila tu kernel Devuan custom vía GitHub Actions, a partir de un
-`.config` que armás vos mismo en tu máquina (con `localmodconfig` +
+Compile your custom Devuan kernel via GitHub Actions, from a
+`.config` you create yourself on your machine (using `localmodconfig` +
 `menuconfig`).
 
-## Por qué el workflow corre dentro de un contenedor `debian:trixie`
+## Why the workflow runs inside a `debian:trixie` container
 
-Tu kernel actual (`6.12.95+deb13-amd64`) es literalmente el paquete de
-Debian 13 (trixie) que Devuan repackagea sin tocar el kernel en sí — Devuan
-solo cambia el init system (systemd → runit/sysvinit), no el kernel. Por
-eso el paquete fuente correcto para compilar es el `linux` de trixie, con
-todos los parches y **hooks de postinst** (los que regeneran initramfs y
-actualizan grub automáticamente al instalar el `.deb`).
+Your current kernel (`6.12.95+deb13-amd64`) is literally the Debian 13 (trixie)
+package that Devuan repackages without touching the kernel itself — Devuan
+only changes the init system (systemd → runit/sysvinit), not the kernel. Therefore,
+the correct source package to compile is the `linux` package from trixie, containing
+all the patches and **postinst hooks** (the ones that regenerate initramfs and
+update grub automatically when you install the `.deb`).
 
-Si en cambio bajás el tarball vanilla de kernel.org y armás el `.deb` a
-mano, te queda sin esos hooks — funciona, pero tenés que correr
-`update-initramfs` y `update-grub` manualmente cada vez. Por eso el
-workflow usa `container: image: debian:trixie` en el job: así `apt-get
-source linux` te trae exactamente el mismo paquete que usa tu Devuan.
+If you instead download the vanilla tarball from kernel.org and build the `.deb` by
+hand, you lose those hooks — it works, but you have to run `update-initramfs` and
+`update-grub` manually every time. That's why the workflow uses
+`container: image: debian:trixie` in the job: this way, `apt-get source linux`
+gets you exactly the same package used by your Devuan installation.
 
-## Setup inicial (una sola vez, en tu Devuan real)
+## Initial Setup (only once, on your real Devuan machine)
 
-Seguí la guía `GUIA-KERNEL-CUSTOM.md` de este mismo repo para generar el
-`.config`: copiás el config de tu kernel actual, corrés `localmodconfig`
-(con `yes n |` porque bluetooth/kvm/gamepad ya están cargados), y ajustás
-en `menuconfig` los filesystems como módulo, las GPUs que no tenés fuera,
-y las network filesystems fuera.
+Follow the guide in this repo (below) to generate the
+`.config`: you copy the config of your current kernel, run `localmodconfig`
+(with `yes n |` because bluetooth/kvm/gamepad are already loaded), and adjust
+in `menuconfig` the filesystems as modules, remove the GPUs you don't have,
+and remove network filesystems.
 
 ```bash
 cp .config /path/to/repo/kernel-config/.config
 git add kernel-config/.config
-git commit -m "config: baseline con bluetooth/kvm/gamepad + fs como módulo"
+git commit -m "config: baseline with bluetooth/kvm/gamepad + fs as modules"
 git push
 ```
 
-Esto dispara el workflow automáticamente (el trigger de `push` mira
-cambios en `kernel-config/.config`).
+This triggers the workflow automatically (the `push` trigger watches for
+changes in `kernel-config/.config`).
 
-## Uso manual
+## Manual Usage
 
 Actions → "Build Custom Kernel (Devuan/Debian trixie)" → "Run workflow".
-Inputs opcionales:
+Optional inputs:
 
-- `kernel_source_version`: versión exacta del paquete fuente `linux` en
-  trixie (por ejemplo `6.12.48-1`). Vacío = trae la última disponible en
-  el repo de Debian en ese momento.
-- `localversion`: sufijo del nombre del kernel compilado (default
+- `kernel_source_version`: exact version of the `linux` source package in
+  trixie (e.g. `6.12.48-1`). Empty = grabs the latest available in the
+  Debian repo at that moment.
+- `localversion`: suffix for the compiled kernel name (default
   `-custom`).
 
-## Qué te devuelve
+## What you get back
 
-- **Artifact** (30 días): `linux-image-*.deb`, `linux-headers-*.deb`,
+- **Artifact** (30 days): `linux-image-*.deb`, `linux-headers-*.deb`,
   `SHA256SUMS.txt`.
-- Si el push fue a `main`, además un **Release** de GitHub con los mismos
-  archivos e instrucciones de instalación en el body.
+- If the push was to `main`, a GitHub **Release** is created with the same
+  files and installation instructions in the body.
 
-## Instalar en tu Devuan
+## Install on your Devuan
 
 ```bash
 sudo dpkg -i linux-image-*.deb linux-headers-*.deb
 ```
 
-Como el paquete viene con los hooks de Debian/Devuan, el `postinst`
-debería regenerar initramfs y actualizar grub solo. Si por algo no lo
-hace:
+Since the package comes with the Debian/Devuan hooks, the `postinst`
+script should regenerate the initramfs and update grub by itself. If for
+some reason it doesn't:
 
 ```bash
 sudo update-initramfs -c -k <version>
 sudo update-grub
 ```
 
-Bootealo desde el menú de grub sin ponerlo default hasta confirmar que
-bluetooth, la VM, y el gamepad siguen andando bien.
+Boot it from the grub menu without setting it as default until you confirm that
+bluetooth, the VM, and the gamepad still work fine.
 
-## Actualizar a una versión nueva del kernel
+## Update to a new kernel version
 
-No hace falta repetir `menuconfig` desde cero. En tu máquina:
+There's no need to repeat `menuconfig` from scratch. On your machine:
 
 ```bash
-apt-get source linux   # baja la versión nueva de trixie
+apt-get source linux   # downloads the new trixie version
 cd linux-*/
 cp /path/to/repo/kernel-config/.config .
-make oldconfig          # te pregunta solo por las opciones nuevas
+make oldconfig          # only prompts you for the new options
 cp .config /path/to/repo/kernel-config/.config
-git add kernel-config/.config && git commit -m "config: bump versión" && git push
+git add kernel-config/.config && git commit -m "config: bump version" && git push
 ```
 
-## Notas
+## Notes
 
-- El cache de `ccache` acelera recompilaciones del mismo `.config`, pero
-  la primera build de una versión nueva tarda igual (kernel completo
-  desde cero, ~40-60 min en runners estándar de GitHub).
-- Si en algún momento agregás firmware propietario o parches extra
-  específicos de tu hardware, se suman como paso adicional antes de
-  "Compilar".
+- The `ccache` cache speeds up recompilations of the same `.config`, but
+  the first build of a new version will take just as long (full kernel
+  from scratch, ~40-60 min on standard GitHub runners).
+- If you ever add proprietary firmware or extra patches specific to your
+  hardware, they should be added as an extra step before "Compile".
 
 
-# Kernel custom — recorte de hardware/subsistemas no usados
+# Custom Kernel — trimming unused hardware/subsystems
 
-Corré esto en tu máquina real (Devuan), no en un contenedor. Vas a necesitar
-~30-60 min de compilación al final, según tu CPU.
+Run this on your real machine (Devuan), not in a container. You'll need
+~30-60 min for compilation at the end, depending on your CPU.
 
-## 0. Dependencias
+## 0. Dependencies
 
 ```bash
 sudo apt install build-essential libncurses-dev bison flex libssl-dev \
     libelf-dev fakeroot dpkg-dev debhelper bc rsync kmod
 ```
 
-## 1. Conseguir el source (vas a usar el mismo del kernel que ya corrés)
+## 1. Get the source (you will use the same one as your running kernel)
 
 ```bash
 mkdir -p ~/kernel-build && cd ~/kernel-build
@@ -116,7 +115,7 @@ apt source linux-image-$(uname -r)
 cd linux-*/
 ```
 
-## 2. Config base + localmodconfig (ya resuelto con tus respuestas)
+## 2. Base config + localmodconfig (already solved by your responses)
 
 ```bash
 cp /boot/config-$(uname -r) .config
@@ -124,119 +123,119 @@ make olddefconfig
 make localmodconfig
 ```
 
-Te va a preguntar por módulos no cargados. Con lo que ya charlamos, la
-respuesta es simple: **decile que no (N) a todo lo que te pregunte**, porque
-ya sabemos que bluetooth, kvm, gamepad, y todo tu hardware real ya están
-cargados y por lo tanto ya están en el .config. Lo que te pregunte es
-justamente lo que no usás.
+It will ask you about unloaded modules. Based on what we discussed, the
+answer is simple: **say no (N) to everything it asks**, because
+we already know that bluetooth, kvm, gamepad, and all your real hardware are
+already loaded and therefore are already in the .config. What it asks you is
+precisely what you do not use.
 
-Atajo para no ir tocando N a mano en cada pregunta:
+Shortcut to avoid pressing N manually on every question:
 
 ```bash
 yes n | make localmodconfig
 ```
 
-## 3. menuconfig — acá va el recorte de subsistemas
+## 3. menuconfig — here goes the subsystem trimming
 
 ```bash
 make menuconfig
 ```
 
-Navegación: flechas para moverte, Enter para entrar a un submenú, `Espacio`
-para ciclar Y/M/N (Y=integrado, M=módulo, N=fuera), `/` para buscar por
-nombre, Esc dos veces para salir de un submenú.
+Navigation: arrow keys to move, Enter to enter a submenu, `Space`
+to cycle Y/M/N (Y=built-in, M=module, N=exclude), `/` to search by
+name, Esc twice to exit a submenu.
 
-### GPUs que no tenés (dejar solo AMD)
+### GPUs you don't have (leave only AMD)
 
 `Device Drivers` → `Graphics support` → `Direct Rendering Manager`:
-- `AMD GPU` → dejar en `M` o `Y` (la tuya)
-- `Nouveau (NVIDIA) cards` → poner en `N`
-- `Intel 8xx/9xx/G3x/G4x/G45/HD Graphics` → poner en `N`
-- `ATI Radeon` (el driver viejo `radeon`, no `amdgpu`) → poner en `N` si no
-  tenés hardware Radeon pre-GCN
+- `AMD GPU` → leave as `M` or `Y` (yours)
+- `Nouveau (NVIDIA) cards` → set to `N`
+- `Intel 8xx/9xx/G3x/G4x/G45/HD Graphics` → set to `N`
+- `ATI Radeon` (the old `radeon` driver, not `amdgpu`) → set to `N` if you
+  don't have pre-GCN Radeon hardware
 
-### Filesystems — ajustado por el uso de discos USB variados
+### Filesystems — adjusted for varied USB drive usage
 
-Como formateás discos USB seguido y no siempre sabés con qué formato vas a
-encontrarte, la jugada es usar el estado `[M]` (módulo) en vez de `[ ]`
-(fuera) para los filesystems "por las dudas". Un módulo no ocupa memoria
-hasta que conectás un disco de ese tipo — es la diferencia entre "no está
-instalado" y "está instalado pero dormido hasta que haga falta".
+Since you format USB drives often and don't always know what format you'll
+encounter, the best move is to use the `[M]` (module) state instead of `[ ]`
+(exclude) for filesystems "just in case". A module doesn't take up memory
+until you plug in a drive of that type — it's the difference between "not
+installed" and "installed but sleeping until needed".
 
-Dejar en `[*]` (integrado, siempre presente — son los que montás todo el
-tiempo):
+Leave as `[*]` (built-in, always present — these are the ones you mount all
+the time):
 - `The Extended 4 (ext4) filesystem`
 - `DOS/FAT/EXFAT/NT Filesystems` → `MSDOS fs support`, `VFAT`
 
-Dejar en `[M]` (módulo, carga solo si conectás un disco así):
+Leave as `[M]` (module, loads only if you plug in such a drive):
 - `Btrfs filesystem support`
 - `XFS filesystem support`
 - `JFS filesystem support`
 - `Reiserfs support`
-- `DOS/FAT/EXFAT/NT Filesystems` → `NTFS Filesystem` y `exFAT filesystem
-  support` (por más que uses `ntfs-3g`/FUSE para tu `/mnt/Personal` actual,
-  tener el driver nativo como módulo no cuesta nada en reposo)
+- `DOS/FAT/EXFAT/NT Filesystems` → `NTFS Filesystem` and `exFAT filesystem
+  support` (even if you currently use `ntfs-3g`/FUSE for your `/mnt/Personal`,
+  having the native driver as a module costs nothing at rest)
 
-Sacar del todo, `[ ]` (confirmado que no lo necesitás — nada tuyo es por
-red):
+Exclude completely, `[ ]` (confirmed that you don't need it — nothing of yours is over
+the network):
 - `Network File Systems` → `NFS client support`, `NFS server support`,
-  `CIFS support` (todo el submenú)
+  `CIFS support` (the whole submenu)
 
-### Arquitecturas — no aplica a nivel menuconfig
+### Architectures — doesn't apply at the menuconfig level
 
-Esto en realidad no se elige acá: el `.config` que copiaste de
-`/boot/config-$(uname -r)` ya es específico para `x86_64`, porque es la
-config del kernel de Debian que corrés ahora, compilado para tu arch. No
-hay "soporte ARM" mezclado en un kernel x86_64 para sacar — este punto ya
-viene resuelto de fábrica.
+This isn't actually selected here: the `.config` you copied from
+`/boot/config-$(uname -r)` is already specific to `x86_64`, because it's the
+config of the Debian kernel you are running now, compiled for your arch. There
+is no "ARM support" mixed into an x86_64 kernel to remove — this point is already
+resolved out of the box.
 
-### Debug options — apagar todo lo que no necesitás para diagnosticar bugs del kernel en sí
+### Debug options — turn off everything you don't need to diagnose kernel bugs
 
 `Kernel hacking` → `Kernel debugging`:
-- `Compile the kernel with debug info` → `N` (a menos que estés debuggeando
-  el kernel mismo con gdb, no aplica a uso normal)
-- `Kernel debugging` → dejar en `N` la mayoría de submenús ahí, salvo que
-  sepas que necesitás alguno específico
+- `Compile the kernel with debug info` → `N` (unless you are debugging
+  the kernel itself with gdb, it doesn't apply to normal use)
+- `Kernel debugging` → leave most submenus there as `N`, unless you
+  know you need a specific one
 
-Guardá y salí (`Save` al fondo del menú, o Esc → "Yes" al salir).
+Save and exit (`Save` at the bottom of the menu, or Esc → "Yes" on exit).
 
-## 4. Compilar
+## 4. Compile
 
 ```bash
 make -j$(nproc) deb-pkg LOCALVERSION=-custom
 ```
 
-## 5. Instalar
+## 5. Install
 
 ```bash
 cd ..
 sudo dpkg -i linux-image-*-custom_*.deb linux-headers-*-custom_*.deb
 ```
 
-## 6. Reboot y elegir el kernel nuevo en el menú de GRUB
+## 6. Reboot and choose the new kernel in the GRUB menu
 
-No lo pongas default todavía. Una vez adentro:
+Don't set it as default yet. Once inside:
 
 ```bash
-uname -r                    # confirmar que es el -custom
-lsmod | wc -l               # comparar contra los 143 de antes
+uname -r                    # confirm it is the -custom
+lsmod | wc -l               # compare against the previous 143
 dmesg | grep -iE "error|fail"
 ```
 
-Probá bluetooth, un juego con el gamepad, y una VM chica para confirmar que
-los tres frentes que dijiste usar siguen andando. Si todo bien un par de
-días, ahí sí:
+Test bluetooth, a game with the gamepad, and a small VM to confirm that
+the three fronts you mentioned still work. If everything is fine for a couple of
+days, then:
 
 ```bash
-sudo update-grub    # asegurate que quede como default, o editá /etc/default/grub
+sudo update-grub    # make sure it stays as default, or edit /etc/default/grub
 ```
 
-## Guardar el .config para el futuro
+## Save the .config for the future
 
 ```bash
 cp .config ~/kernel-build/config-custom-$(uname -r)-backup
 ```
 
-Este es el archivo que después subís a `kernel-config/.config` en el repo
-del workflow de GitHub Actions que armamos, para automatizar builds futuros
-sin repetir todo el proceso a mano.
+This is the file you later upload to `kernel-config/.config` in the GitHub
+Actions workflow repo we set up, to automate future builds
+without repeating the whole process manually.

@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       kernel_source_version:
-        description: 'Versión exacta del paquete fuente "linux" en trixie (vacío = última disponible en el repo)'
+        description: 'Exact version of the "linux" source package in trixie (empty = latest available in the repo)'
         required: false
         default: ''
       localversion:
-        description: 'Sufijo LOCALVERSION'
+        description: 'LOCALVERSION suffix'
         required: false
         default: '-custom'
   push:
@@ -25,12 +25,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Habilitar deb-src y actualizar
+      - name: Enable deb-src and update
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates
-          # El contenedor debian:trixie trae sources en formato deb822 (Types: deb).
-          # Agregamos deb-src para poder bajar el paquete fuente del kernel.
+          # The debian:trixie container brings sources in deb822 format (Types: deb).
+          # We add deb-src to be able to download the kernel source package.
           if [ -f /etc/apt/sources.list.d/debian.sources ]; then
             sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
           else
@@ -38,14 +38,14 @@ jobs:
           fi
           apt-get update
 
-      - name: Instalar dependencias de build
+      - name: Install build dependencies
         run: |
           apt-get install -y --no-install-recommends \
             build-essential libncurses-dev bison flex libssl-dev libelf-dev \
             fakeroot dpkg-dev debhelper bc rsync kmod cpio wget xz-utils \
-            dpkg-source python3
+            dpkg-source python3 dwarves
 
-      - name: Bajar el paquete fuente "linux" (el mismo que empaqueta Devuan)
+      - name: Download the "linux" source package (the same one Devuan packages)
         run: |
           mkdir -p /build && cd /build
           if [ -n "${{ github.event.inputs.kernel_source_version }}" ]; then
@@ -53,27 +53,27 @@ jobs:
           else
             apt-get source linux
           fi
-          # Queda extraído en /build/linux-<version>/
+          # Extracted to /build/linux-<version>/
           ls -d linux-*/ | head -1 > /build/srcdir.txt
           cat /build/srcdir.txt
 
-      - name: Copiar el .config commiteado (generado con menuconfig en tu Devuan)
+      - name: Copy the committed .config (generated with menuconfig on your Devuan)
         run: |
           SRCDIR=$(cat /build/srcdir.txt)
           if [ ! -f "kernel-config/.config" ]; then
-            echo "Falta kernel-config/.config en el repo. Generalo en tu máquina con"
-            echo "localmodconfig + menuconfig y commiteálo antes de correr esto."
+            echo "kernel-config/.config is missing in the repo. Generate it on your machine with"
+            echo "localmodconfig + menuconfig and commit it before running this."
             exit 1
           fi
           cp kernel-config/.config "/build/${SRCDIR}.config"
 
-      - name: Adaptar config a esta versión exacta del source
+      - name: Adapt config to this exact source version
         run: |
           SRCDIR=$(cat /build/srcdir.txt)
           cd "/build/${SRCDIR}"
           make olddefconfig
 
-      - name: Cache de ccache
+      - name: ccache Cache
         uses: actions/cache@v4
         with:
           path: /root/.ccache
@@ -81,17 +81,17 @@ jobs:
           restore-keys: |
             ccache-devuan-
 
-      - name: Instalar ccache
+      - name: Install ccache
         run: apt-get install -y --no-install-recommends ccache
 
-      - name: Compilar (.deb con hooks de Debian/Devuan intactos)
+      - name: Compile (.deb with intact Debian/Devuan hooks)
         run: |
           SRCDIR=$(cat /build/srcdir.txt)
           cd "/build/${SRCDIR}"
           export PATH="/usr/lib/ccache:$PATH"
           make -j$(nproc) deb-pkg LOCALVERSION=${{ github.event.inputs.localversion || '-custom' }}
 
-      - name: Juntar .deb generados
+      - name: Gather generated .deb files
         run: |
           mkdir -p dist
           mv /build/linux-image-*.deb dist/ 2>/dev/null || true
@@ -103,31 +103,31 @@ jobs:
         working-directory: dist
         run: sha256sum *.deb > SHA256SUMS.txt
 
-      - name: Subir artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}
           path: dist/
           retention-days: 30
 
-      - name: Crear release (solo push a main)
+      - name: Create release (only push to main)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}-${{ github.run_number }}
-          name: Kernel Devuan custom (build ${{ github.run_number }})
+          name: Custom Devuan Kernel (build ${{ github.run_number }})
           files: dist/*
           body: |
-            Compilado desde el paquete fuente `linux` de trixie/deb13 (el mismo
-            que repackagea Devuan), con el `.config` de `kernel-config/.config`
+            Compiled from the `linux` source package of trixie/deb13 (the same
+            one Devuan repackages), with the `.config` from `kernel-config/.config`
             (commit ${{ github.sha }}).
 
-            Instalación en tu Devuan:
+            Installation on your Devuan:
             ```
             sudo dpkg -i linux-image-*.deb linux-headers-*.deb
             ```
-            Los hooks de postinst de Debian/Devuan deberían regenerar initramfs
-            y grub automáticamente. Si no:
+            The Debian/Devuan postinst hooks should regenerate initramfs
+            and grub automatically. If not:
             ```
             sudo update-initramfs -c -k <version>
             sudo update-grub
