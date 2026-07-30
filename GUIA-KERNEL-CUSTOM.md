@@ -20,67 +20,60 @@ The workflow has three triggers:
    (which the workflow itself updates after every successful build), and
    **only triggers the build if it changed**. If there is no new version, the
    compilation job is skipped entirely — it doesn't waste Actions minutes
-   compiling the same thing every day.
+# Custom Kernel — AMD Optimized (trixie)
 
-## Why it runs inside a `debian:trixie` container
+Este repositorio compila automáticamente tu kernel Devuan "amd" a través de GitHub Actions, utilizando como base el kernel genérico oficial de Debian/Devuan, pero aplicándole configuraciones de optimización en la nube de forma automática.
 
-Your current kernel is literally the Debian 13 (trixie) package that
-Devuan repackages without touching it — Devuan only changes the init system.
-That's why `apt-get source linux` inside that container brings you the
-correct package, with the **postinst hooks** that automatically regenerate
-initramfs and grub when the `.deb` is installed.
+## ¿Qué se le recortó al kernel genérico?
 
-## Initial Setup (only once, on your real Devuan machine)
+Para lograr una compilación más rápida, menos peso y estar optimizado para tu hardware, se extrae el `.config` original de Debian y se modifican las siguientes opciones:
 
-Follow `GUIA-KERNEL-CUSTOM.md` in this repo to generate the `.config`:
-copy the config of your current kernel, run `localmodconfig` (with
-`yes n |`, since bluetooth/kvm/gamepad stay because you use them), and
-adjust in `menuconfig` the filesystems as modules, exclude the GPUs you
-don't have, and exclude network filesystems.
+### 1. Placas de Video que no usás (Completamente eliminadas):
+- `NOUVEAU` (Drivers de Nvidia).
+- `DRM_I915` (Drivers de Intel integradas antiguas).
+- `DRM_RADEON` (Drivers de placas AMD muy viejas pre-GCN).
+*(El driver moderno `amdgpu` que usan las gráficas actuales se mantiene intacto)*.
 
-```bash
-cp .config /path/to/repo/kernel-config/.config
-git add kernel-config/.config
-git commit -m "config: baseline excalibur"
-git push
-```
+### 2. Sistemas de Archivos de Red (Completamente eliminados):
+- Se eliminan por completo `NFS` (cliente y servidor) y `CIFS` (carpetas compartidas de Windows/Samba).
 
-This triggers the first build automatically.
+### 3. Opciones de Desarrollo (Completamente eliminadas):
+- `DEBUG_INFO` y los símbolos BTF/DWARF. Esto reduce cientos de megabytes de peso extra innecesario.
 
-## Manual Usage
+### 4. Sistemas de Archivos (Convertidos en Módulos `[M]`):
+- Sistemas como `BTRFS`, `XFS`, `JFS`, `NTFS` y `EXFAT` se compilan como módulos. **No consumen memoria RAM** hasta que enchufes un disco con ese formato.
 
-Actions → "Build Custom Kernel - Excalibur (Devuan/Debian trixie)" → "Run
-workflow". Optional inputs:
+---
 
-- `kernel_source_version`: exact version of the `linux` source package in
-  trixie (e.g. `6.12.48-1`). Empty = latest available at that moment.
-- `localversion`: name suffix (default `-excalibur`, you will almost never
-  need to change it).
+## 1. Instalación (Solo para Devuan/Debian)
 
-## What you get back
+Como esto genera archivos `.deb`, la instalación en tu Devuan es idéntica a cualquier paquete oficial. Tenés dos opciones:
 
-- **Artifact** (30 days): `linux-image-*.deb`, `linux-headers-*.deb`,
-  `SHA256SUMS.txt`, named `excalibur-<version>`.
-- It always creates a GitHub **Release** with those same files
-  (`excalibur-<version>-<run_number>`), with installation instructions
-  in the body.
+### Opción A: A través de tu propio repositorio APT (Recomendado)
 
-## Install on your Devuan
+El workflow sube automáticamente la última compilación a la rama `gh-pages` como un repositorio APT válido.
+Simplemente seguí las instrucciones de instalación de la página del repositorio para agregar el origen, y luego:
 
 ```bash
-sudo dpkg -i linux-image-*-excalibur*.deb linux-headers-*-excalibur*.deb
+sudo apt update
+sudo apt install linux-image-*-amd linux-headers-*-amd
 ```
 
-Since the package brings the Debian/Devuan hooks, the `postinst` script
-should regenerate initramfs and update grub by itself. If for some reason it doesn't:
+### Opción B: Descarga Manual
 
-```bash
-sudo update-initramfs -c -k <version>-excalibur
-sudo update-grub
-```
+1. Andá a la pestaña **Releases** en este repositorio de GitHub.
+2. Descargá los `.deb` generados en la última versión.
+3. Instalalos con:
+   ```bash
+   sudo dpkg -i linux-image-*-amd*.deb linux-headers-*-amd*.deb
+   ```
 
-Boot it from the grub menu without setting it as default until you confirm that
-bluetooth, the VM, and the gamepad still work fine.
+## 2. Configurar GRUB (Recomendado)
+
+Si instalás un kernel manual, Devuan lo agregará al GRUB automáticamente, pero puede que no lo deje como predeterminado si tu kernel actual (el `deb13` oficial) tiene un número de versión superior.
+
+Bootearlo desde el menú de grub sin ponerlo por defecto hasta confirmar que
+el bluetooth, la máquina virtual y el joystick sigan funcionando perfectamente.
 
 ## Updating the `.config` in the future
 

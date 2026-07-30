@@ -1,4 +1,4 @@
-name: Build Custom Kernel - Excalibur (Devuan/Debian trixie)
+name: Build Custom Kernel - AMD (Devuan/Debian trixie)
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
       localversion:
         description: 'LOCALVERSION suffix'
         required: false
-        default: '-excalibur'
+        default: '-amd'
   push:
     paths:
       - 'kernel-config/.config'
@@ -86,41 +86,41 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /root/.ccache
-          key: ccache-excalibur-${{ hashFiles('kernel-config/.config') }}
+          key: ccache-amd-${{ hashFiles('kernel-config/.config') }}
           restore-keys: |
-            ccache-excalibur-
+            ccache-amd-
 
       - name: Install dependencies from JSON and run build script
         env:
           KERNEL_SOURCE_VERSION: ${{ needs.check.outputs.version }}
-          LOCALVERSION: ${{ github.event.inputs.localversion || '-excalibur' }}
+          LOCALVERSION: ${{ github.event.inputs.localversion || '-amd' }}
         run: |
           apt-get update
           apt-get install -y jq curl wget ca-certificates
           
           # Parse dependencies from JSON
-          META_FILE="scripts/meta/kernel-excalibur.json"
+          META_FILE="scripts/meta/kernel-amd.json"
           BASE_PKGS=$(jq -r '.base_apt_packages | join(" ")' "$META_FILE")
           apt-get install -y --no-install-recommends $BASE_PKGS
           
           # Run the build script
-          bash scripts/build-kernel-excalibur.sh
+          bash scripts/build-kernel-amd.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: excalibur-${{ needs.check.outputs.version }}
+          name: amd-${{ needs.check.outputs.version }}
           path: dist/
           retention-days: 30
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: excalibur-${{ needs.check.outputs.version }}-${{ github.run_number }}
-          name: Excalibur ${{ needs.check.outputs.version }} (build ${{ github.run_number }})
+          tag_name: amd-${{ needs.check.outputs.version }}-${{ github.run_number }}
+          name: AMD ${{ needs.check.outputs.version }} (build ${{ github.run_number }})
           files: dist/*
           body: |
-            Custom Devuan kernel "excalibur", compiled from the `linux` source package
+            Custom Devuan kernel "amd", compiled from the `linux` source package
             version `${{ needs.check.outputs.version }}` of trixie/deb13,
             with the `.config` from `kernel-config/.config` (commit ${{ github.sha }}).
 
@@ -131,7 +131,7 @@ jobs:
             The Debian/Devuan postinst hooks should regenerate initramfs
             and grub automatically. If not:
             ```
-            sudo update-initramfs -c -k <version>-excalibur
+            sudo update-initramfs -c -k <version>-amd
             sudo update-grub
             ```
 
@@ -142,7 +142,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kernel-config/last-built-version.txt
           git diff --cached --quiet && echo "No changes to commit" || \
-            (git commit -m "chore: excalibur ${{ needs.check.outputs.version }} compiled [skip ci]" && git push)
+            (git commit -m "chore: amd ${{ needs.check.outputs.version }} compiled [skip ci]" && git push)
 
   publish:
     needs: [check, build]
@@ -161,7 +161,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: incoming/
-          pattern: excalibur-${{ needs.check.outputs.version }}
+          pattern: amd-${{ needs.check.outputs.version }}
           merge-multiple: true
 
       - name: Import GPG key
@@ -205,5 +205,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pool/ dists/
-          git commit -m "chore(repo): update kernel to excalibur ${{ needs.check.outputs.version }}" || echo "No changes to commit"
+          git commit -m "chore(repo): update kernel to amd ${{ needs.check.outputs.version }}" || echo "No changes to commit"
           git push

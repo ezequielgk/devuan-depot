@@ -3,7 +3,7 @@ set -e
 
 # Default values if not set in environment
 KERNEL_SOURCE_VERSION=${KERNEL_SOURCE_VERSION:-}
-LOCALVERSION=${LOCALVERSION:--excalibur}
+LOCALVERSION=${LOCALVERSION:--amd}
 
 echo "Enabling deb-src to download kernel source..."
 if [ -f /etc/apt/sources.list.d/debian.sources ]; then

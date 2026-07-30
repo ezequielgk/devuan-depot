@@ -1,5 +1,5 @@
 {
-  "script": "build-kernel-excalibur.sh",
+  "script": "build-kernel-amd.sh",
   "needs_devuan_depot_repo": false,
   "base_apt_packages": [
     "ca-certificates", "build-essential", "libncurses-dev", "bison", "flex", 
