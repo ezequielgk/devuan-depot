@@ -35,7 +35,7 @@ jobs:
       - name: Install config generation dependencies
         run: |
           apt-get install -y --no-install-recommends \
-            build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dpkg-dev
+            build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dpkg-dev git
 
       - name: Download linux source
         run: |
