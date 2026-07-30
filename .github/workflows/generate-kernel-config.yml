@@ -104,6 +104,8 @@ jobs:
 
       - name: Commit and push generated .config
         run: |
+          cd "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kernel-config/.config

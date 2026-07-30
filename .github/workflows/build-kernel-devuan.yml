@@ -137,6 +137,8 @@ jobs:
 
       - name: Register compiled version (for future automatic checking)
         run: |
+          cd "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           echo "${{ needs.check.outputs.version }}" > kernel-config/last-built-version.txt
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
