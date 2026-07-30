@@ -45,7 +45,7 @@ make olddefconfig
 
 echo "Compiling (.deb with intact Debian/Devuan hooks)..."
 export PATH="/usr/lib/ccache:$PATH"
-make -j$(nproc) deb-pkg LOCALVERSION="$LOCALVERSION"
+make -j$(nproc) bindeb-pkg LOCALVERSION="$LOCALVERSION"
 
 echo "Gathering generated .deb files..."
 cd /build

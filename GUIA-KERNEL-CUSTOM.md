@@ -208,7 +208,7 @@ Save and exit (`Save` at the bottom of the menu, or Esc → "Yes" on exit).
 ## 4. Compile
 
 ```bash
-make -j$(nproc) deb-pkg LOCALVERSION=-custom
+make -j$(nproc) bindeb-pkg LOCALVERSION=-custom
 ```
 
 ## 5. Install
