@@ -1,0 +1,134 @@
+name: Build Custom Kernel (Devuan/Debian trixie)
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_source_version:
+        description: 'Versión exacta del paquete fuente "linux" en trixie (vacío = última disponible en el repo)'
+        required: false
+        default: ''
+      localversion:
+        description: 'Sufijo LOCALVERSION'
+        required: false
+        default: '-custom'
+  push:
+    paths:
+      - 'kernel-config/.config'
+      - '.github/workflows/build-kernel-devuan.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Habilitar deb-src y actualizar
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+          # El contenedor debian:trixie trae sources en formato deb822 (Types: deb).
+          # Agregamos deb-src para poder bajar el paquete fuente del kernel.
+          if [ -f /etc/apt/sources.list.d/debian.sources ]; then
+            sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
+          else
+            echo "deb-src http://deb.debian.org/debian trixie main" >> /etc/apt/sources.list
+          fi
+          apt-get update
+
+      - name: Instalar dependencias de build
+        run: |
+          apt-get install -y --no-install-recommends \
+            build-essential libncurses-dev bison flex libssl-dev libelf-dev \
+            fakeroot dpkg-dev debhelper bc rsync kmod cpio wget xz-utils \
+            dpkg-source python3
+
+      - name: Bajar el paquete fuente "linux" (el mismo que empaqueta Devuan)
+        run: |
+          mkdir -p /build && cd /build
+          if [ -n "${{ github.event.inputs.kernel_source_version }}" ]; then
+            apt-get source linux=${{ github.event.inputs.kernel_source_version }}
+          else
+            apt-get source linux
+          fi
+          # Queda extraído en /build/linux-<version>/
+          ls -d linux-*/ | head -1 > /build/srcdir.txt
+          cat /build/srcdir.txt
+
+      - name: Copiar el .config commiteado (generado con menuconfig en tu Devuan)
+        run: |
+          SRCDIR=$(cat /build/srcdir.txt)
+          if [ ! -f "kernel-config/.config" ]; then
+            echo "Falta kernel-config/.config en el repo. Generalo en tu máquina con"
+            echo "localmodconfig + menuconfig y commiteálo antes de correr esto."
+            exit 1
+          fi
+          cp kernel-config/.config "/build/${SRCDIR}.config"
+
+      - name: Adaptar config a esta versión exacta del source
+        run: |
+          SRCDIR=$(cat /build/srcdir.txt)
+          cd "/build/${SRCDIR}"
+          make olddefconfig
+
+      - name: Cache de ccache
+        uses: actions/cache@v4
+        with:
+          path: /root/.ccache
+          key: ccache-devuan-${{ hashFiles('kernel-config/.config') }}
+          restore-keys: |
+            ccache-devuan-
+
+      - name: Instalar ccache
+        run: apt-get install -y --no-install-recommends ccache
+
+      - name: Compilar (.deb con hooks de Debian/Devuan intactos)
+        run: |
+          SRCDIR=$(cat /build/srcdir.txt)
+          cd "/build/${SRCDIR}"
+          export PATH="/usr/lib/ccache:$PATH"
+          make -j$(nproc) deb-pkg LOCALVERSION=${{ github.event.inputs.localversion || '-custom' }}
+
+      - name: Juntar .deb generados
+        run: |
+          mkdir -p dist
+          mv /build/linux-image-*.deb dist/ 2>/dev/null || true
+          mv /build/linux-headers-*.deb dist/ 2>/dev/null || true
+          mv /build/linux-libc-dev*.deb dist/ 2>/dev/null || true
+          ls -lh dist/
+
+      - name: Checksums
+        working-directory: dist
+        run: sha256sum *.deb > SHA256SUMS.txt
+
+      - name: Subir artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}
+          path: dist/
+          retention-days: 30
+
+      - name: Crear release (solo push a main)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: kernel-devuan${{ github.event.inputs.localversion || '-custom' }}-${{ github.run_number }}
+          name: Kernel Devuan custom (build ${{ github.run_number }})
+          files: dist/*
+          body: |
+            Compilado desde el paquete fuente `linux` de trixie/deb13 (el mismo
+            que repackagea Devuan), con el `.config` de `kernel-config/.config`
+            (commit ${{ github.sha }}).
+
+            Instalación en tu Devuan:
+            ```
+            sudo dpkg -i linux-image-*.deb linux-headers-*.deb
+            ```
+            Los hooks de postinst de Debian/Devuan deberían regenerar initramfs
+            y grub automáticamente. Si no:
+            ```
+            sudo update-initramfs -c -k <version>
+            sudo update-grub
+            ```
