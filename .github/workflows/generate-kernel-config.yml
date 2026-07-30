@@ -43,19 +43,26 @@ jobs:
           apt-get source linux
           ls -d linux-*/ | head -1 > /build/srcdir.txt
 
-      - name: Apply base config and localmodconfig
+      - name: Apply base config and manual trims
         run: |
           SRCDIR=$(cat /build/srcdir.txt)
-          cd "/build/${SRCDIR}"
           
-          # 1. Copy base config
-          cp "$GITHUB_WORKSPACE/kernel-config/base.config" .config
+          # 1. Download official Debian config to use as generic base
+          echo "Fetching generic Debian config..."
+          mkdir -p /tmp/debian-kernel
+          cd /tmp/debian-kernel
+          KERNEL_PKG=$(apt-cache depends linux-image-amd64 | grep Depends | awk '{print $2}')
+          apt-get download "$KERNEL_PKG"
+          dpkg-deb -x "$KERNEL_PKG"*.deb .
+          
+          # Copy it to our build tree
+          cp boot/config-* "/build/${SRCDIR}/.config"
+          
+          cd "/build/${SRCDIR}"
           make olddefconfig
           
-          # 2. Trim modules using the user's lsmod
-          yes n | make LSMOD="$GITHUB_WORKSPACE/kernel-config/lsmod.txt" localmodconfig
-          
-          # 3. Manual Trims via scripts/config
+          # 2. Manual Trims via scripts/config
+          echo "Applying manual configuration trims..."
           # GPUs
           scripts/config --disable NOUVEAU
           scripts/config --disable DRM_I915
@@ -101,7 +108,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kernel-config/.config
           
-          COMMIT_MSG="config: generate excalibur via localmodconfig"
+          COMMIT_MSG="config: generate generic excalibur config"
           if [ "${{ github.event.inputs.trigger_build }}" = "false" ]; then
             COMMIT_MSG="$COMMIT_MSG [skip ci]"
           fi
