@@ -47,7 +47,19 @@ At this stage, the actual disk/memory savings are minimal, but since your hardwa
 - **Server Virtualization:** The `XEN` hypervisor support (used primarily in big servers/AWS).
 - **Foreign Sensors:** Removed temperature monitoring code for Intel (`CORETEMP`) and VIA processors. *(Your AMD `K10TEMP` sensor is fully intact).*
 
-### 6. Development & Debug Options (Completely removed)
+### 6. Atomic & Black Hole Level Trims (The Absolute Limit)
+To squeeze out the last remaining bytes of unused code without breaking your specific setup, we purged the following sub-systems:
+- **Alien Laptops & Brands:** All drivers for Chromebooks (`CHROME_PLATFORMS`), Microsoft Surface, and Apple MacBooks.
+- **Non-Wacom Tablets:** Drivers for Huion, XP-Pen, Ugee, and Genius tablets (keeping only Wacom).
+- **Enterprise & Datacenter:** InfiniBand, Server Watchdogs (`WATCHDOG`), Non-AMD Crypto Accelerators (Intel QAT, Cavium), and LivePatching/Kexec.
+- **Exotic Partitions & File Systems:** Amiga, Mac, Sun, and BSD partition tables. Dead network filesystems like Ceph, AFS, Plan 9, and Coda.
+- **Dead Connectivity & Ports:** FireWire, Dial-up modems (`TELEPHONY`), CAN Bus (used in cars/factories), NFC readers, and old `GAMEPORT` MIDI connectors.
+- **Android & Mobile:** Android IPC/Ashmem, and Mobile Sensors (`IIO` like gyroscopes/accelerometers).
+- **Miscellaneous Junk:** Intel Microcode (`MICROCODE_INTEL`), Braille displays (`SPEAKUP`), Staging (experimental drivers), and the motherboard beep speaker (`INPUT_PCSPKR`).
+
+*(Safety Exceptions: We kept `USB_SERIAL` for your Arduino/ESP32, `DRM_QXL` for SPICE VM guests, and USB 1.1/2.0 as modules just in case your motherboard needs them).*
+
+### 7. Development & Debug Options (Completely removed)
 - `DEBUG_INFO` and BTF/DWARF symbols are disabled. This drastically reduces compilation time and memory usage, and shaves hundreds of megabytes off the final `.deb` size.
 
 ---

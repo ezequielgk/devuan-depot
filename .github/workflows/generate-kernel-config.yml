@@ -163,6 +163,75 @@ jobs:
           scripts/config --disable SENSORS_CORETEMP
           scripts/config --disable SENSORS_VIA686A
           
+          # Extreme Level: Alien Laptops & Brands
+          scripts/config --disable CHROME_PLATFORMS
+          scripts/config --disable SURFACE_PLATFORMS
+          scripts/config --disable MACINTOSH_DRIVERS
+          scripts/config --disable APPLE_PROPERTIES
+          
+          # Extreme Level: Non-Wacom Tablets
+          scripts/config --disable HID_HUION
+          scripts/config --disable HID_XPEN
+          scripts/config --disable HID_UGEE
+          scripts/config --disable HID_KYE
+          scripts/config --disable HID_WALTOP
+          
+          # Extreme Level: Servers & Datacenters
+          scripts/config --disable INFINIBAND
+          scripts/config --disable WATCHDOG
+          scripts/config --disable CRYPTO_DEV_QAT
+          scripts/config --disable CRYPTO_DEV_NITROX
+          
+          # Extreme Level: Exotic Partitions
+          scripts/config --disable AMIGA_PARTITION
+          scripts/config --disable MAC_PARTITION
+          scripts/config --disable SUN_PARTITION
+          scripts/config --disable BSD_DISKLABEL
+          scripts/config --disable SGI_PARTITION
+          
+          # Extreme Level: Android, NFC, IIO, Microcode, Speakup
+          scripts/config --disable ANDROID
+          scripts/config --disable ASHMEM
+          scripts/config --disable NFC
+          scripts/config --disable IIO
+          scripts/config --disable MICROCODE_INTEL
+          scripts/config --disable SPEAKUP
+          scripts/config --disable INPUT_PCSPKR
+          
+          # Atomic Level: FireWire, SD cards, CAN, Dial-up, MTD, Exotic Net FS
+          scripts/config --disable FIREWIRE
+          scripts/config --disable MMC
+          scripts/config --disable CAN
+          scripts/config --disable PHONE
+          scripts/config --disable BLK_DEV_NBD
+          scripts/config --disable BLK_DEV_DRBD
+          scripts/config --disable CEPH_FS
+          scripts/config --disable AFS_FS
+          scripts/config --disable NET_9P
+          scripts/config --disable 9P_FS
+          scripts/config --disable CODA_FS
+          scripts/config --disable MTD
+          
+          # Black Hole Level: Livepatch, Kexec, Gameport, PTP, Staging
+          scripts/config --disable LIVEPATCH
+          scripts/config --disable KEXEC
+          scripts/config --disable KEXEC_FILE
+          scripts/config --disable GAMEPORT
+          scripts/config --disable PTP_1588_CLOCK
+          scripts/config --disable HW_RANDOM_INTEL
+          scripts/config --disable HW_RANDOM_VIA
+          scripts/config --disable STAGING
+          scripts/config --disable DRM_VMWGFX
+          
+          # EXCEPTIONS: Kept as modules for safety / specific hardware
+          scripts/config --module USB_SERIAL
+          scripts/config --module USB_SERIAL_FTDI_SIO
+          scripts/config --module USB_SERIAL_PL2303
+          scripts/config --module USB_EHCI_HCD
+          scripts/config --module USB_OHCI_HCD
+          scripts/config --module USB_UHCI_HCD
+          scripts/config --module DRM_QXL
+          
           scripts/config --disable DEBUG_INFO_BTF
           scripts/config --disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
           scripts/config --disable DEBUG_INFO_DWARF4
