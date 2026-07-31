@@ -88,9 +88,24 @@ jobs:
           scripts/config --disable NFS_FS
           scripts/config --disable NFSD
           scripts/config --disable CIFS
-          
           # Debug - Disabled
           scripts/config --disable DEBUG_INFO
+          
+          # Sniper Mode - Hardware we don't use
+          scripts/config --disable MEDIA_SUPPORT
+          scripts/config --disable WLAN
+          scripts/config --disable MAC80211
+          scripts/config --disable CFG80211
+          scripts/config --disable BLK_DEV_FD
+          scripts/config --disable PARPORT
+          scripts/config --disable ATA_SFF
+          scripts/config --disable PCCARD
+          
+          # Sniper Mode - Rare Network Protocols we don't use
+          scripts/config --disable ATM
+          scripts/config --disable APPLETALK
+          scripts/config --disable AX25
+          scripts/config --disable ISDN
           scripts/config --disable DEBUG_INFO_BTF
           scripts/config --disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
           scripts/config --disable DEBUG_INFO_DWARF4
