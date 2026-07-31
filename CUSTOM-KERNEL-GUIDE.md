@@ -20,7 +20,7 @@ To achieve a faster build, smaller size, and optimization for your specific hard
 - `DRM_RADEON` (Old pre-GCN AMD drivers)
 *(The modern `amdgpu` driver used by your graphics card is kept intact).*
 
-### 2. Sniper Mode: Hardware you don't use (Completely removed)
+### 2. Hardware you don't use (Completely removed)
 - `MEDIA_SUPPORT` (Removes TV tuners, webcams, and DVB).
 - `WLAN`, `MAC80211`, `CFG80211` (Removes all Wi-Fi drivers since you only use Ethernet).
 - Legacy hardware like Floppy disks (`BLK_DEV_FD`), Parallel ports (`PARPORT`), IDE hard drives (`ATA_SFF`), and PCMCIA cards.

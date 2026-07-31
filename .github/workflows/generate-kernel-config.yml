@@ -91,7 +91,7 @@ jobs:
           # Debug - Disabled
           scripts/config --disable DEBUG_INFO
           
-          # Sniper Mode - Hardware we don't use
+          # Hardware we don't use
           scripts/config --disable MEDIA_SUPPORT
           scripts/config --disable WLAN
           scripts/config --disable MAC80211
@@ -101,7 +101,7 @@ jobs:
           scripts/config --disable ATA_SFF
           scripts/config --disable PCCARD
           
-          # Sniper Mode - Rare Network Protocols we don't use
+          # Rare Network Protocols we don't use
           scripts/config --disable ATM
           scripts/config --disable APPLETALK
           scripts/config --disable AX25
