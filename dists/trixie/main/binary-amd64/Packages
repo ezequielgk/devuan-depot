@@ -1269,55 +1269,55 @@ Multi-Arch: same
 Description: debug symbols for libxkbregistry0
 Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
 
-Package: linux-headers-6.12.96-crystal
+Package: linux-headers-6.12.100-crystal
 Source: linux-upstream
-Version: 6.12.96-1
+Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@4a36f4df93ce>
-Installed-Size: 52844
-Filename: pool/main/linux-headers-6.12.96-crystal_6.12.96-1_amd64.deb
-Size: 9129980
-MD5sum: 11146ddd82e4dd7d3e921df8dc620b6d
-SHA1: d5683ac9853e50b3b13feec06008dffc8dfd2f01
-SHA256: 52cf325ab6d47b3a15f6997dc3ecb9984ebfe7d1c765cffb58c0cf86e3cfae54
+Maintainer: root <root@c0a4025c6987>
+Installed-Size: 52614
+Filename: pool/main/linux-headers-6.12.100-crystal_6.12.100-1_amd64.deb
+Size: 9093480
+MD5sum: 2b23d263c227914f0096704f981a0790
+SHA1: ee27cc2af3beaccb8cb4023f9eeaefab02690195
+SHA256: 90685be540c137c75bbb9df512072a79e40d040297e8a29d15cf2721a55db625
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/
-Description: Linux kernel headers for 6.12.96-crystal on amd64
- This package provides kernel header files for 6.12.96-crystal on amd64
+Description: Linux kernel headers for 6.12.100-crystal on amd64
+ This package provides kernel header files for 6.12.100-crystal on amd64
  .
  This is useful for people who need to build external modules
 
-Package: linux-image-6.12.96-crystal
+Package: linux-image-6.12.100-crystal
 Source: linux-upstream
-Version: 6.12.96-1
+Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@4a36f4df93ce>
-Installed-Size: 80383
-Filename: pool/main/linux-image-6.12.96-crystal_6.12.96-1_amd64.deb
-Size: 69152612
-MD5sum: 47a287848be290ea51a862d09f31c87d
-SHA1: a2d8c4d1f53509617980c515b994fcef350bf479
-SHA256: bcb3c82135565e22778587231967ff9ed73dc882d8235893b0afabc368bfd055
+Maintainer: root <root@c0a4025c6987>
+Installed-Size: 70098
+Filename: pool/main/linux-image-6.12.100-crystal_6.12.100-1_amd64.deb
+Size: 59848036
+MD5sum: 79eab55c02f5852072c515e6ffc8bd6d
+SHA1: 09bcc86b0eddd25001016eadea16000428423642
+SHA256: efc7852421996f2a34c292c60528dd5c293266c3bb050126c591a3fb35cebebc
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/
-Description: Linux kernel, version 6.12.96-crystal
+Description: Linux kernel, version 6.12.100-crystal
  This package contains the Linux kernel, modules and corresponding other
- files, version: 6.12.96-crystal.
+ files, version: 6.12.100-crystal.
 
 Package: linux-libc-dev
 Source: linux-upstream
-Version: 6.12.96-1
+Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@4a36f4df93ce>
+Maintainer: root <root@c0a4025c6987>
 Installed-Size: 7192
 Provides: linux-kernel-headers
-Filename: pool/main/linux-libc-dev_6.12.96-1_amd64.deb
-Size: 1396180
-MD5sum: afc4303b25e45d492fc4b1cb5499c257
-SHA1: 9c9e8026b025f420d03311e6257b68a68c9bbbfc
-SHA256: 5f5f1214da7619e6f1d3b66a1d9350a2fc9d26b15876e38a830e620c9babdf6f
+Filename: pool/main/linux-libc-dev_6.12.100-1_amd64.deb
+Size: 1396028
+MD5sum: 9b955f01d923b1a829ff8e8fda2673dc
+SHA1: 68cba73b05f912cd17fcd070d29833eb59c5205e
+SHA256: d77b48898e59862c09f513a050fcafc0dcb92b9432c55953f155bca329c8f8f0
 Section: devel
 Priority: optional
 Multi-Arch: same
