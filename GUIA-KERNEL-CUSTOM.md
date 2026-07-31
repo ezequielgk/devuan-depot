@@ -20,9 +20,9 @@ The workflow has three triggers:
    (which the workflow itself updates after every successful build), and
    **only triggers the build if it changed**. If there is no new version, the
    compilation job is skipped entirely — it doesn't waste Actions minutes
-# Custom Kernel — Cristal (trixie)
+# Custom Kernel — Crystal (trixie)
 
-Este repositorio compila automáticamente tu kernel Devuan "cristal" a través de GitHub Actions, utilizando como base el kernel genérico oficial de Debian/Devuan, pero aplicándole configuraciones de optimización en la nube de forma automática.
+Este repositorio compila automáticamente tu kernel Devuan "crystal" a través de GitHub Actions, utilizando como base el kernel genérico oficial de Debian/Devuan, pero aplicándole configuraciones de optimización en la nube de forma automática.
 
 ## ¿Qué se le recortó al kernel genérico?
 
@@ -56,7 +56,7 @@ Simplemente seguí las instrucciones de instalación de la página del repositor
 
 ```bash
 sudo apt update
-sudo apt install linux-image-*-cristal linux-headers-*-cristal
+sudo apt install linux-image-*-crystal linux-headers-*-crystal
 ```
 
 ### Opción B: Descarga Manual
@@ -65,7 +65,7 @@ sudo apt install linux-image-*-cristal linux-headers-*-cristal
 2. Descargá los `.deb` generados en la última versión.
 3. Instalalos con:
    ```bash
-   sudo dpkg -i linux-image-*-cristal*.deb linux-headers-*-cristal*.deb
+   sudo dpkg -i linux-image-*-crystal*.deb linux-headers-*-crystal*.deb
    ```
 
 ## 2. Configurar GRUB (Recomendado)

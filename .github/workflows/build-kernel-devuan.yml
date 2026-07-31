@@ -1,4 +1,4 @@
-name: Build Custom Kernel - Cristal (Devuan/Debian trixie)
+name: Build Custom Kernel - Crystal (Devuan/Debian trixie)
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
       localversion:
         description: 'LOCALVERSION suffix'
         required: false
-        default: '-cristal'
+        default: '-crystal'
   push:
     paths:
       - 'kernel-config/.config'
@@ -96,41 +96,41 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /root/.ccache
-          key: ccache-cristal-${{ hashFiles('kernel-config/.config') }}
+          key: ccache-crystal-${{ hashFiles('kernel-config/.config') }}
           restore-keys: |
-            ccache-cristal-
+            ccache-crystal-
 
       - name: Install dependencies from JSON and run build script
         env:
           KERNEL_SOURCE_VERSION: ${{ needs.check.outputs.version }}
-          LOCALVERSION: ${{ github.event.inputs.localversion || '-cristal' }}
+          LOCALVERSION: ${{ github.event.inputs.localversion || '-crystal' }}
         run: |
           apt-get update
           apt-get install -y jq curl wget ca-certificates
           
           # Parse dependencies from JSON
-          META_FILE="scripts/meta/kernel-cristal.json"
+          META_FILE="scripts/meta/kernel-crystal.json"
           BASE_PKGS=$(jq -r '.base_apt_packages | join(" ")' "$META_FILE")
           apt-get install -y --no-install-recommends $BASE_PKGS
           
           # Run the build script
-          bash scripts/build-kernel-cristal.sh
+          bash scripts/build-kernel-crystal.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cristal-${{ needs.check.outputs.version }}
+          name: crystal-${{ needs.check.outputs.version }}
           path: dist/
           retention-days: 30
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: cristal-${{ needs.check.outputs.version }}-${{ github.run_number }}
-          name: Cristal ${{ needs.check.outputs.version }} (build ${{ github.run_number }})
+          tag_name: crystal-${{ needs.check.outputs.version }}-${{ github.run_number }}
+          name: Crystal ${{ needs.check.outputs.version }} (build ${{ github.run_number }})
           files: dist/*
           body: |
-            Custom Devuan kernel "cristal", compiled from the `linux` source package
+            Custom Devuan kernel "crystal", compiled from the `linux` source package
             version `${{ needs.check.outputs.version }}` of trixie/deb13,
             with the `.config` from `kernel-config/.config` (commit ${{ github.sha }}).
 
@@ -141,7 +141,7 @@ jobs:
             The Debian/Devuan postinst hooks should regenerate initramfs
             and grub automatically. If not:
             ```
-            sudo update-initramfs -c -k <version>-cristal
+            sudo update-initramfs -c -k <version>-crystal
             sudo update-grub
             ```
 
@@ -162,7 +162,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kernel-config/last-built-version.txt
           git diff --cached --quiet && echo "No changes to commit" || \
-            (git commit -m "chore: cristal ${{ needs.check.outputs.version }} compiled [skip ci]" && git push)
+            (git commit -m "chore: crystal ${{ needs.check.outputs.version }} compiled [skip ci]" && git push)
 
   publish:
     needs: [check, build]
@@ -181,7 +181,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: incoming/
-          pattern: cristal-${{ needs.check.outputs.version }}
+          pattern: crystal-${{ needs.check.outputs.version }}
           merge-multiple: true
 
       - name: Import GPG key
@@ -225,5 +225,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pool/ dists/
-          git commit -m "chore(repo): update kernel to cristal ${{ needs.check.outputs.version }}" || echo "No changes to commit"
+          git commit -m "chore(repo): update kernel to crystal ${{ needs.check.outputs.version }}" || echo "No changes to commit"
           git push
