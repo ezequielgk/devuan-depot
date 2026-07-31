@@ -38,7 +38,16 @@ To achieve a faster build, smaller size, and optimization for your specific hard
 ### 4. Heavy Filesystems (Converted to Modules `[M]`)
 - Heavy filesystems like `BTRFS`, `XFS`, `JFS`, `NTFS` and `EXFAT` are compiled as loadable modules. **They consume zero RAM** until you actually plug in a USB drive with that specific format.
 
-### 5. Development & Debug Options (Completely removed)
+### 5. Paranoia Level Trims (Extreme Edge Cases)
+At this stage, the actual disk/memory savings are minimal, but since your hardware is 100% modern AMD, we safely eradicated the following museum pieces:
+- **Prehistoric Buses:** `AGP` (brown slot from 2004), `EISA` & `MCA` (IBM PS/2 era).
+- **Ancient Mice:** Serial port mice (`MOUSE_SERIAL`) and old Apple touchpads.
+- **Fossil Networks:** Token Ring, FDDI, WiMAX, and legacy 10/100 vendors (`3COM`, `SMC`, `SIS`). *(Your modern Realtek `r8169` is completely safe).*
+- **Museum Graphics:** Drivers for 3dfx Voodoo, Riva TNT2, and Matrox (`FB_3DFX`, `FB_RIVA`, etc).
+- **Server Virtualization:** The `XEN` hypervisor support (used primarily in big servers/AWS).
+- **Foreign Sensors:** Removed temperature monitoring code for Intel (`CORETEMP`) and VIA processors. *(Your AMD `K10TEMP` sensor is fully intact).*
+
+### 6. Development & Debug Options (Completely removed)
 - `DEBUG_INFO` and BTF/DWARF symbols are disabled. This drastically reduces compilation time and memory usage, and shaves hundreds of megabytes off the final `.deb` size.
 
 ---

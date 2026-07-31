@@ -134,6 +134,35 @@ jobs:
           scripts/config --disable JOYSTICK_IFORCE
           scripts/config --disable JOYSTICK_PSXPAD
           
+          # Paranoia Level: Prehistoric buses and ports
+          scripts/config --disable AGP
+          scripts/config --disable EISA
+          scripts/config --disable MCA
+          scripts/config --disable MOUSE_SERIAL
+          scripts/config --disable MOUSE_APPLETOUCH
+          scripts/config --disable MAC_EMUMOUSEBTN
+          
+          # Paranoia Level: Fossil Networks
+          scripts/config --disable TR
+          scripts/config --disable FDDI
+          scripts/config --disable WIMAX
+          scripts/config --disable NET_VENDOR_3COM
+          scripts/config --disable NET_VENDOR_SMC
+          scripts/config --disable NET_VENDOR_SIS
+          
+          # Paranoia Level: Museum Framebuffers
+          scripts/config --disable FB_3DFX
+          scripts/config --disable FB_RIVA
+          scripts/config --disable FB_MATROX
+          scripts/config --disable FB_VOODOO1
+          
+          # Paranoia Level: Xen Virtualization
+          scripts/config --disable XEN
+          
+          # Paranoia Level: Non-AMD Sensors
+          scripts/config --disable SENSORS_CORETEMP
+          scripts/config --disable SENSORS_VIA686A
+          
           scripts/config --disable DEBUG_INFO_BTF
           scripts/config --disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
           scripts/config --disable DEBUG_INFO_DWARF4
