@@ -1,0 +1,139 @@
+name: Build xwayland-satellite .deb
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'xwayland-satellite-v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      # Composite action lives in the default branch; sparse-checkout only.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
+      - name: Instalar toolchain y dependencias de build
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential cargo rustc pkg-config git ca-certificates dpkg-dev \
+            libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-cursor-dev \
+            libxkbcommon-dev libwayland-dev clang libclang-dev
+
+      - name: Clonar xwayland-satellite
+        run: |
+          git clone --branch v0.8.1 --depth 1 https://github.com/Supreeeme/xwayland-satellite.git src
+
+      - name: Compilar
+        working-directory: src
+        run: cargo build --release --locked
+
+      - name: Stage pkgroot
+        working-directory: src
+        run: |
+          # Append github.run_number so re-runs of the same upstream tag ship a
+          # strictly higher .deb version than the previous pool copy.
+          VERSION="0.8.1.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          mkdir -p pkgroot/DEBIAN pkgroot/usr/bin
+          cp target/release/xwayland-satellite pkgroot/usr/bin/
+
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: xwayland-satellite
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          binaries: 'pkgroot/usr/bin/xwayland-satellite'
+          description-stub: 'xwayland-satellite stub'
+          working-directory: src
+
+      - name: Write control file and build .deb
+        working-directory: src
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
+          # Xwayland is a runtime dependency that shlib analysis cannot see.
+          FINAL_DEPS="${DEPS}, xwayland"
+          echo "=== Final Depends: ${FINAL_DEPS} ==="
+          cat > pkgroot/DEBIAN/control <<CTRL
+          Package: xwayland-satellite
+          Version: ${VERSION}
+          Section: x11
+          Priority: optional
+          Architecture: amd64
+          Depends: ${FINAL_DEPS}
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+          Description: xwayland-satellite - Xwayland rootless para niri
+           Provee integracion Xwayland sin systemd para compositores
+           Wayland que no la implementan de forma nativa (ej. niri).
+          CTRL
+
+          dpkg-deb --build --root-owner-group pkgroot "xwayland-satellite_${VERSION}_amd64.deb"
+          mv "xwayland-satellite_${VERSION}_amd64.deb" ..
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xwayland-satellite-deb
+          path: xwayland-satellite_*_amd64.deb
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: xwayland-satellite-deb
+          path: incoming
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        run: |
+          sudo apt-get install -y dpkg-dev
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          cp incoming/*.deb pool/main/
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        run: |
+          cd dists/trixie
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+
+      - name: Commit and push to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pool dists
+          git commit -m "Add/Update xwayland-satellite" || echo "No changes"
+          git push

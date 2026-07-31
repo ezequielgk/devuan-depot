@@ -1,0 +1,139 @@
+name: Build Foot .deb
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      # Composite action lives in the default branch; sparse-checkout only.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            meson ninja-build gcc build-essential cmake git dpkg-dev ca-certificates curl jq \
+            libfontconfig1-dev libfreetype6-dev libpixman-1-dev libwayland-dev libxkbcommon-dev \
+            libutf8proc-dev libutempter-dev libsystemd-dev scdoc ncurses-dev wayland-protocols \
+            libfcft-dev libtllist-dev
+
+      - name: Clone Foot
+        run: |
+          LATEST_TAG=$(git ls-remote --tags --sort=v:refname https://codeberg.org/dnkl/foot.git | grep -v "\^{}" | tail -n 1 | awk -F/ '{print $3}')
+          echo "Obtained latest version: $LATEST_TAG"
+          echo "FOOT_VERSION=$LATEST_TAG" >> $GITHUB_ENV
+
+          git clone --branch $LATEST_TAG --depth 1 https://codeberg.org/dnkl/foot.git src
+
+      - name: Compile
+        working-directory: src
+        run: |
+          export CFLAGS="$CFLAGS -O3"
+          meson setup build --buildtype=release --prefix=/usr -Db_lto=true -Dterminfo=disabled
+          ninja -C build
+
+      - name: Stage pkgroot
+        working-directory: src
+        run: |
+          VERSION="${FOOT_VERSION#v}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          DESTDIR="$(pwd)/pkgroot"
+          DESTDIR="$DESTDIR" ninja -C build install
+          mkdir -p pkgroot/DEBIAN
+
+      - name: Resolve shlib dependencies
+        id: deps
+        uses: ./.github/actions/dpkg-shlibdeps-deps
+        with:
+          package-name: foot
+          section: x11
+          priority: optional
+          maintainer: 'Zeke Ezequielgk <ezequieldtz@tuta.io>'
+          find-expr: 'pkgroot/usr/bin -type f -executable'
+          description-stub: 'foot stub'
+          working-directory: src
+
+      - name: Write control file and build .deb
+        working-directory: src
+        env:
+          DEPS: ${{ steps.deps.outputs.depends }}
+        run: |
+          cat > pkgroot/DEBIAN/control <<CTRL
+          Package: foot
+          Version: ${VERSION}
+          Section: x11
+          Priority: optional
+          Architecture: amd64
+          Depends: ${DEPS}
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+          Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
+           A fast, lightweight and minimalistic Wayland terminal emulator.
+          CTRL
+
+          dpkg-deb --build --root-owner-group pkgroot "foot_${VERSION}_amd64.deb"
+          mv "foot_${VERSION}_amd64.deb" ..
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: foot-deb
+          path: foot_*_amd64.deb
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: foot-deb
+          path: incoming
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        run: |
+          sudo apt-get install -y dpkg-dev
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          cp incoming/*.deb pool/main/
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        run: |
+          cd dists/trixie
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+
+      - name: Commit and push to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pool dists
+          git commit -m "Add/Update foot" || echo "No changes"
+          git push

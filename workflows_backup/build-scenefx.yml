@@ -1,0 +1,284 @@
+name: Build scenefx .deb
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - branch: "0.4.1"
+            pkg_name: "scenefx0.4"
+            version: "0.4.1"
+            wlroots_dep: "wlroots0.19"
+          - branch: "main"
+            pkg_name: "scenefx0.5"
+            version: "0.5.0"
+            wlroots_dep: "wlroots0.20"
+            
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - name: Install build dependencies and repo key
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates wget curl jq
+
+          # Add the devuan-depot repository to install specific wlroots dependency and backports
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+          apt-get upgrade -y
+
+          apt-get install -y --no-install-recommends \
+            build-essential meson pkg-config cmake git \
+            wayland-protocols libwayland-dev \
+            libdrm-dev libgbm-dev libinput-dev libseat-dev libxkbcommon-dev \
+            libxcb-dri3-dev libxcb-present-dev libxcb-res0-dev \
+            libxcb-render-util0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
+            libliftoff-dev libdisplay-info-dev liblcms2-dev libpixman-1-dev \
+            libgles2-mesa-dev hwdata libudev-dev \
+            libxcb-composite0-dev libxcb-xfixes0-dev libxcb-errors-dev xwayland \
+            libxcb1-dev libxcb-render0-dev libxcb-image0-dev libx11-xcb-dev libxcb-cursor-dev \
+            libvulkan-dev glslang-tools \
+            ${{ matrix.wlroots_dep }}
+
+      - name: Clone scenefx
+        run: |
+          git clone --branch ${{ matrix.branch }} --depth 1 https://github.com/wlrfx/scenefx.git src
+          cd src
+          SCENEFX_VERSION=$(git rev-parse --short HEAD)
+          # Append github.run_number so every re-run of the workflow produces
+          # a strictly higher .deb version than the previous pool copy.
+          echo "SCENEFX_VERSION=${{ matrix.version }}~git${SCENEFX_VERSION}.$(date -u +%Y%m%d).${{ github.run_number }}~devuandepot" >> $GITHUB_ENV
+
+      - name: Patch meson.build for versioned SONAME
+        working-directory: src
+        run: |
+          # Debian shlib tooling needs a versioned SONAME (libscenefx-0.X.so.0)
+          # to track dependencies. Upstream builds an unversioned .so, so inject
+          # version/soversion into the library() call. Fails loudly if the
+          # upstream layout changes unexpectedly.
+          python3 - <<'PYEOF'
+          import re, sys
+
+          with open('meson.build') as f:
+              lines = f.readlines()
+
+          start = None
+          for i, line in enumerate(lines):
+              if re.search(r'=\s*library\(', line):
+                  start = i
+                  break
+          if start is None:
+              sys.exit("ERROR: library() call not found in meson.build")
+
+          end = None
+          for i in range(start, len(lines)):
+              if lines[i].strip() == ')':
+                  end = i
+                  break
+          if end is None:
+              sys.exit("ERROR: end of library() block not found")
+
+          if any('soversion' in l for l in lines[start:end]):
+              print("soversion already set upstream; no patch needed")
+              sys.exit(0)
+
+          insert_at = None
+          for i in range(start + 1, end):
+              if 'install:' in lines[i]:
+                  insert_at = i
+                  break
+          if insert_at is None:
+              sys.exit("ERROR: no install: kwarg found in library() block")
+
+          lines[insert_at:insert_at] = [
+              "\tversion: meson.project_version(),\n",
+              "\tsoversion: '0',\n",
+          ]
+          with open('meson.build', 'w') as f:
+              f.writelines(lines)
+          print("Patched: added version+soversion to library()")
+          PYEOF
+          sed -n "/= library(/,/^)/p" meson.build
+
+      - name: Compile scenefx
+        working-directory: src
+        run: |
+          meson setup build --buildtype=release --prefix=/usr
+          ninja -C build
+
+      - name: Package .deb
+        working-directory: src
+        run: |
+          mkdir -p pkgroot/DEBIAN
+          DESTDIR=$PWD/pkgroot ninja -C build install
+
+          # The meson patch must have produced a versioned library (lib*.so.*)
+          find pkgroot/usr/lib -name "lib*.so.*" -type f | grep -q . || {
+            echo "ERROR: no versioned shared library was installed"
+            exit 1
+          }
+
+          # Generate DEBIAN/shlibs so dependent packages can resolve this library
+          : > pkgroot/DEBIAN/shlibs
+          find pkgroot/usr/lib -name "lib*.so.*" -type f | while read -r so; do
+            soname=$(objdump -p "$so" | awk '/SONAME/ {print $2}')
+            libname=${soname%.so.*}
+            sover=${soname##*.so.}
+            if [ -z "$soname" ] || [ "$libname" = "$soname" ] || [ "$sover" = "$soname" ]; then
+              echo "ERROR: unexpected SONAME '$soname' on $so"
+              exit 1
+            fi
+            echo "${libname} ${sover} ${{ matrix.pkg_name }} (>= ${SCENEFX_VERSION})" >> pkgroot/DEBIAN/shlibs
+          done
+          echo "=== Generated shlibs ==="
+          cat pkgroot/DEBIAN/shlibs
+
+          # dpkg-shlibdeps needs a debian/control in the cwd to work
+          mkdir -p debian
+          cat > debian/control <<CTRLSTUB
+          Source: ${{ matrix.pkg_name }}
+          Section: libs
+          Priority: optional
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+
+          Package: ${{ matrix.pkg_name }}
+          Architecture: amd64
+          Description: scenefx
+          CTRLSTUB
+
+          # Hardened shlib resolution: check the command's exit status with
+          # `cmd || { ...; }` (NOT `if [ $? -ne 0 ]` after an assignment, which
+          # is fragile if the assignment is later wrapped in a pipeline), and
+          # fail loudly on an EMPTY Depends string. The silent-empty-Depends
+          # bug shipped broken swayfx/mangowc packages before; abort here instead.
+          set -u
+          SO_TARGETS=$(find pkgroot/usr/lib -name "*.so*" -type f)
+          if [ -z "$SO_TARGETS" ]; then
+            echo "ERROR: no versioned shared libraries found to scan"
+            exit 1
+          fi
+          if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
+            echo "ERROR: dpkg-shlibdeps failed, check the log above"
+            exit 1
+          fi
+          DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
+          echo "=== Raw shlibs:Depends line: ${RAW_DEPS} ==="
+          echo "=== Resolved Depends: ${DEPS} ==="
+          if [ -z "$DEPS" ]; then
+            echo "ERROR: dpkg-shlibdeps resolved an EMPTY Depends for ${{ matrix.pkg_name }}"
+            echo "  Aborting instead of publishing a lib with no runtime deps."
+            echo "  Targets were: [$SO_TARGETS]"
+            for t in $SO_TARGETS; do
+              echo "--- $t NEEDED ---"
+              objdump -p "$t" 2>/dev/null | awk '/^  NEEDED/ {print $2}' || true
+            done
+            exit 1
+          fi
+          set +u
+          
+          cat > pkgroot/DEBIAN/control <<CTRL
+          Package: ${{ matrix.pkg_name }}
+          Version: ${SCENEFX_VERSION}
+          Section: libs
+          Priority: optional
+          Architecture: amd64
+          Depends: ${DEPS}
+          Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+          Description: scenefx (${{ matrix.branch }}) - drop-in replacement for wlr_scene
+          CTRL
+
+          cat > pkgroot/DEBIAN/postinst <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          exit 0
+          EOF
+
+          cat > pkgroot/DEBIAN/postrm <<'EOF'
+          #!/bin/sh
+          set -e
+          ldconfig
+          exit 0
+          EOF
+          chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
+
+          dpkg-deb --build --root-owner-group pkgroot "${{ matrix.pkg_name }}_${SCENEFX_VERSION}_amd64.deb"
+          mv "${{ matrix.pkg_name }}_${SCENEFX_VERSION}_amd64.deb" ..
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scenefx-deb-${{ matrix.pkg_name }}
+          path: ${{ matrix.pkg_name }}_*_amd64.deb
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: scenefx-deb-*
+          path: incoming
+          merge-multiple: true
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Add to pool and regenerate indices
+        run: |
+          set -eu
+          sudo apt-get install -y dpkg-dev
+          mkdir -p pool/main dists/trixie/main/binary-amd64
+          # download-artifact with `pattern:` + `merge-multiple: true` nests
+          # each artifact under its own subdir (incoming/scenefx-deb-scenefx0.4/...),
+          # so `incoming/*.deb` does NOT match. Use find(1) to collect every
+          # .deb recursively, mirroring the wlroots publish fix for the same
+          # kind of stale-Packages corruption.
+          find incoming -type f -name '*.deb' -print -exec cp -v {} pool/main/ \;
+          if ! ls pool/main/*.deb >/dev/null 2>&1; then
+            echo "::error::no .deb files were copied from incoming/ to pool/main/"
+            echo "incoming/ contents:"
+            find incoming -type f -o -type d | head -50
+            exit 1
+          fi
+          dpkg-scanpackages --arch amd64 --multiversion pool/ > dists/trixie/main/binary-amd64/Packages
+          gzip -9fk dists/trixie/main/binary-amd64/Packages
+
+      - name: Generate and sign Release
+        run: |
+          cd dists/trixie
+          cat > Release <<REL
+          Origin: devuan-depot
+          Label: devuan-depot Personal Repo
+          Suite: trixie
+          Codename: trixie
+          Architectures: amd64
+          Components: main
+          Date: $(date -Ru)
+          REL
+          apt-ftparchive release . >> Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" -abs -o Release.gpg Release
+          gpg --batch --yes \
+            --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
+
+      - name: Commit and push to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pool dists
+          git commit -m "Update scenefx packages" || echo "No changes"
+          git push
+          
