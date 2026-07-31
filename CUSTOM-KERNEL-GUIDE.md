@@ -24,17 +24,22 @@ To achieve a faster build, smaller size, and optimization for your specific hard
 - `MEDIA_SUPPORT` (Removes TV tuners, webcams, and DVB).
 - `WLAN`, `MAC80211`, `CFG80211` (Removes all Wi-Fi drivers since you only use Ethernet).
 - Legacy hardware like Floppy disks (`BLK_DEV_FD`), Parallel ports (`PARPORT`), IDE hard drives (`ATA_SFF`), and PCMCIA cards.
-- Rare network protocols like `ATM`, `APPLETALK`, `AX25`, and `ISDN`.
-*(Your Wacom tablet, touchscreen support, Bluetooth, KVM, and gamepads were kept fully functional).*
+- Optical drives (`CDROM`, `BLK_DEV_SR`).
+- Prehistoric Audio (`SND_ISA`, `SND_FIREWIRE`, `SND_PCMCIA`), leaving only modern HDA/USB audio.
+- Obsolete game controllers (`JOYSTICK_IFORCE`, `JOYSTICK_PSXPAD`), leaving generic USB gamepad support intact.
+- Rare network protocols like `ATM`, `APPLETALK`, `AX25`, `ISDN`, `HAMRADIO` (amateur radio), and `IRDA` (infrared).
+*(Your Wacom tablet, touchscreen support, Bluetooth, KVM, and modern gamepads were kept fully functional).*
 
-### 3. Network Filesystems (Completely removed)
+### 3. Virtualization & Unused Filesystems (Completely removed)
+- `HYPERV` (Guest integration). Since Devuan is installed on bare-metal hardware and not inside a Windows VM, all Hyper-V integration is removed. *(KVM/QEMU/VirtIO support is kept in case you ever want to run this kernel in a VM for testing before flashing).*
 - `NFS` (client and server) and `CIFS` (Windows/Samba shares) are entirely removed.
+- Archaic filesystems like `MINIX_FS`, `UFS`, and old Apple filesystems (`HFS_FS`, `HFSPLUS_FS`).
 
-### 4. Development & Debug Options (Completely removed)
-- `DEBUG_INFO` and BTF/DWARF symbols are disabled. This drastically reduces compilation time and memory usage, and shaves hundreds of megabytes off the final `.deb` size.
-
-### 5. Filesystems (Converted to Modules `[M]`)
+### 4. Heavy Filesystems (Converted to Modules `[M]`)
 - Heavy filesystems like `BTRFS`, `XFS`, `JFS`, `NTFS` and `EXFAT` are compiled as loadable modules. **They consume zero RAM** until you actually plug in a USB drive with that specific format.
+
+### 5. Development & Debug Options (Completely removed)
+- `DEBUG_INFO` and BTF/DWARF symbols are disabled. This drastically reduces compilation time and memory usage, and shaves hundreds of megabytes off the final `.deb` size.
 
 ---
 

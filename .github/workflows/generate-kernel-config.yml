@@ -106,6 +106,34 @@ jobs:
           scripts/config --disable APPLETALK
           scripts/config --disable AX25
           scripts/config --disable ISDN
+          scripts/config --disable HAMRADIO
+          scripts/config --disable IRDA
+          
+          # Hyper-optimization: Optical drives
+          scripts/config --disable BLK_DEV_SR
+          scripts/config --disable CDROM
+          
+          # Hyper-optimization: HyperV Guest drivers (we are bare metal)
+          scripts/config --disable HYPERV
+          scripts/config --disable HYPERV_STORAGE
+          scripts/config --disable HYPERV_NET
+          scripts/config --disable HYPERV_KEYBOARD
+          
+          # Hyper-optimization: Legacy Audio
+          scripts/config --disable SND_ISA
+          scripts/config --disable SND_FIREWIRE
+          scripts/config --disable SND_PCMCIA
+          
+          # Hyper-optimization: Archaic Filesystems
+          scripts/config --disable MINIX_FS
+          scripts/config --disable HFS_FS
+          scripts/config --disable HFSPLUS_FS
+          scripts/config --disable UFS_FS
+          
+          # Hyper-optimization: Obsolete Joysticks
+          scripts/config --disable JOYSTICK_IFORCE
+          scripts/config --disable JOYSTICK_PSXPAD
+          
           scripts/config --disable DEBUG_INFO_BTF
           scripts/config --disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
           scripts/config --disable DEBUG_INFO_DWARF4
