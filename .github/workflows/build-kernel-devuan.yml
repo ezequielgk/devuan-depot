@@ -190,6 +190,49 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
+      - name: Create meta-packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y equivs
+          
+          # Find the exact package names from the downloaded artifacts
+          IMAGE_DEB=$(ls incoming/linux-image-*crystal*.deb | head -n 1)
+          HEADERS_DEB=$(ls incoming/linux-headers-*crystal*.deb | head -n 1)
+          
+          IMAGE_PKG=$(dpkg-deb -f "$IMAGE_DEB" Package)
+          HEADERS_PKG=$(dpkg-deb -f "$HEADERS_DEB" Package)
+          
+          PKG_VERSION=$(dpkg-deb -f "$IMAGE_DEB" Version)
+          
+          cat <<EOF > image-crystal.control
+          Section: kernel
+          Priority: optional
+          Standards-Version: 3.9.2
+          Package: linux-image-crystal
+          Version: $PKG_VERSION
+          Maintainer: devuan-depot
+          Depends: $IMAGE_PKG
+          Architecture: amd64
+          Description: Meta-package that always depends on the latest Crystal custom kernel image
+          EOF
+          equivs-build image-crystal.control
+          
+          cat <<EOF > headers-crystal.control
+          Section: kernel
+          Priority: optional
+          Standards-Version: 3.9.2
+          Package: linux-headers-crystal
+          Version: $PKG_VERSION
+          Maintainer: devuan-depot
+          Depends: $HEADERS_PKG
+          Architecture: amd64
+          Description: Meta-package that always depends on the latest Crystal custom kernel headers
+          EOF
+          equivs-build headers-crystal.control
+          
+          # Move them to the incoming folder so they get processed
+          mv linux-image-crystal_*.deb incoming/
+          mv linux-headers-crystal_*.deb incoming/
+
       - name: Move to pool and scan (Keeping only the latest kernel)
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
