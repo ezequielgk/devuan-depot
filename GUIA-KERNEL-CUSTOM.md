@@ -20,9 +20,9 @@ The workflow has three triggers:
    (which the workflow itself updates after every successful build), and
    **only triggers the build if it changed**. If there is no new version, the
    compilation job is skipped entirely — it doesn't waste Actions minutes
-# Custom Kernel — AMD Optimized (trixie)
+# Custom Kernel — Cristal (trixie)
 
-Este repositorio compila automáticamente tu kernel Devuan "amd" a través de GitHub Actions, utilizando como base el kernel genérico oficial de Debian/Devuan, pero aplicándole configuraciones de optimización en la nube de forma automática.
+Este repositorio compila automáticamente tu kernel Devuan "cristal" a través de GitHub Actions, utilizando como base el kernel genérico oficial de Debian/Devuan, pero aplicándole configuraciones de optimización en la nube de forma automática.
 
 ## ¿Qué se le recortó al kernel genérico?
 
@@ -56,7 +56,7 @@ Simplemente seguí las instrucciones de instalación de la página del repositor
 
 ```bash
 sudo apt update
-sudo apt install linux-image-*-amd linux-headers-*-amd
+sudo apt install linux-image-*-cristal linux-headers-*-cristal
 ```
 
 ### Opción B: Descarga Manual
@@ -65,7 +65,7 @@ sudo apt install linux-image-*-amd linux-headers-*-amd
 2. Descargá los `.deb` generados en la última versión.
 3. Instalalos con:
    ```bash
-   sudo dpkg -i linux-image-*-amd*.deb linux-headers-*-amd*.deb
+   sudo dpkg -i linux-image-*-cristal*.deb linux-headers-*-cristal*.deb
    ```
 
 ## 2. Configurar GRUB (Recomendado)

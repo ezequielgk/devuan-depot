@@ -1,4 +1,4 @@
-name: Generate Kernel Config
+name: Generate Kernel Config - Cristal
 
 on:
   workflow_dispatch:
@@ -136,7 +136,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kernel-config/.config
           
-          COMMIT_MSG="config: generate generic excalibur config"
+          COMMIT_MSG="config: generate generic cristal config"
           if [ "${{ github.event.inputs.trigger_build }}" = "false" ]; then
             COMMIT_MSG="$COMMIT_MSG [skip ci]"
           fi
