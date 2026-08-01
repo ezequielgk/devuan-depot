@@ -1273,13 +1273,13 @@ Package: linux-headers-6.12.100-crystal
 Source: linux-upstream
 Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@c0a4025c6987>
+Maintainer: root <root@dcfd312edab2>
 Installed-Size: 52614
 Filename: pool/main/linux-headers-6.12.100-crystal_6.12.100-1_amd64.deb
-Size: 9093480
-MD5sum: 2b23d263c227914f0096704f981a0790
-SHA1: ee27cc2af3beaccb8cb4023f9eeaefab02690195
-SHA256: 90685be540c137c75bbb9df512072a79e40d040297e8a29d15cf2721a55db625
+Size: 9093476
+MD5sum: 4c368a47c692e2cdd1dfd2571cc757b1
+SHA1: a5c6411a4843870eaa4743b004266b71d2abffe7
+SHA256: cd6c28800a98dc5101229ce88d4e9c0cd8103d2e31a40a2126df9ca9184a7f04
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/
@@ -1288,17 +1288,33 @@ Description: Linux kernel headers for 6.12.100-crystal on amd64
  .
  This is useful for people who need to build external modules
 
+Package: linux-headers-crystal
+Version: 6.12.100-1
+Architecture: amd64
+Maintainer: devuan-depot
+Installed-Size: 9
+Depends: linux-headers-6.12.100-crystal
+Filename: pool/main/linux-headers-crystal_6.12.100-1_amd64.deb
+Size: 1848
+MD5sum: 6af86d18cb0273409d9dfc99e3bd950b
+SHA1: d1f004f6716a9277f35e41576671e83c9a81369d
+SHA256: e89ee005fa16eb58a85a6c76ced4e42ce29397d94b3a02c16165f787ef56054b
+Section: kernel
+Priority: optional
+Multi-Arch: foreign
+Description: Meta-package that always depends on the latest Crystal custom kernel headers
+
 Package: linux-image-6.12.100-crystal
 Source: linux-upstream
 Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@c0a4025c6987>
-Installed-Size: 70098
+Maintainer: root <root@dcfd312edab2>
+Installed-Size: 70100
 Filename: pool/main/linux-image-6.12.100-crystal_6.12.100-1_amd64.deb
-Size: 59848036
-MD5sum: 79eab55c02f5852072c515e6ffc8bd6d
-SHA1: 09bcc86b0eddd25001016eadea16000428423642
-SHA256: efc7852421996f2a34c292c60528dd5c293266c3bb050126c591a3fb35cebebc
+Size: 59847416
+MD5sum: 58581011c858f9160bd729800f718ae2
+SHA1: 65d34c317c1dc6631d2f941bd56dbf65e69b686d
+SHA256: f812f134648923984d443b254f4ed687d2cbcbc3205e0a521fbfa96cd59a53b5
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/
@@ -1306,18 +1322,34 @@ Description: Linux kernel, version 6.12.100-crystal
  This package contains the Linux kernel, modules and corresponding other
  files, version: 6.12.100-crystal.
 
+Package: linux-image-crystal
+Version: 6.12.100-1
+Architecture: amd64
+Maintainer: devuan-depot
+Installed-Size: 9
+Depends: linux-image-6.12.100-crystal
+Filename: pool/main/linux-image-crystal_6.12.100-1_amd64.deb
+Size: 1850
+MD5sum: 6a971e38b825a3cf63dead3a6651da4c
+SHA1: d9abee35e33583051eef17ae5a16bf506a25a974
+SHA256: 32943cf29628e8990ebbb2901ae7d1059b4d8bb633ad0f314624a50f5893f0cf
+Section: kernel
+Priority: optional
+Multi-Arch: foreign
+Description: Meta-package that always depends on the latest Crystal custom kernel image
+
 Package: linux-libc-dev
 Source: linux-upstream
 Version: 6.12.100-1
 Architecture: amd64
-Maintainer: root <root@c0a4025c6987>
+Maintainer: root <root@dcfd312edab2>
 Installed-Size: 7192
 Provides: linux-kernel-headers
 Filename: pool/main/linux-libc-dev_6.12.100-1_amd64.deb
-Size: 1396028
-MD5sum: 9b955f01d923b1a829ff8e8fda2673dc
-SHA1: 68cba73b05f912cd17fcd070d29833eb59c5205e
-SHA256: d77b48898e59862c09f513a050fcafc0dcb92b9432c55953f155bca329c8f8f0
+Size: 1395964
+MD5sum: 2a8a1dc65fb2216519ae4c869492b4d5
+SHA1: 140edce809d215f590579a82e4839c081d26e9ef
+SHA256: 7d503c4ff82d52f6ce35cf6ff1fd611b3635f52e4b463eeccc64de767387c91b
 Section: devel
 Priority: optional
 Multi-Arch: same
