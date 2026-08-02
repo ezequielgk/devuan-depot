@@ -18,10 +18,6 @@
 
 Personal APT repository. Workflows in `.github/workflows/` build projects and publish `.deb` packages ready to install via GitHub Pages.
 
-> [!WARNING]
-> **Do not install the `linux-image-*-crystal` kernel from this repository without reading the guide first!**
-> This kernel is heavily trimmed down for a very specific hardware configuration. It removes most Wi-Fi drivers, NVIDIA/Intel GPUs, and legacy hardware. Installing it on a different machine will likely result in missing hardware support or an unbootable system.
-> Please read [CUSTOM-KERNEL-GUIDE.md](./CUSTOM-KERNEL-GUIDE.md) to understand exactly what was removed before using it.
 
 ## Installation (on Devuan 6 / Debian 13)
 
