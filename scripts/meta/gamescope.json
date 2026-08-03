@@ -1,0 +1,28 @@
+{
+  "script": "build-gamescope.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "build-essential", "meson", "ninja-build", "pkg-config", "git", "dpkg-dev",
+    "libdrm-dev", "libvulkan-dev", "libx11-dev", "libwayland-dev",
+    "libpipewire-0.3-dev", "libsdl2-dev", "libstb-dev", "libcap-dev",
+    "glslang-tools", "hwdata", "libdisplay-info-dev", "libxcb-composite0-dev",
+    "libxcb-dri3-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev", "libxcb-image0-dev",
+    "libxcb-present-dev", "libxcb-render0-dev", "libxcb-render-util0-dev",
+    "libxcb-res0-dev", "libxcb-shape0-dev", "libxcb-shm0-dev", "libxcb-xfixes0-dev",
+    "libxcb-xinput-dev", "libxcomposite-dev", "libxcursor-dev", "libxdamage-dev",
+    "libxext-dev", "libxfixes-dev", "libxkbcommon-dev", "libxmu-dev",
+    "libxrender-dev", "libxres-dev", "libxtst-dev", "libxxf86vm-dev",
+    "libwayland-client0", "libwayland-server0", "wayland-protocols",
+    "libwlroots-dev", "libx11-xcb-dev", "libudev-dev", "libinput-dev",
+    "libseat-dev", "libliftoff-dev", "vulkan-tools", "libdecor-0-dev",
+    "libeis-dev", "libevdev-dev", "libgbm-dev", "libglm-dev", "libgudev-1.0-dev",
+    "libwacom-dev", "libmtdev-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

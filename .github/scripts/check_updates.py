@@ -11,7 +11,8 @@ CHECKS = [
     {"pkg": "foot", "type": "codeberg_tag", "repo": "dnkl/foot"},
     {"pkg": "xwayland-satellite", "type": "github_tag", "repo": "Supreeeme/xwayland-satellite"},
     {"pkg": "mullvad-libre", "type": "github_tag", "repo": "mullvad/mullvadvpn-app"},
-    {"pkg": "mangowc", "type": "github_commit", "repo": "mangowm/mango", "branch": "master"}
+    {"pkg": "mangowc", "type": "github_commit", "repo": "mangowm/mango", "branch": "master"},
+    {"pkg": "gamescope", "type": "github_tag", "repo": "ValveSoftware/gamescope"}
 ]
 
 def get_repo_packages():
