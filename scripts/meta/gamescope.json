@@ -13,7 +13,7 @@
     "libxext-dev", "libxfixes-dev", "libxkbcommon-dev", "libxmu-dev",
     "libxrender-dev", "libxres-dev", "libxtst-dev", "libxxf86vm-dev",
     "libwayland-client0", "libwayland-server0", "wayland-protocols",
-    "libwlroots-dev", "libx11-xcb-dev", "libudev-dev", "libinput-dev",
+    "libx11-xcb-dev", "libudev-dev", "libinput-dev",
     "libseat-dev", "libliftoff-dev", "vulkan-tools", "libdecor-0-dev",
     "libeis-dev", "libevdev-dev", "libgbm-dev", "libglm-dev", "libgudev-1.0-dev",
     "libwacom-dev", "libmtdev-dev"
