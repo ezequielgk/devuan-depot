@@ -24,6 +24,13 @@ echo "VERSION=${VERSION}"
 mkdir -p pkgroot/DEBIAN
 DESTDIR=$PWD/pkgroot ninja -C build/ install
 
+echo "Cleaning up development files to prevent conflicts..."
+rm -rf pkgroot/usr/include
+rm -rf pkgroot/usr/lib/pkgconfig
+rm -rf pkgroot/usr/lib/*/pkgconfig
+rm -rf pkgroot/usr/share/pkgconfig
+find pkgroot -name "*.a" -delete
+
 echo "Resolving shlib dependencies..."
 
 mkdir -p debian
