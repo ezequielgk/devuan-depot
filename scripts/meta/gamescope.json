@@ -2,7 +2,7 @@
   "script": "build-gamescope.sh",
   "needs_devuan_depot_repo": false,
   "base_apt_packages": [
-    "build-essential", "meson", "ninja-build", "pkg-config", "git", "dpkg-dev",
+    "build-essential", "meson", "ninja-build", "pkg-config", "git", "dpkg-dev", "cmake",
     "libdrm-dev", "libvulkan-dev", "libx11-dev", "libwayland-dev",
     "libpipewire-0.3-dev", "libsdl2-dev", "libstb-dev", "libcap-dev",
     "glslang-tools", "hwdata", "libdisplay-info-dev", "libxcb-composite0-dev",
