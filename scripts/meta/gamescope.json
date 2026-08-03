@@ -16,7 +16,8 @@
     "libx11-xcb-dev", "libudev-dev", "libinput-dev",
     "libseat-dev", "libliftoff-dev", "vulkan-tools", "libdecor-0-dev",
     "libeis-dev", "libevdev-dev", "libgbm-dev", "libglm-dev", "libgudev-1.0-dev",
-    "libwacom-dev", "libmtdev-dev", "libpixman-1-dev", "libavif-dev"
+    "libwacom-dev", "libmtdev-dev", "libpixman-1-dev", "libavif-dev",
+    "liblcms2-dev", "xwayland"
   ],
   "variants": [
     {
