@@ -4,7 +4,7 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
 echo "Getting latest Gamescope tag..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/ValveSoftware/gamescope/tags | jq -r '.[0].name')
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/ValveSoftware/gamescope/tags | jq -r '[ .[] | select(.name | test("^[v]?[0-9]")) ][0].name')
 echo "Obtained latest version: $LATEST_TAG"
 
 echo "Cloning Gamescope..."
