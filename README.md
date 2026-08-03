@@ -11,7 +11,7 @@
 ### Package Build Status
 [![Build Niri](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-niri.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-niri.yml)
 [![Build SwayFX](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-swayfx.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-swayfx.yml)
-[![Build Gamescope](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wm.yml/badge.svg?query=gamescope)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wm.yml)
+[![Build Gamescope](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-apps.yml/badge.svg?query=gamescope)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-apps.yml)
 [![Build Foot](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml)
 [![Build wlroots](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml)
 [![Build pcmanfm-qt](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml)

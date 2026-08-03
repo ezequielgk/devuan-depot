@@ -12,7 +12,6 @@ on:
           - niri
           - mangowc
           - scroll
-          - gamescope
 
 permissions:
   contents: write

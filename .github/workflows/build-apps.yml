@@ -13,6 +13,7 @@ on:
           - concord
           - pcmanfm-qt
           - portproton
+          - gamescope
 
 permissions:
   contents: write
