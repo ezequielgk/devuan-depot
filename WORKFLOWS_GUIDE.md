@@ -29,7 +29,7 @@ Once `wlroots`, `scenefx`, and the `backports` are published in the `gh-pages` r
 Applications are usually the leaves in the dependency tree, so they can be compiled at the end or completely independently at any time.
 - Select: `foot`
 - Select: `concord`
-- Select: `pcmanfm-qt`
+- Select: `gamescope`
 - Select: `mullvad-libre`
 - Select: `portproton`
 

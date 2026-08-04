@@ -14,7 +14,6 @@
 [![Build Gamescope](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-apps.yml/badge.svg?query=gamescope)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-apps.yml)
 [![Build Foot](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-foot.yml)
 [![Build wlroots](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-wlroots.yml)
-[![Build pcmanfm-qt](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-pcmanfm-qt.yml)
 [![Build xwayland-satellite](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-xwayland-satellite.yml/badge.svg)](https://github.com/ezequielgk/devuan-depot/actions/workflows/build-xwayland-satellite.yml)
 Personal APT repository. Workflows in `.github/workflows/` build projects and publish `.deb` packages ready to install via GitHub Pages.
 
