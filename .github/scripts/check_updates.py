@@ -7,7 +7,6 @@ CHECKS = [
     {"pkg": "niri", "type": "github_tag", "repo": "YaLTeR/niri"},
     {"pkg": "swayfx", "type": "github_tag", "repo": "WillPower3309/swayfx"},
     {"pkg": "concord", "type": "github_tag", "repo": "chojs23/concord"},
-    {"pkg": "pcmanfm-qt", "type": "github_tag", "repo": "lxqt/pcmanfm-qt"},
     {"pkg": "foot", "type": "codeberg_tag", "repo": "dnkl/foot"},
     {"pkg": "xwayland-satellite", "type": "github_tag", "repo": "Supreeeme/xwayland-satellite"},
     {"pkg": "mullvad-libre", "type": "github_tag", "repo": "mullvad/mullvadvpn-app"},
