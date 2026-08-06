@@ -77,7 +77,7 @@ Recommends: seatd
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
- Based on Sway 1.11, wlroots 0.19.0 and scenefx 0.4.1.
+ Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
  Built with Xwayland support enabled.
 CTRL
 

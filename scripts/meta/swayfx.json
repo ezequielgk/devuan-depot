@@ -13,7 +13,7 @@
     "libxcb-composite0-dev", "libxcb-xfixes0-dev", "libxcb-errors-dev", "xwayland",
     "libxcb1-dev", "libxcb-render0-dev", "libxcb-image0-dev", "libx11-xcb-dev", "libxcb-cursor-dev",
     "libvulkan-dev", "glslang-tools",
-    "wlroots0.19", "scenefx0.4"
+    "wlroots0.20", "scenefx0.5"
   ],
   "variants": [
     {
