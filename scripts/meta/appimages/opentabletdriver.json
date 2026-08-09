@@ -2,7 +2,7 @@
   "script": "build-opentabletdriver-appimage.sh",
   "base_apt_packages": [
     "dpkg-dev", "curl", "jq", "file", "desktop-file-utils",
-    "libglib2.0-bin", "ca-certificates"
+    "libglib2.0-bin", "ca-certificates", "imagemagick"
   ],
   "variants": [
     {

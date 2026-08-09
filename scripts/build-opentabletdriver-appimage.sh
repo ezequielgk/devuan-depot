@@ -135,6 +135,9 @@ if [ -n "$ICON_NAME" ]; then
     ICON_BASENAME=$(basename "$ICON_NAME")
     ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_BASENAME}*" 2>/dev/null | head -1 || true)
     if [ -n "$ICON_FILE" ]; then
+        if command -v convert >/dev/null 2>&1; then
+            convert "$ICON_FILE" -resize 512x512\> "$ICON_FILE" || true
+        fi
         ICON_ARG=(--icon-file "$ICON_FILE")
     else
         echo "ADVERTENCIA: no se encontro el archivo del icono '${ICON_NAME}'"
