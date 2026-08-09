@@ -136,7 +136,6 @@ fi
 echo "=== Empaquetando con linuxdeploy (bundlea libs faltantes del sistema) ==="
 ./linuxdeploy --appimage-extract-and-run \
     --appdir "$APPDIR" \
-    --executable "$EXEC_PATH" \
     "${DESKTOP_ARG[@]}" \
     "${ICON_ARG[@]}"
 
