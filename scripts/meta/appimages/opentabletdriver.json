@@ -7,7 +7,7 @@
   "variants": [
     {
       "artifact_suffix": "opentabletdriver",
-      "extra_apt_packages": [],
+      "extra_apt_packages": ["libgtk-3-dev"],
       "env": {}
     }
   ]

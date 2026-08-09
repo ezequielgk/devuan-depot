@@ -94,9 +94,36 @@ if [ -z "$EXEC_PATH" ] || [ ! -f "$EXEC_PATH" ]; then
     exit 1
 fi
 echo "Binario resuelto: ${EXEC_PATH}"
-# Ruta relativa a la raiz del AppDir (usada en AppRun, no puede ser absoluta
-# porque en runtime el AppImage se monta en un path distinto al de build)
-REL_EXEC="${EXEC_PATH#extracted/}"
+
+# OpenTabletDriver necesita su Daemon en background y variables de GTK.
+# En vez de sobreescribir el AppRun de linuxdeploy (lo que rompe los plugins),
+# creamos un wrapper propio y le decimos al .desktop que lo use.
+WRAPPER_PATH="extracted/usr/bin/otd-wrapper"
+cat > "$WRAPPER_PATH" <<EOF
+#!/bin/sh
+HERE="\$(dirname "\$(readlink -f "\$0")")/../.."
+export DOTNET_ROOT="\$HERE/usr/lib/dotnet"
+export PATH="\$DOTNET_ROOT:\$HERE/usr/bin:\$PATH"
+export LD_LIBRARY_PATH="\$HERE/usr/lib:\$HERE/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
+
+rm -f /tmp/CoreFxPipe_OpenTabletDriver.Daemon 2>/dev/null || true
+DAEMON_PID=""
+if [ -x "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" ]; then
+    "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" &
+    DAEMON_PID=\$!
+    sleep 1
+fi
+cleanup() {
+    [ -n "\$DAEMON_PID" ] && kill "\$DAEMON_PID" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
+exec "\$HERE/${REL_EXEC}" "\$@"
+EOF
+chmod +x "$WRAPPER_PATH"
+
+# Parchear el .desktop para usar nuestro wrapper
+sed -i -E 's|^Exec=.*|Exec=otd-wrapper|' "$DESKTOP_FILE"
 
 echo "=== Detectando runtime de .NET requerido ==="
 # El .deb oficial es framework-dependent: declara un Depends hacia un
@@ -143,10 +170,11 @@ cp -a extracted/usr "$APPDIR/usr"
 mkdir -p "$APPDIR/usr/lib/dotnet"
 cp -a dotnet-runtime/. "$APPDIR/usr/lib/dotnet/"
 
-echo "=== Descargando linuxdeploy y appimagetool ==="
+echo "=== Descargando linuxdeploy, appimagetool y plugins ==="
 curl -sL -o linuxdeploy https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+curl -sL -o linuxdeploy-plugin-gtk.sh https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh
 curl -sL -o appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
-chmod +x linuxdeploy appimagetool
+chmod +x linuxdeploy linuxdeploy-plugin-gtk.sh appimagetool
 
 # linuxdeploy resuelve el AppRun, bundlea librerias no-base y coloca
 # desktop/icono en la raiz del AppDir a partir de lo que ya trae el .deb
@@ -167,50 +195,13 @@ else
 fi
 
 echo "=== Empaquetando con linuxdeploy (bundlea libs faltantes del sistema) ==="
+export LINUXDEPLOY_PLUGIN_MODE=1
+export UPDATE_INFORMATION=""
 ./linuxdeploy --appimage-extract-and-run \
     --appdir "$APPDIR" \
+    --plugin gtk \
     "${DESKTOP_ARG[@]}" \
     "${ICON_ARG[@]}"
-
-# linuxdeploy genera su propio AppRun, pero necesitamos uno custom que:
-#  - exporte DOTNET_ROOT apuntando al runtime que bundleamos
-#  - arranque OpenTabletDriver.Daemon en background antes de la GUI
-#  - limpie sockets viejos en /tmp que quedan si el daemon no cerro bien
-#    (bug conocido: https://github.com/OpenTabletDriver/OpenTabletDriver/issues/3804)
-#  - mate el daemon cuando la GUI se cierra, para no dejarlo huerfano
-DAEMON_REL=$(find extracted/usr -iname 'OpenTabletDriver.Daemon' | head -1)
-DAEMON_REL="${DAEMON_REL#extracted/}"
-if [ -z "$DAEMON_REL" ]; then
-    echo "ADVERTENCIA: no se encontro OpenTabletDriver.Daemon -- el AppRun no lo va a arrancar automaticamente"
-fi
-
-rm -f "$APPDIR/AppRun"
-cat > "$APPDIR/AppRun" <<APPRUN
-#!/bin/sh
-HERE="\$(dirname "\$(readlink -f "\$0")")"
-export DOTNET_ROOT="\$HERE/usr/lib/dotnet"
-export PATH="\$DOTNET_ROOT:\$HERE/usr/bin:\$PATH"
-export LD_LIBRARY_PATH="\$HERE/usr/lib:\$HERE/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
-
-# Limpiar socket viejo si quedo de una sesion anterior sin cerrar bien
-rm -f /tmp/CoreFxPipe_OpenTabletDriver.Daemon 2>/dev/null || true
-
-DAEMON_PID=""
-if [ -n "${DAEMON_REL}" ]; then
-    "\$HERE/${DAEMON_REL}" &
-    DAEMON_PID=\$!
-    # Pequeña espera para que el daemon levante el socket antes de la GUI
-    sleep 1
-fi
-
-cleanup() {
-    [ -n "\$DAEMON_PID" ] && kill "\$DAEMON_PID" 2>/dev/null || true
-}
-trap cleanup EXIT INT TERM
-
-exec "\$HERE/${REL_EXEC}" "\$@"
-APPRUN
-chmod +x "$APPDIR/AppRun"
 
 echo "=== Generando el AppImage final ==="
 ./appimagetool --appimage-extract-and-run "$APPDIR" "OpenTabletDriver-${VERSION}-x86_64.AppImage"
