@@ -12,6 +12,9 @@ on:
           # El resto de la config vive en scripts/meta/appimages/<paquete>.json
           # y scripts/build-<paquete>-appimage.sh
 
+permissions:
+  contents: write
+
 jobs:
   call-core:
     uses: ./.github/workflows/build-appimage-core.yml
