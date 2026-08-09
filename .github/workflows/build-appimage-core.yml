@@ -41,7 +41,7 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          EXTRA=$(echo '${{ toJson(matrix.variant.extra_apt_packages) }}' | jq -r 'join(" ")')
+          EXTRA="${{ join(matrix.variant.extra_apt_packages, ' ') }}"
           apt-get update
           # shellcheck disable=SC2086
           apt-get install -y --no-install-recommends ${{ needs.prepare.outputs.base_packages }} $EXTRA
