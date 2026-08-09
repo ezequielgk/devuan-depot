@@ -53,6 +53,13 @@ if [ -z "$DESKTOP_FILE" ]; then
 fi
 echo "Desktop file: ${DESKTOP_FILE}"
 
+# Limpiar Icon= para appimagetool (sin ruta absoluta ni extension)
+ICON_NAME_RAW=$(grep -m1 '^Icon=' "$DESKTOP_FILE" | cut -d= -f2- || true)
+if [ -n "$ICON_NAME_RAW" ]; then
+    ICON_BASENAME_RAW=$(basename "$ICON_NAME_RAW")
+    sed -i "s|^Icon=.*|Icon=${ICON_BASENAME_RAW%.*}|" "$DESKTOP_FILE"
+fi
+
 EXEC_LINE=$(grep -m1 '^Exec=' "$DESKTOP_FILE" | cut -d= -f2- | sed 's/ %[a-zA-Z]//g')
 EXEC_BIN=$(echo "$EXEC_LINE" | awk '{print $1}')
 if [ -z "$EXEC_BIN" ]; then
@@ -129,21 +136,16 @@ chmod +x linuxdeploy appimagetool
 # linuxdeploy resuelve el AppRun, bundlea librerias no-base y coloca
 # desktop/icono en la raiz del AppDir a partir de lo que ya trae el .deb
 DESKTOP_ARG=(--desktop-file "$DESKTOP_FILE")
-ICON_NAME=$(grep -m1 '^Icon=' "$DESKTOP_FILE" | cut -d= -f2- || true)
 ICON_ARG=()
-if [ -n "$ICON_NAME" ]; then
-    ICON_BASENAME=$(basename "$ICON_NAME")
-    # appimagetool falla si el icono en el .desktop es ruta absoluta o tiene extension (busca otd.png.png)
-    sed -i "s|^Icon=.*|Icon=${ICON_BASENAME%.*}|" "$DESKTOP_FILE"
-    
-    ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_BASENAME}*" 2>/dev/null | head -1 || true)
+if [ -n "$ICON_NAME_RAW" ]; then
+    ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_BASENAME_RAW}*" 2>/dev/null | head -1 || true)
     if [ -n "$ICON_FILE" ]; then
         if command -v convert >/dev/null 2>&1; then
             convert "$ICON_FILE" -resize 512x512\> "$ICON_FILE" || true
         fi
         ICON_ARG=(--icon-file "$ICON_FILE")
     else
-        echo "ADVERTENCIA: no se encontro el archivo del icono '${ICON_NAME}'"
+        echo "ADVERTENCIA: no se encontro el archivo del icono '${ICON_NAME_RAW}'"
     fi
 else
     echo "ADVERTENCIA: no se encontro icono declarado en el .desktop, linuxdeploy usara uno generico"
