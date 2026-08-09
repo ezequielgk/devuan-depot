@@ -124,11 +124,16 @@ chmod +x linuxdeploy appimagetool
 # linuxdeploy resuelve el AppRun, bundlea librerias no-base y coloca
 # desktop/icono en la raiz del AppDir a partir de lo que ya trae el .deb
 DESKTOP_ARG=(--desktop-file "$DESKTOP_FILE")
-ICON_NAME=$(grep -m1 '^Icon=' "$DESKTOP_FILE" | cut -d= -f2-)
-ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_NAME}*" 2>/dev/null | head -1)
+ICON_NAME=$(grep -m1 '^Icon=' "$DESKTOP_FILE" | cut -d= -f2- || true)
 ICON_ARG=()
-if [ -n "$ICON_FILE" ]; then
-    ICON_ARG=(--icon-file "$ICON_FILE")
+if [ -n "$ICON_NAME" ]; then
+    ICON_BASENAME=$(basename "$ICON_NAME")
+    ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_BASENAME}*" 2>/dev/null | head -1 || true)
+    if [ -n "$ICON_FILE" ]; then
+        ICON_ARG=(--icon-file "$ICON_FILE")
+    else
+        echo "ADVERTENCIA: no se encontro el archivo del icono '${ICON_NAME}'"
+    fi
 else
     echo "ADVERTENCIA: no se encontro icono declarado en el .desktop, linuxdeploy usara uno generico"
 fi
