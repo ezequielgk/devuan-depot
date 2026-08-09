@@ -109,6 +109,11 @@ chmod +x dotnet-install.sh
 mkdir -p dotnet-runtime
 ./dotnet-install.sh --channel "$RUNTIME_CHANNEL" --runtime "$RUNTIME_KIND" --install-dir dotnet-runtime
 
+# Eliminar el provider de tracing de LTTng porque depende de liblttng-ust.so.0
+# (una libreria vieja que linuxdeploy no encuentra y hace abortar el build).
+# El runtime de .NET funciona perfectamente sin esto, solo se deshabilita el tracing.
+rm -f dotnet-runtime/shared/Microsoft.NETCore.App/*/libcoreclrtraceptprovider.so
+
 echo "=== Armando AppDir ==="
 APPDIR="${WORKDIR}/AppDir"
 mkdir -p "$APPDIR"
