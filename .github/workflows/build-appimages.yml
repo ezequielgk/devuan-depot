@@ -1,0 +1,20 @@
+name: Build AppImages
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "AppImage a construir"
+        required: true
+        type: choice
+        options:
+          - opentabletdriver
+          # Agregar acá una linea por paquete nuevo.
+          # El resto de la config vive en scripts/meta/appimages/<paquete>.json
+          # y scripts/build-<paquete>-appimage.sh
+
+jobs:
+  call-core:
+    uses: ./.github/workflows/build-appimage-core.yml
+    with:
+      package: ${{ inputs.package }}
+    secrets: inherit

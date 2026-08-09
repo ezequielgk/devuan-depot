@@ -1,0 +1,88 @@
+name: Build AppImage (core)
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.read.outputs.matrix }}
+      script: ${{ steps.read.outputs.script }}
+      base_packages: ${{ steps.read.outputs.base_packages }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: read
+        run: |
+          META="scripts/meta/appimages/${{ inputs.package }}.json"
+          if [ ! -f "$META" ]; then
+            echo "ERROR: no existe $META -- crear ese archivo antes de construir este paquete"
+            exit 1
+          fi
+
+          echo "matrix=$(jq -c '.variants' "$META")" >> "$GITHUB_OUTPUT"
+          echo "script=$(jq -r '.script' "$META")" >> "$GITHUB_OUTPUT"
+          echo "base_packages=$(jq -r '.base_apt_packages | join(" ")' "$META")" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    strategy:
+      matrix:
+        variant: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          EXTRA=$(echo '${{ toJson(matrix.variant.extra_apt_packages) }}' | jq -r 'join(" ")')
+          apt-get update
+          # shellcheck disable=SC2086
+          apt-get install -y --no-install-recommends ${{ needs.prepare.outputs.base_packages }} $EXTRA
+
+      - name: Export variables de la variante
+        run: |
+          echo '${{ toJson(matrix.variant.env) }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> "$GITHUB_ENV"
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> "$GITHUB_ENV"
+
+      - name: Build AppImage
+        run: bash "scripts/${{ needs.prepare.outputs.script }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: appimage-${{ inputs.package }}-${{ matrix.variant.artifact_suffix }}
+          path: "*.AppImage"
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: appimage-${{ inputs.package }}-*
+          path: incoming
+          merge-multiple: true
+
+      - name: Publicar / actualizar release rolling
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="appimage-${{ inputs.package }}"
+
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "Release existente encontrado, eliminando assets viejos"
+            gh release delete "$TAG" --repo "${{ github.repository }}" --yes --cleanup-tag
+          fi
+
+          gh release create "$TAG" incoming/*.AppImage \
+            --repo "${{ github.repository }}" \
+            --title "${{ inputs.package }} (AppImage)" \
+            --notes "AppImage generada automaticamente desde scripts/build-${{ inputs.package }}-appimage.sh. Se actualiza con cada build nuevo."

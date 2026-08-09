@@ -1,0 +1,14 @@
+{
+  "script": "build-opentabletdriver-appimage.sh",
+  "base_apt_packages": [
+    "dpkg-dev", "curl", "jq", "file", "desktop-file-utils",
+    "libglib2.0-bin", "ca-certificates"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "opentabletdriver",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
