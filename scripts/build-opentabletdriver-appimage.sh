@@ -74,6 +74,21 @@ EXEC_PATH="extracted${EXEC_BIN}"
 if [ ! -f "$EXEC_PATH" ]; then
     EXEC_PATH=$(find extracted/usr/bin -iname "$(basename "$EXEC_BIN")" | head -1)
 fi
+
+# OpenTabletDriver usa wrappers en bash (ej. /usr/bin/otd-gui) con rutas absolutas
+# hacia el verdadero ELF (/usr/lib/opentabletdriver/OpenTabletDriver.UX.Gtk).
+# Necesitamos la ruta real para que el AppRun funcione de forma portable.
+if [ -f "$EXEC_PATH" ] && file "$EXEC_PATH" | grep -q 'script'; then
+    REAL_TARGET=$(grep -v '^#' "$EXEC_PATH" | grep -m1 'OpenTabletDriver' | awk '{print $1}')
+    if [ -n "$REAL_TARGET" ]; then
+        REAL_TARGET_REL="${REAL_TARGET#/}"
+        if [ -f "extracted/${REAL_TARGET_REL}" ]; then
+            EXEC_PATH="extracted/${REAL_TARGET_REL}"
+        fi
+    fi
+fi
+
+REL_EXEC="${EXEC_PATH#extracted/}"
 if [ -z "$EXEC_PATH" ] || [ ! -f "$EXEC_PATH" ]; then
     echo "ERROR: no se pudo ubicar el binario ejecutable '${EXEC_BIN}' dentro del .deb"
     exit 1
@@ -169,6 +184,7 @@ if [ -z "$DAEMON_REL" ]; then
     echo "ADVERTENCIA: no se encontro OpenTabletDriver.Daemon -- el AppRun no lo va a arrancar automaticamente"
 fi
 
+rm -f "$APPDIR/AppRun"
 cat > "$APPDIR/AppRun" <<APPRUN
 #!/bin/sh
 HERE="\$(dirname "\$(readlink -f "\$0")")"
