@@ -106,19 +106,27 @@ export DOTNET_ROOT="\$HERE/usr/lib/dotnet"
 export PATH="\$DOTNET_ROOT:\$HERE/usr/bin:\$PATH"
 export LD_LIBRARY_PATH="\$HERE/usr/lib:\$HERE/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 
-rm -f /tmp/CoreFxPipe_OpenTabletDriver.Daemon 2>/dev/null || true
 DAEMON_PID=""
-if [ -x "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" ]; then
-    "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" &
-    DAEMON_PID=\$!
-    sleep 1
+if ! pgrep -f "OpenTabletDriver.Daemon" >/dev/null; then
+    # Limpiar socket viejo si el daemon anterior crasheo o no lo limpio (bug 3804)
+    rm -f /tmp/CoreFxPipe_OpenTabletDriver.Daemon 2>/dev/null || true
+    
+    if [ -x "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" ]; then
+        "\$HERE/usr/lib/opentabletdriver/OpenTabletDriver.Daemon" &
+        DAEMON_PID=\$!
+        # Pequeña espera para que el daemon levante el socket antes de la GUI
+        sleep 1
+    fi
 fi
+
 cleanup() {
     [ -n "\$DAEMON_PID" ] && kill "\$DAEMON_PID" 2>/dev/null || true
 }
 trap cleanup EXIT INT TERM
 
-exec "\$HERE/${REL_EXEC}" "\$@"
+# Ejecutamos la GUI sin 'exec' para que el shell se quede esperando,
+# de esta forma cuando la GUI se cierre, se ejecutara el trap y matara al Daemon.
+"\$HERE/${REL_EXEC}" "\$@"
 EOF
 chmod +x "$WRAPPER_PATH"
 
