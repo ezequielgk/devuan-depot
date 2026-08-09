@@ -196,6 +196,7 @@ fi
 
 echo "=== Empaquetando con linuxdeploy (bundlea libs faltantes del sistema) ==="
 export LINUXDEPLOY_PLUGIN_MODE=1
+export DEPLOY_GTK_VERSION=3
 export UPDATE_INFORMATION=""
 ./linuxdeploy --appimage-extract-and-run \
     --appdir "$APPDIR" \
