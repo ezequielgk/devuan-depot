@@ -133,6 +133,9 @@ ICON_NAME=$(grep -m1 '^Icon=' "$DESKTOP_FILE" | cut -d= -f2- || true)
 ICON_ARG=()
 if [ -n "$ICON_NAME" ]; then
     ICON_BASENAME=$(basename "$ICON_NAME")
+    # appimagetool falla si el icono en el .desktop es ruta absoluta o tiene extension (busca otd.png.png)
+    sed -i "s|^Icon=.*|Icon=${ICON_BASENAME%.*}|" "$DESKTOP_FILE"
+    
     ICON_FILE=$(find extracted/usr/share/icons extracted/usr/share/pixmaps -iname "${ICON_BASENAME}*" 2>/dev/null | head -1 || true)
     if [ -n "$ICON_FILE" ]; then
         if command -v convert >/dev/null 2>&1; then
@@ -158,7 +161,7 @@ echo "=== Empaquetando con linuxdeploy (bundlea libs faltantes del sistema) ==="
 #  - limpie sockets viejos en /tmp que quedan si el daemon no cerro bien
 #    (bug conocido: https://github.com/OpenTabletDriver/OpenTabletDriver/issues/3804)
 #  - mate el daemon cuando la GUI se cierra, para no dejarlo huerfano
-DAEMON_REL=$(find extracted/usr/bin -iname 'OpenTabletDriver.Daemon' | head -1)
+DAEMON_REL=$(find extracted/usr -iname 'OpenTabletDriver.Daemon' | head -1)
 DAEMON_REL="${DAEMON_REL#extracted/}"
 if [ -z "$DAEMON_REL" ]; then
     echo "ADVERTENCIA: no se encontro OpenTabletDriver.Daemon -- el AppRun no lo va a arrancar automaticamente"
