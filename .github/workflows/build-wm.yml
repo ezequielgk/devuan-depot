@@ -12,6 +12,7 @@ on:
           - niri
           - mangowc
           - scroll
+          - noctalia
 
 permissions:
   contents: write
