@@ -12,7 +12,7 @@
     "libsecret-1-dev", "libsodium-dev",
     "libsdbus-c++-dev", "libpipewire-0.3-dev", "libwireplumber-0.5-dev",
     "libpam0g-dev", "libpolkit-agent-1-dev", "libpolkit-gobject-1-dev",
-    "libcurl4-openssl-dev", "libwebp-dev", "libjxl-dev", "libsndfile1-dev", "librsvg2-dev",
+    "libcurl4-gnutls-dev", "libwebp-dev", "libjxl-dev", "libsndfile1-dev", "librsvg2-dev",
     "libqalculate-dev", "libxml2-dev",
     "libmd4c-dev", "libtomlplusplus-dev", "libical-dev",
     "nlohmann-json3-dev", "libstb-dev",
