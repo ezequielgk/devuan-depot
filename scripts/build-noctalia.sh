@@ -19,9 +19,9 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/nocta
 cd src/noctalia
 
 echo "Compiling noctalia..."
-# Configure with prefix /usr
-just configure release /usr
-just build release
+# Configure with meson directly to disable tests and set prefix
+meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled
+ninja -C build-release
 
 echo "Staging pkgroot..."
 COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -29,7 +29,7 @@ echo "COMMIT_HASH=${COMMIT_HASH}"
 
 mkdir -p ../../pkgroot/DEBIAN
 # Install to pkgroot
-DESTDIR=$PWD/../../pkgroot just install release
+DESTDIR=$PWD/../../pkgroot ninja -C build-release install
 
 cd ../..
 
