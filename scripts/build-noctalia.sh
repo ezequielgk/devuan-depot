@@ -19,8 +19,8 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/nocta
 cd src/noctalia
 
 echo "Compiling noctalia..."
-# Configure with meson directly to disable tests and set prefix
-meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled
+# Configure with meson directly to disable tests, set prefix, and enable extreme optimizations
+meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled -Db_lto=true -Djemalloc=enabled
 ninja -C build-release
 
 echo "Staging pkgroot..."
