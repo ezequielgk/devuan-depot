@@ -19,12 +19,6 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/nocta
 cd src/noctalia
 
 echo "Compiling noctalia..."
-
-echo "Fetching missing Wayland protocols (Debian Trixie workaround)..."
-mkdir -p /usr/share/wayland-protocols/staging/ext-background-effect
-curl -sL -o /usr/share/wayland-protocols/staging/ext-background-effect/ext-background-effect-v1.xml \
-  "https://gitlab.freedesktop.org/wayland/wayland-protocols/-/raw/main/staging/ext-background-effect/ext-background-effect-v1.xml"
-
 # Configure with meson directly to disable tests, set prefix, and enable extreme optimizations
 meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled -Db_lto=true -Djemalloc=enabled
 ninja -C build-release

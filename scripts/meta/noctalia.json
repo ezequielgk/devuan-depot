@@ -1,6 +1,6 @@
 {
   "script": "build-noctalia.sh",
-  "needs_devuan_depot_repo": false,
+  "needs_devuan_depot_repo": true,
   "base_apt_packages": [
     "dpkg-dev", "git", "curl", "jq", "ca-certificates",
     "meson", "g++", "just",
