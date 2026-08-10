@@ -46,6 +46,7 @@ jobs:
 
       - name: Install dependencies
         env:
+          DEBIAN_FRONTEND: noninteractive
           EXTRA_PKGS_JSON: ${{ toJSON(matrix.variant.extra_apt_packages) }}
         run: |
           apt-get update
