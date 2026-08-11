@@ -62,6 +62,8 @@ if [ -z "$DEPS" ]; then
   echo "ERROR: dpkg-shlibdeps resolved an EMPTY Depends"
   exit 1
 fi
+# Add optional runtime dependencies requested by user
+DEPS="${DEPS}, ddcutil, usbutils"
 set +u
 
 echo "Writing control file and building .deb..."
