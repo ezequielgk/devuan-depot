@@ -106,5 +106,4 @@ chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 chmod +x scripts/build-noctalia.sh || true
 
 dpkg-deb --build --root-owner-group pkgroot "noctalia_${VERSION}_amd64.deb"
-mv "noctalia_${VERSION}_amd64.deb" . || mv "noctalia_${VERSION}_amd64.deb" .. || true
 echo "Build finished successfully."
