@@ -23,7 +23,6 @@ Open an issue on GitHub and include:
 | `wlroots0.19`, `wlroots0.20` | <https://gitlab.freedesktop.org/wlroots/wlroots> | Wayland compositor library |
 | `scenefx0.4`, `scenefx0.5` | <https://github.com/wlrfx/scenefx> | Drop-in `wlr_scene` replacement |
 | `foot` | <https://codeberg.org/dnkl/foot> | Wayland terminal |
-| `concord` | <https://github.com/chojs23/concord> | Discord terminal client (Rust) |
 | `xwayland-satellite` | <https://github.com/Supreeeme/xwayland-satellite> | Rootless Xwayland for Wayland compositors |
 | Backports | Debian sid (`libdrm`, `libwayland`, `libxkbcommon`, `pixman`, …) | Rebuilt for trixie |
 
@@ -43,7 +42,6 @@ Debian sid backports keep the upstream version unchanged (no `~devuandepot`).
 ## Adding a new package
 
 1. Copy the closest workflow under `.github/workflows/`:
-   - `build-concord.yml` for a small Rust/Go app
    - `build-foot.yml` for a C/meson project
    - `build-wlroots.yml` for a library that needs `DEBIAN/shlibs`
 2. In the `build` job: fetch the source, build it, stage `pkgroot/`, call
