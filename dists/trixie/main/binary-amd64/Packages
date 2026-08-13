@@ -1329,6 +1329,21 @@ Priority: optional
 Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
  Practical and Powerful wayland compositor (dwm but wayland).
 
+Package: mangowc
+Version: 0.16.0.20260813.22~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
+Filename: pool/main/mangowc_0.16.0.20260813.22~devuandepot_amd64.deb
+Size: 663972
+MD5sum: 2fc875f7b9af5dd7356c3cb999db89d6
+SHA1: 92a46f3efdded7fb979e428e8ca3cf4279451425
+SHA256: 9891776e57fa36e58f01f2928ef9f2f4ca4a48d8258eed8ae66a66eb59e367ba
+Section: x11
+Priority: optional
+Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
+ Practical and Powerful wayland compositor (dwm but wayland).
+
 Package: niri
 Version: 26.04.20260728.3~devuandepot
 Architecture: amd64
