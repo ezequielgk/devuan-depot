@@ -22,7 +22,6 @@ Open an issue on GitHub and include:
 | `niri` | <https://github.com/YaLTeR/niri> | Scrollable-tiling Wayland compositor |
 | `wlroots0.19`, `wlroots0.20` | <https://gitlab.freedesktop.org/wlroots/wlroots> | Wayland compositor library |
 | `scenefx0.4`, `scenefx0.5` | <https://github.com/wlrfx/scenefx> | Drop-in `wlr_scene` replacement |
-| `dwl` | <https://github.com/djpohly/dwl> | dwm for Wayland |
 | `foot` | <https://codeberg.org/dnkl/foot> | Wayland terminal |
 | `xwayland-satellite` | <https://github.com/Supreeeme/xwayland-satellite> | Rootless Xwayland for Wayland compositors |
 | Backports | Debian sid (`libdrm`, `libwayland`, `libxkbcommon`, `pixman`, …) | Rebuilt for trixie |

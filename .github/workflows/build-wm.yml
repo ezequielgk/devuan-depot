@@ -13,7 +13,6 @@ on:
           - mangowc
           - scroll
           - noctalia
-          - dwl
 
 permissions:
   contents: write

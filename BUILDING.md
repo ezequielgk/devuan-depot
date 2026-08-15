@@ -33,7 +33,6 @@ workflow_dispatch
 | `build-wlroots.yml` | `wlroots0.19`, `wlroots0.20` | upstream tag (matrix) | manual |
 | `build-scenefx.yml` | `scenefx0.4`, `scenefx0.5` | upstream branch (matrix) | manual |
 | `build-swayfx.yml` | `swayfx` | upstream tag | manual |
-| `build-dwl.yml` | `dwl` | upstream main (commit) | manual |
 | `build-foot.yml` | `foot` | upstream tag | manual |
 | `build-niri.yml` | `niri` | upstream tag | manual |
 | `build-xwayland-satellite.yml` | `xwayland-satellite` | upstream tag | manual + tag push |
@@ -195,8 +194,7 @@ GitHub Pages to serve the new index):
 2. `Build scenefx .deb` → publishes `scenefx0.4` + `scenefx0.5`
 3. `Build MangoWC .deb` → depends on `wlroots0.20` + `scenefx0.5`
 4. `Build SwayFX .deb` → depends on `wlroots0.19` + `scenefx0.4`
-5. `Build dwl .deb` → depends on `wlroots0.20`
-6. `Build foot`, `Build niri`,
+5. `Build foot`, `Build niri`,
    `Build xwayland-satellite` — independent, run in any order
 6. `Cleanup gh-pages pool` → prune old `.deb` versions
 

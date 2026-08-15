@@ -23,7 +23,6 @@ Once `wlroots`, `scenefx`, and the `backports` are published in the `gh-pages` r
 - Select: `mangowc`
 - Select: `noctalia`
 - Select: `swayfx`
-- Select: `dwl`
 
 ### 4. Applications
 **Workflow:** `Build Apps`
