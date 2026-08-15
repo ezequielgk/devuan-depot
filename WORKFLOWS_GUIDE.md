@@ -20,15 +20,15 @@ These are the Wayland-specific libraries used by the compositors.
 ### 3. Window Managers (Compositors)
 **Workflow:** `Build Window Managers`
 Once `wlroots`, `scenefx`, and the `backports` are published in the `gh-pages` repository, window managers can compile properly by fetching them via `apt`.
-- Select: `swayfx`
-- Select: `niri`
 - Select: `mangowc`
+- Select: `noctalia`
+- Select: `swayfx`
+- Select: `dwl`
 
 ### 4. Applications
 **Workflow:** `Build Apps`
 Applications are usually the leaves in the dependency tree, so they can be compiled at the end or completely independently at any time.
 - Select: `foot`
-- Select: `concord`
 - Select: `gamescope`
 - Select: `mullvad-libre`
 - Select: `portproton`

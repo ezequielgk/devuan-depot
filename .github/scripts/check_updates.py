@@ -6,6 +6,7 @@ import re
 CHECKS = [
     {"pkg": "niri", "type": "github_tag", "repo": "YaLTeR/niri"},
     {"pkg": "swayfx", "type": "github_tag", "repo": "WillPower3309/swayfx"},
+    {"pkg": "dwl", "type": "github_commit", "repo": "djpohly/dwl", "branch": "main"},
     {"pkg": "foot", "type": "codeberg_tag", "repo": "dnkl/foot"},
     {"pkg": "xwayland-satellite", "type": "github_tag", "repo": "Supreeeme/xwayland-satellite"},
     {"pkg": "mullvad-libre", "type": "github_tag", "repo": "mullvad/mullvadvpn-app"},

@@ -1,0 +1,17 @@
+{
+  "script": "build-dwl.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "build-essential", "pkg-config", "git", "curl", "jq", "dpkg-dev",
+    "wayland-protocols", "libwayland-dev", "libinput-dev", "libxkbcommon-dev",
+    "libxcb1-dev", "libxcb-wm-dev", "xwayland",
+    "wlroots0.20"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
