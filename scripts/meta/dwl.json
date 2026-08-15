@@ -4,7 +4,7 @@
   "base_apt_packages": [
     "build-essential", "pkg-config", "git", "curl", "jq", "dpkg-dev",
     "wayland-protocols", "libwayland-dev", "libinput-dev", "libxkbcommon-dev",
-    "libxcb1-dev", "libxcb-wm-dev", "xwayland",
+    "libxcb1-dev", "libxcb-icccm4-dev", "xwayland",
     "wlroots0.20"
   ],
   "variants": [
