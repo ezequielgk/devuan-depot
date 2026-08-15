@@ -13,6 +13,8 @@ git clone https://github.com/djpohly/dwl.git src/dwl
 cd src/dwl
 
 echo "Compiling dwl..."
+# dwl Makefile hardcodes 'wlroots', but wlroots 0.20 installs 'wlroots-0.20.pc'
+sed -i 's/PKGS      = wlroots /PKGS      = wlroots-0.20 /g' Makefile
 make XWAYLAND="-DXWAYLAND" XLIBS="xcb xcb-icccm" PREFIX="/usr"
 
 echo "Staging pkgroot..."
