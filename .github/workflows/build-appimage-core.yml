@@ -14,7 +14,7 @@ jobs:
       script: ${{ steps.read.outputs.script }}
       base_packages: ${{ steps.read.outputs.base_packages }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - id: read
         run: |
@@ -37,7 +37,7 @@ jobs:
       matrix:
         variant: ${{ fromJson(needs.prepare.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install build dependencies
         run: |
