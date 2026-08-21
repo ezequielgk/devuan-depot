@@ -1,0 +1,19 @@
+{
+  "script": "build-xdg-desktop-portal-umbriel.sh",
+  "needs_devuan_depot_repo": true,
+  "base_apt_packages": [
+    "dpkg-dev", "git", "curl", "jq", "ca-certificates",
+    "meson", "g++", "just", "pkg-config",
+    "libwayland-dev", "wayland-protocols",
+    "libdrm-dev", "libgbm-dev", "libcairo2-dev",
+    "libsdbus-c++-dev", "libpipewire-0.3-dev", 
+    "libtomlplusplus-dev", "libgtk-4-dev"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
