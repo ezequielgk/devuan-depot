@@ -22,6 +22,8 @@ git clone https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
 git checkout $LATEST_SHA
 
+sed -i "s/configuredProfile.points.data()/const_cast<double*>(configuredProfile.points.data())/g" src/server/server_events.cpp
+
 echo "Fetching scenefx submodule..."
 git submodule update --init
 
