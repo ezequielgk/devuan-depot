@@ -74,7 +74,8 @@ if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
   exit 1
 fi
 DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-echo "=== Resolved Depends: ${DEPS} ==="
+echo "=== Resolved Depends: ${DEPS}
+Recommends: xwayland-satellite, xdg-desktop-portal-umbriel ==="
 if [ -z "$DEPS" ]; then
   echo "ERROR: dpkg-shlibdeps resolved an EMPTY Depends"
   exit 1
@@ -94,6 +95,7 @@ Section: x11
 Priority: optional
 Architecture: amd64
 Depends: ${DEPS}
+Recommends: xwayland-satellite, xdg-desktop-portal-umbriel
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Description: Umbriel - A Wayland compositor designed for daily use
  Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts, 
