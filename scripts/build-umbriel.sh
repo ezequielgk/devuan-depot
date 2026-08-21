@@ -85,7 +85,7 @@ set +u
 echo "Writing control file and building .deb..."
 # Set formatting like 0.0.0+git20240401.abcdefg.1~devuandepot
 DATE_STR=$(date -u +%Y%m%d)
-VERSION="0.0.0+git${DATE_STR}.${SHORT_SHA}.${RUN_NUMBER}~devuandepot"
+VERSION="0.1.0+git${DATE_STR}.${RUN_NUMBER}.${SHORT_SHA}~devuandepot"
 echo "VERSION=${VERSION}"
 
 cat > pkgroot/DEBIAN/control <<CTRL
