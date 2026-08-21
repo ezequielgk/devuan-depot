@@ -22,6 +22,10 @@ git clone https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
 git checkout $LATEST_SHA
 
+# Fix missing ranges include in overview.cpp
+sed -i "1i#include <ranges>" src/overview/overview.cpp
+
+
 sed -i "s/configuredProfile.points.data()/const_cast<double*>(configuredProfile.points.data())/g" src/server/server_events.cpp
 
 echo "Fetching scenefx submodule..."
