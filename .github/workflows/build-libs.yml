@@ -8,6 +8,7 @@ on:
         required: true
         type: choice
         options:
+          - xdg-desktop-portal-umbriel
           - wlroots
           - scenefx
           - xwayland-satellite

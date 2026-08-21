@@ -12,7 +12,6 @@ on:
           - foot
           - portproton
           - gamescope
-          - xdg-desktop-portal-umbriel
 
 permissions:
   contents: write
