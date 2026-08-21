@@ -7,7 +7,7 @@
     "libwayland-dev", "wayland-protocols",
     "libxkbcommon-dev", "libinput-dev", "libpixman-1-dev", "libdrm-dev",
     "libcairo2-dev", "libpango1.0-dev", "libtomlplusplus-dev",
-    "nlohmann-json3-dev", "libjemalloc-dev", "hwdata", "libwlroots-dev", "cmake"
+    "nlohmann-json3-dev", "libjemalloc-dev", "hwdata", "wlroots0.20", "cmake"
   ],
   "variants": [
     {
