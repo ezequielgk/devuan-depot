@@ -7,7 +7,7 @@
     "libwayland-dev", "wayland-protocols",
     "libxkbcommon-dev", "libinput-dev", "libpixman-1-dev", "libdrm-dev",
     "libcairo2-dev", "libpango1.0-dev", "libtomlplusplus-dev",
-    "nlohmann-json3-dev", "libjemalloc-dev", "hwdata", "wlroots0.20", "libegl-dev", "libgbm-dev", "libgles-dev", "libvulkan-dev", "liblcms2-dev", "libseat-dev", "libdisplay-info-dev", "libliftoff-dev", "libxcb-composite0-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev", "libxcb-res0-dev", "libxcb-xfixes0-dev", "libxcb-errors0-dev", "cmake"
+    "nlohmann-json3-dev", "libjemalloc-dev", "hwdata", "wlroots0.20", "libegl-dev", "libgbm-dev", "libgles-dev", "libvulkan-dev", "liblcms2-dev", "libseat-dev", "libdisplay-info-dev", "libliftoff-dev", "libxcb-composite0-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev", "libxcb-res0-dev", "libxcb-xfixes0-dev", "libxcb-errors-dev", "cmake"
   ],
   "variants": [
     {
