@@ -7,7 +7,7 @@
     "libwayland-dev", "wayland-protocols",
     "libdrm-dev", "libgbm-dev", "libcairo2-dev",
     "libsdbus-c++-dev", "libpipewire-0.3-dev", 
-    "libtomlplusplus-dev", "libgtk-4-dev"
+    "libtomlplusplus-dev", "libgtk-4-dev", "nlohmann-json3-dev"
   ],
   "variants": [
     {
