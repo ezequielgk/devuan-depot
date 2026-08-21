@@ -3,24 +3,24 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
-echo "Getting latest Umbriel release/tag..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/umbriel/releases | jq -r '.[0].tag_name')
+echo "Getting latest commit for umbriel (no releases available yet)..."
+COMMITS_JSON=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/umbriel/commits)
 
-if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
-    # Fallback to tags if no releases are found (since it's young)
-    LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/umbriel/tags | jq -r '.[0].name')
-fi
+# Extract both full sha and a 7-char short sha
+LATEST_SHA="$(echo "$COMMITS_JSON" | jq -r '.[0].sha')"
+SHORT_SHA="${LATEST_SHA:0:7}"
 
-if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
-    echo "ERROR: Failed to fetch latest tag"
+if [ "$LATEST_SHA" = "null" ] || [ -z "$LATEST_SHA" ]; then
+    echo "ERROR: Failed to fetch latest commit"
     exit 1
 fi
 
-echo "Obtained latest version: $LATEST_TAG"
+echo "Obtained latest commit: $LATEST_SHA"
 
 echo "Cloning umbriel..."
-git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+git clone https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
+git checkout $LATEST_SHA
 
 echo "Fetching scenefx submodule..."
 git submodule update --init
@@ -71,7 +71,9 @@ fi
 set +u
 
 echo "Writing control file and building .deb..."
-VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
+# Set formatting like 0.0.0+git20240401.abcdefg.1~devuandepot
+DATE_STR=$(date -u +%Y%m%d)
+VERSION="0.0.0+git${DATE_STR}.${SHORT_SHA}.${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 cat > pkgroot/DEBIAN/control <<CTRL
@@ -88,7 +90,7 @@ Description: Umbriel - A Wayland compositor designed for daily use
  It runs independently and can be paired with Noctalia.
 CTRL
 
-cat > pkgroot/DEBIAN/postinst <<'EOF'
+cat > pkgroot/DEBIAN/postinst <<'POSTINST_EOF'
 #!/bin/sh
 set -e
 ldconfig
@@ -96,9 +98,9 @@ if [ -x /usr/bin/update-desktop-database ]; then
   update-desktop-database -q /usr/share/applications || true
 fi
 exit 0
-EOF
+POSTINST_EOF
 
-cat > pkgroot/DEBIAN/postrm <<'EOF'
+cat > pkgroot/DEBIAN/postrm <<'POSTRM_EOF'
 #!/bin/sh
 set -e
 ldconfig
@@ -106,7 +108,7 @@ if [ -x /usr/bin/update-desktop-database ]; then
   update-desktop-database -q /usr/share/applications || true
 fi
 exit 0
-EOF
+POSTRM_EOF
 
 chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
