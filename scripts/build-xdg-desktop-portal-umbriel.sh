@@ -3,23 +3,24 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
-echo "Getting latest release/tag for xdg-desktop-portal-umbriel..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/xdg-desktop-portal-umbriel/releases | jq -r '.[0].tag_name')
+echo "Getting latest commit for xdg-desktop-portal-umbriel..."
+COMMITS_JSON=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/xdg-desktop-portal-umbriel/commits)
 
-if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
-    LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/xdg-desktop-portal-umbriel/tags | jq -r '.[0].name')
-fi
+# Extract both full sha and a 7-char short sha
+LATEST_SHA="$(echo "$COMMITS_JSON" | jq -r '.[0].sha')"
+SHORT_SHA="${LATEST_SHA:0:7}"
 
-if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
-    echo "ERROR: Failed to fetch latest tag"
+if [ "$LATEST_SHA" = "null" ] || [ -z "$LATEST_SHA" ]; then
+    echo "ERROR: Failed to fetch latest commit"
     exit 1
 fi
 
-echo "Obtained latest version: $LATEST_TAG"
+echo "Obtained latest commit: $LATEST_SHA"
 
 echo "Cloning xdg-desktop-portal-umbriel..."
-git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/xdg-desktop-portal-umbriel.git src/xdp-umbriel
+git clone https://github.com/noctalia-dev/xdg-desktop-portal-umbriel.git src/xdp-umbriel
 cd src/xdp-umbriel
+git checkout $LATEST_SHA
 
 echo "Compiling..."
 meson setup build-release --buildtype=release --prefix=/usr --sysconfdir=/etc
@@ -68,7 +69,9 @@ fi
 set +u
 
 echo "Writing control file and building .deb..."
-VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
+# Set formatting like 0.0.0+git20240401.abcdefg.1~devuandepot
+DATE_STR=$(date -u +%Y%m%d)
+VERSION="0.0.0+git${DATE_STR}.${SHORT_SHA}.${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 cat > pkgroot/DEBIAN/control <<CTRL
@@ -84,18 +87,17 @@ Description: xdg-desktop-portal backend for Umbriel
  Enables screen sharing, screenshots and more.
 CTRL
 
-cat > pkgroot/DEBIAN/postinst <<'EOF'
+cat > pkgroot/DEBIAN/postinst <<'POSTINST_EOF'
 #!/bin/sh
 set -e
 ldconfig
 if [ -x /usr/bin/update-desktop-database ]; then
   update-desktop-database -q /usr/share/applications || true
 fi
-# Re-trigger desktop portal reload in the user sessions potentially
 exit 0
-EOF
+POSTINST_EOF
 
-cat > pkgroot/DEBIAN/postrm <<'EOF'
+cat > pkgroot/DEBIAN/postrm <<'POSTRM_EOF'
 #!/bin/sh
 set -e
 ldconfig
@@ -103,7 +105,7 @@ if [ -x /usr/bin/update-desktop-database ]; then
   update-desktop-database -q /usr/share/applications || true
 fi
 exit 0
-EOF
+POSTRM_EOF
 
 chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
