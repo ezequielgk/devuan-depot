@@ -22,6 +22,15 @@ git clone https://github.com/noctalia-dev/xdg-desktop-portal-umbriel.git src/xdp
 cd src/xdp-umbriel
 git checkout $LATEST_SHA
 
+# Fix for broken nlohmann-json vendoring missing detail headers
+echo "Patching broken vendored json.hpp..."
+curl -sL https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp -o src/vendor/json.hpp
+
+
+echo "Patching broken vendored json.hpp..."
+curl -sL https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp -o src/vendor/json.hpp
+
+
 echo "Compiling..."
 meson setup build-release --buildtype=release --prefix=/usr --sysconfdir=/etc
 ninja -C build-release
