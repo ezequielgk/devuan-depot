@@ -44,6 +44,11 @@ mkdir -p ../../pkgroot/DEBIAN
 DESTDIR=$PWD/../../pkgroot ninja -C build-release install
 
 cd ../..
+n# Cleanup extraneous development files from subprojects (like scenefx headers)
+rm -rf pkgroot/usr/include
+rm -rf pkgroot/usr/lib/*/pkgconfig pkgroot/usr/lib/pkgconfig
+rm -f pkgroot/usr/lib/*.a pkgroot/usr/lib/*/*.a
+
 
 echo "Resolving shlib dependencies..."
 mkdir -p debian
