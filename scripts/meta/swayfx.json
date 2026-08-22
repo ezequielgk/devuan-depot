@@ -9,7 +9,7 @@
     "libxcb-dri3-dev", "libxcb-present-dev", "libxcb-res0-dev",
     "libxcb-render-util0-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev",
     "libliftoff-dev", "libdisplay-info-dev", "liblcms2-dev", "libpixman-1-dev",
-    "libgles2-mesa-dev", "hwdata", "libudev-dev",
+    "libgles2-mesa-dev", "hwdata", "libudev-dev", "libelogind-dev", "libsystemd-dev",
     "libxcb-composite0-dev", "libxcb-xfixes0-dev", "libxcb-errors-dev", "xwayland",
     "libxcb1-dev", "libxcb-render0-dev", "libxcb-image0-dev", "libx11-xcb-dev", "libxcb-cursor-dev",
     "libvulkan-dev", "glslang-tools",
