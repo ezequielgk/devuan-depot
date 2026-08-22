@@ -14,7 +14,7 @@ cd src
 echo "Compiling SwayFX..."
 
 sed -i "s/-Werror/-Werror -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=unused-parameter -Wno-error=unused-value/g" meson.build
-meson setup build --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr
+meson setup build --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=false -Db_pie=true --prefix=/usr
 ninja -C build
 
 echo "Staging pkgroot..."
