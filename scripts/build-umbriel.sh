@@ -33,7 +33,7 @@ git submodule update --init
 
 echo "Compiling umbriel..."
 # Configure with meson directly to set prefix and options
-meson setup build-release --buildtype=release --prefix=/usr -Djemalloc=enabled
+meson setup build-release --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr -Djemalloc=disabled
 ninja -C build-release
 
 echo "Staging pkgroot..."

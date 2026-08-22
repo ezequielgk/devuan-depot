@@ -32,7 +32,7 @@ curl -sL https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp -o 
 
 
 echo "Compiling..."
-meson setup build-release --buildtype=release --prefix=/usr --sysconfdir=/etc
+meson setup build-release --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr --sysconfdir=/etc
 ninja -C build-release
 
 echo "Staging pkgroot..."

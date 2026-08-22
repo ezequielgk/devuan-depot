@@ -13,7 +13,7 @@ cd src
 
 echo "Compiling Foot..."
 export CFLAGS="$CFLAGS -O3"
-meson setup build --buildtype=release --prefix=/usr -Db_lto=true -Dterminfo=disabled
+meson setup build --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr -Db_lto=true -Dterminfo=disabled
 ninja -C build
 
 echo "Staging pkgroot..."

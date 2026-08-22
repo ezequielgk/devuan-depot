@@ -62,7 +62,7 @@ PYEOF
 sed -n "/= library(/,/^)/p" meson.build
 
 echo "Compiling wlroots..."
-meson setup build --buildtype=release --prefix=/usr
+meson setup build --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr
 ninja -C build
 
 echo "Packaging .deb..."

@@ -12,7 +12,7 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/mangowm/mango.git 
 cd src/mango
 
 echo "Compiling mango..."
-meson setup build --buildtype=release --prefix=/usr --wrap-mode=default -Dwerror=false
+meson setup build --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr --wrap-mode=default -Dwerror=false
 ninja -C build
 
 echo "Staging pkgroot..."

@@ -20,7 +20,7 @@
     {
       "artifact_suffix": "default",
       "extra_apt_packages": [],
-      "env": {}
+      "env": { "CXXFLAGS": "-O3 -march=x86-64-v3 -pipe -fno-plt", "CFLAGS": "-O3 -march=x86-64-v3 -pipe -fno-plt", "LDFLAGS": "-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now" }
     }
   ]
 }

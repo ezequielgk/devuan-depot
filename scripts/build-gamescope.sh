@@ -12,7 +12,7 @@ git clone --branch "$LATEST_TAG" --depth 1 --recursive https://github.com/ValveS
 cd src
 
 echo "Configuring Gamescope..."
-meson setup build/ --prefix=/usr --buildtype=release
+meson setup build/ --prefix=/usr --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true
 
 echo "Compiling Gamescope..."
 ninja -C build/
