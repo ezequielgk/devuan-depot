@@ -20,7 +20,7 @@ cd src/noctalia
 
 echo "Compiling noctalia..."
 # Configure with meson directly to disable tests, set prefix, and enable extreme optimizations
-meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled -Db_lto=true -Djemalloc=enabled
+meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled -Db_lto=true -Djemalloc=disabled
 ninja -C build-release
 
 echo "Staging pkgroot..."
