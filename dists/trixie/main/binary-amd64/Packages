@@ -1658,6 +1658,24 @@ Description: SwayFX - Sway but with eye candy!
  Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
  Built with Xwayland support enabled.
 
+Package: swayfx
+Version: 0.6.20260822.46~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.34), libcairo2 (>= 1.10.0), libdrm2 (>= 2.4.113), libevdev2 (>= 0.9.1), libgdk-pixbuf-2.0-0 (>= 2.31.1), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.26.0), libjson-c5 (>= 0.15), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.25.2), libsystemd0 (>= 243), libudev1 (>= 183), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 0.7.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
+Recommends: seatd
+Filename: pool/main/swayfx_0.6.20260822.46~devuandepot_amd64.deb
+Size: 5202056
+MD5sum: 5b6e3de77bb02be1aa4f11f34ee2fb8c
+SHA1: d951ef35c1e752180a7e10d269d1c5280eac2ba7
+SHA256: d8505b6d780a0f054f06c1738a0e51eb9bd07925ddb8b9126c9d9cf09df1c813
+Section: x11
+Priority: optional
+Description: SwayFX - Sway but with eye candy!
+ Sway fork with blur, shadows and rounded corners.
+ Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
+ Built with Xwayland support enabled.
+
 Package: umbriel
 Version: 0.0.0+git20260821.4d9c71c.35~devuandepot
 Architecture: amd64
