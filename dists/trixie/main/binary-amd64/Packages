@@ -1407,6 +1407,23 @@ Description: Niri - A scrollable-tiling Wayland compositor
  Niri is a scrollable-tiling Wayland compositor.
 
 Package: noctalia
+Version: 5.0.0-beta.10.20260828.47~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libcurl3t64-gnutls (>= 7.16.2), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 3.3.1), libgles2, libglib2.0-0t64 (>= 2.80.0), libharfbuzz0b (>= 5.1.0), libical3t64 (>= 3.0.0), libjxl0.11 (>= 0.7.0), libmd4c0 (>= 0.2.7), libpam0g (>= 0.99.7.1), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), libpipewire-0.3-0t64 (>= 0.3.6), libpolkit-agent-1-0 (>= 0.99), libpolkit-gobject-1-0 (>= 0.94), libqalculate23 (>= 5.5.2), librsvg2-2 (>= 2.52.5), libsdbus-c++2 (>= 2.1.0), libsecret-1-0 (>= 0.19.1), libsndfile1 (>= 1.0.20), libsodium23 (>= 1.0.14), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.23.0), libwayland-egl1 (>= 1.15.0), libwebp7 (>= 1.5.0), libwireplumber-0.5-0 (>= 0.4.81), libxkbcommon0 (>= 0.8.0), libxml2 (>= 2.7.4), ddcutil, usbutils
+Filename: pool/main/noctalia_5.0.0-beta.10.20260828.47~devuandepot_amd64.deb
+Size: 13391764
+MD5sum: b82bb108c23e1fee41f624f888cdc267
+SHA1: 547e7ef26806d338d3cb12ce33fef32455376850
+SHA256: ba999f76cddb80e23d09f03e5723d247c7964e799b0007c7c2d9d49486db2c8c
+Section: x11
+Priority: optional
+Description: Noctalia - A native Wayland desktop shell
+ Noctalia is a native Wayland desktop shell for people who want a polished,
+ configurable Linux desktop without stitching together a separate bar,
+ launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
+
+Package: noctalia
 Version: 5.0.0-beta.8.20260811.20~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
