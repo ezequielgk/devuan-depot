@@ -149,6 +149,31 @@ Description: EDID and DisplayID library (utils)
  .
  This package contains the di-edid-decode binary.
 
+Package: libdisplay-info-bin
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 104
+Depends: libc6 (>= 2.34), libdisplay-info3 (>= 0.3.0)
+Filename: pool/main/libdisplay-info-bin_0.3.0-1~devuandepot_amd64.deb
+Size: 32484
+MD5sum: c2c3cd43dd11166bd38fc7622738d119
+SHA1: dd9349e7241f3275af80cde483e85ec47c6e7092
+SHA256: b27d142e2a1b3b1e158fbf62dc2a79a7340c8a93a2097fcffc288c0fb0fc7838
+Section: video
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (utils)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+ .
+ This package contains the di-edid-decode binary.
+
 Package: libdisplay-info-bin-dbgsym
 Source: libdisplay-info
 Version: 0.3.0-1
@@ -167,6 +192,24 @@ Priority: optional
 Description: debug symbols for libdisplay-info-bin
 Build-Ids: d2a0e2c6fc06dfe5a3b865a8f44a05cf882bcba9
 
+Package: libdisplay-info-bin-dbgsym
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 116
+Depends: libdisplay-info-bin (= 0.3.0-1~devuandepot)
+Filename: pool/main/libdisplay-info-bin-dbgsym_0.3.0-1~devuandepot_amd64.deb
+Size: 74232
+MD5sum: 0df1bf9f63a2935d816f8cc3fd13543c
+SHA1: 432fba4a22ab7bb2a891eabcdbcfd5370f235a67
+SHA256: 935752847be3c90292efec7f99b81707ba908923bfec3a55eacefbccd35a74bb
+Section: debug
+Priority: optional
+Description: debug symbols for libdisplay-info-bin
+Build-Ids: d2a0e2c6fc06dfe5a3b865a8f44a05cf882bcba9
+
 Package: libdisplay-info-dev
 Source: libdisplay-info
 Version: 0.3.0-1
@@ -179,6 +222,32 @@ Size: 29100
 MD5sum: 84595ca2fb385c453fc2288f975d4a64
 SHA1: 9719828131e9593d244d90652555031e6ad630e1
 SHA256: 9d5a918bc94e7b8e50391446af596766f61466faf4ed54b8146392183a658e91
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (development files)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+ .
+ This package contains the development files, including headers and
+ pkgconf configuration.
+
+Package: libdisplay-info-dev
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 142
+Depends: libdisplay-info3 (= 0.3.0-1~devuandepot)
+Filename: pool/main/libdisplay-info-dev_0.3.0-1~devuandepot_amd64.deb
+Size: 29120
+MD5sum: c7eeb89f70a1237fd1f14f153facf616
+SHA1: 316b10937e8b32b9ff3900fad6d26923f2d187f1
+SHA256: 8fb5ec88a260e51843ccf37ba80e35016c2fd16e01462b22e1f5736be9dec1c8
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -216,6 +285,29 @@ Description: EDID and DisplayID library (shared library)
   * Simplicity and correctness over performance and resource usage.
   * Well-tested and fuzzed.
 
+Package: libdisplay-info3
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 263
+Depends: libc6 (>= 2.27)
+Filename: pool/main/libdisplay-info3_0.3.0-1~devuandepot_amd64.deb
+Size: 77868
+MD5sum: 43552e4ad242bf85bc6e022a89f632bc
+SHA1: c2a806be2bc744d035085fc1e3a678e06b187c56
+SHA256: bdda1a3fc5e147aa47b7e0fdd8dddfe2787293acd3655a19a2760e6aff8e2389
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
+Description: EDID and DisplayID library (shared library)
+ This library parse EDID and DisplayID and focus on:
+  * Providing a set of high-level, easy-to-use, opinionated functions as well
+    as low-level functions to access detailed information.
+  * Simplicity and correctness over performance and resource usage.
+  * Well-tested and fuzzed.
+
 Package: libdisplay-info3-dbgsym
 Source: libdisplay-info
 Version: 0.3.0-1
@@ -235,6 +327,25 @@ Multi-Arch: same
 Description: debug symbols for libdisplay-info3
 Build-Ids: 4b4d0a4282d79ff86ddf854305f5855338f061d3
 
+Package: libdisplay-info3-dbgsym
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 163
+Depends: libdisplay-info3 (= 0.3.0-1~devuandepot)
+Filename: pool/main/libdisplay-info3-dbgsym_0.3.0-1~devuandepot_amd64.deb
+Size: 141384
+MD5sum: 5e378115e7b41f634e3f54f422e5cdb4
+SHA1: 77eda1a56752cf35e5237f596ffa2eae68dfb05d
+SHA256: fc9eb629d391362e39a8ed1546873d47833cb0504d944630d66cf74f11f6a282
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdisplay-info3
+Build-Ids: 4b4d0a4282d79ff86ddf854305f5855338f061d3
+
 Package: libdrm-amdgpu1
 Source: libdrm
 Version: 2.4.134-3
@@ -247,6 +358,29 @@ Size: 24776
 MD5sum: 6869d0a071d00e509eefe59e01bb9fc5
 SHA1: 0285ce0415130e849242bed17d1a5ccf03b4e616
 SHA256: 74ec39fa1441ece127fdf50902ac838684f1534e390afe4ad65a278c4ecee343
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to amdgpu-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-amdgpu1
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 72
+Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-amdgpu1_2.4.134-3~devuandepot_amd64.deb
+Size: 24792
+MD5sum: 0a98598e6adc1af911c55a71ddb10907
+SHA1: 240e83aa61ca18d107616716b75fd36b3829a9b3
+SHA256: 760d8355ce03b7a08eb1ec8e1f5c97a6730db8bd34dbf7d39783522ebbb5a542
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -277,6 +411,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm-amdgpu1
 Build-Ids: 1c8764a59822bfbaee3754f60f66241dcde9cc0c
 
+Package: libdrm-amdgpu1-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 80
+Depends: libdrm-amdgpu1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-amdgpu1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 62032
+MD5sum: 7bd0cc2fd3308fc770036d716aee55b9
+SHA1: d627113049a0573de61099e84e85a9b9ae2ea40e
+SHA256: f68fd13ee679b61d37daca2384595071a37ff9113c75555e66c4cbe7ea24ed66
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-amdgpu1
+Build-Ids: 1c8764a59822bfbaee3754f60f66241dcde9cc0c
+
 Package: libdrm-common
 Source: libdrm
 Version: 2.4.134-3
@@ -288,6 +441,30 @@ Size: 9384
 MD5sum: 6cef97ff7083c823459f40e2a40bf40c
 SHA1: 7dd74d71ff7855eee6d1add22ae5a64ad07c6c3a
 SHA256: 1bdabcecb0dbc75fb5b2db00f7426b53608224160a6ffcd3dc298eaf06c19ea2
+Section: libs
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- common files
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides common files for libdrm.
+
+Package: libdrm-common
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 42
+Filename: pool/main/libdrm-common_2.4.134-3~devuandepot_all.deb
+Size: 9400
+MD5sum: 7471c5253ff63c7961f6f40534a96605
+SHA1: 53a4f7f14622be5beda254d7ad49935355b6c9db
+SHA256: 1615b43dfb9126c5204229dc2a872432120b66f832ba4edbbcd841800ad5b286
 Section: libs
 Priority: optional
 Multi-Arch: foreign
@@ -326,6 +503,31 @@ Description: Userspace interface to kernel DRM services -- development files
  .
  This package provides the development environment for libdrm.
 
+Package: libdrm-dev
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1505
+Depends: libdrm2 (= 2.4.134-3~devuandepot), libdrm-intel1 (= 2.4.134-3~devuandepot), libdrm-radeon1 (= 2.4.134-3~devuandepot), libdrm-nouveau2 (= 2.4.134-3~devuandepot), libdrm-amdgpu1 (= 2.4.134-3~devuandepot), libdrm-freedreno1 (= 2.4.134-3~devuandepot), libpciaccess-dev
+Filename: pool/main/libdrm-dev_2.4.134-3~devuandepot_amd64.deb
+Size: 323964
+MD5sum: 5099a11e5487c828f328c46e0967f593
+SHA1: 59144f8f0fcf8d52ae9fb9d05e62942742ae8653
+SHA256: 8a9810d7baf12633a3eda17030e90c5f35bf10aa58fdd3ac7997b30563996cf0
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- development files
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides the development environment for libdrm.
+
 Package: libdrm-freedreno1
 Source: libdrm
 Version: 2.4.134-3
@@ -338,6 +540,29 @@ Size: 22652
 MD5sum: 91ab60207f1be2b2a0aa79da03efc980
 SHA1: 939d6301ace5d7a6c34ef782856965f5bf65e1e2
 SHA256: 3d5e9b272c555182a353c85a1f09c9cff7e38f718ff576443dea48e760e8e9d4
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to msm/kgsl kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-freedreno1
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 66
+Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-freedreno1_2.4.134-3~devuandepot_amd64.deb
+Size: 22668
+MD5sum: 5a95621d94ca8ee08ca9565f22650f1b
+SHA1: 1c30ce31c070c2d1923f0a144e02001ba1c72789
+SHA256: 7cb5c1e8b76c9cad1ed7535306aee40d5ef12351ca77f6fc01eedb3ea909cced
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -368,6 +593,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm-freedreno1
 Build-Ids: b89485ea8577f5ff7c09de73c7981ddba2fb9b4f
 
+Package: libdrm-freedreno1-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 70
+Depends: libdrm-freedreno1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-freedreno1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 52232
+MD5sum: 16ed2aa4759f2fb28b376a529b5e6bec
+SHA1: e968c51eb3f0a728713d39647b348c7b1aa6a2cd
+SHA256: 345293fb2ff5c414c9cb65a91e135085a638041375d2f7ef0d326d1d14497297
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-freedreno1
+Build-Ids: b89485ea8577f5ff7c09de73c7981ddba2fb9b4f
+
 Package: libdrm-intel1
 Source: libdrm
 Version: 2.4.134-3
@@ -380,6 +624,29 @@ Size: 64844
 MD5sum: 9ff26fcaa518d11860b4f2f8818c6f72
 SHA1: 8dcdaf57a45428c1d7a324d6cc1f7b0589c33859
 SHA256: 1b7feefaa09599212bcedc79579b6eb94b9b1e1b1c625a6c00f7dc5a6067657b
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to intel-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-intel1
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 173
+Depends: libc6 (>= 2.34), libdrm2 (>= 2.4.108), libpciaccess0
+Filename: pool/main/libdrm-intel1_2.4.134-3~devuandepot_amd64.deb
+Size: 64860
+MD5sum: 7253efa295d598a8c92f78de950d8d01
+SHA1: f8a293a0dbeab76e80b457e1434e0c7ff3dfe853
+SHA256: 4bf0e8713b271d278caa77147057d22fa42220484d4423143c6bc3643725d987
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -410,6 +677,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm-intel1
 Build-Ids: 913578b9fdeadf837844b5cee5d95d96e68a3c96
 
+Package: libdrm-intel1-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 152
+Depends: libdrm-intel1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-intel1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 130824
+MD5sum: f934d0f16731034a63cda2cee52bd3ed
+SHA1: f7f48852b9fe9e0a022f5bf49a077cae90eeddb2
+SHA256: f36a67b1b838db41ed7f442186674b0ba2672965dd8f3eef03674af8342ce7c9
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-intel1
+Build-Ids: 913578b9fdeadf837844b5cee5d95d96e68a3c96
+
 Package: libdrm-nouveau2
 Source: libdrm
 Version: 2.4.134-3
@@ -422,6 +708,29 @@ Size: 20624
 MD5sum: 594913cbb5dcf9b49d846943f0173cee
 SHA1: 55ba24055007e9aedf9da0b406f005c636a64203
 SHA256: 00b3e6763694baeaf3dc2353ab31670a9bc577f56a6ce63b943864c9783df40d
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to nouveau-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-nouveau2
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 62
+Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-nouveau2_2.4.134-3~devuandepot_amd64.deb
+Size: 20640
+MD5sum: d5882f5adf17bdae3eb1e58266269ced
+SHA1: bec516e03a226381bff9878fd36836a998734dc9
+SHA256: e532bed4c6803c6c3366f2ddd146d6392dee974d9cf891aa6f2c04393b2754b8
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -452,6 +761,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm-nouveau2
 Build-Ids: b6226753be6a75c5975cadf97017222a4cbd2a5e
 
+Package: libdrm-nouveau2-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 56
+Depends: libdrm-nouveau2 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-nouveau2-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 41212
+MD5sum: 093064643ec80e9d174e5c4503bb3168
+SHA1: 665e919134ad3402274fd4f96d31b03b08941974
+SHA256: a078960b70a2385b158dca3c6671150b5ece5df3d25c170741c8defe9411204d
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-nouveau2
+Build-Ids: b6226753be6a75c5975cadf97017222a4cbd2a5e
+
 Package: libdrm-radeon1
 Source: libdrm
 Version: 2.4.134-3
@@ -464,6 +792,29 @@ Size: 23300
 MD5sum: 342d6f59040fc543436e87f2aa3e0156
 SHA1: eacc9e6dd52a1571e4873d13367ddf12bab182ea
 SHA256: e3f7e0e796248a8814f15a382a09ad07b4b85604c1b00c46dbe07d8c514135e3
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to radeon-specific kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+
+Package: libdrm-radeon1
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 74
+Depends: libc6 (>= 2.4), libdrm2 (>= 2.4.108)
+Filename: pool/main/libdrm-radeon1_2.4.134-3~devuandepot_amd64.deb
+Size: 23312
+MD5sum: ca538833d39936bb1c66b6f27d1f6b42
+SHA1: f1cf2974e0842307f2d6a630b25965358fedbc45
+SHA256: cd05009ee43765be0864e06527afe70d966fca85ed78cb6c37370d34a3ac0ce6
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -494,6 +845,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm-radeon1
 Build-Ids: 4aa9daa61819e2cc5214245b207c1586c4795d37
 
+Package: libdrm-radeon1-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 64
+Depends: libdrm-radeon1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-radeon1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 48884
+MD5sum: b555f63c1002e5bcaa23ccbce364e7ea
+SHA1: 807f77cad0a31a9cf10c3369da2a4b5a5af46d42
+SHA256: d82181cc908f548042fc7e76ca2b54cd041417cda9a57c36c1ad0027da4053bb
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-radeon1
+Build-Ids: 4aa9daa61819e2cc5214245b207c1586c4795d37
+
 Package: libdrm-tests
 Source: libdrm
 Version: 2.4.134-3
@@ -506,6 +876,30 @@ Size: 57648
 MD5sum: b52083ba074f8607cdbf9a58fc337f6b
 SHA1: 8a5ce218bdedeac49d85550084d6ed14ef08a398
 SHA256: db550ca0b09f3efcc8897b17b1060571488dd65ee0f2b476642efec490cdd17c
+Section: libs
+Priority: optional
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Testing tools from the libdrm project
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package contains a variety of tools for testing from the libdrm project.
+
+Package: libdrm-tests
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 200
+Depends: libdrm2 (= 2.4.134-3~devuandepot), libc6 (>= 2.38), libdrm-amdgpu1 (>= 2.4.77)
+Filename: pool/main/libdrm-tests_2.4.134-3~devuandepot_amd64.deb
+Size: 57660
+MD5sum: 4a3422b1c356ec1c4fda7bf9153a8a81
+SHA1: cde517d22bb976b7961fc071bcb11e2e6dc9d093
+SHA256: 19b6c9e9e6885e7d39301a51bcca78668e5977c16367997e668e8be13f321ac7
 Section: libs
 Priority: optional
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
@@ -536,6 +930,24 @@ Priority: optional
 Description: debug symbols for libdrm-tests
 Build-Ids: 0c91fba054e32443c569e25836ee6362daa6dc66 127e737a4273782a9161a5713f39989c1f2aead9 b4a5b6372fadc946d250681d628065f5aa2a187f d7d7cee4ca52a5c4296cab6f2aa56c2e15a2d72b eaa339c0784ba6ada513235c30ea1c248236c36c fc9bad7ed541b121382dc8458e57cdcee4532a4f
 
+Package: libdrm-tests-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 255
+Depends: libdrm-tests (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-tests-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 161568
+MD5sum: 35fdf53258257320f47ef0088f4ee5ac
+SHA1: 7e669718f9395daf02ce16c498dc41973a0ad9c4
+SHA256: 274b92067927874abbb0be52a71b6d5b3b61a4c27f92301303d8a7d2d2363ffb
+Section: debug
+Priority: optional
+Description: debug symbols for libdrm-tests
+Build-Ids: 0c91fba054e32443c569e25836ee6362daa6dc66 127e737a4273782a9161a5713f39989c1f2aead9 b4a5b6372fadc946d250681d628065f5aa2a187f d7d7cee4ca52a5c4296cab6f2aa56c2e15a2d72b eaa339c0784ba6ada513235c30ea1c248236c36c fc9bad7ed541b121382dc8458e57cdcee4532a4f
+
 Package: libdrm2
 Source: libdrm
 Version: 2.4.134-3
@@ -548,6 +960,31 @@ Size: 40072
 MD5sum: d06f6f8906853063fce758acff1b758f
 SHA1: 8885c11d89cf4b7fb56fd43bc02a9f61a6132689
 SHA256: d13a84560c987dda4fa1d37499f7dde991f1b2a2039fc3468b84c26e02c47052
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
+Description: Userspace interface to kernel DRM services -- runtime
+ This library implements the userspace interface to the kernel DRM
+ services.  DRM stands for "Direct Rendering Manager", which is the
+ kernelspace portion of the "Direct Rendering Infrastructure" (DRI).
+ The DRI is currently used on Linux to provide hardware-accelerated
+ OpenGL drivers.
+ .
+ This package provides the runtime environment for libdrm.
+
+Package: libdrm2
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 119
+Depends: libdrm-common (>= 2.4.134-3~devuandepot), libc6 (>= 2.38)
+Filename: pool/main/libdrm2_2.4.134-3~devuandepot_amd64.deb
+Size: 40092
+MD5sum: 2829d022537c1f21baeeef9c71844fba
+SHA1: 9a90dcb92d5af897a401730c6b4e96ee597366b3
+SHA256: f47459d0fceeedbdd95b6ca451519a55dfed062400cf24a9e3ed63db7a9eed35
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -580,6 +1017,25 @@ Multi-Arch: same
 Description: debug symbols for libdrm2
 Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
 
+Package: libdrm2-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 127
+Depends: libdrm2 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm2-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 108272
+MD5sum: 58506320171d8e518ae0ef5934f280ed
+SHA1: 1c42ea288d2a8b11c0b7dd4636459ebbab683cc5
+SHA256: 9d87ccec2e7a6a08580535825834dcb43aa6dbf3ec242969bce22d51bfcb1747
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm2
+Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
+
 Package: libliftoff-dev
 Source: libliftoff
 Version: 0.5.0-1.1
@@ -592,6 +1048,30 @@ Size: 4820
 MD5sum: abfdba49f63673bbbeb6fccefaaee726
 SHA1: 7f2e64c5ac3536e0aff95e386f195564caa94b88
 SHA256: f98492b8d7f2b634b3207054984b7257b948b7c53ce9c9703f479f67d41239eb
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
+Description: lightweight KMS plane library - development files
+ libliftoff eases the use of KMS planes from userspace without standing
+ in your way. Users create "virtual planes" called layers, set KMS
+ properties on them, and libliftoff will pick planes for these layers if
+ possible.
+ .
+ This package contains the development files.
+
+Package: libliftoff-dev
+Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 22
+Depends: libliftoff0 (= 0.5.0-1.1~devuandepot)
+Filename: pool/main/libliftoff-dev_0.5.0-1.1~devuandepot_amd64.deb
+Size: 4832
+MD5sum: e83ef22d95036b5a0c26f113453dc636
+SHA1: cbb0c16540fa084f135b0e130fef24fee5f4b271
+SHA256: d0404c14af3e54b9dedaeba7fd836578220e2c15d775c487ac55b5eda85132f9
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -626,6 +1106,28 @@ Description: lightweight KMS plane library
  properties on them, and libliftoff will pick planes for these layers if
  possible.
 
+Package: libliftoff0
+Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 50
+Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
+Filename: pool/main/libliftoff0_0.5.0-1.1~devuandepot_amd64.deb
+Size: 15684
+MD5sum: 7f734e51235ec4da98579ed760f01e11
+SHA1: bf9b4a39e3ca61aee951d5349fe804e7903d83ed
+SHA256: 0348288fc34f207a20ff49d5cb6e005720d71182ac5fa9cfe340d77f206d3283
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
+Description: lightweight KMS plane library
+ libliftoff eases the use of KMS planes from userspace without standing
+ in your way. Users create "virtual planes" called layers, set KMS
+ properties on them, and libliftoff will pick planes for these layers if
+ possible.
+
 Package: libliftoff0-dbgsym
 Source: libliftoff
 Version: 0.5.0-1.1
@@ -645,6 +1147,25 @@ Multi-Arch: same
 Description: debug symbols for libliftoff0
 Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
 
+Package: libliftoff0-dbgsym
+Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 48
+Depends: libliftoff0 (= 0.5.0-1.1~devuandepot)
+Filename: pool/main/libliftoff0-dbgsym_0.5.0-1.1~devuandepot_amd64.deb
+Size: 33276
+MD5sum: d906d0d6545bdb4fbd93033c2e0d4231
+SHA1: de1bc5126c627b11c88506c93aeed21885a8005e
+SHA256: 7224892d5797fa0b01a5acecbf6302d5cd8b3ee3bb25d2a47758d4a4da38afe9
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libliftoff0
+Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
+
 Package: libpixman-1-0
 Source: pixman
 Version: 0.46.4-1
@@ -657,6 +1178,28 @@ Size: 261452
 MD5sum: b874a6ac38033fb70d270935b1bba9f9
 SHA1: 70e2c712f0236debd208b27d410cc06834f1b2e4
 SHA256: 1a45e287b364cbf1c0a30ea019073e6cb5a5d01f7e67edb9c3e5e361133e2f2e
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: http://pixman.org/
+Description: pixel-manipulation library for X and cairo
+ A library for manipulating pixel regions -- a set of Y-X banded
+ rectangles, image compositing using the Porter/Duff model
+ and implicit mask generation for geometric primitives including
+ trapezoids, triangles, and rectangles.
+
+Package: libpixman-1-0
+Source: pixman
+Version: 0.46.4-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 753
+Depends: libc6 (>= 2.29)
+Filename: pool/main/libpixman-1-0_0.46.4-1~devuandepot_amd64.deb
+Size: 261472
+MD5sum: 8840cfbd004881273110d701e5baf90f
+SHA1: 3fe25d537fa0a4f8862096c8658d94eb3944872e
+SHA256: f33ba3cde5703ca5e70d8e0280b32468358cc39a6052e3860510176eded7c4e5
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -686,6 +1229,25 @@ Multi-Arch: same
 Description: debug symbols for libpixman-1-0
 Build-Ids: 73bf52ad7f2cabdec9e89bcd60fb8b089029c007
 
+Package: libpixman-1-0-dbgsym
+Source: pixman
+Version: 0.46.4-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1821
+Depends: libpixman-1-0 (= 0.46.4-1~devuandepot)
+Filename: pool/main/libpixman-1-0-dbgsym_0.46.4-1~devuandepot_amd64.deb
+Size: 1795044
+MD5sum: 5205d16b37aba0c7c2e8e0a37bfcf36f
+SHA1: 79964f61d273d46172c7c87deb40602f1697d7f1
+SHA256: 1ef3d0a2a0c167e6c1a8edbf7feb6cfa823548345c637e913ae685154463ebfb
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libpixman-1-0
+Build-Ids: 73bf52ad7f2cabdec9e89bcd60fb8b089029c007
+
 Package: libpixman-1-dev
 Source: pixman
 Version: 0.46.4-1
@@ -698,6 +1260,26 @@ Size: 11900
 MD5sum: 17a4d7fcddb423d0c8696cc96f1554c6
 SHA1: 9d751bc5d7d3253e54fbf4589d3af293eaafe448
 SHA256: e6541d5e0cf91d54fc667baba2ae27a4ce46f39faf475441d78041664dd24ab6
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: http://pixman.org/
+Description: pixel-manipulation library for X and cairo (development files)
+ Development libraries, header files and documentation needed by
+ programs that want to compile with the Cairo/X pixman library.
+
+Package: libpixman-1-dev
+Source: pixman
+Version: 0.46.4-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 74
+Depends: libpixman-1-0 (= 0.46.4-1~devuandepot)
+Filename: pool/main/libpixman-1-dev_0.46.4-1~devuandepot_amd64.deb
+Size: 11924
+MD5sum: 46d9b0aa6d1f49fef751cbc363fc0f0c
+SHA1: 8a6e12f6aa77266e12515052ecba678752adf3cf
+SHA256: c6aeef41b727b43061bfb57fc3e9f7f1ba13400c47adf185eac8b2d40219d7f8
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -732,6 +1314,32 @@ Description: wayland compositor infrastructure - binary utilities
  .
  This package contains the development binary utilities
 
+Package: libwayland-bin
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 68
+Depends: libc6 (>= 2.34), libexpat1 (>= 2.0.1), libxml2 (>= 2.7.4)
+Filename: pool/main/libwayland-bin_1.26.0-1~devuandepot_amd64.deb
+Size: 22372
+MD5sum: 67f12054570f05262bb1f55c495aed79
+SHA1: e099f1ec8929f403c66118cb21b47999ef6e8505
+SHA256: d7c365fe3cd139f66104426ce90884e63533549a960463686a744f1edf2a56b6
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - binary utilities
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development binary utilities
+
 Package: libwayland-bin-dbgsym
 Source: wayland
 Version: 1.26.0-1
@@ -750,6 +1358,24 @@ Priority: optional
 Description: debug symbols for libwayland-bin
 Build-Ids: c7886431f1514ec61c649f78117fe48355da1f3d
 
+Package: libwayland-bin-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 83
+Depends: libwayland-bin (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-bin-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 53000
+MD5sum: 0ab3c3151419711195dcba6fe3da129e
+SHA1: 1b48243ffb29e74fe82f7e55e9e9b4e513fb6e97
+SHA256: 31e56316641c03ea63f0ed596ae0d1f99d162341429143c5e7b593de805bd2c8
+Section: debug
+Priority: optional
+Description: debug symbols for libwayland-bin
+Build-Ids: 0b8afead8eb876d40a09f007f7efe79c569f00f5
+
 Package: libwayland-client0
 Source: wayland
 Version: 1.26.0-1
@@ -762,6 +1388,33 @@ Size: 29884
 MD5sum: be5f08dbad0dc265d604bf023c526d6b
 SHA1: 583d7d1bdc7e7d365e5adad27127387e5e8b6867
 SHA256: 2ec6de80fa8a3069f6e60def276dfb05a02411df6f75a87500cdc2c7516dc268
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - client library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the client side of
+ the Wayland protocol.
+
+Package: libwayland-client0
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 95
+Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
+Filename: pool/main/libwayland-client0_1.26.0-1~devuandepot_amd64.deb
+Size: 29900
+MD5sum: 17c3c7ae97e5ab8378f2962fac22ef9c
+SHA1: 5abed82570f0998a7a32257d13be367c866a8cba
+SHA256: befea4452f9673b2ca0c0e3bf415bd8a58923dac6ed9b72fe745efedd7bc9e42
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -796,6 +1449,25 @@ Multi-Arch: same
 Description: debug symbols for libwayland-client0
 Build-Ids: a2897a2646c93eb09bb382b6234bb0dd22a12725
 
+Package: libwayland-client0-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 89
+Depends: libwayland-client0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-client0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 69652
+MD5sum: 799d2f94abbb773f19871e728228ed80
+SHA1: 4554a69d4a266e182c1b5569bcfc2571dfaf402e
+SHA256: a2e4173807d139e8dd5cce733074a153b37af72a8b3bf82934f5e166d767a17a
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-client0
+Build-Ids: a2897a2646c93eb09bb382b6234bb0dd22a12725
+
 Package: libwayland-cursor0
 Source: wayland
 Version: 1.26.0-1
@@ -808,6 +1480,32 @@ Size: 12304
 MD5sum: 710c1a10849afbe12058ce9680f6df7f
 SHA1: ad11af7917ca60699f4f87121d0583d037630c4d
 SHA256: 811d8ea9aa4934a9925660421320e8fd41fdcc380ecf94893ad326418611cac4
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - cursor library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships a helper library to manage cursors.
+
+Package: libwayland-cursor0
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 51
+Depends: libc6 (>= 2.28), libwayland-client0 (>= 1.20.0)
+Filename: pool/main/libwayland-cursor0_1.26.0-1~devuandepot_amd64.deb
+Size: 12320
+MD5sum: 31edeb7ce163d589af75d0e8d976b5b9
+SHA1: ebaf45d27531b10e130e2fbd14de99d65dced793
+SHA256: c5025cbaee6456fd522d1d7e032bb23e6da66086d4c22935f24b92e437a5c844
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -841,6 +1539,25 @@ Multi-Arch: same
 Description: debug symbols for libwayland-cursor0
 Build-Ids: dc9539922cbd8a7159e287faaf1b0fd3e7562b1b
 
+Package: libwayland-cursor0-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 37
+Depends: libwayland-cursor0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-cursor0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 23384
+MD5sum: 8366966aedf8748448b24f1a1afa73a8
+SHA1: ffd69ec8314ea1f712ab1d4f40aacc32664c13b7
+SHA256: 8cf1b3c7aece2d09a102a6fa747d42a99410c506085281027a8f9516059de43a
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-cursor0
+Build-Ids: dc9539922cbd8a7159e287faaf1b0fd3e7562b1b
+
 Package: libwayland-dev
 Source: wayland
 Version: 1.26.0-1
@@ -854,6 +1571,34 @@ Size: 78624
 MD5sum: 8558ae08fe75dae2e867d54c9bafcb94
 SHA1: 5eb2b9574f37d77ab75bb4eb477d68d06af67085
 SHA256: b120c430af2d5b6752db23ba57d30d3f4a2e68ff406192b9413da4555a796c60
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - development files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development headers for the Wayland libraries.
+ Non-developers likely have little use for this package.
+
+Package: libwayland-dev
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 664
+Depends: libwayland-client0 (= 1.26.0-1~devuandepot), libwayland-server0 (= 1.26.0-1~devuandepot), libwayland-cursor0 (= 1.26.0-1~devuandepot), libwayland-egl1 (= 1.26.0-1~devuandepot), libwayland-bin (= 1.26.0-1~devuandepot), libffi-dev
+Suggests: libwayland-doc
+Filename: pool/main/libwayland-dev_1.26.0-1~devuandepot_amd64.deb
+Size: 78640
+MD5sum: 1ab4962b5a6b5b5dacfcc58bdce06cd5
+SHA1: 45a8ebe2b7fb8fdbca3b3db2dfb6f29f7ffb735b
+SHA256: 9fc058fb085a5ee40d536d80a94aaeb63f10eea7aee9f9c92ff983b288e2f335
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -895,6 +1640,32 @@ Description: wayland compositor infrastructure - documentation files
  This package contains the documentation for the Wayland libraries.
  Non-developers likely have little use for this package.
 
+Package: libwayland-doc
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 3735
+Filename: pool/main/libwayland-doc_1.26.0-1~devuandepot_all.deb
+Size: 1265564
+MD5sum: 81eae44b0cf73c0dab50aceba0d11055
+SHA1: b10e45676029ebddefcb2eeb9db79853e85ff6fb
+SHA256: 089024cbea775384201adedcf658aa0a72366d0058b82d2a39d893681156d63d
+Section: doc
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - documentation files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the documentation for the Wayland libraries.
+ Non-developers likely have little use for this package.
+
 Package: libwayland-egl-backend-dev
 Source: wayland
 Version: 1.26.0-1
@@ -906,6 +1677,31 @@ Size: 5172
 MD5sum: d3ce982c63c6a754b1e9b5ea96cb7c55
 SHA1: defbbc5874157aeba8d188d410278f728f648c1e
 SHA256: 04774c93b19e298f444eda9288889a86a2d54fef01debd08132ffff962e97ff9
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - EGL backend development files
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package contains the development headers for the Wayland EGL backend.
+
+Package: libwayland-egl-backend-dev
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 17
+Filename: pool/main/libwayland-egl-backend-dev_1.26.0-1~devuandepot_amd64.deb
+Size: 5184
+MD5sum: a2b04f78225bb5b1e71e99c4b0de5fcb
+SHA1: 30367c95c7f47e8e1609078489565ecc865bca6f
+SHA256: da591e7c62ab52f7922b1620f8d4013f4cd14d3497086d7b63628977942c58f9
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -947,6 +1743,33 @@ Description: wayland compositor infrastructure - EGL library
  This package ships the library that implements the Wayland EGL platform
  of the Wayland protocol.
 
+Package: libwayland-egl1
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 30
+Depends: libc6 (>= 2.2.5)
+Filename: pool/main/libwayland-egl1_1.26.0-1~devuandepot_amd64.deb
+Size: 6280
+MD5sum: 3c9ffdb5bcf25bb5ff2dc4e78c60f162
+SHA1: e09668d1e0319c4a2c1457670c52ad57b2bab804
+SHA256: 974a00bd47b3a9ee3b796a628647732fba39927a7976c75813f1bc2d9396a4ef
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - EGL library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the Wayland EGL platform
+ of the Wayland protocol.
+
 Package: libwayland-egl1-dbgsym
 Source: wayland
 Version: 1.26.0-1
@@ -966,6 +1789,25 @@ Multi-Arch: same
 Description: debug symbols for libwayland-egl1
 Build-Ids: fcd0ac92d4ffb87f9f873161ea543fcc7202c9a2
 
+Package: libwayland-egl1-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 16
+Depends: libwayland-egl1 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-egl1-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 3692
+MD5sum: 5f09a8357bc37337ee090767114aef07
+SHA1: b26354159faee64b6b18106089056406427ebd3b
+SHA256: 55ce59ed33fbdaf036f18b485d4abbaf0ccd847b5918aa8ffd98a0bc9bcfe263
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-egl1
+Build-Ids: fcd0ac92d4ffb87f9f873161ea543fcc7202c9a2
+
 Package: libwayland-server0
 Source: wayland
 Version: 1.26.0-1
@@ -978,6 +1820,33 @@ Size: 36956
 MD5sum: bc1ac668212cbbd61e7221ff97bc82ee
 SHA1: 5388c6e0de62ea39e3488b0874017b35fddb0172
 SHA256: e29239e45b0826b85a16d5ac7db3676f671b8ad0b7290a18efcce1ac1ee86532
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor infrastructure - server library
+ Wayland is a protocol for a compositor to talk to its clients as well
+ as a C library implementation of that protocol. The compositor can be
+ a standalone display server running on Linux kernel modesetting and
+ evdev input devices, an X application, or a wayland client
+ itself. The clients can be traditional applications, X servers
+ (rootless or fullscreen) or other display servers.
+ .
+ This package ships the library that implements the server side of
+ the Wayland protocol.
+
+Package: libwayland-server0
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 113
+Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
+Filename: pool/main/libwayland-server0_1.26.0-1~devuandepot_amd64.deb
+Size: 36964
+MD5sum: 753c8a0b26df1d46a6fb208afe11626a
+SHA1: 55afc7211a16658daf07af65abec4a042b80e5cf
+SHA256: ee8b4f2f3ef2e96bd3d34be18c1794bc2445c3ac6f7cba932b87866e59475fde
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -1012,6 +1881,25 @@ Multi-Arch: same
 Description: debug symbols for libwayland-server0
 Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
 
+Package: libwayland-server0-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 118
+Depends: libwayland-server0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-server0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 95584
+MD5sum: dc833146841aa7869bf0cc15971f195c
+SHA1: a282c1bebde84b299e180e3f88936df97a1ddb8d
+SHA256: ec50977551c4a415a92ca0f9da8ad4780d48a4f641a0664e8fa57f8e0fce222f
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-server0
+Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
+
 Package: libxkbcommon-dev
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1024,6 +1912,37 @@ Size: 60148
 MD5sum: 2c7806aad3d13f2ee5bd971c95ac76ca
 SHA1: e1e754d9e12eeea981381b1339543187edfaa6dd
 SHA256: 5997cb5c19936b0b4b644623b12777fbea4527d12d175c928bcec83e9b5b8e2c
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - development files
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the development headers for the library found in
+ libxkbcommon0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-dev
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 390
+Depends: libxkbcommon0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon-dev_1.13.1-1~devuandepot_amd64.deb
+Size: 60172
+MD5sum: bba80eeb8762806eaaad534fd4b72f4f
+SHA1: cac3e7c58004d8a53b2b5228211bad97b2318a3b
+SHA256: 6e433ae310ba3d4d7e8033ca95362fbbb839c934fb5d1ac834de22235c71e9a2
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -1073,6 +1992,36 @@ Description: library interface to the XKB compiler - documentation
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
+Package: libxkbcommon-doc
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 3602
+Filename: pool/main/libxkbcommon-doc_1.13.1-1~devuandepot_all.deb
+Size: 362736
+MD5sum: 1df5cdc46fbdd26004be79c8b22afd17
+SHA1: 4ba8e19ae5f115adec99d7f404a13ebfaee82eff
+SHA256: 68a0ac773823d1a948c692cdf73496c9ab5121ad256e5d311c12d193ce1b25a6
+Section: doc
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - documentation
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the documentation files for the library found in
+ libxkbcommon0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
 Package: libxkbcommon-tools
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1085,6 +2034,36 @@ Size: 71004
 MD5sum: 36dcaa7587df04f448772276986ed932
 SHA1: 02d4f7d28b8229cbfceca05777d6c7364e9c349f
 SHA256: 8ca76bf93ea7216981d62499ea411f09a63b89142acae278761914a4761612e5
+Section: graphics
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - tools
+ xkbcommon is a library to handle keyboard descriptions, including loading them
+ from disk, parsing them and handling their state. It's mainly meant for client
+ toolkits, window systems, and other system applications; currently that
+ includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ This package contains the xkbcli tool to interact with XKB keymaps.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-tools
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 452
+Depends: libc6 (>= 2.38), libwayland-client0 (>= 1.20.0), libxcb-xkb1, libxcb1, libxkbcommon-x11-0 (>= 0.5.0), libxkbcommon0 (>= 1.12.3), libxkbregistry0 (>= 1.12.3)
+Filename: pool/main/libxkbcommon-tools_1.13.1-1~devuandepot_amd64.deb
+Size: 71008
+MD5sum: 35de784cc30c3550e5d07a1ccf6dea5b
+SHA1: 120415ce1d6883ed3241c451b88e4671a28aa3d2
+SHA256: e15d8430b9cd8eff36aec3857e77c791b3c8f62323c962c18bf3f0ea8eb81e1d
 Section: graphics
 Priority: optional
 Multi-Arch: foreign
@@ -1121,6 +2100,24 @@ Priority: optional
 Description: debug symbols for libxkbcommon-tools
 Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 b1ba8b8ca2ea1d54831235e4c18c99973ab33b2b bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 daa85d7a807988a8055fe7f033efe9539bb96b8e f7bd417ffc64bed9396eeed03e735553e4f417f5
 
+Package: libxkbcommon-tools-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 576
+Depends: libxkbcommon-tools (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 340444
+MD5sum: 09ec6add4273e60fb6dd62bb6ed3b449
+SHA1: 3c4f8cb0495ffcdaa8c43ec9f7382b7bbbb51395
+SHA256: 5750c6acd486cb0ddaf4df0f1d0b1c59adf58eac84846c63468c337ab1656b45
+Section: debug
+Priority: optional
+Description: debug symbols for libxkbcommon-tools
+Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 b1ba8b8ca2ea1d54831235e4c18c99973ab33b2b bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 daa85d7a807988a8055fe7f033efe9539bb96b8e f7bd417ffc64bed9396eeed03e735553e4f417f5
+
 Package: libxkbcommon-x11-0
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1133,6 +2130,32 @@ Size: 20900
 MD5sum: fe8ab3e278f38c7fdaf8063b1c155c0e
 SHA1: 5f7e1cf84635b461828c1060868f6f517c2e9fa2
 SHA256: 6223e3b0c7d66fd8022802745da73a6ec7467b9785dee277f39d23b821562ddc
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to create keymaps with the XKB X11 protocol
+ This package provides an add-on library called xkbcommon-x11, to support
+ creating keymaps with the XKB X11 protocol, by querying the X server directly.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-x11-0
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 69
+Depends: libxkbcommon0 (= 1.13.1-1~devuandepot), libc6 (>= 2.38), libxcb-xkb1, libxcb1 (>= 1.6)
+Filename: pool/main/libxkbcommon-x11-0_1.13.1-1~devuandepot_amd64.deb
+Size: 20924
+MD5sum: dc4cf8aaa6c0b956601aded17cf06f48
+SHA1: fb9830d5386f17e625316dec7e2d3cd72d9a36fd
+SHA256: d137d5bc0aa2e9034324bf268258949e5ca2e9236f278eeff80c198ce725f9ee
 Section: libs
 Priority: optional
 Multi-Arch: same
@@ -1166,6 +2189,25 @@ Multi-Arch: same
 Description: debug symbols for libxkbcommon-x11-0
 Build-Ids: 6597fc53967af10b25399d36fba21ac817555295
 
+Package: libxkbcommon-x11-0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 84
+Depends: libxkbcommon-x11-0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon-x11-0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 65116
+MD5sum: c8c8f86d7db39cec4b11b83f204acee2
+SHA1: a2dd3862de1393ebad3bcfb58deb95f4f63ab5ea
+SHA256: 377418becc11d973a559e294c54c1ab3ea7d835ee740670338073ed603a35f0b
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon-x11-0
+Build-Ids: 6597fc53967af10b25399d36fba21ac817555295
+
 Package: libxkbcommon-x11-dev
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1178,6 +2220,35 @@ Size: 7156
 MD5sum: 52ff47c5ae38770c5330994a01629651
 SHA1: 9a47819ca0252d452b20fa55a3e6f306472f294b
 SHA256: 9f752237226a0d9008222909de8272e7cb5dcb23bae0549922266b9b973f15f2
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to create keymaps with the XKB X11 protocol - development files
+ This package provides an add-on library called xkbcommon-x11, to support
+ creating keymaps with the XKB X11 protocol, by querying the X server directly.
+ .
+ This package contains the development headers for the library found in
+ libxkbcommon-x11-0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbcommon-x11-dev
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 28
+Depends: libxkbcommon-x11-0 (= 1.13.1-1~devuandepot), libxkbcommon-dev (= 1.13.1-1~devuandepot), libxcb1-dev, libxcb-xkb-dev
+Filename: pool/main/libxkbcommon-x11-dev_1.13.1-1~devuandepot_amd64.deb
+Size: 7176
+MD5sum: 5ffc5bc8d1a5e3cd5e96d905542765e4
+SHA1: 09c1e567769999bd0058e9d16607d939faf942e7
+SHA256: ac9aa0d33b8acd17a1e6970c4833c55e1d843b96e115ed0957c9228619ed2193
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -1223,6 +2294,34 @@ Description: library interface to the XKB compiler - shared library
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
+Package: libxkbcommon0
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 401
+Depends: xkb-data, libc6 (>= 2.38)
+Filename: pool/main/libxkbcommon0_1.13.1-1~devuandepot_amd64.deb
+Size: 147056
+MD5sum: ea1148d297070bc05a5cd5b26e562ad5
+SHA1: cb90714aac6ed4503d8f0e1356dc0bd6b40d9186
+SHA256: 53c08b3625478ea48fd95dce67f919d74f5e6189b974cd5eb14723048001fd81
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library interface to the XKB compiler - shared library
+ This package provides a library to handle keyboard descriptions, including
+ loading them from disk, parsing them and handling their state. It's mainly
+ meant for client toolkits, window systems, and other system applications;
+ currently that includes Wayland, kmscon, GTK+, Clutter, and more.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
 Package: libxkbcommon0-dbgsym
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1242,6 +2341,25 @@ Multi-Arch: same
 Description: debug symbols for libxkbcommon0
 Build-Ids: ed3f2dd073dfc13a710abdc28f4365b47239e53e
 
+Package: libxkbcommon0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 388
+Depends: libxkbcommon0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 362724
+MD5sum: 69c11f638e644a625735dc44f9457615
+SHA1: 29efd53bf56dbe16d462477f0827935f563bfe07
+SHA256: 046af441ea6409c3e4b2b7526cea4127c843c76d68bd7e9314be6d3162e93e7d
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon0
+Build-Ids: ed3f2dd073dfc13a710abdc28f4365b47239e53e
+
 Package: libxkbregistry-dev
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1254,6 +2372,35 @@ Size: 9720
 MD5sum: 98c8dec6580636518beb1fdbb7d01e77
 SHA1: 535380f2537cbef0ddc8eb506edb85bc5a89c023
 SHA256: dddd9ab025cdfb2cf4d514ce7e4de1974ee2a2d97c4856c95465669a770d7712
+Section: libdevel
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to query available RMLVO - development files
+ This package provides an add-on library called xkbregistry, which is used
+ to query the available RMLVO instead of parsing evdev.xml directly.
+ .
+ This package contains the development headers for the library found in
+ libxkbregistry0. Non-developers likely have little use for this package.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
+Package: libxkbregistry-dev
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 44
+Depends: libxkbcommon-dev (= 1.13.1-1~devuandepot), libxkbregistry0 (= 1.13.1-1~devuandepot), libxml2-dev
+Filename: pool/main/libxkbregistry-dev_1.13.1-1~devuandepot_amd64.deb
+Size: 9736
+MD5sum: bf57252ef80f1b95311712a82dbb49f6
+SHA1: cd3352afb14d56e132d2983bb42cea72a7eab3b9
+SHA256: c12733930b1dfef728a7c0eed7924f366dd9e6c6779248c1cae7dfa16857d564
 Section: libdevel
 Priority: optional
 Multi-Arch: same
@@ -1297,6 +2444,32 @@ Description: library to query available RMLVO
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
+Package: libxkbregistry0
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 59
+Depends: libxkbcommon0 (= 1.13.1-1~devuandepot), libc6 (>= 2.38), libxml2 (>= 2.7.4)
+Filename: pool/main/libxkbregistry0_1.13.1-1~devuandepot_amd64.deb
+Size: 17224
+MD5sum: 764b9dcaebfaf87fd9444ced87e2de73
+SHA1: f539277de9cf0296d8dc47407c7a9f4ebdc3a525
+SHA256: 4b57c6f7a234f3f6e3c6be6048f0d6b3ee98f5f743ed3c2a97b24ddaa7d11512
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://www.xkbcommon.org/
+Description: library to query available RMLVO
+ This package provides an add-on library called xkbregistry, which is used
+ to query available RMLVO instead of parsing evdev.xml directly.
+ .
+ More information about X.Org can be found at:
+ <URL:http://www.X.org>
+ .
+ This module can be found at
+ https://github.com/xkbcommon/libxkbcommon.git
+
 Package: libxkbregistry0-dbgsym
 Source: libxkbcommon
 Version: 1.13.1-1
@@ -1310,6 +2483,25 @@ Size: 43348
 MD5sum: 76385a5e8da47d6ebb6a6fe370e709bf
 SHA1: b9fc49707b9e9d48b20609ab07956bd0a137f654
 SHA256: b2d63acc1c350125ace8f3fb88ab2e82358da3e85f8fbb90dbf2c9a46873a811
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbregistry0
+Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
+
+Package: libxkbregistry0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 61
+Depends: libxkbregistry0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbregistry0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 43360
+MD5sum: e44a28b9cdab08fdb9d0415ef20902aa
+SHA1: c3d65f63feaa5d8fc32cb917f026114bde07a79b
+SHA256: 830a343b1b207cfb5684ea8161b29a2bb68c0643b87a4928b8d060537e2d7905
 Section: debug
 Priority: optional
 Multi-Arch: same
@@ -1788,6 +2980,26 @@ Size: 136488
 MD5sum: 8fe26c6b9ad63ca1235dceae6a938c5a
 SHA1: 72562f4b7b02b5c076fa7ea22b4575317aaa8be7
 SHA256: 244f16a3e839a7060db4012190cc0dd64c04b2356f2196bc9cee28040c8c45a3
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://wayland.freedesktop.org/
+Description: wayland compositor protocols
+ Wayland protocols that add functionality not available in the Wayland core
+ protocol. Such protocols either add completely new functionality, or extend
+ the functionality of some other protocol either in Wayland core, or some other
+ protocol in wayland-protocols.
+
+Package: wayland-protocols
+Version: 1.49-1~devuandepot
+Architecture: all
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1144
+Filename: pool/main/wayland-protocols_1.49-1~devuandepot_all.deb
+Size: 136488
+MD5sum: d061c7cb8fa764e0cf2e539f4111b064
+SHA1: bdc5eb12fd2d6950bc8b263e1fd7584308049763
+SHA256: 8966d30aa414fbad062c92bfc2123723bda9db76f36600c0e6900c80bea6c3eb
 Section: libdevel
 Priority: optional
 Multi-Arch: foreign
