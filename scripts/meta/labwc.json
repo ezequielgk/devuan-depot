@@ -5,7 +5,7 @@
     "build-essential", "meson", "pkg-config", "git", "scdoc", "dpkg-dev",
     "wayland-protocols", "libwayland-dev", "libinput-dev", "libxkbcommon-dev",
     "libxml2-dev", "libcairo2-dev", "libpango1.0-dev", "libglib2.0-dev",
-    "libpng-dev", "librsvg2-dev", "libdrm-dev", "libudev-dev", "libvulkan-dev", "libpixman-1-dev", "libseat-dev", "libgbm-dev", "libegl1-mesa-dev", "hwdata", "libgles2-mesa-dev",
+    "libpng-dev", "librsvg2-dev", "libdrm-dev", "libudev-dev", "libvulkan-dev", "libpixman-1-dev", "libseat-dev", "libgbm-dev", "libegl-dev", "hwdata", "libgles-dev", "liblcms2-dev", "libxcb-res0-dev", "libxcb-ewmh-dev",
     "libxcb-composite0-dev", "libxcb-render0-dev", "libxcb-xfixes0-dev",
     "libxcb-shape0-dev", "libxcb-errors-dev", "libxcb-icccm4-dev",
     "libdisplay-info-dev", "libliftoff-dev", "xwayland",
