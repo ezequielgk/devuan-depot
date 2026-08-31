@@ -107,6 +107,23 @@ Homepage: https://github.com/imputnet/helium-linux
 Description: Private, fast, and honest web browser
  Private, fast, and honest web browser based on Chromium
 
+Package: labwc
+Version: 0.20.2.20260831.52~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.14.0), libglib2.0-0t64 (>= 2.68.0+git20210214), libinput10 (>= 1.28.0), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpixman-1-0 (>= 0.19.6), libpng16-16t64 (>= 1.6.46), librsvg2-2 (>= 2.46.0), libsfdo0 (>= 0.1.3), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-ewmh2 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 1.0.0), libxml2 (>= 2.7.4), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
+Filename: pool/main/labwc_0.20.2.20260831.52~devuandepot_amd64.deb
+Size: 251616
+MD5sum: 017fb1a78f0d042fb1c17918e5b8080b
+SHA1: bcb8e7276a5c1fed520b881c3da22209b3df0849
+SHA256: e8bc1fd44b0af7a78f5db2df66e49b6beabf90e8758e1279e657a98e7ed958b5
+Section: x11
+Priority: optional
+Description: labwc - A Wayland window-stacking compositor
+ Labwc is a wlroots-based window-stacking compositor for Wayland,
+ inspired by Openbox. It is lightweight and independent with a focus
+ on simply stacking windows well and rendering Window decorations.
+
 Package: libdisplay-info-bin
 Source: libdisplay-info
 Version: 0.3.0-1
