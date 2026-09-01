@@ -1,0 +1,17 @@
+{
+  "script": "build-gearlever.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "build-essential", "meson", "pkg-config", "git", "curl", "jq",
+    "python3", "python3-gi", "gir1.2-gtk-4.0", "gir1.2-adw-1",
+    "libgtk-4-dev", "libadwaita-1-dev", "python3-requests",
+    "desktop-file-utils", "appstream", "gettext", "squashfs-tools"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

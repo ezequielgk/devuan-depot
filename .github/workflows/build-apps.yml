@@ -12,6 +12,7 @@ on:
           - foot
           - portproton
           - gamescope
+          - gearlever
 
 permissions:
   contents: write
