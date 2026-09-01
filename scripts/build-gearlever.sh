@@ -35,7 +35,7 @@ VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 # Manual dependencies since this is a Python app
-DEPS="python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, python3-xdg, squashfs-tools, dconf-gsettings-backend | gsettings-backend"
+DEPS="python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, python3-xdg, python3-dbus, squashfs-tools, dconf-gsettings-backend | gsettings-backend"
 
 cat > pkgroot/DEBIAN/control <<CTRL
 Package: gearlever
