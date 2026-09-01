@@ -25,7 +25,7 @@ mkdir -p ../../pkgroot/DEBIAN
 DESTDIR=$PWD/../../pkgroot ninja -C build install
 echo "Installing Python dependencies locally into the deb..."
 apt-get install -y python3-pip
-pip3 install desktop-entry-lib ftputil --no-binary :all: dbus-python pyxdg --target=$PWD/../../pkgroot/usr/lib/python3/dist-packages/ --no-user
+pip3 install desktop-entry-lib ftputil pyxdg --target=$PWD/../../pkgroot/usr/lib/python3/dist-packages/ --no-user
 
 
 cd ../..
