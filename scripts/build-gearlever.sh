@@ -80,5 +80,4 @@ chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
 
 # Architecture is 'all' since it's Python
 dpkg-deb --build --root-owner-group pkgroot "gearlever_${VERSION}_all.deb"
-mv "gearlever_${VERSION}_all.deb" $GITHUB_WORKSPACE/
 echo "Build finished successfully."
