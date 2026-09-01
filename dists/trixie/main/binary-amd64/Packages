@@ -88,6 +88,22 @@ Priority: optional
 Description: Gamescope - SteamOS session compositing window manager
  Gamescope is the micro-compositor formerly known as steamcompmgr.
 
+Package: gearlever
+Version: 4.6.2.20260901.20~devuandepot
+Architecture: all
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, squashfs-tools, dconf-gsettings-backend | gsettings-backend
+Filename: pool/main/gearlever_4.6.2.20260901.20~devuandepot_all.deb
+Size: 403868
+MD5sum: bf1b54a1a151ce2692ae266b9e61a666
+SHA1: e4eacdd4ab27d05f5e30dd7c9bda205618eb9f43
+SHA256: 065fb9ed324c5d02a21d0a128488f77961453ed15a59e9c9ecb6ea6b8b89ca04
+Section: utils
+Priority: optional
+Description: Manage AppImages with ease
+ GearLever integrates AppImages into your app menu, handles updates
+ and keeps them organized.
+
 Package: helium-bin
 Version: 0.14.9.1-1~devuandepot
 Architecture: amd64
