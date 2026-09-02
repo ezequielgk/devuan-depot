@@ -8,7 +8,6 @@ export RUSTUP_HOME=/opt/rust
 export CARGO_HOME=/opt/cargo
 curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source /opt/cargo/env
-source $HOME/.cargo/env
 rustup default stable
 
 echo "Extracting Helix-Steel semantic version and Git hash..."
@@ -39,7 +38,6 @@ export HELIX_DEFAULT_RUNTIME=/usr/lib/helix/runtime
 echo "VERSION=${VERSION}"
 
 echo "Building Debian package with cargo-deb..."
-source $HOME/.cargo/env
 echo "Compiling Helix-Steel with Cargo manually..."
 cargo build --release --locked
 
