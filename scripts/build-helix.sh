@@ -29,6 +29,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 echo "Compiling Helix-Steel with Cargo manually..."
 cargo build --release --locked
 
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+
 cargo deb --no-build --deb-version "$VERSION" -- --locked
 
 echo "Moving .deb to workspace root..."
