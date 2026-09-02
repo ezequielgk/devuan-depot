@@ -3,18 +3,17 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
-echo "Getting latest Helix tag..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/helix-editor/helix/releases/latest | jq -r '.tag_name')
+echo "Getting latest commit for Steel branch..."
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
+echo "Obtained latest Steel version: $LATEST_TAG"
 
-if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
-    echo "ERROR: Failed to fetch latest release tag"
-    exit 1
-fi
-echo "Obtained latest version: $LATEST_TAG"
 
 echo "Cloning Helix..."
-git clone --branch "$LATEST_TAG" --depth 1 https://github.com/helix-editor/helix.git src/helix
+git clone --branch steel-event-system https://github.com/mattwparas/helix.git src/helix
 cd src/helix
+echo "Updating git submodules for Steel..."
+git submodule update --init --recursive
+
 
 echo "Installing cargo-deb..."
 cargo install cargo-deb --locked --version 3.4.0
@@ -27,7 +26,10 @@ echo "VERSION=${VERSION}"
 
 echo "Building Debian package with cargo-deb..."
 export PATH="$HOME/.cargo/bin:$PATH"
-cargo deb --deb-version "$VERSION" -- --locked
+echo "Compiling Helix-Steel with Cargo manually..."
+cargo build --release --locked
+
+cargo deb --no-build --deb-version "$VERSION" -- --locked
 
 echo "Moving .deb to workspace root..."
 # Find the exact deb file in the debian targeted output
