@@ -37,13 +37,14 @@ cargo build --release --locked
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 cargo deb --no-build --deb-version "$VERSION" -- --locked
-echo "Repackaging payload to mark conflict with debian hx..."
+echo "Repackaging payload to rename package directly to hx..."
 mkdir -p target/debian/repack
 dpkg-deb -R target/debian/helix_*.deb target/debian/repack/
-sed -i "/^Architecture: /a Conflicts: hx\nReplaces: hx\nProvides: hx" target/debian/repack/DEBIAN/control
+sed -i "s/^Package: helix$/Package: hx/" target/debian/repack/DEBIAN/control
 rm target/debian/helix_*.deb
-dpkg-deb -Zxz -b target/debian/repack/ "target/debian/helix_${VERSION}_amd64.deb"
+dpkg-deb -Zxz -b target/debian/repack/ "target/debian/hx_${VERSION}_amd64.deb"
 rm -rf target/debian/repack/
+
 
 
 
