@@ -9,7 +9,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 rustup default stable
 
 echo "Getting latest commit for Steel branch..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
+LATEST_TAG=0.$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
 echo "Obtained latest Steel version: $LATEST_TAG"
 
 
