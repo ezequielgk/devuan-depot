@@ -3,6 +3,11 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
+echo "Installing stable rustup toolchain to bypass system rustc restrictions..."
+curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH="$HOME/.cargo/bin:$PATH"
+rustup default stable
+
 echo "Getting latest commit for Steel branch..."
 LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
 echo "Obtained latest Steel version: $LATEST_TAG"
