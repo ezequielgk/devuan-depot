@@ -123,6 +123,21 @@ Homepage: https://github.com/imputnet/helium-linux
 Description: Private, fast, and honest web browser
  Private, fast, and honest web browser based on Chromium
 
+Package: helix
+Version: 0.ba5b022.20260902.25~devuandepot
+Architecture: amd64
+Maintainer: Blaž Hrastnik <blaz@mxxn.io>
+Installed-Size: 279441
+Depends: libc6 (>= 2.14), libc6 (>= 2.2.5), libc6 (>= 2.3), libc6 (>= 2.39), libstdc++6 (>= 5), libstdc++6 (>= 5.2)
+Filename: pool/main/helix_0.ba5b022.20260902.25~devuandepot_amd64.deb
+Size: 19754668
+MD5sum: de89e056f1b34647c668cf4039356c41
+SHA1: 4d02c8bc091609cbaacc5164a92831875da5b442
+SHA256: 56d5133c4415cb6085a713ed79b619192dc596b7687d047aa10d4e8d6d0b131d
+Priority: optional
+Homepage: https://helix-editor.com
+Description: A post-modern text editor.
+
 Package: labwc
 Version: 0.20.2.20260831.52~devuandepot
 Architecture: amd64
