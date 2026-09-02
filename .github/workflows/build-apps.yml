@@ -11,6 +11,7 @@ on:
           - mullvad-libre
           - foot
           - portproton
+          - helix
           - gamescope
 
 permissions:

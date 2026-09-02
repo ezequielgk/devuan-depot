@@ -1,0 +1,14 @@
+{
+  "script": "build-helix.sh",
+  "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "build-essential", "git", "curl", "jq", "cargo", "rustc", "g++", "clang"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "default",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}
