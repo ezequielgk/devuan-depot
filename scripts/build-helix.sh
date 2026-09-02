@@ -9,7 +9,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 rustup default stable
 
 echo "Getting latest commit for Steel branch..."
-LATEST_TAG=0.$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
 echo "Obtained latest Steel version: $LATEST_TAG"
 
 
@@ -26,7 +26,7 @@ cargo install cargo-deb --locked --version 3.4.0
 # Set the runtime to standard location for packages as instructed internally by helix documentation
 export HELIX_DEFAULT_RUNTIME=/usr/lib/helix/runtime
 
-VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
+VERSION="0.${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 echo "Building Debian package with cargo-deb..."
