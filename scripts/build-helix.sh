@@ -26,7 +26,7 @@ git submodule update --init --recursive
 echo "Installing cargo-deb..."
 cargo install cargo-deb --locked --version 3.4.0
 echo "Reading semantic version from Cargo.toml..."
-SEM_VER=$(grep -m1 "^version = " Cargo.toml | cut -d "\""" -f 2)
+SEM_VER=$(grep -m1 "^version = " Cargo.toml | cut -d '"' -f 2)
 echo "Obtained Semantic Version: $SEM_VER"
 VERSION="${SEM_VER}+git${COMMIT_SHA}.${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
