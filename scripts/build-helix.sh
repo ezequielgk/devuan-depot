@@ -8,9 +8,10 @@ curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 export PATH="$HOME/.cargo/bin:$PATH"
 rustup default stable
 
-echo "Getting latest commit for Steel branch..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/mattwparas/helix/branches/steel-event-system | jq -r ".commit.sha" | cut -c1-7)
-echo "Obtained latest Steel version: $LATEST_TAG"
+echo "Extracting Helix-Steel semantic version and Git hash..."
+COMMIT_SHA=$(git ls-remote https://github.com/mattwparas/helix.git refs/heads/steel-event-system | cut -c1-7)
+echo "SHA: $COMMIT_SHA"
+
 
 
 echo "Cloning Helix..."
@@ -22,11 +23,16 @@ git submodule update --init --recursive
 
 echo "Installing cargo-deb..."
 cargo install cargo-deb --locked --version 3.4.0
+echo "Reading semantic version from Cargo.toml..."
+SEM_VER=$(grep -m1 "^version = " Cargo.toml | cut -d """ -f 2)
+echo "Obtained Semantic Version: $SEM_VER"
+VERSION="${SEM_VER}+git${COMMIT_SHA}.${RUN_NUMBER}~devuandepot"
+echo "VERSION=${VERSION}"
+
 
 # Set the runtime to standard location for packages as instructed internally by helix documentation
 export HELIX_DEFAULT_RUNTIME=/usr/lib/helix/runtime
 
-VERSION="99.0.${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 echo "Building Debian package with cargo-deb..."
