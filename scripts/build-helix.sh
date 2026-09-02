@@ -26,7 +26,7 @@ cargo install cargo-deb --locked --version 3.4.0
 # Set the runtime to standard location for packages as instructed internally by helix documentation
 export HELIX_DEFAULT_RUNTIME=/usr/lib/helix/runtime
 
-VERSION="0.${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
+VERSION="99.0.${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 echo "Building Debian package with cargo-deb..."
