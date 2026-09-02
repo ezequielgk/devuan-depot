@@ -153,7 +153,7 @@ jobs:
           PYEOF
 
       - name: Remove old .deb files and regenerate indices
-        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        if: ${{ inputs.dry-run == false }}
         run: |
           set -eu
           if [ ! -s /tmp/to_delete.txt ]; then
@@ -178,14 +178,14 @@ jobs:
           apt-ftparchive release . >> Release
 
       - name: Import GPG key
-        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        if: ${{ inputs.dry-run == false }}
         uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Sign Release
-        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        if: ${{ inputs.dry-run == false }}
         working-directory: dists/trixie
         run: |
           gpg --batch --yes \
@@ -194,7 +194,7 @@ jobs:
             --default-key "${{ secrets.GPG_KEY_ID }}" --clearsign -o InRelease Release
 
       - name: Commit and push
-        if: ${{ env.DELETE_COUNT != '0' && inputs.dry-run == false }}
+        if: ${{ inputs.dry-run == false }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
