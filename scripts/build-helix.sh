@@ -17,7 +17,7 @@ git clone --branch "$LATEST_TAG" --depth 1 https://github.com/helix-editor/helix
 cd src/helix
 
 echo "Installing cargo-deb..."
-cargo install cargo-deb
+cargo install cargo-deb --locked --version 3.4.0
 
 # Set the runtime to standard location for packages as instructed internally by helix documentation
 export HELIX_DEFAULT_RUNTIME=/usr/lib/helix/runtime
