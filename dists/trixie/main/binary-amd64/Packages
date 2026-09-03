@@ -1443,6 +1443,23 @@ Description: Noctalia - A native Wayland desktop shell
  configurable Linux desktop without stitching together a separate bar,
  launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
 
+Package: noctalia
+Version: 5.0.1.20260903.53~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libcurl3t64-gnutls (>= 7.16.2), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 3.3.1), libgles2, libglib2.0-0t64 (>= 2.80.0), libharfbuzz0b (>= 5.1.0), libical3t64 (>= 3.0.0), libjxl0.11 (>= 0.7.0), libmd4c0 (>= 0.2.7), libpam0g (>= 0.99.7.1), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), libpipewire-0.3-0t64 (>= 0.3.75), libpolkit-agent-1-0 (>= 0.99), libpolkit-gobject-1-0 (>= 0.94), libqalculate23 (>= 5.5.2), librsvg2-2 (>= 2.52.5), libsdbus-c++2 (>= 2.1.0), libsecret-1-0 (>= 0.19.1), libsndfile1 (>= 1.0.20), libsodium23 (>= 1.0.14), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.23.0), libwayland-egl1 (>= 1.15.0), libwebp7 (>= 1.5.0), libwebpdemux2 (>= 1.5.0), libwireplumber-0.5-0 (>= 0.4.81), libxkbcommon0 (>= 0.8.0), libxml2 (>= 2.7.4), ddcutil, usbutils
+Filename: pool/main/noctalia_5.0.1.20260903.53~devuandepot_amd64.deb
+Size: 13504732
+MD5sum: 5478dff21436dedda3e689441d28a6fb
+SHA1: 7af029327045a91d785cfe375508a4d8d14661b3
+SHA256: 49b6fe189320156a9f22e166c45cb8ca0b8d36abd4c8cda4c47ce1c5ae099ece
+Section: x11
+Priority: optional
+Description: Noctalia - A native Wayland desktop shell
+ Noctalia is a native Wayland desktop shell for people who want a polished,
+ configurable Linux desktop without stitching together a separate bar,
+ launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
+
 Package: portproton
 Version: 1.7.5
 Architecture: amd64
@@ -1450,7 +1467,7 @@ Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
 Installed-Size: 450
 Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
 Recommends: gamemode, inxi
-Filename: pool/main/portproton_amd64.deb
+Filename: pool/main/portproton_1.7.5_amd64.deb
 Size: 55668
 MD5sum: b15d326ae125034b3a381f908eb15966
 SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
@@ -1471,7 +1488,7 @@ Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
 Installed-Size: 450
 Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
 Recommends: gamemode, inxi
-Filename: pool/main/portproton_1.7.5_amd64.deb
+Filename: pool/main/portproton_amd64.deb
 Size: 55668
 MD5sum: b15d326ae125034b3a381f908eb15966
 SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
