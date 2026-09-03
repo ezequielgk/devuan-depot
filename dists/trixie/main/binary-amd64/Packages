@@ -58,6 +58,21 @@ Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
+Package: foot
+Version: 1.28.0.20260903.31~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libpixman-1-0 (>= 0.30.0), libutf8proc3 (>= 2.9.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
+Filename: pool/main/foot_1.28.0.20260903.31~devuandepot_amd64.deb
+Size: 331412
+MD5sum: 7d24329b828e785e876fce2b40d784ca
+SHA1: 9b5df0a5d64f1e938149bfefadf8f216c9636538
+SHA256: e0f62167a9a0113c4ecd848039cae0686c1cf2abd7f4a09da1ab72a5912b5097
+Section: x11
+Priority: optional
+Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
+ A fast, lightweight and minimalistic Wayland terminal emulator.
+
 Package: gamescope
 Version: 3.16.25.20260803.14~devuandepot
 Architecture: amd64
