@@ -1,8 +1,6 @@
 Package: concord
-Architecture: amd64
 Version: 2.4.8.20260728.4~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libasound2t64 (>= 1.1.0), libc6 (>= 2.39), libgcc-s1 (>= 4.2), libopus0 (>= 1.1)
 Filename: pool/main/concord_2.4.8.20260728.4~devuandepot_amd64.deb
@@ -10,15 +8,14 @@ Size: 11672284
 MD5sum: 0a2dbca3d6be76009878f003e7e8d936
 SHA1: c7b9d131f66a05f8339a148f711196c44dad4a30
 SHA256: dbc4587c47922ce52ff84c2e1ab0e96f83a555aa2f30d675baab95c8981c9f82
-SHA512: c9284953cd37cee126578859faaac3a9239491da91236f1f066a7344b452340dca3189c9b1f73ca79321335aa1dcad41ac0e5d448f7d52a97da08103208bfc07
+Section: x11
+Priority: optional
 Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
 
 Package: concord
-Architecture: amd64
 Version: 2.4.8.20260729.5~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libasound2t64 (>= 1.1.0), libc6 (>= 2.39), libgcc-s1 (>= 4.2), libopus0 (>= 1.1)
 Filename: pool/main/concord_2.4.8.20260729.5~devuandepot_amd64.deb
@@ -26,15 +23,14 @@ Size: 11675756
 MD5sum: 2c40b57176d575fd3b0b5a0b7fffe66d
 SHA1: 04641f5c66b5f566cae66ad573ea9b38072a1378
 SHA256: 75cfce552c786c674002236636cc2bec9884e38bf2da1cb0ae6288cb3ec35b87
-SHA512: 997f2f954e31e093585cc9ec9a073f9a77e7db42b956568bb3fa6501d9f4b383e4f7cbc8e1dd1d1beff9f62a6267a5e75b9d1d99bf001dc050ff0235f01c365c
+Section: x11
+Priority: optional
 Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
 
 Package: foot
-Architecture: amd64
 Version: 1.27.0.20260728.3~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libpixman-1-0 (>= 0.30.0), libutf8proc3 (>= 2.9.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
 Filename: pool/main/foot_1.27.0.20260728.3~devuandepot_amd64.deb
@@ -42,15 +38,14 @@ Size: 337872
 MD5sum: 8fb45e5bf8e3396ac86ceb1f1c88ec5f
 SHA1: 11ddac8992a519672b278914ad089c230cd3b5e7
 SHA256: 7993cc5197de4d74ce3aa2b3f9a9b3008c1607339bff221171d20d833ae53a58
-SHA512: 1064bbddae0057ded98d25c22b091116e707ad2da5f510b09770540d05a73373f290fa37627d3fcd82772631c99f6db463688e0b1abe0d7b903f4c797a6111c0
+Section: x11
+Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
 Package: foot
-Architecture: amd64
 Version: 1.27.0.20260729.1~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libpixman-1-0 (>= 0.30.0), libutf8proc3 (>= 2.9.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
 Filename: pool/main/foot_1.27.0.20260729.1~devuandepot_amd64.deb
@@ -58,15 +53,14 @@ Size: 337800
 MD5sum: a2cf8e47e9541fe4925a66341a3a19c8
 SHA1: 49f480ce383cc028d7cb4af31e74511b4c28d490
 SHA256: 19e55f000f0135e50be61736daee45cbe4f0da71851bed34fd67ab20bb0ace5c
-SHA512: e889816d08f823a47c0c68d409ec173924dda0a4ed78c60fc640eae52ab0a0b7a09ba4e7daaa02fff00a5c0cbe0dd1ab3e651ccb0c3c7f474ba4b397aa006264
+Section: x11
+Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
 Package: gamescope
-Architecture: amd64
 Version: 3.16.25.20260803.14~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libavif16 (>= 1.2.1), libc6 (>= 2.38), libcap2 (>= 1:2.10), libdecor-0-0 (>= 0.1.0), libdisplay-info2 (>= 0.2.0), libdrm2 (>= 2.4.114), libeis1 (>= 1.0.901), libgcc-s1 (>= 4.3), libinput10 (>= 1.26.0), libluajit-5.1-2 (>= 2.0.4) | libluajit-5.1-2 (>= 2.1.0+openresty), libpipewire-0.3-0t64 (>= 0.3.38), libpixman-1-0 (>= 0.44.0), libsdl2-2.0-0 (>= 2.26.0), libseat1 (>= 0.5.0), libstdc++6 (>= 13.1), libudev1 (>= 183), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.20.92), libx11-6, libx11-xcb1, libxcb1, libxcomposite1 (>= 1:0.4.6), libxcursor1 (>> 1.1.2), libxdamage1 (>= 1:1.1), libxext6, libxfixes3, libxi6 (>= 2:1.2.99.4), libxkbcommon0 (>= 1.0.0), libxmu6 (>= 2:1.1.3), libxrender1 (>= 1:0.9.12), libxres1 (>= 2:1.2.1), libxtst6 (>= 2:1.2.5), libxxf86vm1
 Filename: pool/main/gamescope_3.16.25.20260803.14~devuandepot_amd64.deb
@@ -74,15 +68,14 @@ Size: 2006620
 MD5sum: 51b3765f84a5ba957085c3dfdae42c26
 SHA1: e9856e41019a52a7265a3a5e3786ee22d31b45c5
 SHA256: 0fc00de8a0c512f583553cc0503b95433e25bedba1ffddf088c29e968defb98a
-SHA512: 7bca2a865bac48e9d0224f14c173c42098bae560a0dc4c7324e5896f1a442e2d09887c554a4a08d3a5adb5dc4f083ccbd304a27c8a19467eeda12c733df92fc4
+Section: x11
+Priority: optional
 Description: Gamescope - SteamOS session compositing window manager
  Gamescope is the micro-compositor formerly known as steamcompmgr.
 
 Package: gamescope
-Architecture: amd64
 Version: 3.16.25.20260803.15~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libavif16 (>= 1.2.1), libc6 (>= 2.38), libcap2 (>= 1:2.10), libdecor-0-0 (>= 0.1.0), libdisplay-info2 (>= 0.2.0), libdrm2 (>= 2.4.114), libeis1 (>= 1.0.901), libgcc-s1 (>= 4.3), libinput10 (>= 1.26.0), libluajit-5.1-2 (>= 2.0.4) | libluajit-5.1-2 (>= 2.1.0+openresty), libpipewire-0.3-0t64 (>= 0.3.38), libpixman-1-0 (>= 0.44.0), libsdl2-2.0-0 (>= 2.26.0), libseat1 (>= 0.5.0), libstdc++6 (>= 13.1), libudev1 (>= 183), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.20.92), libx11-6, libx11-xcb1, libxcb1, libxcomposite1 (>= 1:0.4.6), libxcursor1 (>> 1.1.2), libxdamage1 (>= 1:1.1), libxext6, libxfixes3, libxi6 (>= 2:1.2.99.4), libxkbcommon0 (>= 1.0.0), libxmu6 (>= 2:1.1.3), libxrender1 (>= 1:0.9.12), libxres1 (>= 2:1.2.1), libxtst6 (>= 2:1.2.5), libxxf86vm1
 Filename: pool/main/gamescope_3.16.25.20260803.15~devuandepot_amd64.deb
@@ -90,15 +83,14 @@ Size: 1527456
 MD5sum: 78ecec01b39030a3a58ebabeaea63c4e
 SHA1: 82df3561a95356dcdfc71150121761a413adb973
 SHA256: 04b8b0c778dca8cfae9af6b6c78bbe28e685cde07bd9cc23edeecca552155142
-SHA512: b81279da2440513ddd83d1b24f31370650774a4e03a0c5e72a103ab41b86468a8a1c91b800432cd2eebd78d997235c8b7e8fc4695a6715a71062ef0d29b3224a
+Section: x11
+Priority: optional
 Description: Gamescope - SteamOS session compositing window manager
  Gamescope is the micro-compositor formerly known as steamcompmgr.
 
 Package: gearlever
-Architecture: all
 Version: 4.6.2.20260901.20~devuandepot
-Priority: optional
-Section: utils
+Architecture: all
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, squashfs-tools, dconf-gsettings-backend | gsettings-backend
 Filename: pool/main/gearlever_4.6.2.20260901.20~devuandepot_all.deb
@@ -106,52 +98,34 @@ Size: 403868
 MD5sum: bf1b54a1a151ce2692ae266b9e61a666
 SHA1: e4eacdd4ab27d05f5e30dd7c9bda205618eb9f43
 SHA256: 065fb9ed324c5d02a21d0a128488f77961453ed15a59e9c9ecb6ea6b8b89ca04
-SHA512: 62164c4b97a19dd5358d0c9f4b19cc6e5f84fffeef7cf1491e421b26cd6d87b8e8b9e2bc849961d3bc53a6b73f735ee4ad13ae06546c26d172e4e579295360fd
+Section: utils
+Priority: optional
 Description: Manage AppImages with ease
  GearLever integrates AppImages into your app menu, handles updates
  and keeps them organized.
 
 Package: helium-bin
-Architecture: amd64
 Version: 0.14.9.1-1~devuandepot
-Priority: optional
-Section: web
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Installed-Size: 460923
-Provides: www-browser
 Depends: libstdc++6,fonts-noto-mono,libc6,libgcc-s1,libglib2.0-0t64,libatomic1,libpcre2-8-0,libnspr4,libnss3,libxcb1,libdbus-1-3,libxau6,libxdmcp6,libsystemd0,libcap2,libx11-6,libxext6,libatk1.0-0t64,libatk-bridge2.0-0t64,libcups2t64,libexpat1,libxkbcommon0,libasound2t64,libgbm1,libcairo2,libpango-1.0-0,libudev1,libxcomposite1,libxdamage1,libxfixes3,libxrandr2,libatspi2.0-0t64,libffi8,zlib1g,libmount1,libselinux1,libgssapi-krb5-2,libavahi-common3,libavahi-client3,libgnutls30t64,libdrm2,libpng16-16t64,libfontconfig1,libfreetype6,libxrender1,libxcb-render0,libxcb-shm0,libpixman-1-0,libfribidi0,libthai0,libharfbuzz0b,libxi6,libblkid1,libkrb5-3,libk5crypto3,libcom-err2,libkrb5support0,libp11-kit0,libidn2-0,libunistring5,libtasn1-6,libhogweed6t64,libnettle8t64,libgmp10,libbz2-1.0,libbrotli1,libdatrie1,libgraphite2-3,libkeyutils1
 Recommends: ca-certificates,xdg-utils,fonts-liberation,libvulkan1
+Provides: www-browser
 Filename: pool/main/helium-bin_0.14.9.1-1~devuandepot_amd64.deb
 Size: 104179912
 MD5sum: e7fb9f5fc7813d35f04057e58e3e13e6
 SHA1: 76e3edd568582f273ea1943b803471adaad90106
 SHA256: 5ac63abc40f8f22bb74530b5350ef3ac1ba0825aeae7904413073ba2842df039
-SHA512: 5b6671b6bdf68f60148ec1f338f7791e40200c0f89ad11135784597cae42f7e9e3537aa598302c876493e9590da2450200299632511a0b3738eecda52612fe22
+Section: web
+Priority: optional
 Homepage: https://github.com/imputnet/helium-linux
 Description: Private, fast, and honest web browser
  Private, fast, and honest web browser based on Chromium
 
-Package: helix
-Architecture: amd64
-Version: 0.ba5b022.20260902.25~devuandepot
-Priority: optional
-Maintainer: Blaž Hrastnik <blaz@mxxn.io>
-Installed-Size: 279441
-Depends: libc6 (>= 2.14), libc6 (>= 2.2.5), libc6 (>= 2.3), libc6 (>= 2.39), libstdc++6 (>= 5), libstdc++6 (>= 5.2)
-Filename: pool/main/helix_0.ba5b022.20260902.25~devuandepot_amd64.deb
-Size: 19754668
-MD5sum: de89e056f1b34647c668cf4039356c41
-SHA1: 4d02c8bc091609cbaacc5164a92831875da5b442
-SHA256: 56d5133c4415cb6085a713ed79b619192dc596b7687d047aa10d4e8d6d0b131d
-SHA512: 7f163884f58e43a1140f6a25343181dd981ce5489597f493f19e06c7e44b00e4ce4670e21dd4e3ea5ecbcd779e19e2c8887d3e786ee8084fd58754b16d3df1ee
-Homepage: https://helix-editor.com
-Description: A post-modern text editor.
-
 Package: labwc
-Architecture: amd64
 Version: 0.20.2.20260831.52~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libcairo2 (>= 1.14.0), libglib2.0-0t64 (>= 2.68.0+git20210214), libinput10 (>= 1.28.0), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpixman-1-0 (>= 0.19.6), libpng16-16t64 (>= 1.6.46), librsvg2-2 (>= 2.46.0), libsfdo0 (>= 0.1.3), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-ewmh2 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 1.0.0), libxml2 (>= 2.7.4), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Filename: pool/main/labwc_0.20.2.20260831.52~devuandepot_amd64.deb
@@ -159,38 +133,17 @@ Size: 251616
 MD5sum: 017fb1a78f0d042fb1c17918e5b8080b
 SHA1: bcb8e7276a5c1fed520b881c3da22209b3df0849
 SHA256: e8bc1fd44b0af7a78f5db2df66e49b6beabf90e8758e1279e657a98e7ed958b5
-SHA512: 22f0127f3560a368a90c4c35f3f70ababa919f1dbe374012c8cc00aa07eba8b610c8a8e3f20f7be9edf08c8b3f2343adeacf84d0b438a0e66a6b087e84499e2c
+Section: x11
+Priority: optional
 Description: labwc - A Wayland window-stacking compositor
  Labwc is a wlroots-based window-stacking compositor for Wayland,
  inspired by Openbox. It is lightweight and independent with a focus
  on simply stacking windows well and rendering Window decorations.
 
-Package: libdisplay-info-bin-dbgsym
-Architecture: amd64
-Version: 0.3.0-1~devuandepot
-Auto-Built-Package: debug-symbols
-Priority: optional
-Section: debug
-Source: libdisplay-info
-Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
-Installed-Size: 116
-Depends: libdisplay-info-bin (= 0.3.0-1~devuandepot)
-Filename: pool/main/libdisplay-info-bin-dbgsym_0.3.0-1~devuandepot_amd64.deb
-Size: 74232
-MD5sum: 0df1bf9f63a2935d816f8cc3fd13543c
-SHA1: 432fba4a22ab7bb2a891eabcdbcfd5370f235a67
-SHA256: 935752847be3c90292efec7f99b81707ba908923bfec3a55eacefbccd35a74bb
-SHA512: 7f882d028401ca3c32bcff79d1495d695fb1265efd89b2ce64287378ce01cef6efd9fba5c3d7fdf209c1ce4081177d64030e895d80b6696965a3a1f826609485
-Description: debug symbols for libdisplay-info-bin
-Build-Ids: d2a0e2c6fc06dfe5a3b865a8f44a05cf882bcba9
-
 Package: libdisplay-info-bin
-Architecture: amd64
-Version: 0.3.0-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: video
 Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
 Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
 Installed-Size: 104
 Depends: libc6 (>= 2.34), libdisplay-info3 (>= 0.3.0)
@@ -199,7 +152,9 @@ Size: 32484
 MD5sum: c2c3cd43dd11166bd38fc7622738d119
 SHA1: dd9349e7241f3275af80cde483e85ec47c6e7092
 SHA256: b27d142e2a1b3b1e158fbf62dc2a79a7340c8a93a2097fcffc288c0fb0fc7838
-SHA512: 223c9822bc4be76bc4c5df048d766d9d78b1b7f984c1c0d74f70f58711fd9d04eb10f3f8fed1b1ee96e501a3aebf8d1ec336a2fac973cbd1d0d241dbf085c3df
+Section: video
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
 Description: EDID and DisplayID library (utils)
  This library parse EDID and DisplayID and focus on:
@@ -210,13 +165,28 @@ Description: EDID and DisplayID library (utils)
  .
  This package contains the di-edid-decode binary.
 
-Package: libdisplay-info-dev
-Architecture: amd64
-Version: 0.3.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
+Package: libdisplay-info-bin-dbgsym
 Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 116
+Depends: libdisplay-info-bin (= 0.3.0-1~devuandepot)
+Filename: pool/main/libdisplay-info-bin-dbgsym_0.3.0-1~devuandepot_amd64.deb
+Size: 74232
+MD5sum: 0df1bf9f63a2935d816f8cc3fd13543c
+SHA1: 432fba4a22ab7bb2a891eabcdbcfd5370f235a67
+SHA256: 935752847be3c90292efec7f99b81707ba908923bfec3a55eacefbccd35a74bb
+Section: debug
+Priority: optional
+Description: debug symbols for libdisplay-info-bin
+Build-Ids: d2a0e2c6fc06dfe5a3b865a8f44a05cf882bcba9
+
+Package: libdisplay-info-dev
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
 Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
 Installed-Size: 142
 Depends: libdisplay-info3 (= 0.3.0-1~devuandepot)
@@ -225,7 +195,9 @@ Size: 29120
 MD5sum: c7eeb89f70a1237fd1f14f153facf616
 SHA1: 316b10937e8b32b9ff3900fad6d26923f2d187f1
 SHA256: 8fb5ec88a260e51843ccf37ba80e35016c2fd16e01462b22e1f5736be9dec1c8
-SHA512: 64b36d433111857f3cbd0ecb9a4fc2498a9464207b9ce8fc01bee81254d761a5c238f002c1a3790561cfcc81a46b6b6a75c140b677939409bac40471fdaa6cbf
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
 Description: EDID and DisplayID library (development files)
  This library parse EDID and DisplayID and focus on:
@@ -237,33 +209,10 @@ Description: EDID and DisplayID library (development files)
  This package contains the development files, including headers and
  pkgconf configuration.
 
-Package: libdisplay-info3-dbgsym
-Architecture: amd64
-Version: 0.3.0-1~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdisplay-info
-Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
-Installed-Size: 163
-Depends: libdisplay-info3 (= 0.3.0-1~devuandepot)
-Filename: pool/main/libdisplay-info3-dbgsym_0.3.0-1~devuandepot_amd64.deb
-Size: 141384
-MD5sum: 5e378115e7b41f634e3f54f422e5cdb4
-SHA1: 77eda1a56752cf35e5237f596ffa2eae68dfb05d
-SHA256: fc9eb629d391362e39a8ed1546873d47833cb0504d944630d66cf74f11f6a282
-SHA512: 7a6a172f295d9f5d885744cbdf2b5766c183a7ac1b53e9772c75ec287714496368d95a6edd2509dfef759c70dd02bfa4c05a859d8bbddf661a8fad1e76bd464f
-Description: debug symbols for libdisplay-info3
-Build-Ids: 4b4d0a4282d79ff86ddf854305f5855338f061d3
-
 Package: libdisplay-info3
-Architecture: amd64
-Version: 0.3.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
+Architecture: amd64
 Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
 Installed-Size: 263
 Depends: libc6 (>= 2.27)
@@ -272,7 +221,9 @@ Size: 77868
 MD5sum: 43552e4ad242bf85bc6e022a89f632bc
 SHA1: c2a806be2bc744d035085fc1e3a678e06b187c56
 SHA256: bdda1a3fc5e147aa47b7e0fdd8dddfe2787293acd3655a19a2760e6aff8e2389
-SHA512: fff941166bd10ef38161270eb2e01a0f9d9a15d451d38e3dd1aaeb2728e7d2598b71bbee4cb16e8ac45f686469fa40b2c10e3cbac510cd3c3816ff9f65ad24ac
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/emersion/libdisplay-info
 Description: EDID and DisplayID library (shared library)
  This library parse EDID and DisplayID and focus on:
@@ -281,33 +232,29 @@ Description: EDID and DisplayID library (shared library)
   * Simplicity and correctness over performance and resource usage.
   * Well-tested and fuzzed.
 
-Package: libdrm-amdgpu1-dbgsym
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
+Package: libdisplay-info3-dbgsym
+Source: libdisplay-info
+Version: 0.3.0-1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
+Architecture: amd64
+Maintainer: Marc Dequènes (Duck) <Duck@DuckCorp.org>
+Installed-Size: 163
+Depends: libdisplay-info3 (= 0.3.0-1~devuandepot)
+Filename: pool/main/libdisplay-info3-dbgsym_0.3.0-1~devuandepot_amd64.deb
+Size: 141384
+MD5sum: 5e378115e7b41f634e3f54f422e5cdb4
+SHA1: 77eda1a56752cf35e5237f596ffa2eae68dfb05d
+SHA256: fc9eb629d391362e39a8ed1546873d47833cb0504d944630d66cf74f11f6a282
 Section: debug
-Source: libdrm
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 80
-Depends: libdrm-amdgpu1 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-amdgpu1-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 62032
-MD5sum: 7bd0cc2fd3308fc770036d716aee55b9
-SHA1: d627113049a0573de61099e84e85a9b9ae2ea40e
-SHA256: f68fd13ee679b61d37daca2384595071a37ff9113c75555e66c4cbe7ea24ed66
-SHA512: e0dd6c471bf6943bb69ee85fc7c978a70e132cc8523fb1a97ae110a1111cabc706d1ac2606d79cb7ce1a940b5a0ea572031e97c9e41cc880eb05610ee59c1ef5
-Description: debug symbols for libdrm-amdgpu1
-Build-Ids: 1c8764a59822bfbaee3754f60f66241dcde9cc0c
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdisplay-info3
+Build-Ids: 4b4d0a4282d79ff86ddf854305f5855338f061d3
 
 Package: libdrm-amdgpu1
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 72
 Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
@@ -316,7 +263,9 @@ Size: 24792
 MD5sum: 0a98598e6adc1af911c55a71ddb10907
 SHA1: 240e83aa61ca18d107616716b75fd36b3829a9b3
 SHA256: 760d8355ce03b7a08eb1ec8e1f5c97a6730db8bd34dbf7d39783522ebbb5a542
-SHA512: c115a4a5cfe5c2c2a4c46f9e1b1bd878679c41a51b479911cc483e47fb048a567e7321fdd53e1677cecd1d73961dbee54af07d8d4876d73859ec3798a3513146
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to amdgpu-specific kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -325,13 +274,29 @@ Description: Userspace interface to amdgpu-specific kernel DRM services -- runti
  The DRI is currently used on Linux to provide hardware-accelerated
  OpenGL drivers.
 
-Package: libdrm-common
-Architecture: all
-Version: 2.4.134-3~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: libs
+Package: libdrm-amdgpu1-dbgsym
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 80
+Depends: libdrm-amdgpu1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-amdgpu1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 62032
+MD5sum: 7bd0cc2fd3308fc770036d716aee55b9
+SHA1: d627113049a0573de61099e84e85a9b9ae2ea40e
+SHA256: f68fd13ee679b61d37daca2384595071a37ff9113c75555e66c4cbe7ea24ed66
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-amdgpu1
+Build-Ids: 1c8764a59822bfbaee3754f60f66241dcde9cc0c
+
+Package: libdrm-common
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: all
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 42
 Filename: pool/main/libdrm-common_2.4.134-3~devuandepot_all.deb
@@ -339,7 +304,9 @@ Size: 9400
 MD5sum: 7471c5253ff63c7961f6f40534a96605
 SHA1: 53a4f7f14622be5beda254d7ad49935355b6c9db
 SHA256: 1615b43dfb9126c5204229dc2a872432120b66f832ba4edbbcd841800ad5b286
-SHA512: a67be6fd63b96e77f00a30a60deb2c821ade406d2cfd067b99bcb9c5519069fee71cd3654c847dc7af3ae0ac5ad12230fb08ae3ed4c000d5854857718ce52163
+Section: libs
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to kernel DRM services -- common files
  This library implements the userspace interface to the kernel DRM
@@ -351,12 +318,9 @@ Description: Userspace interface to kernel DRM services -- common files
  This package provides common files for libdrm.
 
 Package: libdrm-dev
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 1505
 Depends: libdrm2 (= 2.4.134-3~devuandepot), libdrm-intel1 (= 2.4.134-3~devuandepot), libdrm-radeon1 (= 2.4.134-3~devuandepot), libdrm-nouveau2 (= 2.4.134-3~devuandepot), libdrm-amdgpu1 (= 2.4.134-3~devuandepot), libdrm-freedreno1 (= 2.4.134-3~devuandepot), libpciaccess-dev
@@ -365,7 +329,9 @@ Size: 323964
 MD5sum: 5099a11e5487c828f328c46e0967f593
 SHA1: 59144f8f0fcf8d52ae9fb9d05e62942742ae8653
 SHA256: 8a9810d7baf12633a3eda17030e90c5f35bf10aa58fdd3ac7997b30563996cf0
-SHA512: f518db95252691eff1ebba95b96ff4b4740de5be3b2134cf138272d16912d877aed6e9646ce5fa1502df9bf4b45746724f50610b8bb319648b4fa83f05578acc
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to kernel DRM services -- development files
  This library implements the userspace interface to the kernel DRM
@@ -376,33 +342,10 @@ Description: Userspace interface to kernel DRM services -- development files
  .
  This package provides the development environment for libdrm.
 
-Package: libdrm-freedreno1-dbgsym
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdrm
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 70
-Depends: libdrm-freedreno1 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-freedreno1-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 52232
-MD5sum: 16ed2aa4759f2fb28b376a529b5e6bec
-SHA1: e968c51eb3f0a728713d39647b348c7b1aa6a2cd
-SHA256: 345293fb2ff5c414c9cb65a91e135085a638041375d2f7ef0d326d1d14497297
-SHA512: 6a3002177f5e55ebc0521544db048e86fcd61811f9c2d35dbe3205a3e2700157847b6ca36d29ea94f512d145c01e09cc7b39f8fa59ae9c0f93912a5999de0bbd
-Description: debug symbols for libdrm-freedreno1
-Build-Ids: b89485ea8577f5ff7c09de73c7981ddba2fb9b4f
-
 Package: libdrm-freedreno1
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 66
 Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
@@ -411,7 +354,9 @@ Size: 22668
 MD5sum: 5a95621d94ca8ee08ca9565f22650f1b
 SHA1: 1c30ce31c070c2d1923f0a144e02001ba1c72789
 SHA256: 7cb5c1e8b76c9cad1ed7535306aee40d5ef12351ca77f6fc01eedb3ea909cced
-SHA512: 8b9e45b42540eaf723051ac00ad6d986d8c836a22dce09dfca953770b7effd2c3c0d148b0729dd8f46f2fbad20540d35531756dd2e5279bfd70bc5ce4e59cb74
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to msm/kgsl kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -420,33 +365,29 @@ Description: Userspace interface to msm/kgsl kernel DRM services -- runtime
  The DRI is currently used on Linux to provide hardware-accelerated
  OpenGL drivers.
 
-Package: libdrm-intel1-dbgsym
-Architecture: amd64
+Package: libdrm-freedreno1-dbgsym
+Source: libdrm
 Version: 2.4.134-3~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdrm
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 152
-Depends: libdrm-intel1 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-intel1-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 130824
-MD5sum: f934d0f16731034a63cda2cee52bd3ed
-SHA1: f7f48852b9fe9e0a022f5bf49a077cae90eeddb2
-SHA256: f36a67b1b838db41ed7f442186674b0ba2672965dd8f3eef03674af8342ce7c9
-SHA512: 379b46f4fe58cf4b16ca50634529a75c9b40af972c5d37d47b58e20823d8c71750e2738480abfa042e37a377fe60d15198e62ca491c21fedd4b498076feb2610
-Description: debug symbols for libdrm-intel1
-Build-Ids: 913578b9fdeadf837844b5cee5d95d96e68a3c96
+Installed-Size: 70
+Depends: libdrm-freedreno1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-freedreno1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 52232
+MD5sum: 16ed2aa4759f2fb28b376a529b5e6bec
+SHA1: e968c51eb3f0a728713d39647b348c7b1aa6a2cd
+SHA256: 345293fb2ff5c414c9cb65a91e135085a638041375d2f7ef0d326d1d14497297
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-freedreno1
+Build-Ids: b89485ea8577f5ff7c09de73c7981ddba2fb9b4f
 
 Package: libdrm-intel1
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 173
 Depends: libc6 (>= 2.34), libdrm2 (>= 2.4.108), libpciaccess0
@@ -455,7 +396,9 @@ Size: 64860
 MD5sum: 7253efa295d598a8c92f78de950d8d01
 SHA1: f8a293a0dbeab76e80b457e1434e0c7ff3dfe853
 SHA256: 4bf0e8713b271d278caa77147057d22fa42220484d4423143c6bc3643725d987
-SHA512: 58d30effa15125b5fe275a69f1d46d44699300c6262c4286cab7e9f83ad9e3d711225b7b11c3acce34003c7e5e3ad2f817c10cff334a211eb7f65d5846dabcd3
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to intel-specific kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -464,33 +407,29 @@ Description: Userspace interface to intel-specific kernel DRM services -- runtim
  The DRI is currently used on Linux to provide hardware-accelerated
  OpenGL drivers.
 
-Package: libdrm-nouveau2-dbgsym
-Architecture: amd64
+Package: libdrm-intel1-dbgsym
+Source: libdrm
 Version: 2.4.134-3~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdrm
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 56
-Depends: libdrm-nouveau2 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-nouveau2-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 41212
-MD5sum: 093064643ec80e9d174e5c4503bb3168
-SHA1: 665e919134ad3402274fd4f96d31b03b08941974
-SHA256: a078960b70a2385b158dca3c6671150b5ece5df3d25c170741c8defe9411204d
-SHA512: da5b85e3a09351b34a4cbe8d98adac30fa08ff6e2c0fc8fff513b28e695ff6cc88d799052a9781922b9de8deda351edb47764d03e926a3be6c0a4d9812def570
-Description: debug symbols for libdrm-nouveau2
-Build-Ids: b6226753be6a75c5975cadf97017222a4cbd2a5e
+Installed-Size: 152
+Depends: libdrm-intel1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-intel1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 130824
+MD5sum: f934d0f16731034a63cda2cee52bd3ed
+SHA1: f7f48852b9fe9e0a022f5bf49a077cae90eeddb2
+SHA256: f36a67b1b838db41ed7f442186674b0ba2672965dd8f3eef03674af8342ce7c9
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-intel1
+Build-Ids: 913578b9fdeadf837844b5cee5d95d96e68a3c96
 
 Package: libdrm-nouveau2
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 62
 Depends: libc6 (>= 2.38), libdrm2 (>= 2.4.108)
@@ -499,7 +438,9 @@ Size: 20640
 MD5sum: d5882f5adf17bdae3eb1e58266269ced
 SHA1: bec516e03a226381bff9878fd36836a998734dc9
 SHA256: e532bed4c6803c6c3366f2ddd146d6392dee974d9cf891aa6f2c04393b2754b8
-SHA512: b9cf9202d798d8591adf8ad02cd4e76c337d808b11c3e29c96f4629d52c0a134ee5ecba0372cfdf00e39b5d055a541e76f9bc14346dc7330e65e46cc33532001
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to nouveau-specific kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -508,33 +449,29 @@ Description: Userspace interface to nouveau-specific kernel DRM services -- runt
  The DRI is currently used on Linux to provide hardware-accelerated
  OpenGL drivers.
 
-Package: libdrm-radeon1-dbgsym
-Architecture: amd64
+Package: libdrm-nouveau2-dbgsym
+Source: libdrm
 Version: 2.4.134-3~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdrm
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 64
-Depends: libdrm-radeon1 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-radeon1-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 48884
-MD5sum: b555f63c1002e5bcaa23ccbce364e7ea
-SHA1: 807f77cad0a31a9cf10c3369da2a4b5a5af46d42
-SHA256: d82181cc908f548042fc7e76ca2b54cd041417cda9a57c36c1ad0027da4053bb
-SHA512: 03e4df282736afeefacc491937bf170611921aab3748283cfc574acbb72655dea170b20d3fcf8e22c4893ac5f8b3610a610c31fca9c1fce1d1637b6feb787f96
-Description: debug symbols for libdrm-radeon1
-Build-Ids: 4aa9daa61819e2cc5214245b207c1586c4795d37
+Installed-Size: 56
+Depends: libdrm-nouveau2 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-nouveau2-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 41212
+MD5sum: 093064643ec80e9d174e5c4503bb3168
+SHA1: 665e919134ad3402274fd4f96d31b03b08941974
+SHA256: a078960b70a2385b158dca3c6671150b5ece5df3d25c170741c8defe9411204d
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-nouveau2
+Build-Ids: b6226753be6a75c5975cadf97017222a4cbd2a5e
 
 Package: libdrm-radeon1
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 74
 Depends: libc6 (>= 2.4), libdrm2 (>= 2.4.108)
@@ -543,7 +480,9 @@ Size: 23312
 MD5sum: ca538833d39936bb1c66b6f27d1f6b42
 SHA1: f1cf2974e0842307f2d6a630b25965358fedbc45
 SHA256: cd05009ee43765be0864e06527afe70d966fca85ed78cb6c37370d34a3ac0ce6
-SHA512: b1f74f24869361e9b61633d86d3f83907015268fde995c2888eaf61ad9059870dbbb68061e8e03b63ac09ae4f27d3dd1511152119149a4182e5cc1392de08f34
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to radeon-specific kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -552,31 +491,29 @@ Description: Userspace interface to radeon-specific kernel DRM services -- runti
  The DRI is currently used on Linux to provide hardware-accelerated
  OpenGL drivers.
 
-Package: libdrm-tests-dbgsym
-Architecture: amd64
+Package: libdrm-radeon1-dbgsym
+Source: libdrm
 Version: 2.4.134-3~devuandepot
 Auto-Built-Package: debug-symbols
-Priority: optional
-Section: debug
-Source: libdrm
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 255
-Depends: libdrm-tests (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm-tests-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 161568
-MD5sum: 35fdf53258257320f47ef0088f4ee5ac
-SHA1: 7e669718f9395daf02ce16c498dc41973a0ad9c4
-SHA256: 274b92067927874abbb0be52a71b6d5b3b61a4c27f92301303d8a7d2d2363ffb
-SHA512: 06da4c1e31d2a3dee4dc1f8e39e30ff3d52093b15112de859c94905e4187573ef930d277988876ef801c5a76e70fac9aca3fa010443aa5fb7e58a8d7a0767e9d
-Description: debug symbols for libdrm-tests
-Build-Ids: 0c91fba054e32443c569e25836ee6362daa6dc66 127e737a4273782a9161a5713f39989c1f2aead9 b4a5b6372fadc946d250681d628065f5aa2a187f d7d7cee4ca52a5c4296cab6f2aa56c2e15a2d72b eaa339c0784ba6ada513235c30ea1c248236c36c fc9bad7ed541b121382dc8458e57cdcee4532a4f
+Installed-Size: 64
+Depends: libdrm-radeon1 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-radeon1-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 48884
+MD5sum: b555f63c1002e5bcaa23ccbce364e7ea
+SHA1: 807f77cad0a31a9cf10c3369da2a4b5a5af46d42
+SHA256: d82181cc908f548042fc7e76ca2b54cd041417cda9a57c36c1ad0027da4053bb
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libdrm-radeon1
+Build-Ids: 4aa9daa61819e2cc5214245b207c1586c4795d37
 
 Package: libdrm-tests
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 200
 Depends: libdrm2 (= 2.4.134-3~devuandepot), libc6 (>= 2.38), libdrm-amdgpu1 (>= 2.4.77)
@@ -585,7 +522,8 @@ Size: 57660
 MD5sum: 4a3422b1c356ec1c4fda7bf9153a8a81
 SHA1: cde517d22bb976b7961fc071bcb11e2e6dc9d093
 SHA256: 19b6c9e9e6885e7d39301a51bcca78668e5977c16367997e668e8be13f321ac7
-SHA512: 0b9041b2a05ab370e79fc671bc8d264f55bdd6902a4476f48c479229570d5ed43348247c79fbf9fc862bd93fbeeb136f74a46e57c02cb8ac5655c6016ce27504
+Section: libs
+Priority: optional
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Testing tools from the libdrm project
  This library implements the userspace interface to the kernel DRM
@@ -596,33 +534,28 @@ Description: Testing tools from the libdrm project
  .
  This package contains a variety of tools for testing from the libdrm project.
 
-Package: libdrm2-dbgsym
-Architecture: amd64
+Package: libdrm-tests-dbgsym
+Source: libdrm
 Version: 2.4.134-3~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libdrm
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 127
-Depends: libdrm2 (= 2.4.134-3~devuandepot)
-Filename: pool/main/libdrm2-dbgsym_2.4.134-3~devuandepot_amd64.deb
-Size: 108272
-MD5sum: 58506320171d8e518ae0ef5934f280ed
-SHA1: 1c42ea288d2a8b11c0b7dd4636459ebbab683cc5
-SHA256: 9d87ccec2e7a6a08580535825834dcb43aa6dbf3ec242969bce22d51bfcb1747
-SHA512: 07029f26e9dd3c53c1a294908c131b4d5c01e5c4500cbd784e963936a828184eafdb6f8c19e16771a83961adc3c6696034b442bbe1ccee0c4d010ef4e229b466
-Description: debug symbols for libdrm2
-Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
+Installed-Size: 255
+Depends: libdrm-tests (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm-tests-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 161568
+MD5sum: 35fdf53258257320f47ef0088f4ee5ac
+SHA1: 7e669718f9395daf02ce16c498dc41973a0ad9c4
+SHA256: 274b92067927874abbb0be52a71b6d5b3b61a4c27f92301303d8a7d2d2363ffb
+Section: debug
+Priority: optional
+Description: debug symbols for libdrm-tests
+Build-Ids: 0c91fba054e32443c569e25836ee6362daa6dc66 127e737a4273782a9161a5713f39989c1f2aead9 b4a5b6372fadc946d250681d628065f5aa2a187f d7d7cee4ca52a5c4296cab6f2aa56c2e15a2d72b eaa339c0784ba6ada513235c30ea1c248236c36c fc9bad7ed541b121382dc8458e57cdcee4532a4f
 
 Package: libdrm2
-Architecture: amd64
-Version: 2.4.134-3~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libdrm
+Version: 2.4.134-3~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 119
 Depends: libdrm-common (>= 2.4.134-3~devuandepot), libc6 (>= 2.38)
@@ -631,7 +564,9 @@ Size: 40092
 MD5sum: 2829d022537c1f21baeeef9c71844fba
 SHA1: 9a90dcb92d5af897a401730c6b4e96ee597366b3
 SHA256: f47459d0fceeedbdd95b6ca451519a55dfed062400cf24a9e3ed63db7a9eed35
-SHA512: 9a015759d705f56dd30182b6f05eed407659a31b40bca5b41b86a235a6a32a488241528329c6de26ffc9a59d2e73edd368e57790ed3293f0c16cb131b549971a
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/mesa/libdrm/
 Description: Userspace interface to kernel DRM services -- runtime
  This library implements the userspace interface to the kernel DRM
@@ -642,13 +577,29 @@ Description: Userspace interface to kernel DRM services -- runtime
  .
  This package provides the runtime environment for libdrm.
 
-Package: libliftoff-dev
+Package: libdrm2-dbgsym
+Source: libdrm
+Version: 2.4.134-3~devuandepot
+Auto-Built-Package: debug-symbols
 Architecture: amd64
-Version: 0.5.0-1.1~devuandepot
-Multi-Arch: same
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 127
+Depends: libdrm2 (= 2.4.134-3~devuandepot)
+Filename: pool/main/libdrm2-dbgsym_2.4.134-3~devuandepot_amd64.deb
+Size: 108272
+MD5sum: 58506320171d8e518ae0ef5934f280ed
+SHA1: 1c42ea288d2a8b11c0b7dd4636459ebbab683cc5
+SHA256: 9d87ccec2e7a6a08580535825834dcb43aa6dbf3ec242969bce22d51bfcb1747
+Section: debug
 Priority: optional
-Section: libdevel
+Multi-Arch: same
+Description: debug symbols for libdrm2
+Build-Ids: 0d998f4ffad97d6f1b570fa505d5ef6686eefa86
+
+Package: libliftoff-dev
 Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
+Architecture: amd64
 Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
 Installed-Size: 22
 Depends: libliftoff0 (= 0.5.0-1.1~devuandepot)
@@ -657,7 +608,9 @@ Size: 4832
 MD5sum: e83ef22d95036b5a0c26f113453dc636
 SHA1: cbb0c16540fa084f135b0e130fef24fee5f4b271
 SHA256: d0404c14af3e54b9dedaeba7fd836578220e2c15d775c487ac55b5eda85132f9
-SHA512: 6fbc774f77f9e7e0830adb38de55a6f709a62fe4a76f91e41bcd4b2e0d679f785b2bacdb80e53721e2cf78ac20e0db044489521daae40b3e6c7fd629faa4d901
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
 Description: lightweight KMS plane library - development files
  libliftoff eases the use of KMS planes from userspace without standing
@@ -667,33 +620,10 @@ Description: lightweight KMS plane library - development files
  .
  This package contains the development files.
 
-Package: libliftoff0-dbgsym
-Architecture: amd64
-Version: 0.5.0-1.1~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libliftoff
-Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
-Installed-Size: 48
-Depends: libliftoff0 (= 0.5.0-1.1~devuandepot)
-Filename: pool/main/libliftoff0-dbgsym_0.5.0-1.1~devuandepot_amd64.deb
-Size: 33276
-MD5sum: d906d0d6545bdb4fbd93033c2e0d4231
-SHA1: de1bc5126c627b11c88506c93aeed21885a8005e
-SHA256: 7224892d5797fa0b01a5acecbf6302d5cd8b3ee3bb25d2a47758d4a4da38afe9
-SHA512: f24347d770054abdb33289122cfdac2add0824c33eff916b3de09294f154410241884a069268126b434c79923d4ce8142362fa976b03c8a6db2cbf5c783fcf19
-Description: debug symbols for libliftoff0
-Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
-
 Package: libliftoff0
-Architecture: amd64
-Version: 0.5.0-1.1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
+Architecture: amd64
 Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
 Installed-Size: 50
 Depends: libc6 (>= 2.17), libdrm2 (>= 2.4.108)
@@ -702,7 +632,9 @@ Size: 15684
 MD5sum: 7f734e51235ec4da98579ed760f01e11
 SHA1: bf9b4a39e3ca61aee951d5349fe804e7903d83ed
 SHA256: 0348288fc34f207a20ff49d5cb6e005720d71182ac5fa9cfe340d77f206d3283
-SHA512: daff3fcc612ebcaf8e4f5af070166e2c90ea910a91bab9a41990041e692453b74742c0577d16b2ce06b6f263e929482e33b7a0bf56ce3a8f6fc767c46a623e4b
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://gitlab.freedesktop.org/emersion/libliftoff
 Description: lightweight KMS plane library
  libliftoff eases the use of KMS planes from userspace without standing
@@ -710,33 +642,29 @@ Description: lightweight KMS plane library
  properties on them, and libliftoff will pick planes for these layers if
  possible.
 
-Package: libpixman-1-0-dbgsym
-Architecture: amd64
-Version: 0.46.4-1~devuandepot
+Package: libliftoff0-dbgsym
+Source: libliftoff
+Version: 0.5.0-1.1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
+Architecture: amd64
+Maintainer: Stephan Lachnit <stephanlachnit@debian.org>
+Installed-Size: 48
+Depends: libliftoff0 (= 0.5.0-1.1~devuandepot)
+Filename: pool/main/libliftoff0-dbgsym_0.5.0-1.1~devuandepot_amd64.deb
+Size: 33276
+MD5sum: d906d0d6545bdb4fbd93033c2e0d4231
+SHA1: de1bc5126c627b11c88506c93aeed21885a8005e
+SHA256: 7224892d5797fa0b01a5acecbf6302d5cd8b3ee3bb25d2a47758d4a4da38afe9
 Section: debug
-Source: pixman
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 1821
-Depends: libpixman-1-0 (= 0.46.4-1~devuandepot)
-Filename: pool/main/libpixman-1-0-dbgsym_0.46.4-1~devuandepot_amd64.deb
-Size: 1795044
-MD5sum: 5205d16b37aba0c7c2e8e0a37bfcf36f
-SHA1: 79964f61d273d46172c7c87deb40602f1697d7f1
-SHA256: 1ef3d0a2a0c167e6c1a8edbf7feb6cfa823548345c637e913ae685154463ebfb
-SHA512: a9517c727ab6f3fc8ed21a6c34e11e691175cf7c5060434591e1341362a05d4087e76a81250acb1e9b9f1df6eafc24d0e95d803e42f1cc4fa3af222327c5b273
-Description: debug symbols for libpixman-1-0
-Build-Ids: 73bf52ad7f2cabdec9e89bcd60fb8b089029c007
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libliftoff0
+Build-Ids: e9c2230d5c0e2ff84bf7cc44e0c973d6201c9099
 
 Package: libpixman-1-0
-Architecture: amd64
-Version: 0.46.4-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: pixman
+Version: 0.46.4-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 753
 Depends: libc6 (>= 2.29)
@@ -745,7 +673,9 @@ Size: 261472
 MD5sum: 8840cfbd004881273110d701e5baf90f
 SHA1: 3fe25d537fa0a4f8862096c8658d94eb3944872e
 SHA256: f33ba3cde5703ca5e70d8e0280b32468358cc39a6052e3860510176eded7c4e5
-SHA512: e0c6dc51661772a0ea6d3cf19b02aa89c7ac998baf5de0e74e45c570bc48d2f4a807fd2f0b74f5de662edb77ec5658c4225e55839c71244c27252db518cfa838
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: http://pixman.org/
 Description: pixel-manipulation library for X and cairo
  A library for manipulating pixel regions -- a set of Y-X banded
@@ -753,13 +683,29 @@ Description: pixel-manipulation library for X and cairo
  and implicit mask generation for geometric primitives including
  trapezoids, triangles, and rectangles.
 
-Package: libpixman-1-dev
-Architecture: amd64
-Version: 0.46.4-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
+Package: libpixman-1-0-dbgsym
 Source: pixman
+Version: 0.46.4-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 1821
+Depends: libpixman-1-0 (= 0.46.4-1~devuandepot)
+Filename: pool/main/libpixman-1-0-dbgsym_0.46.4-1~devuandepot_amd64.deb
+Size: 1795044
+MD5sum: 5205d16b37aba0c7c2e8e0a37bfcf36f
+SHA1: 79964f61d273d46172c7c87deb40602f1697d7f1
+SHA256: 1ef3d0a2a0c167e6c1a8edbf7feb6cfa823548345c637e913ae685154463ebfb
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libpixman-1-0
+Build-Ids: 73bf52ad7f2cabdec9e89bcd60fb8b089029c007
+
+Package: libpixman-1-dev
+Source: pixman
+Version: 0.46.4-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 74
 Depends: libpixman-1-0 (= 0.46.4-1~devuandepot)
@@ -768,38 +714,18 @@ Size: 11924
 MD5sum: 46d9b0aa6d1f49fef751cbc363fc0f0c
 SHA1: 8a6e12f6aa77266e12515052ecba678752adf3cf
 SHA256: c6aeef41b727b43061bfb57fc3e9f7f1ba13400c47adf185eac8b2d40219d7f8
-SHA512: f6c87395e3847730675c918140053e99aaf882c2c1d73403efc884fe542472c87f5c36a32bce23db7cc2ecddc1b4f0b9538a7ddb71b0316458ea6f0ebbf132eb
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: http://pixman.org/
 Description: pixel-manipulation library for X and cairo (development files)
  Development libraries, header files and documentation needed by
  programs that want to compile with the Cairo/X pixman library.
 
-Package: libwayland-bin-dbgsym
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Auto-Built-Package: debug-symbols
-Priority: optional
-Section: debug
-Source: wayland
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 83
-Depends: libwayland-bin (= 1.26.0-1~devuandepot)
-Filename: pool/main/libwayland-bin-dbgsym_1.26.0-1~devuandepot_amd64.deb
-Size: 53000
-MD5sum: 0ab3c3151419711195dcba6fe3da129e
-SHA1: 1b48243ffb29e74fe82f7e55e9e9b4e513fb6e97
-SHA256: 31e56316641c03ea63f0ed596ae0d1f99d162341429143c5e7b593de805bd2c8
-SHA512: b403b60b35af9d5e86c7dbc8c04f2ffe1536dd8ffd1de4ecc769cac5daf86f57fe507564ed83ddf4da10459743c477031daa73d4963f6ad2987dd49ef4292542
-Description: debug symbols for libwayland-bin
-Build-Ids: 0b8afead8eb876d40a09f007f7efe79c569f00f5
-
 Package: libwayland-bin
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: libdevel
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 68
 Depends: libc6 (>= 2.34), libexpat1 (>= 2.0.1), libxml2 (>= 2.7.4)
@@ -808,7 +734,9 @@ Size: 22372
 MD5sum: 67f12054570f05262bb1f55c495aed79
 SHA1: e099f1ec8929f403c66118cb21b47999ef6e8505
 SHA256: d7c365fe3cd139f66104426ce90884e63533549a960463686a744f1edf2a56b6
-SHA512: 5244e0472bfcf1f1023d309d49213ef1a90fd75502edf829f25a16911d5e3a9c23188256be95cdeeeea9770b095c44e386c82f72670c178746595409c9cedae6
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - binary utilities
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -820,33 +748,28 @@ Description: wayland compositor infrastructure - binary utilities
  .
  This package contains the development binary utilities
 
-Package: libwayland-client0-dbgsym
-Architecture: amd64
+Package: libwayland-bin-dbgsym
+Source: wayland
 Version: 1.26.0-1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: wayland
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 89
-Depends: libwayland-client0 (= 1.26.0-1~devuandepot)
-Filename: pool/main/libwayland-client0-dbgsym_1.26.0-1~devuandepot_amd64.deb
-Size: 69652
-MD5sum: 799d2f94abbb773f19871e728228ed80
-SHA1: 4554a69d4a266e182c1b5569bcfc2571dfaf402e
-SHA256: a2e4173807d139e8dd5cce733074a153b37af72a8b3bf82934f5e166d767a17a
-SHA512: 26c2cbdb7c498eda9597e2114e45e1613db77b0752c1efbd6f01d8b97683e65b83fc37e83898bec87ef849029a6570d68b3fcdd1ee72d84faf870eadd4083ab6
-Description: debug symbols for libwayland-client0
-Build-Ids: a2897a2646c93eb09bb382b6234bb0dd22a12725
+Installed-Size: 83
+Depends: libwayland-bin (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-bin-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 53000
+MD5sum: 0ab3c3151419711195dcba6fe3da129e
+SHA1: 1b48243ffb29e74fe82f7e55e9e9b4e513fb6e97
+SHA256: 31e56316641c03ea63f0ed596ae0d1f99d162341429143c5e7b593de805bd2c8
+Section: debug
+Priority: optional
+Description: debug symbols for libwayland-bin
+Build-Ids: 0b8afead8eb876d40a09f007f7efe79c569f00f5
 
 Package: libwayland-client0
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 95
 Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
@@ -855,7 +778,9 @@ Size: 29900
 MD5sum: 17c3c7ae97e5ab8378f2962fac22ef9c
 SHA1: 5abed82570f0998a7a32257d13be367c866a8cba
 SHA256: befea4452f9673b2ca0c0e3bf415bd8a58923dac6ed9b72fe745efedd7bc9e42
-SHA512: 013eedf5d77189b27ba59d7e5cb59fc482e383eb29685696c0af9bfb4228a10df6699901d5a953219f850ce298894b7e42c2aeceb16855c73bedec818b7448c5
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - client library
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -868,33 +793,29 @@ Description: wayland compositor infrastructure - client library
  This package ships the library that implements the client side of
  the Wayland protocol.
 
-Package: libwayland-cursor0-dbgsym
-Architecture: amd64
+Package: libwayland-client0-dbgsym
+Source: wayland
 Version: 1.26.0-1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: wayland
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 37
-Depends: libwayland-cursor0 (= 1.26.0-1~devuandepot)
-Filename: pool/main/libwayland-cursor0-dbgsym_1.26.0-1~devuandepot_amd64.deb
-Size: 23384
-MD5sum: 8366966aedf8748448b24f1a1afa73a8
-SHA1: ffd69ec8314ea1f712ab1d4f40aacc32664c13b7
-SHA256: 8cf1b3c7aece2d09a102a6fa747d42a99410c506085281027a8f9516059de43a
-SHA512: a2620abb815ba34d968d59560fcc9e5c500efd73f75610d3dc9ae642535835dde9d0827fe46635c962bbf053665aed364166187d0c60751206c3a6f3607009c6
-Description: debug symbols for libwayland-cursor0
-Build-Ids: dc9539922cbd8a7159e287faaf1b0fd3e7562b1b
+Installed-Size: 89
+Depends: libwayland-client0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-client0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 69652
+MD5sum: 799d2f94abbb773f19871e728228ed80
+SHA1: 4554a69d4a266e182c1b5569bcfc2571dfaf402e
+SHA256: a2e4173807d139e8dd5cce733074a153b37af72a8b3bf82934f5e166d767a17a
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-client0
+Build-Ids: a2897a2646c93eb09bb382b6234bb0dd22a12725
 
 Package: libwayland-cursor0
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 51
 Depends: libc6 (>= 2.28), libwayland-client0 (>= 1.20.0)
@@ -903,7 +824,9 @@ Size: 12320
 MD5sum: 31edeb7ce163d589af75d0e8d976b5b9
 SHA1: ebaf45d27531b10e130e2fbd14de99d65dced793
 SHA256: c5025cbaee6456fd522d1d7e032bb23e6da66086d4c22935f24b92e437a5c844
-SHA512: 96ed92ad8bfd1e4f660ce7e86b2df4a071c3dff8b76618578b1c98948fb1a176d9f2da47ddc6b9414050fc7e3b222ba774e2e42e487549132261579a3a0e7fcf
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - cursor library
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -915,13 +838,29 @@ Description: wayland compositor infrastructure - cursor library
  .
  This package ships a helper library to manage cursors.
 
-Package: libwayland-dev
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
+Package: libwayland-cursor0-dbgsym
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 37
+Depends: libwayland-cursor0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-cursor0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 23384
+MD5sum: 8366966aedf8748448b24f1a1afa73a8
+SHA1: ffd69ec8314ea1f712ab1d4f40aacc32664c13b7
+SHA256: 8cf1b3c7aece2d09a102a6fa747d42a99410c506085281027a8f9516059de43a
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-cursor0
+Build-Ids: dc9539922cbd8a7159e287faaf1b0fd3e7562b1b
+
+Package: libwayland-dev
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 664
 Depends: libwayland-client0 (= 1.26.0-1~devuandepot), libwayland-server0 (= 1.26.0-1~devuandepot), libwayland-cursor0 (= 1.26.0-1~devuandepot), libwayland-egl1 (= 1.26.0-1~devuandepot), libwayland-bin (= 1.26.0-1~devuandepot), libffi-dev
@@ -931,7 +870,9 @@ Size: 78640
 MD5sum: 1ab4962b5a6b5b5dacfcc58bdce06cd5
 SHA1: 45a8ebe2b7fb8fdbca3b3db2dfb6f29f7ffb735b
 SHA256: 9fc058fb085a5ee40d536d80a94aaeb63f10eea7aee9f9c92ff983b288e2f335
-SHA512: d75d8d020733be81f908d83c5d299fa8bc9070e4861703f1dc4271326be9d0c2d52c155b4e775dc0f8054da92fad4b1941203ca51a85563ed8eb912f17def0c0
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - development files
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -945,12 +886,9 @@ Description: wayland compositor infrastructure - development files
  Non-developers likely have little use for this package.
 
 Package: libwayland-doc
-Architecture: all
-Version: 1.26.0-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: doc
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: all
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 3735
 Filename: pool/main/libwayland-doc_1.26.0-1~devuandepot_all.deb
@@ -958,7 +896,9 @@ Size: 1265564
 MD5sum: 81eae44b0cf73c0dab50aceba0d11055
 SHA1: b10e45676029ebddefcb2eeb9db79853e85ff6fb
 SHA256: 089024cbea775384201adedcf658aa0a72366d0058b82d2a39d893681156d63d
-SHA512: cbdca76745595c0bd48aabd3d368a89a05f35e908258e3cf71c73456ad8f75d1432ea39c96daaaa32cda909391a701057ff1f181ca0d733ced77644ea1725b33
+Section: doc
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - documentation files
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -972,12 +912,9 @@ Description: wayland compositor infrastructure - documentation files
  Non-developers likely have little use for this package.
 
 Package: libwayland-egl-backend-dev
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 17
 Filename: pool/main/libwayland-egl-backend-dev_1.26.0-1~devuandepot_amd64.deb
@@ -985,7 +922,9 @@ Size: 5184
 MD5sum: a2b04f78225bb5b1e71e99c4b0de5fcb
 SHA1: 30367c95c7f47e8e1609078489565ecc865bca6f
 SHA256: da591e7c62ab52f7922b1620f8d4013f4cd14d3497086d7b63628977942c58f9
-SHA512: 3a822dc0ccb89a5872a403c0ebecd599b0dab988d58099561a74ad08976aaeaa2ee013b0183a22f1d9c5f356e56ed05c3b9c5364d44e438a2a63a05651d8149d
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - EGL backend development files
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -997,33 +936,10 @@ Description: wayland compositor infrastructure - EGL backend development files
  .
  This package contains the development headers for the Wayland EGL backend.
 
-Package: libwayland-egl1-dbgsym
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: wayland
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 16
-Depends: libwayland-egl1 (= 1.26.0-1~devuandepot)
-Filename: pool/main/libwayland-egl1-dbgsym_1.26.0-1~devuandepot_amd64.deb
-Size: 3692
-MD5sum: 5f09a8357bc37337ee090767114aef07
-SHA1: b26354159faee64b6b18106089056406427ebd3b
-SHA256: 55ce59ed33fbdaf036f18b485d4abbaf0ccd847b5918aa8ffd98a0bc9bcfe263
-SHA512: acad9923d68a25892847370356e3b435ad283c90b9e41d2356b1a04fb42a1bb145843ef320c4256877eb892307b7907f3b4051907d4d696c13e8c3994f06ce74
-Description: debug symbols for libwayland-egl1
-Build-Ids: fcd0ac92d4ffb87f9f873161ea543fcc7202c9a2
-
 Package: libwayland-egl1
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 30
 Depends: libc6 (>= 2.2.5)
@@ -1032,7 +948,9 @@ Size: 6280
 MD5sum: 3c9ffdb5bcf25bb5ff2dc4e78c60f162
 SHA1: e09668d1e0319c4a2c1457670c52ad57b2bab804
 SHA256: 974a00bd47b3a9ee3b796a628647732fba39927a7976c75813f1bc2d9396a4ef
-SHA512: 025b1f929874b1b1482c79440bc0533ccea75082ad3d1e3ea896a29607a3dc9f08203b73e8974443db881e78ae5ed905eaf41f838399795067d4835c2b0258ea
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - EGL library
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -1045,33 +963,29 @@ Description: wayland compositor infrastructure - EGL library
  This package ships the library that implements the Wayland EGL platform
  of the Wayland protocol.
 
-Package: libwayland-server0-dbgsym
-Architecture: amd64
+Package: libwayland-egl1-dbgsym
+Source: wayland
 Version: 1.26.0-1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: wayland
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 118
-Depends: libwayland-server0 (= 1.26.0-1~devuandepot)
-Filename: pool/main/libwayland-server0-dbgsym_1.26.0-1~devuandepot_amd64.deb
-Size: 95584
-MD5sum: dc833146841aa7869bf0cc15971f195c
-SHA1: a282c1bebde84b299e180e3f88936df97a1ddb8d
-SHA256: ec50977551c4a415a92ca0f9da8ad4780d48a4f641a0664e8fa57f8e0fce222f
-SHA512: 55858b0ea77d880c56a182e1cce3a6eda0e67fa21a46613a7b423287615993b2b368c51a101b1aacb2ec3e89cc8413c077e6c3e6ce98cfee439c0b07dc3963c8
-Description: debug symbols for libwayland-server0
-Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
+Installed-Size: 16
+Depends: libwayland-egl1 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-egl1-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 3692
+MD5sum: 5f09a8357bc37337ee090767114aef07
+SHA1: b26354159faee64b6b18106089056406427ebd3b
+SHA256: 55ce59ed33fbdaf036f18b485d4abbaf0ccd847b5918aa8ffd98a0bc9bcfe263
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libwayland-egl1
+Build-Ids: fcd0ac92d4ffb87f9f873161ea543fcc7202c9a2
 
 Package: libwayland-server0
-Architecture: amd64
-Version: 1.26.0-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: wayland
+Version: 1.26.0-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 113
 Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
@@ -1080,7 +994,9 @@ Size: 36964
 MD5sum: 753c8a0b26df1d46a6fb208afe11626a
 SHA1: 55afc7211a16658daf07af65abec4a042b80e5cf
 SHA256: ee8b4f2f3ef2e96bd3d34be18c1794bc2445c3ac6f7cba932b87866e59475fde
-SHA512: 34ff805e9b0a2097d2602dfe6a61d98832211ab5f9b840ca638c66778e411d5b95114fa7f943a268745ad7a137ec4c6788c596f33c52208ea1896f7aa6cb5cf0
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor infrastructure - server library
  Wayland is a protocol for a compositor to talk to its clients as well
@@ -1093,13 +1009,29 @@ Description: wayland compositor infrastructure - server library
  This package ships the library that implements the server side of
  the Wayland protocol.
 
-Package: libxkbcommon-dev
+Package: libwayland-server0-dbgsym
+Source: wayland
+Version: 1.26.0-1~devuandepot
+Auto-Built-Package: debug-symbols
 Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 118
+Depends: libwayland-server0 (= 1.26.0-1~devuandepot)
+Filename: pool/main/libwayland-server0-dbgsym_1.26.0-1~devuandepot_amd64.deb
+Size: 95584
+MD5sum: dc833146841aa7869bf0cc15971f195c
+SHA1: a282c1bebde84b299e180e3f88936df97a1ddb8d
+SHA256: ec50977551c4a415a92ca0f9da8ad4780d48a4f641a0664e8fa57f8e0fce222f
+Section: debug
 Priority: optional
-Section: libdevel
+Multi-Arch: same
+Description: debug symbols for libwayland-server0
+Build-Ids: 97184b4559d11bb0320bf02769e1e3d78219c3a1
+
+Package: libxkbcommon-dev
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 390
 Depends: libxkbcommon0 (= 1.13.1-1~devuandepot)
@@ -1108,7 +1040,9 @@ Size: 60172
 MD5sum: bba80eeb8762806eaaad534fd4b72f4f
 SHA1: cac3e7c58004d8a53b2b5228211bad97b2318a3b
 SHA256: 6e433ae310ba3d4d7e8033ca95362fbbb839c934fb5d1ac834de22235c71e9a2
-SHA512: fb0b28d7fa3bd9a4ce65578ce61b532bba47844e533c197ab9d249a8a47c3465cf742161338e80d547b9d6794abd9f2e0755fa5b59d26cfeff4d2574ccbeedcb
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library interface to the XKB compiler - development files
  xkbcommon is a library to handle keyboard descriptions, including loading them
@@ -1126,12 +1060,9 @@ Description: library interface to the XKB compiler - development files
  https://github.com/xkbcommon/libxkbcommon.git
 
 Package: libxkbcommon-doc
-Architecture: all
-Version: 1.13.1-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: doc
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: all
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 3602
 Filename: pool/main/libxkbcommon-doc_1.13.1-1~devuandepot_all.deb
@@ -1139,7 +1070,9 @@ Size: 362736
 MD5sum: 1df5cdc46fbdd26004be79c8b22afd17
 SHA1: 4ba8e19ae5f115adec99d7f404a13ebfaee82eff
 SHA256: 68a0ac773823d1a948c692cdf73496c9ab5121ad256e5d311c12d193ce1b25a6
-SHA512: c9b984110c5709481389ac53c093d5afbc2eb7c951b0ef9925b46f52ff1096b80a8d6062cda80f67c525b5d19854057387c4887648bf74504262723109044acd
+Section: doc
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://www.xkbcommon.org/
 Description: library interface to the XKB compiler - documentation
  xkbcommon is a library to handle keyboard descriptions, including loading them
@@ -1156,32 +1089,10 @@ Description: library interface to the XKB compiler - documentation
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbcommon-tools-dbgsym
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Auto-Built-Package: debug-symbols
-Priority: optional
-Section: debug
-Source: libxkbcommon
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 576
-Depends: libxkbcommon-tools (= 1.13.1-1~devuandepot)
-Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1~devuandepot_amd64.deb
-Size: 340444
-MD5sum: 09ec6add4273e60fb6dd62bb6ed3b449
-SHA1: 3c4f8cb0495ffcdaa8c43ec9f7382b7bbbb51395
-SHA256: 5750c6acd486cb0ddaf4df0f1d0b1c59adf58eac84846c63468c337ab1656b45
-SHA512: 9288fac36c1af065cbe63fd1464961b561840381a131faf6781aba85efeaa11700aa1c6678378f384201ab316443f36ba3d7d6d7aca46fa65f501886661c652e
-Description: debug symbols for libxkbcommon-tools
-Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 b1ba8b8ca2ea1d54831235e4c18c99973ab33b2b bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 daa85d7a807988a8055fe7f033efe9539bb96b8e f7bd417ffc64bed9396eeed03e735553e4f417f5
-
 Package: libxkbcommon-tools
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: graphics
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 452
 Depends: libc6 (>= 2.38), libwayland-client0 (>= 1.20.0), libxcb-xkb1, libxcb1, libxkbcommon-x11-0 (>= 0.5.0), libxkbcommon0 (>= 1.12.3), libxkbregistry0 (>= 1.12.3)
@@ -1190,7 +1101,9 @@ Size: 71008
 MD5sum: 35de784cc30c3550e5d07a1ccf6dea5b
 SHA1: 120415ce1d6883ed3241c451b88e4671a28aa3d2
 SHA256: e15d8430b9cd8eff36aec3857e77c791b3c8f62323c962c18bf3f0ea8eb81e1d
-SHA512: 30c2e3e0ffb670a3ac66d73be956bb9377f06d8b7b1a4db22d4db5625694e89f237681082320eae785a864565b472e974e168cc5e1baf07c0d191eca4d163170
+Section: graphics
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://www.xkbcommon.org/
 Description: library interface to the XKB compiler - tools
  xkbcommon is a library to handle keyboard descriptions, including loading them
@@ -1206,33 +1119,28 @@ Description: library interface to the XKB compiler - tools
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbcommon-x11-0-dbgsym
-Architecture: amd64
+Package: libxkbcommon-tools-dbgsym
+Source: libxkbcommon
 Version: 1.13.1-1~devuandepot
 Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libxkbcommon
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 84
-Depends: libxkbcommon-x11-0 (= 1.13.1-1~devuandepot)
-Filename: pool/main/libxkbcommon-x11-0-dbgsym_1.13.1-1~devuandepot_amd64.deb
-Size: 65116
-MD5sum: c8c8f86d7db39cec4b11b83f204acee2
-SHA1: a2dd3862de1393ebad3bcfb58deb95f4f63ab5ea
-SHA256: 377418becc11d973a559e294c54c1ab3ea7d835ee740670338073ed603a35f0b
-SHA512: 8b04207a25722100a2bd25adf0d985e5e0d68667ec4ba19f11a90050b4b3dcde56e8e0644a8dac2aac639875344b9db2a817ed18d72370868f1a32e266f91ec3
-Description: debug symbols for libxkbcommon-x11-0
-Build-Ids: 6597fc53967af10b25399d36fba21ac817555295
+Installed-Size: 576
+Depends: libxkbcommon-tools (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon-tools-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 340444
+MD5sum: 09ec6add4273e60fb6dd62bb6ed3b449
+SHA1: 3c4f8cb0495ffcdaa8c43ec9f7382b7bbbb51395
+SHA256: 5750c6acd486cb0ddaf4df0f1d0b1c59adf58eac84846c63468c337ab1656b45
+Section: debug
+Priority: optional
+Description: debug symbols for libxkbcommon-tools
+Build-Ids: 04cf5ace99866a3ea3c518556c26f0eea091808b 05b319ff1ce6e672e6fb2f49cc1ad1f5d840c4d4 2c6c346941ef0500b103d0b720455fe4d10707a1 5b73a1a8ee4d7b80afe211486955ad51e0373df0 5c61d83ad014ef873721bbf168a6bc1d31dd8b0f 88ec2cd3618e884076d3dbf9f5d0983b909b0390 a1317e947f8b999c809d6d8348b5174054d4ab35 b1ba8b8ca2ea1d54831235e4c18c99973ab33b2b bb5039b82194219a8ce441108cf66ea18a89ca5d c2b9dfcda7d7f1c579dd5d556674ad655ec20125 daa85d7a807988a8055fe7f033efe9539bb96b8e f7bd417ffc64bed9396eeed03e735553e4f417f5
 
 Package: libxkbcommon-x11-0
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 69
 Depends: libxkbcommon0 (= 1.13.1-1~devuandepot), libc6 (>= 2.38), libxcb-xkb1, libxcb1 (>= 1.6)
@@ -1241,7 +1149,9 @@ Size: 20924
 MD5sum: dc4cf8aaa6c0b956601aded17cf06f48
 SHA1: fb9830d5386f17e625316dec7e2d3cd72d9a36fd
 SHA256: d137d5bc0aa2e9034324bf268258949e5ca2e9236f278eeff80c198ce725f9ee
-SHA512: ad44cc027fc9585ad70d8497faf1290b0f59dd1330ea8e39d76f43a23832099fbd9db486621278024d301b9633f5808617d3e8256abb2683e52ed148d6318602
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library to create keymaps with the XKB X11 protocol
  This package provides an add-on library called xkbcommon-x11, to support
@@ -1253,13 +1163,29 @@ Description: library to create keymaps with the XKB X11 protocol
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbcommon-x11-dev
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
+Package: libxkbcommon-x11-0-dbgsym
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 84
+Depends: libxkbcommon-x11-0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon-x11-0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 65116
+MD5sum: c8c8f86d7db39cec4b11b83f204acee2
+SHA1: a2dd3862de1393ebad3bcfb58deb95f4f63ab5ea
+SHA256: 377418becc11d973a559e294c54c1ab3ea7d835ee740670338073ed603a35f0b
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon-x11-0
+Build-Ids: 6597fc53967af10b25399d36fba21ac817555295
+
+Package: libxkbcommon-x11-dev
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 28
 Depends: libxkbcommon-x11-0 (= 1.13.1-1~devuandepot), libxkbcommon-dev (= 1.13.1-1~devuandepot), libxcb1-dev, libxcb-xkb-dev
@@ -1268,7 +1194,9 @@ Size: 7176
 MD5sum: 5ffc5bc8d1a5e3cd5e96d905542765e4
 SHA1: 09c1e567769999bd0058e9d16607d939faf942e7
 SHA256: ac9aa0d33b8acd17a1e6970c4833c55e1d843b96e115ed0957c9228619ed2193
-SHA512: 8d8c4a7a1603ce560f7cfef18b908dceb1f820b8b3c1daaa53fe34d9df9698b211582a2caddd86551f9a62786815d2975c29f67ae26424cd9afb6736ddbc5b11
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library to create keymaps with the XKB X11 protocol - development files
  This package provides an add-on library called xkbcommon-x11, to support
@@ -1283,33 +1211,10 @@ Description: library to create keymaps with the XKB X11 protocol - development f
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbcommon0-dbgsym
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libxkbcommon
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 388
-Depends: libxkbcommon0 (= 1.13.1-1~devuandepot)
-Filename: pool/main/libxkbcommon0-dbgsym_1.13.1-1~devuandepot_amd64.deb
-Size: 362724
-MD5sum: 69c11f638e644a625735dc44f9457615
-SHA1: 29efd53bf56dbe16d462477f0827935f563bfe07
-SHA256: 046af441ea6409c3e4b2b7526cea4127c843c76d68bd7e9314be6d3162e93e7d
-SHA512: e21e2f252bae11bf9448fd6920a027c0030b324d81a262e89fb29849e4ad1eb1cab822c889ae801dafea473d3d3f185a2f619e08f044e0f717b809e575ed282d
-Description: debug symbols for libxkbcommon0
-Build-Ids: ed3f2dd073dfc13a710abdc28f4365b47239e53e
-
 Package: libxkbcommon0
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 401
 Depends: xkb-data, libc6 (>= 2.38)
@@ -1318,7 +1223,9 @@ Size: 147056
 MD5sum: ea1148d297070bc05a5cd5b26e562ad5
 SHA1: cb90714aac6ed4503d8f0e1356dc0bd6b40d9186
 SHA256: 53c08b3625478ea48fd95dce67f919d74f5e6189b974cd5eb14723048001fd81
-SHA512: 84653e3b2b693a11351d0ba41b7b112a9224dc3e4daa7eb64b6a6b730ed7d0fbf796c67ba8e20acb762b35d4b5aa6df33325e593eb03ffea218b187cc32be2ad
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library interface to the XKB compiler - shared library
  This package provides a library to handle keyboard descriptions, including
@@ -1332,13 +1239,29 @@ Description: library interface to the XKB compiler - shared library
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbregistry-dev
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libdevel
+Package: libxkbcommon0-dbgsym
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 388
+Depends: libxkbcommon0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbcommon0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 362724
+MD5sum: 69c11f638e644a625735dc44f9457615
+SHA1: 29efd53bf56dbe16d462477f0827935f563bfe07
+SHA256: 046af441ea6409c3e4b2b7526cea4127c843c76d68bd7e9314be6d3162e93e7d
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libxkbcommon0
+Build-Ids: ed3f2dd073dfc13a710abdc28f4365b47239e53e
+
+Package: libxkbregistry-dev
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 44
 Depends: libxkbcommon-dev (= 1.13.1-1~devuandepot), libxkbregistry0 (= 1.13.1-1~devuandepot), libxml2-dev
@@ -1347,7 +1270,9 @@ Size: 9736
 MD5sum: bf57252ef80f1b95311712a82dbb49f6
 SHA1: cd3352afb14d56e132d2983bb42cea72a7eab3b9
 SHA256: c12733930b1dfef728a7c0eed7924f366dd9e6c6779248c1cae7dfa16857d564
-SHA512: ef5a9dadef8f6340401f97b8a6fe8b66337caf08234a431d686a7448661a37194c472becda5bdf0b77e68034f17aa5f81acc067f1280c1dbd9d47414394d2a46
+Section: libdevel
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library to query available RMLVO - development files
  This package provides an add-on library called xkbregistry, which is used
@@ -1362,33 +1287,10 @@ Description: library to query available RMLVO - development files
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: libxkbregistry0-dbgsym
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Auto-Built-Package: debug-symbols
-Multi-Arch: same
-Priority: optional
-Section: debug
-Source: libxkbcommon
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Installed-Size: 61
-Depends: libxkbregistry0 (= 1.13.1-1~devuandepot)
-Filename: pool/main/libxkbregistry0-dbgsym_1.13.1-1~devuandepot_amd64.deb
-Size: 43360
-MD5sum: e44a28b9cdab08fdb9d0415ef20902aa
-SHA1: c3d65f63feaa5d8fc32cb917f026114bde07a79b
-SHA256: 830a343b1b207cfb5684ea8161b29a2bb68c0643b87a4928b8d060537e2d7905
-SHA512: afccbda2f5a474aa22055582a70d9cd840756f30909bc86f5c6bb99aeee36921828337752f10a816c24c819eecd6c6bf7b233757b25484665aeefb9c4b887c19
-Description: debug symbols for libxkbregistry0
-Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
-
 Package: libxkbregistry0
-Architecture: amd64
-Version: 1.13.1-1~devuandepot
-Multi-Arch: same
-Priority: optional
-Section: libs
 Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Architecture: amd64
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 59
 Depends: libxkbcommon0 (= 1.13.1-1~devuandepot), libc6 (>= 2.38), libxml2 (>= 2.7.4)
@@ -1397,7 +1299,9 @@ Size: 17224
 MD5sum: 764b9dcaebfaf87fd9444ced87e2de73
 SHA1: f539277de9cf0296d8dc47407c7a9f4ebdc3a525
 SHA256: 4b57c6f7a234f3f6e3c6be6048f0d6b3ee98f5f743ed3c2a97b24ddaa7d11512
-SHA512: 4b0560cf190f043c209fc48f1605e7f97c76d78598f6586d896b8e8c1ba84530d6122d3905fa3f5a6400638aff7e6cb2c5f7c59abafbf2b864917cdef6ffdad2
+Section: libs
+Priority: optional
+Multi-Arch: same
 Homepage: https://www.xkbcommon.org/
 Description: library to query available RMLVO
  This package provides an add-on library called xkbregistry, which is used
@@ -1409,11 +1313,28 @@ Description: library to query available RMLVO
  This module can be found at
  https://github.com/xkbcommon/libxkbcommon.git
 
-Package: mangowc
+Package: libxkbregistry0-dbgsym
+Source: libxkbcommon
+Version: 1.13.1-1~devuandepot
+Auto-Built-Package: debug-symbols
 Architecture: amd64
-Version: 0.16.1.20260822.40~devuandepot
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Installed-Size: 61
+Depends: libxkbregistry0 (= 1.13.1-1~devuandepot)
+Filename: pool/main/libxkbregistry0-dbgsym_1.13.1-1~devuandepot_amd64.deb
+Size: 43360
+MD5sum: e44a28b9cdab08fdb9d0415ef20902aa
+SHA1: c3d65f63feaa5d8fc32cb917f026114bde07a79b
+SHA256: 830a343b1b207cfb5684ea8161b29a2bb68c0643b87a4928b8d060537e2d7905
+Section: debug
 Priority: optional
-Section: x11
+Multi-Arch: same
+Description: debug symbols for libxkbregistry0
+Build-Ids: 332b1a88982b61c9cf54a285ae323da1ffc479e7
+
+Package: mangowc
+Version: 0.16.1.20260822.40~devuandepot
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-client0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Filename: pool/main/mangowc_0.16.1.20260822.40~devuandepot_amd64.deb
@@ -1421,15 +1342,14 @@ Size: 197924
 MD5sum: fdede51236862940f20bbcb09fb80b6e
 SHA1: 3edd07c601c7ec641ba5fa5c5b3c607e340193bd
 SHA256: 567c6d1b99dd36393caa775a173d86267b3dcdff76855f9e3c90f2c59dabb47f
-SHA512: bb982bcd86964b5b9354c9210eb8de51b2e1f496e3299cafa91b03983e5352a985eb59f0ddab0956547111738a6bd2e462af4a30e34fecc998c738bc2ddb3108
+Section: x11
+Priority: optional
 Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
  Practical and Powerful wayland compositor (dwm but wayland).
 
 Package: mangowc
-Architecture: amd64
 Version: 0.16.2.20260828.48~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.34), libcairo2 (>= 1.2.4), libcjson1 (>= 1.7.5), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.11.2), libwayland-client0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxkbcommon0 (>= 0.8.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Filename: pool/main/mangowc_0.16.2.20260828.48~devuandepot_amd64.deb
@@ -1437,15 +1357,14 @@ Size: 198952
 MD5sum: 7c029b30f70bd8d4b7f13ea251c34735
 SHA1: c0a7fee6cba55bd2fb6c1895d3bbe12441b6e347
 SHA256: 8eb1912904b143e2b7bcd4ebc25bf383f4ef3b58a484cbaeeb7d2317da4b1aee
-SHA512: 8c7a3f1a996c8e34e91e49ca1dec759ff8a31c5df27c120e04199b98ffb50b02ef7d3ade5eb84dc1b5c6f82373bffaf2f6bf99522ace1e9f77580c231e6845c2
+Section: x11
+Priority: optional
 Description: mangowc - Practical and Powerful wayland compositor (dwm but wayland)
  Practical and Powerful wayland compositor (dwm but wayland).
 
 Package: niri
-Architecture: amd64
 Version: 26.04.20260728.3~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.39), libcairo2 (>= 1.4.10), libdisplay-info2 (>= 0.2.0), libgbm1 (>= 21.3.0~rc1), libgcc-s1 (>= 4.2), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.21.0), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.14.0), libpipewire-0.3-0t64 (>= 0.3.75), libpixman-1-0 (>= 0.30.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libxkbcommon0 (>= 0.5.0)
 Recommends: xwayland-satellite
@@ -1454,15 +1373,14 @@ Size: 23335476
 MD5sum: e6f3d045aa27d459aa6d04626cdcd420
 SHA1: cba98404dd7d987254d2504ed109585c3180a8d5
 SHA256: 4179ebcf54ddab4fa55262b5c858815b581c1ebee692963ad9171d9fecd2fdee
-SHA512: 2e9cc1939b4bbbd950633098d516ef45cfc2e35a6ceaecb12e833f5be5e5cb182911c950891f609b329eb358a4d1414ea9391338613cee27c93187da13b6c7a3
+Section: x11
+Priority: optional
 Description: Niri - A scrollable-tiling Wayland compositor
  Niri is a scrollable-tiling Wayland compositor.
 
 Package: niri
-Architecture: amd64
 Version: 26.04.20260729.5~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.39), libcairo2 (>= 1.4.10), libdisplay-info2 (>= 0.2.0), libgbm1 (>= 21.3.0~rc1), libgcc-s1 (>= 4.2), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.21.0), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.14.0), libpipewire-0.3-0t64 (>= 0.3.75), libpixman-1-0 (>= 0.30.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libxkbcommon0 (>= 0.5.0)
 Recommends: xwayland-satellite
@@ -1471,15 +1389,14 @@ Size: 23336744
 MD5sum: 84d5a6dc582dfb14033ec53f18635bba
 SHA1: 3ad2c4405862d62d37f03069d1b8e6e6eee3e2c6
 SHA256: 5b8a026883ddc8320660f734255676d649b264181a6ed30845cc28455b835005
-SHA512: dc601d6fe1fb760bfa73c0e2f23b8e4439bb47440ad9095f5c6741560da5bdc9d5bbb28b912e8212e608f847108e5b6e50a867d6eb3cc0169f71f1a5ffd34e06
+Section: x11
+Priority: optional
 Description: Niri - A scrollable-tiling Wayland compositor
  Niri is a scrollable-tiling Wayland compositor.
 
 Package: noctalia
-Architecture: amd64
 Version: 5.0.0-beta.10.20260828.47~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libcurl3t64-gnutls (>= 7.16.2), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 3.3.1), libgles2, libglib2.0-0t64 (>= 2.80.0), libharfbuzz0b (>= 5.1.0), libical3t64 (>= 3.0.0), libjxl0.11 (>= 0.7.0), libmd4c0 (>= 0.2.7), libpam0g (>= 0.99.7.1), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), libpipewire-0.3-0t64 (>= 0.3.6), libpolkit-agent-1-0 (>= 0.99), libpolkit-gobject-1-0 (>= 0.94), libqalculate23 (>= 5.5.2), librsvg2-2 (>= 2.52.5), libsdbus-c++2 (>= 2.1.0), libsecret-1-0 (>= 0.19.1), libsndfile1 (>= 1.0.20), libsodium23 (>= 1.0.14), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.23.0), libwayland-egl1 (>= 1.15.0), libwebp7 (>= 1.5.0), libwireplumber-0.5-0 (>= 0.4.81), libxkbcommon0 (>= 0.8.0), libxml2 (>= 2.7.4), ddcutil, usbutils
 Filename: pool/main/noctalia_5.0.0-beta.10.20260828.47~devuandepot_amd64.deb
@@ -1487,17 +1404,16 @@ Size: 13391764
 MD5sum: b82bb108c23e1fee41f624f888cdc267
 SHA1: 547e7ef26806d338d3cb12ce33fef32455376850
 SHA256: ba999f76cddb80e23d09f03e5723d247c7964e799b0007c7c2d9d49486db2c8c
-SHA512: 2190b28a5e2de98d043147654bd809b1bf9494bf4c1e0d4c450470f04e50524b997f353913739903e3285a530ef58a73715352d34d7a542af920710016661ce4
+Section: x11
+Priority: optional
 Description: Noctalia - A native Wayland desktop shell
- Noctalia is a native Wayland desktop shell for people who want a polished, 
- configurable Linux desktop without stitching together a separate bar, 
+ Noctalia is a native Wayland desktop shell for people who want a polished,
+ configurable Linux desktop without stitching together a separate bar,
  launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
 
 Package: noctalia
-Architecture: amd64
 Version: 5.0.0-beta.9.20260822.38~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libcurl3t64-gnutls (>= 7.16.2), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 3.3.1), libgles2, libglib2.0-0t64 (>= 2.80.0), libharfbuzz0b (>= 5.1.0), libical3t64 (>= 3.0.0), libjxl0.11 (>= 0.7.0), libmd4c0 (>= 0.2.7), libpam0g (>= 0.99.7.1), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), libpipewire-0.3-0t64 (>= 0.3.6), libpolkit-agent-1-0 (>= 0.99), libpolkit-gobject-1-0 (>= 0.94), libqalculate23 (>= 5.5.2), librsvg2-2 (>= 2.52.5), libsdbus-c++2 (>= 2.1.0), libsecret-1-0 (>= 0.19.1), libsndfile1 (>= 1.0.20), libsodium23 (>= 1.0.14), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.23.0), libwayland-egl1 (>= 1.15.0), libwebp7 (>= 1.5.0), libwireplumber-0.5-0 (>= 0.4.81), libxkbcommon0 (>= 0.8.0), libxml2 (>= 2.7.4), ddcutil, usbutils
 Filename: pool/main/noctalia_5.0.0-beta.9.20260822.38~devuandepot_amd64.deb
@@ -1505,40 +1421,16 @@ Size: 13355060
 MD5sum: 958251eb290b8f5d1d5c39035cb68749
 SHA1: 9efadcd696e766c7beb24f4862bc65bec6f89ee3
 SHA256: 530f7e47caaf8bf715abaf7e4fe8da041975cb0cfa68777b004af10e8649bfcd
-SHA512: b32d58157d35491450f15c2df6c5d6e839d9b7c2e6dbbca2ccf9cfd7702354a43e6bafc95da51600f2ffdc766f140d3088edf9bda16cbae835dbd8e8b5727d02
+Section: x11
+Priority: optional
 Description: Noctalia - A native Wayland desktop shell
- Noctalia is a native Wayland desktop shell for people who want a polished, 
- configurable Linux desktop without stitching together a separate bar, 
+ Noctalia is a native Wayland desktop shell for people who want a polished,
+ configurable Linux desktop without stitching together a separate bar,
  launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
 
 Package: portproton
-Architecture: amd64
 Version: 1.7.5
-Multi-Arch: foreign
-Priority: optional
-Section: games
-Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
-Installed-Size: 450
-Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
-Recommends: gamemode, inxi
-Filename: pool/main/portproton_1.7.5_amd64.deb
-Size: 55668
-MD5sum: b15d326ae125034b3a381f908eb15966
-SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
-SHA256: 0508fb8ebce551e6ee720d2181a779a74bff5f546f26033c055fc5d17c2af223
-SHA512: 4e48693a63b994920e7bd0a8f3be179d42cda60ae79ded33fe9c3b5c57ee6321b05b0bc1480e52eaf3717f39799f62777be2c44e4435fa189b264ab37946a7cb
-Homepage: https://linux-gaming.ru
-Description: Software for playing Microsoft Windows games and launchers.
- On Debian, you may need to run as root:
- dpkg --add-architecture i386; apt update
-License: MIT
-
-Package: portproton
 Architecture: amd64
-Version: 1.7.5
-Multi-Arch: foreign
-Priority: optional
-Section: games
 Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
 Installed-Size: 450
 Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
@@ -1548,7 +1440,30 @@ Size: 55668
 MD5sum: b15d326ae125034b3a381f908eb15966
 SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
 SHA256: 0508fb8ebce551e6ee720d2181a779a74bff5f546f26033c055fc5d17c2af223
-SHA512: 4e48693a63b994920e7bd0a8f3be179d42cda60ae79ded33fe9c3b5c57ee6321b05b0bc1480e52eaf3717f39799f62777be2c44e4435fa189b264ab37946a7cb
+Section: games
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://linux-gaming.ru
+Description: Software for playing Microsoft Windows games and launchers.
+ On Debian, you may need to run as root:
+ dpkg --add-architecture i386; apt update
+License: MIT
+
+Package: portproton
+Version: 1.7.5
+Architecture: amd64
+Maintainer: linux-gaming.ru (vanyamajukin@gmail.com)
+Installed-Size: 450
+Depends: ca-certificates, coreutils (>= 8.23-1~) | realpath, curl, file, libc6 (>= 2.15), libnss3 (>= 2:3.26), xz-utils, bubblewrap, tar, vulkan-tools, libvulkan1, libvulkan1:i386, zstd, cabextract, xdg-utils, openssl, bc, libgl1, libgl1:i386, pciutils, desktop-file-utils, fontconfig, yad, jq, libimage-exiftool-perl
+Recommends: gamemode, inxi
+Filename: pool/main/portproton_1.7.5_amd64.deb
+Size: 55668
+MD5sum: b15d326ae125034b3a381f908eb15966
+SHA1: 823eefda4d3baa2fa1f6e175e34be7499ca398de
+SHA256: 0508fb8ebce551e6ee720d2181a779a74bff5f546f26033c055fc5d17c2af223
+Section: games
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://linux-gaming.ru
 Description: Software for playing Microsoft Windows games and launchers.
  On Debian, you may need to run as root:
@@ -1556,10 +1471,8 @@ Description: Software for playing Microsoft Windows games and launchers.
 License: MIT
 
 Package: scenefx0.4
-Architecture: amd64
 Version: 0.4.1~git0f06997.20260729.7~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2.20260729.4~devuandepot)
 Filename: pool/main/scenefx0.4_0.4.1~git0f06997.20260729.7~devuandepot_amd64.deb
@@ -1567,14 +1480,13 @@ Size: 73472
 MD5sum: 162925f03f755e5b6659a5c443901926
 SHA1: 899de326fd8481b7737f54c2438b6da52712fad2
 SHA256: 7a5d7973d603b124ff64eeb7f5bca6e163f8201e907a20221041dd642465c7fe
-SHA512: 48e443444088ca65cbc6d549007f0fd5e81a6329c72df85f3a0ea3c341e885be7ee92cdbac178bd9a83dada12f6431552164a7ff705202ddcdac0107a71bdeec
+Section: libs
+Priority: optional
 Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
 
 Package: scenefx0.4
-Architecture: amd64
 Version: 0.4.1~git0f06997.20260729.8~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.19 (>= 0.19.0~git13a62a2.20260729.6~devuandepot)
 Filename: pool/main/scenefx0.4_0.4.1~git0f06997.20260729.8~devuandepot_amd64.deb
@@ -1582,14 +1494,13 @@ Size: 73328
 MD5sum: e3faf80901aedee3173d4170f1d67773
 SHA1: 7e32bbccb9b2cf5f22b5a44e528d83b47eac6ba3
 SHA256: 88667326d6be11ec130686adff28c43cf22756c6313691269886e395576fcb34
-SHA512: 57f327e511fc20a32559f7092814a18e00b8cd63139de1727da8b7cd1f8edb44879b8f9edf7f06c49f3bdcd0633a0aff1838d09d3805dfc2aca5b97a0284d329
+Section: libs
+Priority: optional
 Description: scenefx (0.4.1) - drop-in replacement for wlr_scene
 
 Package: scenefx0.5
-Architecture: amd64
 Version: 0.5.0~git45c6978.20260729.7~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533.20260729.4~devuandepot)
 Filename: pool/main/scenefx0.5_0.5.0~git45c6978.20260729.7~devuandepot_amd64.deb
@@ -1597,14 +1508,13 @@ Size: 84060
 MD5sum: 185abd1b56d2e2d4da761a98e75561e1
 SHA1: 9957986db32bd8bc0f3d07e6e44b442cd59e3bd6
 SHA256: 199d0540698a4f7d3b19dade91a874d651d1cfe3412f9c96a1e422757f23cb6e
-SHA512: 1e8dadf4ace8ecc2adac4c6a6094f2bb125b8d44382994e986dba563cb7186d6b4da7ed00035da91b8d5eebb84c0f5c1e157634f3787f37e4b1f28613303fcfe
+Section: libs
+Priority: optional
 Description: scenefx (main) - drop-in replacement for wlr_scene
 
 Package: scenefx0.5
-Architecture: amd64
 Version: 0.5.0~git45c6978.20260729.8~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.29), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgles2, liblcms2-2 (>= 2.6), libpixman-1-0 (>= 0.44.0), libwayland-server0 (>= 1.20.92), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Filename: pool/main/scenefx0.5_0.5.0~git45c6978.20260729.8~devuandepot_amd64.deb
@@ -1612,14 +1522,13 @@ Size: 84324
 MD5sum: 45fba4140952303de3ab861012209fee
 SHA1: f65906912b8b59c87fae39c20bd76a0499c18da5
 SHA256: c1b5baa2451b51c7d67458cffab0c528a91253dec1812577e2fa68d8422b50f4
-SHA512: 878fb379cffcce83b5b8df9c1a980656f02005c5a4aafbe9a0bd2bd89719bc1c8ab9e33331173185822f2e5511aab37e36364aa63a59c54d9e1e4801ac774c30
+Section: libs
+Priority: optional
 Description: scenefx (main) - drop-in replacement for wlr_scene
 
 Package: scroll
-Architecture: amd64
 Version: 1.12.17.20260729.12~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6
 Filename: pool/main/scroll_1.12.17.20260729.12~devuandepot_amd64.deb
@@ -1627,14 +1536,13 @@ Size: 7557208
 MD5sum: ee582567fb5c1b0460ae72fbc89a66a9
 SHA1: 0a3ce35a690661946657d5cd1b2301f833aec24b
 SHA256: a5082cf34c9e52651d5da3e2ca8aaffc4389439f6099673296db0a2c3ac2b232
-SHA512: 5bf4f9d7312d731e7d0d6ab1d939ca71775c2985a0706bcb52cb9f826bb4ce3d38cbc1ab1157ae7c8e3dbe0344ac6a3da9653806531f08a490798d2e9f8e0ff6
+Section: x11
+Priority: optional
 Description: scroll - Wayland compositor forked from sway with scrolling layout
 
 Package: swayfx
-Architecture: amd64
 Version: 0.6.20260807.14~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.34), libcairo2 (>= 1.10.0), libdrm2 (>= 2.4.113), libevdev2 (>= 0.9.1), libgdk-pixbuf-2.0-0 (>= 2.31.1), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.26.0), libjson-c5 (>= 0.15), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.25.2), libudev1 (>= 183), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 0.7.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Recommends: seatd
@@ -1643,17 +1551,16 @@ Size: 5177324
 MD5sum: 176ece597dd00a46ecb009dadeb9ba15
 SHA1: b2200352f63c30746bc810933c270079652922be
 SHA256: 8424d4b95c97c3c171204a128c53ba62e4d4dae9b125b5761d8147ea82c39559
-SHA512: 6ea482237de8c6123fb8ada4e809b3388bd8325c7ce96984b51954f58b062199234effb06dcb462c4e07f6493a353f94e2023488d58b873442bb7577489a4156
+Section: x11
+Priority: optional
 Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
  Built with Xwayland support enabled.
 
 Package: swayfx
-Architecture: amd64
 Version: 0.6.20260822.46~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.34), libcairo2 (>= 1.10.0), libdrm2 (>= 2.4.113), libevdev2 (>= 0.9.1), libgdk-pixbuf-2.0-0 (>= 2.31.1), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.26.0), libjson-c5 (>= 0.15), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.25.2), libsystemd0 (>= 243), libudev1 (>= 183), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 0.7.0), scenefx0.5 (>= 0.5.0~git45c6978.20260729.8~devuandepot), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Recommends: seatd
@@ -1662,17 +1569,16 @@ Size: 5202056
 MD5sum: 5b6e3de77bb02be1aa4f11f34ee2fb8c
 SHA1: d951ef35c1e752180a7e10d269d1c5280eac2ba7
 SHA256: d8505b6d780a0f054f06c1738a0e51eb9bd07925ddb8b9126c9d9cf09df1c813
-SHA512: 335dd50562e0c3119130ceb983a4e2ff801c98e01a76da8870641436f9c443021368f2a5462a08f9862cfd0fa6736e3a962dcb10d18558b5eecd1480b5344582
+Section: x11
+Priority: optional
 Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
  Built with Xwayland support enabled.
 
 Package: umbriel
-Architecture: amd64
 Version: 0.0.0+git20260821.a77d168.33~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.20.92), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Filename: pool/main/umbriel_0.0.0+git20260821.a77d168.33~devuandepot_amd64.deb
@@ -1680,17 +1586,16 @@ Size: 663932
 MD5sum: cec765958c75f8669d1c6242714f17da
 SHA1: 794075e558c660f2ef9710dbf7b1306902b50aab
 SHA256: f97dbdc2154f809ef55e6b962998b389a6f14dd90da21834b3cf700c68d26d99
-SHA512: 09968dae6e3fa90274701495f228bffcea14d24d19a0fedac0f19e1001ca00b29d7c31413a586f9ad756dfde703076f377396168c1ec10019d5210d636fad537
+Section: x11
+Priority: optional
 Description: Umbriel - A Wayland compositor designed for daily use
- Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts, 
+ Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts,
  per-output workspaces, window rules, blur, shadows, and fluid animations.
  It runs independently and can be paired with Noctalia.
 
 Package: umbriel
-Architecture: amd64
 Version: 0.1.0+git20260821.36.8f542ee~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.20.92), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
 Recommends: xwayland-satellite, xdg-desktop-portal-umbriel
@@ -1699,18 +1604,16 @@ Size: 628904
 MD5sum: 3055a038bdca0ddb6ac69570682b2098
 SHA1: 6da29c43c25c2841c869d164078358b798c8e9c1
 SHA256: fefc51a7a5511c5209db05e1a1b240f0b0c1bbef206a29bbfcb5766ad937fa7d
-SHA512: d5bd42efb08be3232d8368e295940d33e4668f61a98c4c6ed34c59f96dbf23f928f77699b3b202e8640ace98aa5e774b50f18e0629fe6e55025e0806ad2b160c
+Section: x11
+Priority: optional
 Description: Umbriel - A Wayland compositor designed for daily use
- Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts, 
+ Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts,
  per-output workspaces, window rules, blur, shadows, and fluid animations.
  It runs independently and can be paired with Noctalia.
 
 Package: wayland-protocols
-Architecture: all
 Version: 1.49-1~devuandepot
-Multi-Arch: foreign
-Priority: optional
-Section: libdevel
+Architecture: all
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Installed-Size: 1144
 Filename: pool/main/wayland-protocols_1.49-1~devuandepot_all.deb
@@ -1718,7 +1621,9 @@ Size: 136488
 MD5sum: d061c7cb8fa764e0cf2e539f4111b064
 SHA1: bdc5eb12fd2d6950bc8b263e1fd7584308049763
 SHA256: 8966d30aa414fbad062c92bfc2123723bda9db76f36600c0e6900c80bea6c3eb
-SHA512: d0139391cd7c56ff110282cfba2c449a34829a20d8983d3ba263657d79886c94230d6fd32ba92874825d1d52bcd9f133bee0c739b01822d4d1e4d69191d161ca
+Section: libdevel
+Priority: optional
+Multi-Arch: foreign
 Homepage: https://wayland.freedesktop.org/
 Description: wayland compositor protocols
  Wayland protocols that add functionality not available in the Wayland core
@@ -1727,25 +1632,21 @@ Description: wayland compositor protocols
  protocol in wayland-protocols.
 
 Package: wayland1.24
-Architecture: amd64
 Version: 1.24.0~git736d12a
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends:
 Filename: pool/main/wayland1.24_1.24.0~git736d12a_amd64.deb
 Size: 145000
 MD5sum: 77d077f9d1c2248846f22c6e3ca6c09d
 SHA1: 2d616b816755a99d203eda6509dcc67aba0df3c9
 SHA256: 26e117547ce05366f36f4bf64cd7c6d2ae41bd150568dda70ff6862629794211
-SHA512: e1f698a54f8b0fa837044fc9755c9b3c205d102f089ac6734607f1853b668623c938303e8e894e42bb3ee2d65aa600ea99c593a0d8db4dacf08eaddf60747940
+Section: libs
+Priority: optional
 Description: Wayland (1.24.0) installed in /opt/wayland1.24 (Backport)
 
 Package: wlroots0.19
-Architecture: amd64
 Version: 0.19.0~git13a62a2.20260729.4~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
 Filename: pool/main/wlroots0.19_0.19.0~git13a62a2.20260729.4~devuandepot_amd64.deb
@@ -1753,14 +1654,13 @@ Size: 525592
 MD5sum: 4f90ebc8a9362c98ecd3a5e7943f2faf
 SHA1: 0c8d6be6e769d1e097b86bd11a356d2027bfb805
 SHA256: 600f4c1e05e45388b7f367cf80e74f6974b0e86d6f109cfb1fe7c85d92ff30d9
-SHA512: 62694215482a301b29f3fd0984f0dd60795fb5b8439e93dbbd972ee6aeb8c0e5e6f4a95da0b9323de528cbecfe4cbe01c8894b19e16a48710675af8e41ff02ba
+Section: libs
+Priority: optional
 Description: wlroots (0.19.0) modular Wayland compositor library
 
 Package: wlroots0.19
-Architecture: amd64
 Version: 0.19.0~git13a62a2.20260729.6~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.22.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
 Filename: pool/main/wlroots0.19_0.19.0~git13a62a2.20260729.6~devuandepot_amd64.deb
@@ -1768,14 +1668,13 @@ Size: 524076
 MD5sum: b5628d1d3726ed0260317d2fafba879a
 SHA1: 7e995795a6ff6b8a2d99e0573e34b055e6b008b2
 SHA256: af3d82fa77959f7a612e83ea130a2d8f589a45d9273ead20478f1c76c0945131
-SHA512: fb738c9958ae96e52a7b228f1fb88ddc293cd5fb128dfd49579c6a80c2e12ee50dbe9670d8466a3d9a05ffd607976f0a76eb3376959e5390d27129fb02178396
+Section: libs
+Priority: optional
 Description: wlroots (0.19.0) modular Wayland compositor library
 
 Package: wlroots0.20
-Architecture: amd64
 Version: 0.20.2~gitd783533.20260729.4~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
 Filename: pool/main/wlroots0.20_0.20.2~gitd783533.20260729.4~devuandepot_amd64.deb
@@ -1783,14 +1682,13 @@ Size: 550604
 MD5sum: dbc8480c5c7727b45d0ca7e2d144fda1
 SHA1: 13dc8d4de4a3a4a00e6404ae845dc4ba792847e1
 SHA256: bb2efeb75a89254a8c6098e315a6052f46b4bd84ca0600ecb42830db45f4f4aa
-SHA512: c2fa2e2f572c9c9eaa7598a8b9d382e50e659df40dfedbb460c774910ca9516cb069d1c050067331a15c035f5e07678cc88eae5ed2e675ae4081c001c458b52b
+Section: libs
+Priority: optional
 Description: wlroots (0.20.2) modular Wayland compositor library
 
 Package: wlroots0.20
-Architecture: amd64
 Version: 0.20.2~gitd783533.20260729.6~devuandepot
-Priority: optional
-Section: libs
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.38), libdisplay-info3 (>= 0.3.0), libdrm2 (>= 2.4.119), libegl1, libgbm1 (>= 21.1.0), libgles2, libinput10 (>= 1.26.0), liblcms2-2 (>= 2.6), libliftoff0 (>= 0.4.1), libpixman-1-0 (>= 0.44.0), libseat1 (>= 0.5.0), libudev1 (>= 183), libvulkan1 (>= 1.2.131.2), libwayland-client0 (>= 1.23.0), libwayland-server0 (>= 1.24.0), libxcb-composite0, libxcb-errors0 (>= 1.0.1), libxcb-ewmh2 (>= 0.4.2), libxcb-icccm4 (>= 0.4.2), libxcb-render0, libxcb-res0 (>= 1.10), libxcb-xfixes0 (>= 1.15), libxcb1, libxkbcommon0 (>= 0.5.0)
 Filename: pool/main/wlroots0.20_0.20.2~gitd783533.20260729.6~devuandepot_amd64.deb
@@ -1798,14 +1696,13 @@ Size: 549952
 MD5sum: d71d4de0a5f1f675643de38ce225b1f4
 SHA1: c5e05a98d0b48a2a4ef04a7073918364451be37f
 SHA256: 00640262673d9e2a38eabb0b3c6195cac3e2e48cd529db7944be7f3b2ba5f232
-SHA512: abe37b05e5114df975d99c3c706099b5a2c6e2947b48ad27c16f8a71dc96f5d12d7de8f0cb3d67f6ac3713f20dffa29992f9f3f728938cfb1340707612e796a6
+Section: libs
+Priority: optional
 Description: wlroots (0.20.2) modular Wayland compositor library
 
 Package: xdg-desktop-portal-umbriel
-Architecture: amd64
 Version: 0.0.0+git20260821.90171b7.16~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: xdg-desktop-portal, libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.109), libgbm1 (>= 21.3.0~rc1), libgcc-s1 (>= 3.0), libglib2.0-0t64 (>= 2.36.0), libgtk-4-1 (>= 4.12.0), libpipewire-0.3-0t64 (>= 0.3.34), libsdbus-c++2 (>= 2.1.0), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0)
 Filename: pool/main/xdg-desktop-portal-umbriel_0.0.0+git20260821.90171b7.16~devuandepot_amd64.deb
@@ -1813,16 +1710,15 @@ Size: 270928
 MD5sum: a61989ad197e1947469afb36fc16bea4
 SHA1: d942f7c955e7c7161cec98b6753359606996e41e
 SHA256: b989872306197c6cbe51191c1a74c1b0bf2e8878cab6de784386e91815db0c00
-SHA512: b9942a9decd27d1a79de63afdae48652a0627b5af10026bb1c0a43c0d6410e9777f68ba916ece5955595938e930fc4a8c6f0c395da696919f5079f03dfdb96ff
+Section: x11
+Priority: optional
 Description: xdg-desktop-portal backend for Umbriel
  An xdg-desktop-portal backend for the Umbriel compositor.
  Enables screen sharing, screenshots and more.
 
 Package: xwayland-satellite
-Architecture: amd64
 Version: 0.8.1.20260728.5~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libxcb-cursor0 (>= 0.0.99), libxcb1 (>= 1.11.1), xwayland
 Filename: pool/main/xwayland-satellite_0.8.1.20260728.5~devuandepot_amd64.deb
@@ -1830,16 +1726,15 @@ Size: 1811220
 MD5sum: 177c90c290b7da7e3452f76cab6b2e3a
 SHA1: 8db19085b8fcb2c70c0e21bbaa6e21bf89fe3e6c
 SHA256: 8334a1b7e8e61ebd5e5e6b22ccd3fd57fdff6da7fbaa4e76a0d762d4234b7e14
-SHA512: 2f21614b0518949c147f650b38407765b20eef225bbaee9bb09a82f85a2c43262ac2b75a2340185c0d15292c1f9e6fd425b553a6dbad1e54e34d77f259736016
+Section: x11
+Priority: optional
 Description: xwayland-satellite - Xwayland rootless para niri
  Provee integracion Xwayland sin systemd para compositores
  Wayland que no la implementan de forma nativa (ej. niri).
 
 Package: xwayland-satellite
-Architecture: amd64
 Version: 0.8.2.20260729.12~devuandepot
-Priority: optional
-Section: x11
+Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
 Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libxcb-cursor0 (>= 0.0.99), libxcb1 (>= 1.11.1), xwayland
 Filename: pool/main/xwayland-satellite_0.8.2.20260729.12~devuandepot_amd64.deb
@@ -1847,7 +1742,8 @@ Size: 1669864
 MD5sum: ba07486b4917694e313b50b2f4587962
 SHA1: bb4838d005c21595b7b107c621dc95fc790549af
 SHA256: e16310bc015b56cf298d4e850d460a794ed2f8dfc57db742740f7d1994a7c7f6
-SHA512: c3bc4b60d6715e49ff8031e02bec8f533fe66914ca339e108219ef9fc60ef95bf9971faae687ac57f90091f95dcff07a8a1a4251cf48bbc175f7b69eb181b6ac
+Section: x11
+Priority: optional
 Description: xwayland-satellite - Xwayland rootless para niri
  Provee integracion Xwayland sin systemd para compositores
  Wayland que no la implementan de forma nativa (ej. niri).
