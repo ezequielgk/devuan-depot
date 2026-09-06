@@ -29,21 +29,6 @@ Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
 
 Package: foot
-Version: 1.27.0.20260728.3~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libpixman-1-0 (>= 0.30.0), libutf8proc3 (>= 2.9.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
-Filename: pool/main/foot_1.27.0.20260728.3~devuandepot_amd64.deb
-Size: 337872
-MD5sum: 8fb45e5bf8e3396ac86ceb1f1c88ec5f
-SHA1: 11ddac8992a519672b278914ad089c230cd3b5e7
-SHA256: 7993cc5197de4d74ce3aa2b3f9a9b3008c1607339bff221171d20d833ae53a58
-Section: x11
-Priority: optional
-Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
- A fast, lightweight and minimalistic Wayland terminal emulator.
-
-Package: foot
 Version: 1.27.0.20260729.1~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1427,23 +1412,6 @@ Description: Noctalia - A native Wayland desktop shell
  launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
 
 Package: noctalia
-Version: 5.0.0-beta.9.20260822.38~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libcurl3t64-gnutls (>= 7.16.2), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 3.3.1), libgles2, libglib2.0-0t64 (>= 2.80.0), libharfbuzz0b (>= 5.1.0), libical3t64 (>= 3.0.0), libjxl0.11 (>= 0.7.0), libmd4c0 (>= 0.2.7), libpam0g (>= 0.99.7.1), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), libpipewire-0.3-0t64 (>= 0.3.6), libpolkit-agent-1-0 (>= 0.99), libpolkit-gobject-1-0 (>= 0.94), libqalculate23 (>= 5.5.2), librsvg2-2 (>= 2.52.5), libsdbus-c++2 (>= 2.1.0), libsecret-1-0 (>= 0.19.1), libsndfile1 (>= 1.0.20), libsodium23 (>= 1.0.14), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.23.0), libwayland-egl1 (>= 1.15.0), libwebp7 (>= 1.5.0), libwireplumber-0.5-0 (>= 0.4.81), libxkbcommon0 (>= 0.8.0), libxml2 (>= 2.7.4), ddcutil, usbutils
-Filename: pool/main/noctalia_5.0.0-beta.9.20260822.38~devuandepot_amd64.deb
-Size: 13355060
-MD5sum: 958251eb290b8f5d1d5c39035cb68749
-SHA1: 9efadcd696e766c7beb24f4862bc65bec6f89ee3
-SHA256: 530f7e47caaf8bf715abaf7e4fe8da041975cb0cfa68777b004af10e8649bfcd
-Section: x11
-Priority: optional
-Description: Noctalia - A native Wayland desktop shell
- Noctalia is a native Wayland desktop shell for people who want a polished,
- configurable Linux desktop without stitching together a separate bar,
- launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
-
-Package: noctalia
 Version: 5.0.1.20260903.53~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
@@ -1607,39 +1575,6 @@ Description: SwayFX - Sway but with eye candy!
  Sway fork with blur, shadows and rounded corners.
  Based on Sway 1.12, wlroots 0.20.2 and scenefx 0.5.
  Built with Xwayland support enabled.
-
-Package: umbriel
-Version: 0.0.0+git20260821.a77d168.33~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.20.92), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
-Filename: pool/main/umbriel_0.0.0+git20260821.a77d168.33~devuandepot_amd64.deb
-Size: 663932
-MD5sum: cec765958c75f8669d1c6242714f17da
-SHA1: 794075e558c660f2ef9710dbf7b1306902b50aab
-SHA256: f97dbdc2154f809ef55e6b962998b389a6f14dd90da21834b3cf700c68d26d99
-Section: x11
-Priority: optional
-Description: Umbriel - A Wayland compositor designed for daily use
- Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts,
- per-output workspaces, window rules, blur, shadows, and fluid animations.
- It runs independently and can be paired with Noctalia.
-
-Package: umbriel
-Version: 0.0.0~gitc0dc6e6.20260906.58~devuandepot
-Architecture: amd64
-Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.23.0), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot), xwayland-satellite
-Filename: pool/main/umbriel_0.0.0~gitc0dc6e6.20260906.58~devuandepot_amd64.deb
-Size: 905600
-MD5sum: 4f16acadffc5c1d32ee1960af726a486
-SHA1: 2db66f105ff4b12bfef79bd7ce2a6ba85341bbfa
-SHA256: 30395fab1de0929e8e8d69fea35d2497ff4a735433c30fe679d7ab9c01a28ff5
-Section: x11
-Priority: optional
-Description: A Wayland compositor built on wlroots.
- Umbriel is a Wayland compositor built on wlroots.
- Developed by the Noctalia project.
 
 Package: umbriel
 Version: 0.1.0+git20260821.36.8f542ee~devuandepot
