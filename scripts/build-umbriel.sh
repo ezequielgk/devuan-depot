@@ -3,37 +3,23 @@ set -e
 
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
-echo "Getting latest commit for umbriel (no releases available yet)..."
-COMMITS_JSON=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/umbriel/commits)
+echo "Getting latest Umbriel release..."
+RELEASE_JSON=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/umbriel/releases/latest)
+LATEST_TAG=$(echo "$RELEASE_JSON" | jq -r '.tag_name')
 
-# Extract both full sha and a 7-char short sha
-LATEST_SHA="$(echo "$COMMITS_JSON" | jq -r '.[0].sha')"
-SHORT_SHA="${LATEST_SHA:0:7}"
-
-if [ "$LATEST_SHA" = "null" ] || [ -z "$LATEST_SHA" ]; then
-    echo "ERROR: Failed to fetch latest commit"
-    exit 1
+# Si la api da nulo (por ejemplo si umbriel no usa releases si no solo tags)
+if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
+    echo "Falling back to tags API..."
+    LATEST_TAG=$(git ls-remote --tags https://github.com/noctalia-dev/umbriel.git | grep -v "\^{}" | awk -F/ '{print $3}' | sort -V | tail -n1)
 fi
 
-echo "Obtained latest commit: $LATEST_SHA"
-
+echo "Obtained latest version: $LATEST_TAG"
 echo "Cloning umbriel..."
-git clone https://github.com/noctalia-dev/umbriel.git src/umbriel
+git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
-git checkout $LATEST_SHA
-
-# Fix missing ranges include in overview.cpp
-sed -i "1i#include <ranges>" src/overview/overview.cpp
-
-
-sed -i "s/configuredProfile.points.data()/const_cast<double*>(configuredProfile.points.data())/g" src/server/server_events.cpp
-
-echo "Fetching scenefx submodule..."
-git submodule update --init
 
 echo "Compiling umbriel..."
-# Configure with meson directly to set prefix and options
-meson setup build-release --buildtype=release --sysconfdir=/etc --strip -Db_lto=true -Db_ndebug=true -Db_pie=true --prefix=/usr -Djemalloc=disabled
+meson setup build-release --buildtype=release --prefix=/usr -Dtests=disabled
 ninja -C build-release
 
 echo "Staging pkgroot..."
@@ -44,14 +30,8 @@ mkdir -p ../../pkgroot/DEBIAN
 DESTDIR=$PWD/../../pkgroot ninja -C build-release install
 
 cd ../..
-# Cleanup extraneous development files from subprojects (like scenefx headers)
-rm -rf pkgroot/usr/include
-rm -rf pkgroot/usr/lib/*/pkgconfig pkgroot/usr/lib/pkgconfig
-rm -f pkgroot/usr/lib/*.a pkgroot/usr/lib/*/*.a
-
 
 echo "Resolving shlib dependencies..."
-mkdir -p debian
 cat > debian/control <<CTRLSTUB
 Source: umbriel
 Section: x11
@@ -65,27 +45,18 @@ CTRLSTUB
 
 set -u
 SO_TARGETS=$(find pkgroot/usr/bin -type f -executable)
-if [ -z "$SO_TARGETS" ]; then
-  echo "ERROR: no executables found to scan"
-  exit 1
-fi
 if ! RAW_DEPS=$(dpkg-shlibdeps -O $SO_TARGETS); then
   echo "ERROR: dpkg-shlibdeps failed"
   exit 1
 fi
 DEPS=$(printf '%s\n' "$RAW_DEPS" | sed 's/^shlibs:Depends=//')
-echo "=== Resolved Depends: ${DEPS}
-Recommends: xwayland-satellite, xdg-desktop-portal-umbriel ==="
-if [ -z "$DEPS" ]; then
-  echo "ERROR: dpkg-shlibdeps resolved an EMPTY Depends"
-  exit 1
-fi
+echo "=== Resolved Depends: ${DEPS} ==="
+# Adding recommended deps
+DEPS="${DEPS}, xwayland-satellite"
 set +u
 
 echo "Writing control file and building .deb..."
-# Set formatting like 0.0.0+git20240401.abcdefg.1~devuandepot
-DATE_STR=$(date -u +%Y%m%d)
-VERSION="0.1.0+git${DATE_STR}.${RUN_NUMBER}.${SHORT_SHA}~devuandepot"
+VERSION="${LATEST_TAG#v}.$(date -u +%Y%m%d).${RUN_NUMBER}~devuandepot"
 echo "VERSION=${VERSION}"
 
 cat > pkgroot/DEBIAN/control <<CTRL
@@ -95,35 +66,12 @@ Section: x11
 Priority: optional
 Architecture: amd64
 Depends: ${DEPS}
-Recommends: xwayland-satellite, xdg-desktop-portal-umbriel
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
-Description: Umbriel - A Wayland compositor designed for daily use
- Umbriel is a Wayland compositor designed for daily use, with scrolling and dwindle layouts, 
- per-output workspaces, window rules, blur, shadows, and fluid animations.
- It runs independently and can be paired with Noctalia.
+Description: A Wayland compositor built on wlroots.
+ Umbriel is a Wayland compositor built on wlroots.
+ Developed by the Noctalia project.
 CTRL
 
-cat > pkgroot/DEBIAN/postinst <<'POSTINST_EOF'
-#!/bin/sh
-set -e
-ldconfig
-if [ -x /usr/bin/update-desktop-database ]; then
-  update-desktop-database -q /usr/share/applications || true
-fi
-exit 0
-POSTINST_EOF
-
-cat > pkgroot/DEBIAN/postrm <<'POSTRM_EOF'
-#!/bin/sh
-set -e
-ldconfig
-if [ -x /usr/bin/update-desktop-database ]; then
-  update-desktop-database -q /usr/share/applications || true
-fi
-exit 0
-POSTRM_EOF
-
-chmod 755 pkgroot/DEBIAN/postinst pkgroot/DEBIAN/postrm
-
+chmod +x scripts/build-umbriel.sh || true
 dpkg-deb --build --root-owner-group pkgroot "umbriel_${VERSION}_amd64.deb"
 echo "Build finished successfully."
