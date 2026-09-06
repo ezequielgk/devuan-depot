@@ -26,7 +26,8 @@ else
 
 echo "Applying C++23 strict constness fix for libinput 1.26..."
 sed -i "s/configuredProfile->points.data()/const_cast<double*>(configuredProfile->points.data())/g" src/umbriel/src/server/server_events.cpp
-  LATEST_TAG="0.0.0~git$(git ls-remote https://github.com/noctalia-dev/umbriel.git HEAD | cut -c1-7)"
+  MESON_VER=$(curl -sL https://raw.githubusercontent.com/noctalia-dev/umbriel/main/meson.build | grep -oP "(?<=version: ')[^']+")
+  LATEST_TAG="${MESON_VER}+git$(date -u +%Y%m%d).$(git ls-remote https://github.com/noctalia-dev/umbriel.git HEAD | cut -c1-7)"
 fi
 # dummy comment to fix syntax https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
