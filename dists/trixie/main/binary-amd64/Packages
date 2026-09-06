@@ -1659,6 +1659,22 @@ Description: Umbriel - A Wayland compositor designed for daily use
  per-output workspaces, window rules, blur, shadows, and fluid animations.
  It runs independently and can be paired with Noctalia.
 
+Package: umbriel
+Version: 0.1.0+git20260906.c0dc6e6.20260906.60~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.23.0), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot), xwayland-satellite
+Filename: pool/main/umbriel_0.1.0+git20260906.c0dc6e6.20260906.60~devuandepot_amd64.deb
+Size: 905016
+MD5sum: 45db0d9304bea08c3a55db0344fc3274
+SHA1: 915ac2ac5e9ffa86ca6b5c9284cd6efd9dcef7b6
+SHA256: 6f9628593f98d6ab607e865de2c8ae3eb268df093baeadace209aab8298563cc
+Section: x11
+Priority: optional
+Description: A Wayland compositor built on wlroots.
+ Umbriel is a Wayland compositor built on wlroots.
+ Developed by the Noctalia project.
+
 Package: wayland-protocols
 Version: 1.49-1~devuandepot
 Architecture: all
