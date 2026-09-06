@@ -1626,6 +1626,22 @@ Description: Umbriel - A Wayland compositor designed for daily use
  It runs independently and can be paired with Noctalia.
 
 Package: umbriel
+Version: 0.0.0~gitc0dc6e6.20260906.58~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libdrm2 (>= 2.4.113), libegl1, libgbm1 (>= 7.11~1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.23.0), libjemalloc2 (>= 5.0.0), liblcms2-2 (>= 2.6), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libpixman-1-0 (>= 0.44.0), libstdc++6 (>= 13), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-server0 (>= 1.23.0), libxkbcommon0 (>= 0.8.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot), xwayland-satellite
+Filename: pool/main/umbriel_0.0.0~gitc0dc6e6.20260906.58~devuandepot_amd64.deb
+Size: 905600
+MD5sum: 4f16acadffc5c1d32ee1960af726a486
+SHA1: 2db66f105ff4b12bfef79bd7ce2a6ba85341bbfa
+SHA256: 30395fab1de0929e8e8d69fea35d2497ff4a735433c30fe679d7ab9c01a28ff5
+Section: x11
+Priority: optional
+Description: A Wayland compositor built on wlroots.
+ Umbriel is a Wayland compositor built on wlroots.
+ Developed by the Noctalia project.
+
+Package: umbriel
 Version: 0.1.0+git20260821.36.8f542ee~devuandepot
 Architecture: amd64
 Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
