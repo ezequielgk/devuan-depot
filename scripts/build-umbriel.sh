@@ -17,9 +17,15 @@ echo "Obtained latest version: $LATEST_TAG"
 echo "Cloning umbriel..."
 if [ -n "$LATEST_TAG" ]; then
   git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+
+echo "Applying C++23 strict constness fix for libinput 1.26..."
+sed -i "s/configuredProfile->points.data()/const_cast<double*>(configuredProfile->points.data())/g" src/umbriel/src/server/server_events.cpp
 else
   echo "No tag found. Cloning main branch..."
   git clone --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+
+echo "Applying C++23 strict constness fix for libinput 1.26..."
+sed -i "s/configuredProfile->points.data()/const_cast<double*>(configuredProfile->points.data())/g" src/umbriel/src/server/server_events.cpp
   LATEST_TAG="0.0.0~git$(git ls-remote https://github.com/noctalia-dev/umbriel.git HEAD | cut -c1-7)"
 fi
 # dummy comment to fix syntax https://github.com/noctalia-dev/umbriel.git src/umbriel
