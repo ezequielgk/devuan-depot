@@ -45,6 +45,7 @@ DESTDIR=$PWD/../../pkgroot ninja -C build-release install
 cd ../..
 
 echo "Resolving shlib dependencies..."
+mkdir -p debian
 cat > debian/control <<CTRLSTUB
 Source: umbriel
 Section: x11
