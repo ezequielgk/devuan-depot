@@ -15,7 +15,14 @@ fi
 
 echo "Obtained latest version: $LATEST_TAG"
 echo "Cloning umbriel..."
-git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+if [ -n "$LATEST_TAG" ]; then
+  git clone --branch "$LATEST_TAG" --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+else
+  echo "No tag found. Cloning main branch..."
+  git clone --depth 1 https://github.com/noctalia-dev/umbriel.git src/umbriel
+  LATEST_TAG="0.0.0~git$(git ls-remote https://github.com/noctalia-dev/umbriel.git HEAD | cut -c1-7)"
+fi
+# dummy comment to fix syntax https://github.com/noctalia-dev/umbriel.git src/umbriel
 cd src/umbriel
 
 echo "Compiling umbriel..."
