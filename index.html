@@ -279,6 +279,12 @@
             padding: 0.7rem 1rem;
             border-bottom: 1px solid var(--border);
             align-items: center;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .pkg-row:hover {
+            background: #231f1a;
         }
 
         .pkg-row:last-child {
@@ -503,13 +509,27 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
             }
 
             list.innerHTML = filtered.map(p => `
-        <div class="pkg-row">
+        <div class="pkg-row" data-pkg="${p.Package || ''}" title="Click to select this package">
           <span class="pkg-name">${p.Package || '?'}</span>
           <span class="pkg-status status-ok">${p.Version || ''}</span>
           <span></span>
           <span class="pkg-desc">${p.Description || ''}</span>
         </div>
       `).join('');
+
+            list.querySelectorAll('.pkg-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    const name = row.getAttribute('data-pkg');
+                    if (name) selectPackage(name);
+                });
+            });
+        }
+
+        function selectPackage(name) {
+            const typedPkg = document.getElementById('typed-pkg');
+            const cmdEl = document.getElementById('install-cmd');
+            if (typedPkg) typedPkg.textContent = name;
+            if (cmdEl) cmdEl.innerHTML = `sudo apt update\nsudo apt install ${name}<span class="cursor"></span>`;
         }
 
         async function loadPackages() {
@@ -567,11 +587,28 @@ sudo apt install &lt;package&gt;<span class="cursor"></span></pre>
                     renderPackages();
                 });
 
-                // Usa el primer paquete que no sea una librería (backport) para los ejemplos de código
-                const first = allPackages.find(p => !(p.Package.startsWith('lib') || p.Package.startsWith('wayland')));
-                if (first) {
-                    typedPkg.textContent = first.Package;
-                    cmdEl.innerHTML = cmdEl.innerHTML.replace(/&lt;package&gt;/g, first.Package);
+                // Selecciona un paquete aleatorio (que no sea librería ni dev/dbgsym) para el ejemplo interactivo
+                const showcasePackages = allPackages.filter(p => {
+                    const name = p.Package || '';
+                    return !(
+                        name.startsWith('lib') ||
+                        name.startsWith('wayland1') ||
+                        name.startsWith('wayland-protocols') ||
+                        name.endsWith('-dev') ||
+                        name.endsWith('-dbgsym') ||
+                        name.endsWith('-doc') ||
+                        name.endsWith('-common') ||
+                        name.endsWith('-bin')
+                    );
+                });
+
+                const selected = showcasePackages.length > 0
+                    ? showcasePackages[Math.floor(Math.random() * showcasePackages.length)]
+                    : (allPackages[0] || { Package: 'niri' });
+
+                if (selected && selected.Package) {
+                    typedPkg.textContent = selected.Package;
+                    cmdEl.innerHTML = `sudo apt update\nsudo apt install ${selected.Package}<span class="cursor"></span>`;
                 }
             } catch (e) {
                 list.innerHTML = '<div class="pkg-row"><span class="pkg-desc" style="grid-column:1/-1;">Could not load package list yet.</span></div>';
