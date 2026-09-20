@@ -2,7 +2,7 @@
 
 Personal APT repository for Devuan 6 (Debian 13-based). Built by GitHub Actions from source.
 
-**Famous Packages:** Niri, SwayFX, Gamescope, Foot, wlroots, xwayland-satellite
+**Famous Packages:** Niri, SwayFX, Gamescope, Foot, wlroots, xwayland-satellite, Umbriel, Noctalia, Mangowc
 
 [![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ezequielgk.github.io/devuan-depot/)
 
@@ -10,7 +10,8 @@ Personal APT repository for Devuan 6 (Debian 13-based). Built by GitHub Actions 
 
 ```bash
 curl -fsSL https://ezequielgk.github.io/devuan-depot/public.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/devuan-depot.gpg
+  | sudo gpg --dearmor --yes -o /usr/share/keyrings/devuan-depot.gpg
+sudo chmod 644 /usr/share/keyrings/devuan-depot.gpg
 
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/devuan-depot.gpg] https://ezequielgk.github.io/devuan-depot trixie main" \
   | sudo tee /etc/apt/sources.list.d/devuan-depot.list
