@@ -1,0 +1,13 @@
+{
+  "script": "build-jdownloader2-appimage.sh",
+  "base_apt_packages": [
+    "curl", "jq", "wget", "unzip", "imagemagick", "ca-certificates"
+  ],
+  "variants": [
+    {
+      "artifact_suffix": "jdownloader2",
+      "extra_apt_packages": [],
+      "env": {}
+    }
+  ]
+}

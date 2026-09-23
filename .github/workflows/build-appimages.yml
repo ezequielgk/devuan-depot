@@ -8,6 +8,7 @@ on:
         type: choice
         options:
           - opentabletdriver
+          - jdownloader2
           # Agregar acá una linea por paquete nuevo.
           # El resto de la config vive en scripts/meta/appimages/<paquete>.json
           # y scripts/build-<paquete>-appimage.sh
