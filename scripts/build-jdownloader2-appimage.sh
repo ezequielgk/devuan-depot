@@ -9,15 +9,8 @@ echo "=== Creando estructura del AppDir ==="
 APPDIR="${WORKDIR}/AppDir"
 mkdir -p "$APPDIR/opt/jdownloader"
 
-echo "=== Descargando JDownloader.jar (Updater oficial) ==="
-curl -sL "https://installer.jdownloader.org/JDownloader.jar" -o "$APPDIR/opt/jdownloader/JDownloader.jar"
-
-echo "=== Extrayendo icono para el AppImage ==="
-unzip -p "$APPDIR/opt/jdownloader/JDownloader.jar" "themes/standard/org/jdownloader/images/updatericon.png" > "$APPDIR/jdownloader.png" || true
-if [ ! -s "$APPDIR/jdownloader.png" ]; then
-    echo "Descargando icono alternativo..."
-    curl -sL "https://upload.wikimedia.org/wikipedia/commons/4/43/Jdownloader.png" -o "$APPDIR/jdownloader.png"
-fi
+# Pre-instalando entorno de JDownloader2 en la nube (Para que el usuario no tenga que lidiar con
+# descargar 100MB en su primera corrida ni sufrir errores de TLS con el servidor viejo)
 
 echo "=== Descargando entorno Java (OpenJDK JRE 17) ==="
 # Consultar API oficial de Adoptium para obtener el link de descarga exacto
@@ -48,6 +41,22 @@ curl --fail --silent --show-error --location --retry 3 --retry-all-errors "$JRE_
 mkdir -p "$APPDIR/opt/jre"
 tar -xzf jre.tar.gz -C "$APPDIR/opt/jre" --strip-components=1
 
+echo "=== Bootstrap de librerias completas usando el instalador oficial ==="
+curl -sSL "https://installer.jdownloader.org/JD2Setup_x64.sh" -o setup.sh
+# El instalador detectara el java del path o lo traera internamente, logramos un setup silencioso
+sh setup.sh -q -dir "$APPDIR/opt/jdownloader" || true
+rm -f setup.sh
+# Limpieza de exceso del instalador (basura, jre propietario, uninstaller)
+rm -rf "$APPDIR/opt/jdownloader/java" "$APPDIR/opt/jdownloader/jre" "$APPDIR/opt/jdownloader/Uninstall"*
+
+
+echo "=== Extrayendo icono AHORA que ya tenemos los themes (Fallback si updatericon no esta) ==="
+unzip -p "$APPDIR/opt/jdownloader/JDownloader.jar" "themes/standard/org/jdownloader/images/updatericon.png" > "$APPDIR/jdownloader.png" || true
+if [ ! -s "$APPDIR/jdownloader.png" ]; then
+    cp "$APPDIR/opt/jdownloader/themes/standard/org/jdownloader/images/logo/jd_logo_256_256.png" "$APPDIR/jdownloader.png" 2>/dev/null || \
+    curl -sL "https://upload.wikimedia.org/wikipedia/commons/4/43/Jdownloader.png" -o "$APPDIR/jdownloader.png"
+fi
+
 echo "=== Creando jdownloader.desktop ==="
 cat << 'INNER_EOF' > "$APPDIR/jdownloader.desktop"
 [Desktop Entry]
@@ -72,7 +81,8 @@ DATA_DIR="$HOME/.local/share/JDownloader2"
 mkdir -p "$DATA_DIR"
 
 if [ ! -f "$DATA_DIR/JDownloader.jar" ]; then
-    cp "$HERE/opt/jdownloader/JDownloader.jar" "$DATA_DIR/"
+    echo "Primera corrida: copiando bibliotecas pre-compiladas de JDownloader en $DATA_DIR..."
+    cp -rn "$HERE/opt/jdownloader/"* "$DATA_DIR/"
 fi
 
 cd "$DATA_DIR"
