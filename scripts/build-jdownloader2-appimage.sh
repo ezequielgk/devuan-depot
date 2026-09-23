@@ -20,15 +20,30 @@ if [ ! -s "$APPDIR/jdownloader.png" ]; then
 fi
 
 echo "=== Descargando entorno Java (OpenJDK JRE 17) ==="
-JRE_URL=$(curl -sL "https://api.github.com/repos/adoptium/temurin17-binaries/releases/latest" \
-  | jq -r '.assets[] | select(.name | test("jre_linux_x64_linux_hotspot_.*\\.tar\\.gz$")) | .browser_download_url' | head -1)
+# Consultar API oficial de Adoptium para obtener el link de descarga exacto
+JRE_API_URL="https://api.adoptium.net/v3/assets/latest/17/hotspot"
 
-if [ -z "$JRE_URL" ]; then
-    echo "ERROR: no se pudo obtener link al JRE"
-    exit 1
+# Identificar arquitectura real
+case "$(uname -m)" in
+  x86_64)  ADOPTIUM_ARCH=x64 ;;
+  aarch64) ADOPTIUM_ARCH=aarch64 ;;
+  *) echo "ERROR: Arquitectura no soportada: $(uname -m)" >&2; exit 1 ;;
+esac
+
+echo "Consultando API para ${ADOPTIUM_ARCH}..."
+API_RESPONSE="$(curl --fail --silent --show-error --location --retry 3 "${JRE_API_URL}?architecture=${ADOPTIUM_ARCH}&image_type=jre&os=linux&vendor=eclipse")"
+
+JRE_URL="$(jq -r '.[0].binary.package.link // empty' <<< "$API_RESPONSE")"
+
+if [[ -z "$JRE_URL" || "$JRE_URL" == "null" ]]; then
+  echo "ERROR: Adoptium no devolvio un enlace para el JRE 17 x64 de Linux" >&2
+  echo "==== API RESPONSE DEBUG ===="
+  echo "$API_RESPONSE" | jq '.' >&2
+  exit 1
 fi
 echo "JRE URL: ${JRE_URL}"
-curl -sL "$JRE_URL" -o jre.tar.gz
+
+curl --fail --silent --show-error --location --retry 3 --retry-all-errors "$JRE_URL" --output jre.tar.gz
 
 mkdir -p "$APPDIR/opt/jre"
 tar -xzf jre.tar.gz -C "$APPDIR/opt/jre" --strip-components=1
