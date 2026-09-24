@@ -4,7 +4,7 @@
   "base_apt_packages": [
     "file", "dpkg-dev", "git", "curl", "jq", "ca-certificates",
     "meson", "g++", "greetd", "dbus",
-    "libwayland-dev", "wayland-protocols", "libwlroots-0.20-dev",
+    "libwayland-dev", "wayland-protocols", "wlroots0.20",
     "libegl-dev", "libgles-dev",
     "libfreetype-dev", "libfontconfig-dev",
     "libcairo2-dev", "libpango1.0-dev", "libharfbuzz-dev",
