@@ -4,7 +4,7 @@
   "base_apt_packages": [
     "file", "dpkg-dev", "git", "curl", "jq", "ca-certificates",
     "meson", "g++", "greetd", "dbus",
-    "libwayland-dev", "wayland-protocols", "wlroots0.20",
+    "libwayland-dev", "wayland-protocols", "wlroots0.20", "pkg-config", "cmake", "libdrm-dev", "libgbm-dev", "libinput-dev", "libseat-dev", "libxcb-dri3-dev", "libxcb-present-dev", "libxcb-res0-dev", "libxcb-render-util0-dev", "libxcb-ewmh-dev", "libxcb-icccm4-dev", "libliftoff-dev", "libdisplay-info-dev", "liblcms2-dev", "libpixman-1-dev", "libudev-dev", "libxcb-composite0-dev", "libxcb-xfixes0-dev", "libxcb-errors-dev", "libxcb1-dev", "libxcb-render0-dev", "libxcb-image0-dev", "libx11-xcb-dev", "libxcb-cursor-dev", "libvulkan-dev",
     "libegl-dev", "libgles-dev",
     "libfreetype-dev", "libfontconfig-dev",
     "libcairo2-dev", "libpango1.0-dev", "libharfbuzz-dev",
