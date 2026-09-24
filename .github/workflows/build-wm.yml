@@ -14,6 +14,7 @@ on:
           - scroll
           - noctalia
           - noctalia-greeter
+          - greetd
           - umbriel
           - labwc
 
