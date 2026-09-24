@@ -104,6 +104,22 @@ Description: Manage AppImages with ease
  GearLever integrates AppImages into your app menu, handles updates
  and keeps them organized.
 
+Package: greetd
+Version: 0.10.3.20260924.72~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libpam0g (>= 0.99.7.1), runit
+Filename: pool/main/greetd_0.10.3.20260924.72~devuandepot_amd64.deb
+Size: 392956
+MD5sum: b5f862b261eb157f1da925c1b830bb10
+SHA1: 94e0f881787e714761af9b9290b1ffa1b95051e2
+SHA256: 724e5108561a37640f2b8736a96710c5cb05d9bdc8e45e81d8a2df911f25677c
+Section: admin
+Priority: optional
+Description: greetd - minimal and flexible login manager daemon
+ greetd is a minimal and flexible login manager daemon that makes no
+ assumptions about what you want to launch. Specially tailored for Runit.
+
 Package: helium-bin
 Version: 0.14.9.1-1~devuandepot
 Architecture: amd64
