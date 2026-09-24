@@ -53,4 +53,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pool/ dists/
           git commit -m "chore(repo): force regenerate indices to fix Release headers" || echo "No changes to commit"
-          git push
+          for i in {1..5}; do
+            git pull --rebase origin gh-pages || true
+            git push origin gh-pages && exit 0
+            sleep $((RANDOM % 5 + 5))
+          done
+          echo "Failed to push after 5 attempts"
+          exit 1

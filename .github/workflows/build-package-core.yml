@@ -160,4 +160,10 @@ jobs:
           if [ -z "$PKG_NAMES" ]; then PKG_NAMES="${{ inputs.package }}"; fi
           
           git commit -m "chore(repo): add/update ${PKG_NAMES}" || echo "No changes to commit"
-          git push
+          for i in {1..5}; do
+            git pull --rebase origin gh-pages || true
+            git push origin gh-pages && exit 0
+            sleep $((RANDOM % 5 + 5))
+          done
+          echo "Failed to push after 5 attempts"
+          exit 1
