@@ -1505,6 +1505,21 @@ Description: Noctalia - A native Wayland desktop shell
  configurable Linux desktop without stitching together a separate bar,
  launcher, notification daemon, lock screen, wallpaper tool, and settings UI.
 
+Package: noctalia-greeter
+Version: 1.5.0.20260924.71~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libegl1, libfontconfig1 (>= 2.12.6), libfreetype6 (>= 2.2.1), libgcc-s1 (>= 4.3), libgles2, libglib2.0-0t64 (>= 2.26.0), libinput10 (>= 1.5.0), libpango-1.0-0 (>= 1.44.6), libpangocairo-1.0-0 (>= 1.14.0), libpangoft2-1.0-0 (>= 1.37.2), librsvg2-2 (>= 2.52.5), libstdc++6 (>= 14), libtomlplusplus3t64 (>= 3.2.0), libwayland-client0 (>= 1.20.0), libwayland-egl1 (>= 1.15.0), libwayland-server0 (>= 1.14.91), libwebp7 (>= 1.5.0), libxkbcommon0 (>= 0.5.0), libxml2 (>= 2.7.4), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot), greetd
+Filename: pool/main/noctalia-greeter_1.5.0.20260924.71~devuandepot_amd64.deb
+Size: 1980160
+MD5sum: 0156dc2cc7ba02ceb3d0a47102da027a
+SHA1: 0ae6a1a107c6348bbe35d2f9939701e5d9d58fd2
+SHA256: 3d38e217a051d8086b69bfb56fe541f298791cbce5086da2a654b83ccddc34fe
+Section: x11
+Priority: optional
+Description: A minimal login greeter for greetd that matches Noctalia Shell
+ A minimal login greeter for greetd that matches the look and feel of Noctalia Shell.
+
 Package: portproton
 Version: 1.7.5
 Architecture: amd64
