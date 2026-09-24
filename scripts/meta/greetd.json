@@ -2,7 +2,7 @@
   "script": "build-greetd.sh",
   "needs_devuan_depot_repo": false,
   "base_apt_packages": [
-    "cargo", "rustc", "pkg-config", "git", "dpkg-dev", "jq", "curl", "libpam0g-dev"
+    "file", "cargo", "rustc", "pkg-config", "git", "dpkg-dev", "jq", "curl", "libpam0g-dev"
   ],
   "variants": [
     {
