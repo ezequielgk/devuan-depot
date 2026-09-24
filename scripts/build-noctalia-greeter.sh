@@ -4,8 +4,7 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
 echo "Getting latest Noctalia Greeter release..."
-RELEASE_JSON=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/noctalia-greeter/releases/latest)
-LATEST_TAG=$(echo "$RELEASE_JSON" | jq -r '.tag_name')
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/noctalia-dev/noctalia-greeter/tags | jq -r '.[0].name')
 
 if [ "$LATEST_TAG" = "null" ] || [ -z "$LATEST_TAG" ]; then
     echo "ERROR: Failed to fetch latest release tag"
