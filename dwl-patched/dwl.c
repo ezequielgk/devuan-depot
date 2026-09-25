@@ -3204,7 +3204,7 @@ updatetitle(struct wl_listener *listener, void *data)
 	if (c->foreign_toplevel) {
 		const char *title;
 		if (!(title = client_get_title(c)))
-			title = broken;
+			title = "broken";
 		wlr_foreign_toplevel_handle_v1_set_title(c->foreign_toplevel, title);
 	}
 	if (c == focustop(c->mon))
