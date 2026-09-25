@@ -65,7 +65,7 @@ jobs:
           
           sed -i '/uint32_t button;/i \tunsigned int click;' dwl.c
           
-          sed -i '/{ WLR_MODIFIER/s/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
+          sed -i 's/{ WLR_MODIFIER_LOGO, BTN_/{ 0, WLR_MODIFIER_LOGO, BTN_/g' config.def.h\n          sed -i 's/{ WLR_MODIFIER_LOGO, 0,/{ 0, WLR_MODIFIER_LOGO, 0,/g' config.def.h
           cp config.def.h config.h
 
       - name: Trigger Clean Compiler Run
