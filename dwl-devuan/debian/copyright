@@ -1,0 +1,16 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: dwl
+Upstream-Contact: https://codeberg.org/dwl/dwl
+Source: https://codeberg.org/dwl/dwl
+
+Files: *
+Copyright: dwl contributors
+License: MIT
+
+Files: debian/*
+Copyright: 2026 Ezequiel
+License: MIT
+
+License: MIT
+ Ver LICENSE y LICENSE.dwm en el árbol fuente upstream para el texto
+ completo de la licencia MIT/X11 aplicable.

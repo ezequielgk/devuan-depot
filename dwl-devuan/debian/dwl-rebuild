@@ -1,0 +1,47 @@
+#!/bin/sh
+# dwl-rebuild — reconstruye dwl usando /etc/dwl/config.h y lo instala
+# como /usr/bin/dwl. Pensado para correr como root (o vía sudo/doas).
+#
+# Uso manual:
+#   sudo dwl-rebuild
+#
+# También lo dispara automáticamente el servicio runit
+# dwl-config-watch cuando detecta un guardado en /etc/dwl/config.h.
+
+set -e
+
+SRC_DIR="/usr/src/dwl-devuan"
+CONF="/etc/dwl/config.h"
+BIN_OUT="/usr/bin/dwl"
+LOCK="/run/lock/dwl-rebuild.lock"
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "dwl-rebuild: necesita correr como root." >&2
+    exit 1
+fi
+
+if [ ! -f "$CONF" ]; then
+    echo "dwl-rebuild: no existe $CONF, nada para hacer." >&2
+    exit 1
+fi
+
+mkdir -p /run/lock
+exec 9>"$LOCK"
+flock -n 9 || { echo "dwl-rebuild: ya hay una reconstrucción en curso." >&2; exit 1; }
+
+echo "dwl-rebuild: copiando $CONF -> $SRC_DIR/config.h"
+cp "$CONF" "$SRC_DIR/config.h"
+
+echo "dwl-rebuild: compilando..."
+cd "$SRC_DIR"
+make clean >/tmp/dwl-rebuild.log 2>&1 || true
+if ! make >>/tmp/dwl-rebuild.log 2>&1; then
+    echo "dwl-rebuild: FALLÓ la compilación. Ver /tmp/dwl-rebuild.log" >&2
+    echo "dwl-rebuild: el binario en $BIN_OUT NO fue tocado (sigue siendo el anterior válido)." >&2
+    exit 1
+fi
+
+echo "dwl-rebuild: instalando binario nuevo en $BIN_OUT"
+install -m 755 "$SRC_DIR/dwl" "$BIN_OUT"
+
+echo "dwl-rebuild: listo. Los cambios aplican la próxima vez que se inicie dwl."

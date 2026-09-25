@@ -1,0 +1,3 @@
+debian/dwl-rebuild usr/sbin
+debian/runit/dwl-config-watch etc/sv
+config.def.h usr/share/dwl-devuan/

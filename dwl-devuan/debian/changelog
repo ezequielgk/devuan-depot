@@ -1,0 +1,8 @@
+dwl-devuan (0.9-1) unstable; urgency=medium
+
+  * Empaquetado inicial para Devuan.
+  * dwl v0.9 (codeberg.org/dwl/dwl) + parche ipc de dwl-patches.
+  * config.h externo en /etc/dwl/config.h, con dwl-rebuild manual y
+    servicio runit dwl-config-watch para reconstrucción automática.
+
+ -- Ezequiel <ezequielgk@example.invalid>  Thu, 24 Sep 2026 12:00:00 -0300
