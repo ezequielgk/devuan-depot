@@ -34,35 +34,44 @@ jobs:
           sed -i '/static const float fullscreen_bg\[\]/i static uint32_t colors[][3] = {\n\t[SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },\n\t[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },\n\t[SchemeUrg]  = { 0, 0, 0x770000ff },\n};\n' config.def.h
           sed -i 's/#define TAGCOUNT (9)/static char \*tags\[\] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };/g' config.def.h
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
-          cp config.def.h config.h
 
       - name: Fix Hunk 1 Compilation errors in core
         run: |
           cd dwl-test
           
           # Hunk 1 fix: inyectamos los enums (SchemeNorm, etc.) en dwl.c ANTES del bloque config.h
-          # Porque config.def.h llama a [SchemeSel] como clave de su array
           sed -i '/#include "util.h"/i enum { SchemeNorm, SchemeSel, SchemeUrg }; \/\* color schemes \*\/\n' dwl.c
           
           # Fix TAGCOUNT usage
           sed -i 's/(1u << TAGCOUNT)/(1u << LENGTH(tags))/g' dwl.c
           
           # Replace focuscolor, bordercolor, urgentcolor safely everywhere
-          sed -i 's/focuscolor/(float[])COLOR(colors[SchemeSel][2])/g' dwl.c
-          sed -i 's/bordercolor/(float[])COLOR(colors[SchemeNorm][2])/g' dwl.c
-          sed -i 's/urgentcolor/(float[])COLOR(colors[SchemeUrg][2])/g' dwl.c
+          sed -i 's/focuscolor/(float\[\])COLOR(colors[SchemeSel][2])/g' dwl.c
+          sed -i 's/bordercolor/(float\[\])COLOR(colors[SchemeNorm][2])/g' dwl.c
+          sed -i 's/urgentcolor/(float\[\])COLOR(colors[SchemeUrg][2])/g' dwl.c
 
-      - name: Trigger Clean Compiler Run
+      - name: Introduce Hunks 1 to 4 from dwl.c for Bar structure
         run: |
           cd dwl-test
-          echo "==== STARTING COMPILER RUN ===="
-          make || exit 1
-          
           # Hunk 1-4 de dwl.c (Imports, Enums y Defines)
           sed -i '/#include "util.h"/i #include "drwl.h"\n' dwl.c
           sed -i '/#include <math.h>/a #include <libdrm/drm_fourcc.h>\n#include <fcntl.h>' dwl.c
           sed -i '/#define TAGMASK/i #define TEXTW(mon, text)        (drwl_font_getwidth(mon->drw, text) + mon->lrpad)' dwl.c
           sed -i '/enum { XDGShell/i enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */' dwl.c
           
-          # Agregar argumento del click en Button
-          sed -i '/unsigned int button;/i \tunsigned int click;' dwl.c
+          # Agregar argumento del click en Button structure de Arg
+          sed -i '/unsigned int mod;/i \tunsigned int click;' dwl.c
+          
+          # Refactor config.def.h to match the new struct Button layout:
+          # V0.9 default: { WLR_MODIFIER_LOGO, BTN_LEFT, moveresize, {.ui = CurMove} }
+          # New expected: { 0, WLR_MODIFIER_LOGO, BTN_LEFT, moveresize, {.ui = CurMove} }
+          sed -i 's/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
+          
+          # Build final config.h
+          cp config.def.h config.h
+
+      - name: Trigger Clean Compiler Run
+        run: |
+          cd dwl-test
+          echo "==== STARTING COMPILER RUN ===="
+          make || exit 1
