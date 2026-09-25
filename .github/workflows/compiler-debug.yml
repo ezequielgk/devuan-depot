@@ -35,14 +35,13 @@ jobs:
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
 
       - name: Fetch drwl files from drwl repository
-      - name: Fetch drwl files from drwl repository
         run: |
           cd dwl-test
           # Clonamos los parches oficiales para extraer drwl.h
           git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
           # Como drwl.h se empaqueta nuevo (create mode) y aplica 100% sin conflictos,
           # lo extraemos inyectando el diff con patch.
-          patch -p1 < ../patches/patches/bar/bar.patch || true
+          git apply --include=drwl.h ../patches/patches/bar/bar.patch || true
           
           # Restauramos el makefile de dwl.c a su estado antes del bar para que pase, ya que reviví un espejismo de drwl.o
           git checkout Makefile
