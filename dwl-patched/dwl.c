@@ -426,19 +426,6 @@ static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
 static void setup(void);
 
-static int test_pertag_cb(void *data) {
-    if (!selmon) return 0;
-    fprintf(stderr, "=== PERTAG TEST ===\n");
-    fprintf(stderr, "DEBUG: Tag 1 layout: %s\n", selmon->lt[selmon->sellt]->symbol);
-    view(&((Arg){.ui = 2})); 
-    setlayout(&((Arg){.v = &layouts[2]})); // monocle
-    fprintf(stderr, "DEBUG: Tag 2 layout: %s\n", selmon->lt[selmon->sellt]->symbol);
-    view(&((Arg){.ui = 1}));
-    fprintf(stderr, "DEBUG: Back to Tag 1 layout: %s\n", selmon->lt[selmon->sellt]->symbol);
-    fprintf(stderr, "===================\n");
-    return 0;
-}
-
 static void spawn(const Arg *arg);
 static void startdrag(struct wl_listener *listener, void *data);
 static int statusin(int fd, unsigned int mask, void *data);
