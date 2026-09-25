@@ -17,6 +17,7 @@ on:
           - greetd
           - umbriel
           - labwc
+          - dwl
 
 permissions:
   contents: write
