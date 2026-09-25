@@ -69,7 +69,7 @@ jobs:
           sed -i 's/{ WLR_MODIFIER_LOGO, 0,/{ 0, WLR_MODIFIER_LOGO, 0,/g' config.def.h
           cp config.def.h config.h
 
-- name: Introduce Hunk 5 (Monitor fields and bar declarations)
+      - name: Introduce Hunk 5 (Monitor fields and bar declarations)
         run: |
           cd dwl-test
           sed -i '/struct wl_list layers\[4\];/a \tstruct wl_listener m_frame;\n\tDrwl *drw;\n\tint showbar;\n\tint topbar;\n\tstruct wlr_texture *bar_texture;' dwl.c
