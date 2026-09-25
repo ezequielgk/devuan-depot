@@ -39,16 +39,16 @@ jobs:
           mkdir -p dwl-test/protocols
           cp dwl-patched/protocols/wlr-foreign-toplevel-management-unstable-v1.xml dwl-test/protocols/
           
-      - name: Compile C Code
+      - name: Compile and Test Headless Render
         run: |
           cd dwl-test
-          echo "==== STARTING COMPILER RUN ===="
-          make > ../make.log 2>&1 || true
+          make > ../make.log 2>&1
+          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -d -s 'foot -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless-ftm.log 2>&1 || true
           cd ..
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
           git pull origin patched-ftm
-          git add make.log
-          git commit -m "Upload make log 2"
+          git add dwl-headless-ftm.log
+          git commit -m "Upload headless ftm log 3"
           git push origin patched-ftm
