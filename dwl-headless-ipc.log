@@ -7,21 +7,19 @@
 00:00:00.000 [INFO] [render/pixman/renderer.c:328] Creating pixman renderer
 00:00:00.000 [DEBUG] [render/allocator/allocator.c:132] Trying to create shm allocator
 00:00:00.000 [DEBUG] [render/allocator/shm.c:119] Created shm allocator
-00:00:00.011 [INFO] [backend/headless/backend.c:17] Starting headless backend
-00:00:00.011 [DEBUG] [types/output/render.c:123] Attaching empty buffer to output for modeset
-00:00:00.011 [DEBUG] [types/output/swapchain.c:27] Choosing primary buffer format XR24 (0x34325258) for output 'HEADLESS-1'
-00:00:00.011 [DEBUG] [types/output/swapchain.c:96] Testing swapchain for output 'HEADLESS-1'
-00:00:00.011 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
-00:00:00.011 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 1280x720
-00:00:00.015 [DEBUG] [xcursor/wlr_xcursor.c:233] Loaded cursor theme 'default' at size 24 (26 available cursors)
-00:00:00.015 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
-00:00:00.015 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 10x16
+00:00:00.009 [INFO] [backend/headless/backend.c:17] Starting headless backend
+00:00:00.009 [DEBUG] [types/output/render.c:123] Attaching empty buffer to output for modeset
+00:00:00.009 [DEBUG] [types/output/swapchain.c:27] Choosing primary buffer format XR24 (0x34325258) for output 'HEADLESS-1'
+00:00:00.009 [DEBUG] [types/output/swapchain.c:96] Testing swapchain for output 'HEADLESS-1'
+00:00:00.009 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
+00:00:00.009 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 1280x720
+00:00:00.012 [DEBUG] [xcursor/wlr_xcursor.c:233] Loaded cursor theme 'default' at size 24 (26 available cursors)
+00:00:00.012 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
+00:00:00.012 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 10x16
 warn: main.c:437: 'C' is not a UTF-8 locale, falling back to 'C.UTF-8'
 warn: wayland.c:1734: compositor does not implement the XDG toplevel icon protocol
-00:00:00.028 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x559d478ffd20 (res 0x559d478ffc90)
-00:00:00.028 [DEBUG] [types/xdg_shell/wlr_xdg_surface.c:441] new xdg_surface 0x559d47849630 (res 0x559d47900330)
-00:00:00.028 [DEBUG] [types/wlr_xdg_decoration_v1.c:220] new xdg_toplevel_decoration 0x559d47900450 (res 0x559d479005a0)
-00:00:00.028 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x559d47900780 (res 0x559d47900b50)
-00:00:00.030 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out enabled
-00:00:00.046 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out disabled
-00:00:02.029 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out enabled
+00:00:00.023 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x55ff8f3827c0 (res 0x55ff8f382730)
+00:00:00.023 [DEBUG] [types/xdg_shell/wlr_xdg_surface.c:441] new xdg_surface 0x55ff8f2e2e80 (res 0x55ff8f382dd0)
+00:00:00.023 [DEBUG] [types/wlr_xdg_decoration_v1.c:220] new xdg_toplevel_decoration 0x55ff8f383110 (res 0x55ff8f383260)
+00:00:00.023 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x55ff8f383440 (res 0x55ff8f383810)
+00:00:02.023 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out enabled
