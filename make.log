@@ -10,16 +10,10 @@
 	protocols/wlr-output-power-management-unstable-v1.xml wlr-output-power-management-unstable-v1-protocol.h
 `pkg-config --variable=wayland_scanner wayland-scanner` server-header \
 	`pkg-config --variable=pkgdatadir wayland-protocols`/stable/xdg-shell/xdg-shell.xml xdg-shell-protocol.h
-cc dwl.c `pkg-config --cflags wayland-server xkbcommon libinput ` `pkg-config --cflags wlroots-0.20` -I. -DWLR_USE_UNSTABLE -D_POSIX_C_SOURCE=200809L  -DVERSION=\"`git describe --tags --dirty 2>/dev/null || echo 0.9-dev`\"   -g -Wpedantic -Wall -Wextra -Wdeclaration-after-statement  -Wno-unused-parameter -Wshadow -Wunused-macros -Werror=strict-prototypes  -Werror=implicit -Werror=return-type -Werror=incompatible-pointer-types  -Wfloat-conversion -O1  `pkg-config --libs wayland-server xkbcommon libinput ` `pkg-config --libs wlroots-0.20` -lm  -o dwl
-dwl.c: In function 'setup':
-dwl.c:2757:9: error: 'foreign_toplevel_mgr' undeclared (first use in this function); did you mean 'foreign_toplevel_list'?
- 2757 |         foreign_toplevel_mgr = wlr_foreign_toplevel_manager_v1_create(dpy);
-      |         ^~~~~~~~~~~~~~~~~~~~
-      |         foreign_toplevel_list
-dwl.c:2757:9: note: each undeclared identifier is reported only once for each function it appears in
-dwl.c: In function 'createforeigntoplevel':
-dwl.c:3448:69: error: 'foreign_toplevel_mgr' undeclared (first use in this function); did you mean 'foreign_toplevel_list'?
- 3448 |         c->foreign_toplevel = wlr_foreign_toplevel_handle_v1_create(foreign_toplevel_mgr);
-      |                                                                     ^~~~~~~~~~~~~~~~~~~~
-      |                                                                     foreign_toplevel_list
+cc dwl.c `pkg-config --cflags wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --cflags wlroots-0.20` -I. -DWLR_USE_UNSTABLE -D_POSIX_C_SOURCE=200809L  -DVERSION=\"`git describe --tags --dirty 2>/dev/null || echo 0.9-dev`\"   -g -Wpedantic -Wall -Wextra -Wdeclaration-after-statement  -Wno-unused-parameter -Wshadow -Wunused-macros -Werror=strict-prototypes  -Werror=implicit -Werror=return-type -Werror=incompatible-pointer-types  -Wfloat-conversion -O1  `pkg-config --libs wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --libs wlroots-0.20` -lm  -o dwl
+dwl.c: In function 'updatetitle':
+dwl.c:3207:33: error: 'broken' undeclared (first use in this function)
+ 3207 |                         title = broken;
+      |                                 ^~~~~~
+dwl.c:3207:33: note: each undeclared identifier is reported only once for each function it appears in
 make: *** [Makefile:24: dwl] Error 1
