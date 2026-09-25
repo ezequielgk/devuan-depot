@@ -27,19 +27,17 @@ jobs:
       - name: Set up DWL v0.9 source and Bar patch
         run: |
           git clone --branch v0.9 --depth 1 https://codeberg.org/dwl/dwl.git dwl-test
-          git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
           cd dwl-test
-          git apply --include=drwl.h ../../patches/patches/bar/bar.patch || true
-          git apply ../../.github/workflows/rebase_bar.patch || true
-          cp config.def.h config.h
+          git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
+          git apply --include=drwl.h ../patches/patches/bar/bar.patch || true
           
-      - name: Apply manual python script over FTM
+      - name: Inject patched files
         run: |
-          cp dwl-patched/patch_ftm.py dwl-test/
+          cp dwl-patched/dwl.c dwl-test/dwl.c
+          cp dwl-patched/config.def.h dwl-test/config.h
+          cp dwl-patched/Makefile dwl-test/Makefile
           mkdir -p dwl-test/protocols
           cp dwl-patched/protocols/wlr-foreign-toplevel-management-unstable-v1.xml dwl-test/protocols/
-          cd dwl-test
-          python3 patch_ftm.py
           
       - name: Compile C Code
         run: |
@@ -52,5 +50,5 @@ jobs:
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
           git pull origin patched-ftm
           git add make.log
-          git commit -m "Upload make log"
+          git commit -m "Upload make log 2"
           git push origin patched-ftm
