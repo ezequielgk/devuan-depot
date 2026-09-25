@@ -98,7 +98,7 @@ cd "$WORKDIR/.."
 
 mkdir -p dwl-devuan-0.9
 cp -r "$WORKDIR/dwl"/* dwl-devuan-0.9/
-cp "$MANIFEST" "dwl-devuan-0.9/PATCHES-APPLIED.txt"
+cp "../$MANIFEST" "dwl-devuan-0.9/PATCHES-APPLIED.txt"
 tar czf dwl-devuan_0.9.orig.tar.gz dwl-devuan-0.9
 rm -rf dwl-devuan-0.9
 
