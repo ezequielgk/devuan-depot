@@ -1,0 +1,65 @@
+diff --git a/config.def.h b/config.def.h
+index 13c5322..38941a1 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -34,6 +34,7 @@ static const Layout layouts[] = {
+ 	{ "[]=",      tile },
+ 	{ "><>",      NULL },    /* no layout function means floating behavior */
+ 	{ "[M]",      monocle },
++	{ "||",       col },
+ };
+ 
+ /* monitors */
+@@ -135,6 +136,7 @@ static const Key keys[] = {
+ 	{ MODKEY,                    XKB_KEY_t,           setlayout,        {.v = &layouts[0]} },
+ 	{ MODKEY,                    XKB_KEY_f,           setlayout,        {.v = &layouts[1]} },
+ 	{ MODKEY,                    XKB_KEY_m,           setlayout,        {.v = &layouts[2]} },
++	{ MODKEY,                    XKB_KEY_c,           setlayout,        {.v = &layouts[3]} },
+ 	{ MODKEY,                    XKB_KEY_space,       setlayout,        {0} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,       togglefloating,   {0} },
+ 	{ MODKEY,                    XKB_KEY_e,           togglefullscreen, {0} },
+diff --git a/dwl.c b/dwl.c
+index 4cfd0fd..67af0ea 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -275,6 +275,7 @@ static void cleanup(void);
+ static void cleanupmon(struct wl_listener *listener, void *data);
+ static void cleanuplisteners(void);
+ static void closemon(Monitor *m);
++static void col(Monitor *m);
+ static void commitlayersurfacenotify(struct wl_listener *listener, void *data);
+ static void commitnotify(struct wl_listener *listener, void *data);
+ static void commitpopup(struct wl_listener *listener, void *data);
+@@ -911,6 +912,33 @@ closemon(Monitor *m)
+ 	printstatus();
+ }
+ 
++void
++col(Monitor *m)
++{
++	Client *c;
++	unsigned int n = 0, i = 0;
++
++	wl_list_for_each(c, &clients, link)
++		if (VISIBLEON(c, m) && !c->isfloating && !c->isfullscreen)
++			n++;
++
++	wl_list_for_each(c, &clients, link) {
++		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
++			continue;
++		resize(
++			c,
++			(struct wlr_box){
++				.x = m->w.x + i * m->w.width / n,
++				.y = m->w.y,
++				.width = m->w.width / n,
++				.height = m->w.height
++			},
++			0
++		);
++		i++;
++	}
++}
++
+ void
+ commitlayersurfacenotify(struct wl_listener *listener, void *data)
