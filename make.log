@@ -1,0 +1,18 @@
+`pkg-config --variable=wayland_scanner wayland-scanner` enum-header \
+	`pkg-config --variable=pkgdatadir wayland-protocols`/staging/cursor-shape/cursor-shape-v1.xml cursor-shape-v1-protocol.h
+`pkg-config --variable=wayland_scanner wayland-scanner` enum-header \
+	`pkg-config --variable=pkgdatadir wayland-protocols`/staging/ext-image-copy-capture/ext-image-copy-capture-v1.xml ext-image-copy-capture-v1-protocol.h
+`pkg-config --variable=wayland_scanner wayland-scanner` enum-header \
+	`pkg-config --variable=pkgdatadir wayland-protocols`/unstable/pointer-constraints/pointer-constraints-unstable-v1.xml pointer-constraints-unstable-v1-protocol.h
+`pkg-config --variable=wayland_scanner wayland-scanner` enum-header \
+	protocols/wlr-layer-shell-unstable-v1.xml wlr-layer-shell-unstable-v1-protocol.h
+`pkg-config --variable=wayland_scanner wayland-scanner` server-header \
+	protocols/wlr-output-power-management-unstable-v1.xml wlr-output-power-management-unstable-v1-protocol.h
+`pkg-config --variable=wayland_scanner wayland-scanner` server-header \
+	`pkg-config --variable=pkgdatadir wayland-protocols`/stable/xdg-shell/xdg-shell.xml xdg-shell-protocol.h
+cc dwl.c `pkg-config --cflags wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --cflags wlroots-0.20` -I. -DWLR_USE_UNSTABLE -D_POSIX_C_SOURCE=200809L  -DVERSION=\"`git describe --tags --dirty 2>/dev/null || echo 0.9-dev`\"   -g -Wpedantic -Wall -Wextra -Wdeclaration-after-statement  -Wno-unused-parameter -Wshadow -Wunused-macros -Werror=strict-prototypes  -Werror=implicit -Werror=return-type -Werror=incompatible-pointer-types  -Wfloat-conversion -O1  `pkg-config --libs wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --libs wlroots-0.20` -lm  -o dwl
+dwl.c:85:10: fatal error: drwl.h: No such file or directory
+   85 | #include "drwl.h"
+      |          ^~~~~~~~
+compilation terminated.
+make: *** [Makefile:24: dwl] Error 1
