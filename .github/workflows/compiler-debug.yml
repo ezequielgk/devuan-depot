@@ -20,12 +20,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Prepare Base v0.9 (Pre-rebase scenario)
+      - name: Prepare Base v0.9
         run: |
           git clone --branch v0.9 --depth 1 https://codeberg.org/dwl/dwl.git dwl-test
           cd dwl-test
 
-          # Inyectamos UNICAMENTE la resolucion manual del Hunk 1 en config.def.h
           sed -i '/static const float bordercolor\[\]/d' config.def.h
           sed -i '/static const float focuscolor\[\]/d' config.def.h
           sed -i '/static const float urgentcolor\[\]/d' config.def.h
@@ -35,33 +34,26 @@ jobs:
           sed -i 's/#define TAGCOUNT (9)/static char \*tags\[\] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };/g' config.def.h
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
 
-      - name: Fix Hunk 1 Compilation errors in core
       - name: Fetch drwl files from drwl repository
         run: |
           cd dwl-test
-          # En la versión v0.8/v0.9 del parche bar, introducen un micro backend de renderizado vía drwl
           wget https://raw.githubusercontent.com/djpohly/dwl/master/util.h -O util.h || true
           
-          # Hacemos check-out del repo de parches real en action para copiar los archivos faltantes nativos que proveía
           git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
           git -C ../patches checkout HEAD -- patches/bar/drwl.h patches/bar/drwl.c
           cp ../patches/patches/bar/drwl.h .
           cp ../patches/patches/bar/drwl.c .
           
-          # Agregar drwl.c a la flag SRC del Makefile
           sed -i 's/dwl.o: dwl.c config.mk config.h client.h/drwl.o: drwl.c drwl.h config.mk\n\ndwl.o: dwl.c config.mk config.h client.h drwl.h/g' Makefile
           sed -i 's/dwl: dwl.o util.o/dwl: dwl.o util.o drwl.o/g' Makefile
 
+      - name: Fix Hunk 1 Compilation errors in core
         run: |
           cd dwl-test
           
-          # Hunk 1 fix: inyectamos los enums (SchemeNorm, etc.) en dwl.c ANTES del bloque config.h
           sed -i '/#include "util.h"/i enum { SchemeNorm, SchemeSel, SchemeUrg }; \/\* color schemes \*\/\n' dwl.c
-          
-          # Fix TAGCOUNT usage
           sed -i 's/(1u << TAGCOUNT)/(1u << LENGTH(tags))/g' dwl.c
           
-          # Replace focuscolor, bordercolor, urgentcolor safely everywhere
           sed -i 's/focuscolor/(float\[\])COLOR(colors[SchemeSel][2])/g' dwl.c
           sed -i 's/bordercolor/(float\[\])COLOR(colors[SchemeNorm][2])/g' dwl.c
           sed -i 's/urgentcolor/(float\[\])COLOR(colors[SchemeUrg][2])/g' dwl.c
@@ -69,21 +61,14 @@ jobs:
       - name: Introduce Hunks 1 to 4 from dwl.c for Bar structure
         run: |
           cd dwl-test
-          # Hunk 1-4 de dwl.c (Imports, Enums y Defines)
           sed -i '/#include "util.h"/i #include "drwl.h"\n' dwl.c
           sed -i '/#include <math.h>/a #include <libdrm/drm_fourcc.h>\n#include <fcntl.h>' dwl.c
           sed -i '/#define TAGMASK/i #define TEXTW(mon, text)        (drwl_font_getwidth(mon->drw, text) + mon->lrpad)' dwl.c
           sed -i '/enum { XDGShell/i enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */' dwl.c
           
-          # Agregar argumento del click en Button structure de Arg
           sed -i '/unsigned int mod;/i \tunsigned int click;' dwl.c
           
-          # Refactor config.def.h to match the new struct Button layout:
-          # V0.9 default: { WLR_MODIFIER_LOGO, BTN_LEFT, moveresize, {.ui = CurMove} }
-          # New expected: { 0, WLR_MODIFIER_LOGO, BTN_LEFT, moveresize, {.ui = CurMove} }
           sed -i 's/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
-          
-          # Build final config.h
           cp config.def.h config.h
 
       - name: Trigger Clean Compiler Run
