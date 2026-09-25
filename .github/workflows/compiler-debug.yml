@@ -28,17 +28,12 @@ jobs:
         run: |
           cd dwl-patched
           echo "==== STARTING COMPILER RUN ===="
-          make || exit 1
-          
-      - name: Test Headless Render + Taskbar Handle
-        run: |
-          cd dwl-patched
-          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -d -s 'foot -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless-ftm.log 2>&1 || true
+          make > ../make.log 2>&1 || true
           cd ..
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
           git pull origin patched-ftm
-          git add dwl-headless-ftm.log
-          git commit -m "Upload headless ftm log"
+          git add make.log
+          git commit -m "Upload make log"
           git push origin patched-ftm
