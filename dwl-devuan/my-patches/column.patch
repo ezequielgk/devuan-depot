@@ -63,3 +63,4 @@ index 4cfd0fd..67af0ea 100644
 +
  void
  commitlayersurfacenotify(struct wl_listener *listener, void *data)
+ {
