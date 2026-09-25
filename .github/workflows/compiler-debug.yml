@@ -72,9 +72,22 @@ jobs:
       - name: Introduce Hunk 5 (Monitor fields and bar declarations)
         run: |
           cd dwl-test
-          sed -i '/struct wl_list layers\[4\];/a \tstruct wl_listener m_frame;\n\tDrwl *drw;\n\tint showbar;\n\tint topbar;\n\tstruct wlr_texture *bar_texture;' dwl.c
-          sed -i '/int gamma_lut_changed;/a \tuint32_t *scm;\n\tchar ltsymbol[16];\n\tint bw;' dwl.c
-          sed -i '/static void axisnotify/a static void bar_draw(Monitor *m);\nstatic void bar_setup(Monitor *m);\nstatic void bar_frame(struct wl_listener *listener, void *data);\nstatic void bar_destroy(Monitor *m);\nstatic int bar_get_state(Monitor *m, Client *c);\nstatic uint32_t *bar_get_color(Monitor *m, Client *c);\nstatic void click_tagbar(Monitor *m, const Arg *arg);' dwl.c
+          python3 -c "
+import sys
+content = open('dwl.c').read()
+
+import re
+# Insert bar_texture and others after layers[4]
+content = re.sub(r'(struct wl_list layers\[4\]; /\* LayerSurface\.link \*/)', r'\1\n\tstruct wl_listener m_frame;\n\tDrwl *drw;\n\tint showbar;\n\tint topbar;\n\tstruct wlr_texture *bar_texture;', content)
+
+# Insert scm (and ONLY scm, since ltsymbol already exists in v0.9 and bw belongs somewhere else or isn't needed here)
+content = re.sub(r'(int gamma_lut_changed;)', r'\1\n\tuint32_t *scm;', content)
+
+# Forward declarations
+content = re.sub(r'(static void axisnotify.*)', r'\1\nstatic void bar_draw(Monitor *m);\nstatic void bar_setup(Monitor *m);\nstatic void bar_frame(struct wl_listener *listener, void *data);\nstatic void bar_destroy(Monitor *m);\nstatic int bar_get_state(Monitor *m, Client *c);\nstatic uint32_t *bar_get_color(Monitor *m, Client *c);\nstatic void click_tagbar(Monitor *m, const Arg *arg);', content)
+
+open('dwl.c', 'w').write(content)
+" 
           sed -i 's/PKGS      = wayland-server xkbcommon libinput $(XLIBS)/PKGS      = wayland-server xkbcommon libinput $(XLIBS) fcft pixman-1/g' Makefile
 
       - name: Trigger Clean Compiler Run
