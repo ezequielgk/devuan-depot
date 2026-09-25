@@ -44,7 +44,7 @@ jobs:
       - name: Test Headless Render and Window Mapping
         run: |
           cd dwl-test
-          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -s 'foot --log-level=debug --log-no-syslog -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless.log 2>&1 || true
+          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -s 'foot -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless.log 2>&1 || true
           cd ..
           git pull origin main
           git add dwl-headless.log
