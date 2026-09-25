@@ -43,7 +43,6 @@ jobs:
       - name: Inject pertag mock
         run: |
           python3 test_pertag_mock.py
-          cp dwl-patched/dwl.c dwl-test/dwl.c
 
       - name: Compile C Code
         run: |
