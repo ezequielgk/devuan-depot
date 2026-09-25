@@ -5,7 +5,7 @@ Maintainer: Ezequiel <ezequielgk@example.invalid>
 Build-Depends: debhelper-compat (= 13),
                rsync,
                pkg-config,
-               libwlroots-0.18-dev,
+               wlroots0.20-dev,
                wayland-protocols,
                libwayland-dev,
                libxkbcommon-dev,
@@ -21,7 +21,7 @@ Rules-Requires-Root: no
 Package: dwl-devuan
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, inotify-tools, build-essential,
-         pkg-config, libwlroots-0.18-dev, wayland-protocols, libwayland-dev,
+         pkg-config, wlroots0.20-dev, wayland-protocols, libwayland-dev,
          libxkbcommon-dev, libinput-dev, libpixman-1-dev, libfcft-dev
 Description: dwl compact Wayland compositor, con config externa e IPC
  dwl es el equivalente de dwm para Wayland: minimalista, hackeable,
