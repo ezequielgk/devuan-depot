@@ -57,3 +57,12 @@ jobs:
           cd dwl-test
           echo "==== STARTING COMPILER RUN ===="
           make || exit 1
+          
+          # Hunk 1-4 de dwl.c (Imports, Enums y Defines)
+          sed -i '/#include "util.h"/i #include "drwl.h"\n' dwl.c
+          sed -i '/#include <math.h>/a #include <libdrm/drm_fourcc.h>\n#include <fcntl.h>' dwl.c
+          sed -i '/#define TAGMASK/i #define TEXTW(mon, text)        (drwl_font_getwidth(mon->drw, text) + mon->lrpad)' dwl.c
+          sed -i '/enum { XDGShell/i enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */' dwl.c
+          
+          # Agregar argumento del click en Button
+          sed -i '/unsigned int button;/i \tunsigned int click;' dwl.c
