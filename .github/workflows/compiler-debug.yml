@@ -41,3 +41,13 @@ jobs:
           cd dwl-test
           echo "==== STARTING COMPILER RUN ===="
           make || exit 1
+          
+          # Correcciones sobre dwl.c a raiz del Hunk #1
+          sed -i 's/enum { CurNormal, CurPressed, CurMove, CurResize }; \/\* cursor \*\//enum { SchemeNorm, SchemeSel, SchemeUrg }; \n\renum { CurNormal, CurPressed, CurMove, CurResize };/g' dwl.c
+          sed -i 's/#define TAGMASK                 ((1u << TAGCOUNT) - 1)/#define TAGMASK                 ((1u << LENGTH(tags)) - 1)/g' dwl.c
+          
+          sed -i 's/client_set_border_color(c, focuscolor);/client_set_border_color(c, (float[])COLOR(colors[SchemeSel][2]));/g' dwl.c
+          sed -i 's/client_set_border_color(focused_client, bordercolor);/client_set_border_color(focused_client, (float[])COLOR(colors[SchemeNorm][2]));/g' dwl.c
+          sed -i 's/client_set_border_color(old_c, bordercolor);/client_set_border_color(old_c, (float[])COLOR(colors[SchemeNorm][2]));/g' dwl.c
+          sed -i 's/client_set_border_color(c, urgentcolor);/client_set_border_color(c, (float[])COLOR(colors[SchemeUrg][2]));/g' dwl.c
+          sed -i 's/c->isurgent ? urgentcolor : bordercolor/c->isurgent ? (float[])COLOR(colors[SchemeUrg][2]) : (float[])COLOR(colors[SchemeNorm][2])/g' dwl.c
