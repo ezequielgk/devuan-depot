@@ -13,15 +13,15 @@
 00:00:00.011 [DEBUG] [types/output/swapchain.c:96] Testing swapchain for output 'HEADLESS-1'
 00:00:00.011 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
 00:00:00.011 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 1280x720
-00:00:00.014 [DEBUG] [xcursor/wlr_xcursor.c:233] Loaded cursor theme 'default' at size 24 (26 available cursors)
-00:00:00.014 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
-00:00:00.014 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 10x16
+00:00:00.015 [DEBUG] [xcursor/wlr_xcursor.c:233] Loaded cursor theme 'default' at size 24 (26 available cursors)
+00:00:00.015 [DEBUG] [render/swapchain.c:103] Allocating new swapchain buffer
+00:00:00.015 [DEBUG] [render/pixman/renderer.c:186] Created pixman buffer 10x16
 warn: main.c:437: 'C' is not a UTF-8 locale, falling back to 'C.UTF-8'
 warn: wayland.c:1734: compositor does not implement the XDG toplevel icon protocol
-00:00:00.028 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x555c9f76a2d0 (res 0x555c9f76a240)
-00:00:00.028 [DEBUG] [types/xdg_shell/wlr_xdg_surface.c:441] new xdg_surface 0x555c9f706d90 (res 0x555c9f76a8e0)
-00:00:00.028 [DEBUG] [types/wlr_xdg_decoration_v1.c:220] new xdg_toplevel_decoration 0x555c9f76ac20 (res 0x555c9f76ad70)
-00:00:00.028 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x555c9f76af50 (res 0x555c9f76b320)
+00:00:00.029 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x55daad4bd260 (res 0x55daad4bd1d0)
+00:00:00.029 [DEBUG] [types/xdg_shell/wlr_xdg_surface.c:441] new xdg_surface 0x55daad45a010 (res 0x55daad4bd870)
+00:00:00.029 [DEBUG] [types/wlr_xdg_decoration_v1.c:220] new xdg_toplevel_decoration 0x55daad4bd990 (res 0x55daad4bdae0)
+00:00:00.029 [DEBUG] [types/wlr_compositor.c:785] New wlr_surface 0x55daad4bdcc0 (res 0x55daad4be090)
 00:00:00.030 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out enabled
 00:00:00.046 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out disabled
 00:00:02.029 [DEBUG] [types/scene/wlr_scene.c:2465] Direct scan-out enabled
