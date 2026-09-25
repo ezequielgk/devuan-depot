@@ -124,6 +124,9 @@ typedef struct {
 	const Arg arg;
 } Button;
 
+typedef struct Pertag Pertag;
+typedef struct Monitor Monitor;
+
 typedef struct {
 	/* Must keep this field first */
 	unsigned int type; /* XDGShell or X11* */
