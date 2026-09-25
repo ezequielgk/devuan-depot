@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          ref: patched-ipc
+          ref: patched-4core
 
       - name: Set up DWL v0.9 source and Bar patch
         run: |
@@ -49,7 +49,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
-          git pull origin patched-ipc
+          git pull origin patched-4core
           git add dwl-headless-ipc.log make.log
           git commit -m "Upload headless ipc log"
-          git push origin patched-ipc
+          git push origin patched-4core
