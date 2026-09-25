@@ -18,7 +18,7 @@ static int test_pertag_cb(void *data) {
 }
 """
 
-text = text.replace("static void setup(void);", "static void setup(void);\n" + mock_code)
+text = text.replace("int main(int argc, char *argv[]) {", mock_code + "\nint main(int argc, char *argv[]) {")
 
 text = text.replace("	wlr_seat_set_capabilities(seat, WL_SEAT_CAPABILITY_POINTER", "	struct wl_event_source *t = wl_event_loop_add_timer(wl_display_get_event_loop(dpy), test_pertag_cb, NULL);\n	wl_event_source_timer_update(t, 1000);\n\twlr_seat_set_capabilities(seat, WL_SEAT_CAPABILITY_POINTER")
 
