@@ -81,6 +81,7 @@
 
 #include "xdg-shell-protocol.h"
 enum { SchemeNorm, SchemeSel, SchemeUrg }; /* color schemes */
+#include "dwl-ipc-unstable-v2-protocol.h"
 #include "util.h"
 #include "drwl.h"
 
@@ -3191,12 +3192,7 @@ tile(Monitor *m)
 	}
 }
 
-void
-togglebar(const Arg *arg) {
-	DwlIpcOutput *ipc_output;
-	wl_list_for_each(ipc_output, &selmon->dwl_ipc_outputs, link)
-		zdwl_ipc_output_v2_send_toggle_visibility(ipc_output->resource);
-}
+
 
 void
 togglefloating(const Arg *arg)
@@ -3893,10 +3889,13 @@ statusin(int fd, unsigned int mask, void *data)
 void
 togglebar(const Arg *arg)
 {
+	DwlIpcOutput *ipc_output;
 	wlr_scene_node_set_enabled(&selmon->scene_buffer->node,
 		!selmon->scene_buffer->node.enabled);
 	arrangelayers(selmon);
 	drawbars();
+	wl_list_for_each(ipc_output, &selmon->dwl_ipc_outputs, link)
+		zdwl_ipc_output_v2_send_toggle_visibility(ipc_output->resource);
 }
 
 void
