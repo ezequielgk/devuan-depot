@@ -12,8 +12,8 @@ override_dh_auto_build:
 	cp config.def.h config.h
 	dh_auto_build
 
-override_dh_auto_install:
-	dh_auto_install
+override_dh_auto_install -- PREFIX=/usr:
+	dh_auto_install -- PREFIX=/usr
 	# Embebemos el árbol fuente completo (ya con el parche ipc aplicado
 	# por fetch-source.sh) para que dwl-rebuild pueda recompilar in situ.
 	mkdir -p debian/dwl-devuan/usr/src/dwl-devuan
