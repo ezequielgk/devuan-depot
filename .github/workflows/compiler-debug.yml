@@ -1,4 +1,4 @@
-name: Compiler Debug (Bar)
+name: Compiler Debug (FTM)
 on:
   workflow_dispatch:
   push:
@@ -14,18 +14,26 @@ jobs:
       - name: Setup APT and dependencies
         run: |
           apt-get update
-          apt-get install -y git build-essential pkg-config
+          apt-get install -y git build-essential pkg-config jq wget foot
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
           apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libdrm-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev
 
-      - name: Check Wlr headers
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: patched-ftm
+
+      - name: Compile C Code
         run: |
-          find /usr/include/wlr -name "*foreign*" > verify.log || true
+          cd dwl-patched
+          echo "==== STARTING COMPILER RUN ===="
+          make > ../make.log 2>&1 || true
+          cd ..
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
-          git pull origin main
-          git add verify.log
-          git commit -m "Upload verify log"
-          git push origin main
+          git pull origin patched-ftm
+          git add make.log
+          git commit -m "Upload make log"
+          git push origin patched-ftm
