@@ -15,7 +15,7 @@ jobs:
           # Setup custom depot for wlroots0.20
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
-          apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev libdrm-dev
+          apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libdrm-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev
 
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
           git clone --branch v0.9 --depth 1 https://codeberg.org/dwl/dwl.git dwl-test
           cd dwl-test
 
-          # Inyectamos UNICAMENTE la resolucion manual del Hunk 1 (Tagmask -> Tags y Colors) en config.def.h
+          # Inyectamos UNICAMENTE la resolucion manual del Hunk 1 en config.def.h
           sed -i '/static const float bordercolor\[\]/d' config.def.h
           sed -i '/static const float focuscolor\[\]/d' config.def.h
           sed -i '/static const float urgentcolor\[\]/d' config.def.h
@@ -36,18 +36,24 @@ jobs:
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
           cp config.def.h config.h
 
+      - name: Fix Hunk 1 Compilation errors in core
+        run: |
+          cd dwl-test
+          
+          # Hunk 1 fix: inyectamos los enums (SchemeNorm, etc.) en dwl.c ANTES del bloque config.h
+          # Porque config.def.h llama a [SchemeSel] como clave de su array
+          sed -i '/#include "util.h"/i enum { SchemeNorm, SchemeSel, SchemeUrg }; \/\* color schemes \*\/\n' dwl.c
+          
+          # Fix TAGCOUNT usage
+          sed -i 's/(1u << TAGCOUNT)/(1u << LENGTH(tags))/g' dwl.c
+          
+          # Replace focuscolor, bordercolor, urgentcolor safely everywhere
+          sed -i 's/focuscolor/(float[])COLOR(colors[SchemeSel][2])/g' dwl.c
+          sed -i 's/bordercolor/(float[])COLOR(colors[SchemeNorm][2])/g' dwl.c
+          sed -i 's/urgentcolor/(float[])COLOR(colors[SchemeUrg][2])/g' dwl.c
+
       - name: Trigger Clean Compiler Run
         run: |
           cd dwl-test
           echo "==== STARTING COMPILER RUN ===="
           make || exit 1
-          
-          # Correcciones sobre dwl.c a raiz del Hunk #1
-          sed -i 's/enum { CurNormal, CurPressed, CurMove, CurResize }; \/\* cursor \*\//enum { SchemeNorm, SchemeSel, SchemeUrg }; \n\renum { CurNormal, CurPressed, CurMove, CurResize };/g' dwl.c
-          sed -i 's/#define TAGMASK                 ((1u << TAGCOUNT) - 1)/#define TAGMASK                 ((1u << LENGTH(tags)) - 1)/g' dwl.c
-          
-          sed -i 's/client_set_border_color(c, focuscolor);/client_set_border_color(c, (float[])COLOR(colors[SchemeSel][2]));/g' dwl.c
-          sed -i 's/client_set_border_color(focused_client, bordercolor);/client_set_border_color(focused_client, (float[])COLOR(colors[SchemeNorm][2]));/g' dwl.c
-          sed -i 's/client_set_border_color(old_c, bordercolor);/client_set_border_color(old_c, (float[])COLOR(colors[SchemeNorm][2]));/g' dwl.c
-          sed -i 's/client_set_border_color(c, urgentcolor);/client_set_border_color(c, (float[])COLOR(colors[SchemeUrg][2]));/g' dwl.c
-          sed -i 's/c->isurgent ? urgentcolor : bordercolor/c->isurgent ? (float[])COLOR(colors[SchemeUrg][2]) : (float[])COLOR(colors[SchemeNorm][2])/g' dwl.c
