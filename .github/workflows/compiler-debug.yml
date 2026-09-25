@@ -42,7 +42,7 @@ jobs:
       - name: Compile and Test Headless Col
         run: |
           cd dwl-test
-          make > ../make.log 2>&1
+          make > ../make.log 2>&1 || true
           mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -d -s 'foot -e sh -c "echo Column test; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless-col.log 2>&1 || true
           cd ..
           git config --global user.name "github-actions"
