@@ -21,5 +21,11 @@ jobs:
 
       - name: Check Wlr headers
         run: |
-          find /usr/include/wlr -name "*foreign_toplevel*" > verify.log || true
-          cat verify.log
+          find /usr/include/wlr -name "*foreign*" > verify.log || true
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git config --global --add safe.directory /__w/devuan-depot/devuan-depot
+          git pull origin main
+          git add verify.log
+          git commit -m "Upload verify log"
+          git push origin main
