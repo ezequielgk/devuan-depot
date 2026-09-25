@@ -15,7 +15,7 @@ jobs:
           # Setup custom depot for wlroots0.20
           echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
           apt-get update
-          apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev
+          apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev libdrm-dev
 
       - name: Checkout Code
         uses: actions/checkout@v4
