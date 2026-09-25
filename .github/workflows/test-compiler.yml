@@ -19,10 +19,8 @@ jobs:
       - name: Try compile
         run: |
           gcc -c test-compile.c $(pkg-config --cflags wlroots-0.20 wayland-server) > gcc-output.log 2>&1 || true
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git config --global --add safe.directory /__w/devuan-depot/devuan-depot
-          git pull origin main
-          git add gcc-output.log
-          git commit -m "Upload gcc output for foreign toplevel"
-          git push origin main
+      - name: Upload GCC Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: gcc-output
+          path: gcc-output.log
