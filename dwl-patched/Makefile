@@ -20,8 +20,9 @@ all: dwl
 dwl: dwl.c client.h config.h ime.h util.h config.mk cursor-shape-v1-protocol.h \
 	ext-image-copy-capture-v1-protocol.h \
 	pointer-constraints-unstable-v1-protocol.h wlr-layer-shell-unstable-v1-protocol.h \
-	wlr-output-power-management-unstable-v1-protocol.h xdg-shell-protocol.h
-	$(CC) dwl.c $(DWLCFLAGS) $(LDFLAGS) $(LDLIBS) -o $@
+	wlr-output-power-management-unstable-v1-protocol.h xdg-shell-protocol.h \
+	dwl-ipc-unstable-v2-protocol.h dwl-ipc-unstable-v2-protocol.c
+	$(CC) dwl.c dwl-ipc-unstable-v2-protocol.c $(DWLCFLAGS) $(LDFLAGS) $(LDLIBS) -o $@
 
 # wayland-scanner is a tool which generates C headers and rigging for Wayland
 # protocols, which are specified in XML. wlroots requires you to rig these up
@@ -47,11 +48,17 @@ wlr-output-power-management-unstable-v1-protocol.h:
 xdg-shell-protocol.h:
 	$(WAYLAND_SCANNER) server-header \
 		$(WAYLAND_PROTOCOLS)/stable/xdg-shell/xdg-shell.xml $@
+dwl-ipc-unstable-v2-protocol.h:
+	$(WAYLAND_SCANNER) server-header \
+		protocols/dwl-ipc-unstable-v2.xml $@
+dwl-ipc-unstable-v2-protocol.c:
+	$(WAYLAND_SCANNER) private-code \
+        protocols/dwl-ipc-unstable-v2.xml $@
 
 config.h:
 	cp config.def.h $@
 clean:
-	rm -f dwl *.o *-protocol.h
+	rm -f dwl *.o *-protocol.h *-protocol.c
 
 dist: clean
 	mkdir -p dwl-$(VERSION)
