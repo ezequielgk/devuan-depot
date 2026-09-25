@@ -2,7 +2,7 @@
   "script": "build-dwl.sh",
   "needs_devuan_depot_repo": true,
   "base_apt_packages": [
-    "debhelper-compat", "rsync", "pkg-config", "wlroots0.20", "libdrm-dev", 
+    "debhelper-compat", "rsync", "pkg-config", "wlroots0.20", "libegl-dev", "libgbm-dev", "libgles-dev", "libvulkan-dev", "liblcms2-dev", "libseat-dev", "libdisplay-info-dev", "libliftoff-dev", "libxcb-composite0-dev", "libxcb-ewmh-dev", "libxcb-render0-dev", "libxcb-res0-dev", "libxcb-xfixes0-dev", "libxcb-errors-dev", "libdrm-dev", 
     "wayland-protocols", "libwayland-dev", "libxkbcommon-dev", "libinput-dev", 
     "libpixman-1-dev", "libfcft-dev", "libxcb1-dev", "libxcb-icccm4-dev",
     "git", "build-essential", "dpkg-dev"
