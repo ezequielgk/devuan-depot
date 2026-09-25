@@ -6,6 +6,8 @@ on:
 jobs:
   debug-compilation:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container:
       image: debian:trixie
     steps:
@@ -27,10 +29,11 @@ jobs:
           cd dwl-test
           git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
           git apply --include=drwl.h ../patches/patches/bar/bar.patch || true
-          
-          # We apply the unified mega-patch we constructed to DWL!
           git apply ../.github/workflows/rebase_bar.patch
           cp config.def.h config.h
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git config --global --add safe.directory /__w/devuan-depot/devuan-depot
 
       - name: Trigger Clean Compiler Run
         run: |
@@ -41,5 +44,9 @@ jobs:
       - name: Test Headless Render and Window Mapping
         run: |
           cd dwl-test
-          WLR_BACKENDS=headless ./dwl -s 'foot --log-level=debug --log-no-syslog -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > dwl-headless.log 2>&1 || true
-          cat dwl-headless.log
+          WLR_BACKENDS=headless ./dwl -s 'foot --log-level=debug --log-no-syslog -e sh -c "echo Hello from Foot; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless.log 2>&1 || true
+          cd ..
+          git pull origin main
+          git add dwl-headless.log
+          git commit -m "Upload CI headless log"
+          git push origin main
