@@ -1,0 +1,48 @@
+In file included from test-compile.c:1:
+/usr/include/wlroots-0.20/wlr/types/wlr_foreign_toplevel_management_v1.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_foreign_toplevel_management_v1.h:13:
+/usr/include/wlroots-0.20/wlr/types/wlr_output.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_output.h:17:
+/usr/include/wlroots-0.20/wlr/render/color.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_output.h:18:
+/usr/include/wlroots-0.20/wlr/render/wlr_renderer.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/render/wlr_renderer.h:14:
+/usr/include/wlroots-0.20/wlr/render/pass.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/render/pass.h:15:
+/usr/include/wlroots-0.20/wlr/render/color.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/render/wlr_renderer.h:15:
+/usr/include/wlroots-0.20/wlr/render/wlr_texture.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/render/wlr_texture.h:15:
+/usr/include/wlroots-0.20/wlr/render/dmabuf.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_output.h:19:
+/usr/include/wlroots-0.20/wlr/types/wlr_buffer.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_buffer.h:14:
+/usr/include/wlroots-0.20/wlr/render/dmabuf.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_buffer.h:15:
+/usr/include/wlroots-0.20/wlr/util/addon.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
+In file included from /usr/include/wlroots-0.20/wlr/types/wlr_output.h:20:
+/usr/include/wlroots-0.20/wlr/util/addon.h:6:2: error: #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+    6 | #error "Add -DWLR_USE_UNSTABLE to enable unstable wlroots features"
+      |  ^~~~~
