@@ -35,18 +35,17 @@ jobs:
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
 
       - name: Fetch drwl files from drwl repository
+      - name: Fetch drwl files from drwl repository
         run: |
           cd dwl-test
-          wget https://raw.githubusercontent.com/djpohly/dwl/master/util.h -O util.h || true
-          
+          # Clonamos los parches oficiales para extraer drwl.h
           git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
-          git -C ../patches checkout HEAD -- patches/bar/drwl.h patches/bar/drwl.c
-          cp ../patches/patches/bar/drwl.h .
-          cp ../patches/patches/bar/drwl.c .
+          # Como drwl.h se empaqueta nuevo (create mode) y aplica 100% sin conflictos,
+          # lo extraemos inyectando el diff con patch.
+          patch -p1 < ../patches/patches/bar/bar.patch || true
           
-          sed -i 's/dwl.o: dwl.c config.mk config.h client.h/drwl.o: drwl.c drwl.h config.mk\n\ndwl.o: dwl.c config.mk config.h client.h drwl.h/g' Makefile
-          sed -i 's/dwl: dwl.o util.o/dwl: dwl.o util.o drwl.o/g' Makefile
-
+          # Restauramos el makefile de dwl.c a su estado antes del bar para que pase, ya que reviví un espejismo de drwl.o
+          git checkout Makefile
       - name: Fix Hunk 1 Compilation errors in core
         run: |
           cd dwl-test
