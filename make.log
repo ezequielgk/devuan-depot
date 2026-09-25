@@ -15,13 +15,3 @@
 `pkg-config --variable=wayland_scanner wayland-scanner` private-code \
         protocols/dwl-ipc-unstable-v2.xml dwl-ipc-unstable-v2-protocol.c
 cc dwl.c dwl-ipc-unstable-v2-protocol.c `pkg-config --cflags wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --cflags wlroots-0.20` -I. -DWLR_USE_UNSTABLE -D_POSIX_C_SOURCE=200809L  -DVERSION=\"`git describe --tags --dirty 2>/dev/null || echo 0.9-dev`\"   -g -Wpedantic -Wall -Wextra -Wdeclaration-after-statement  -Wno-unused-parameter -Wshadow -Wunused-macros -Werror=strict-prototypes  -Werror=implicit -Werror=return-type -Werror=incompatible-pointer-types  -Wfloat-conversion -O1  `pkg-config --libs wayland-server xkbcommon libinput  fcft pixman-1` `pkg-config --libs wlroots-0.20` -lm  -o dwl
-dwl.c: In function 'dwl_ipc_manager_bind':
-dwl.c:1624:57: error: 'TAGCOUNT' undeclared (first use in this function)
- 1624 |         zdwl_ipc_manager_v2_send_tags(manager_resource, TAGCOUNT);
-      |                                                         ^~~~~~~~
-dwl.c:1624:57: note: each undeclared identifier is reported only once for each function it appears in
-dwl.c: In function 'dwl_ipc_output_printstatus_to':
-dwl.c:1685:30: error: 'TAGCOUNT' undeclared (first use in this function)
- 1685 |         for (tag = 0 ; tag < TAGCOUNT; tag++) {
-      |                              ^~~~~~~~
-make: *** [Makefile:25: dwl] Error 1
