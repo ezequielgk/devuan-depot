@@ -57,6 +57,7 @@ jobs:
           sed -i 's/urgentcolor/(float\[\])COLOR(colors[SchemeUrg][2])/g' dwl.c
 
       - name: Introduce Hunks 1 to 4 from dwl.c for Bar structure
+      - name: Introduce Hunks 1 to 4 from dwl.c for Bar structure
         run: |
           cd dwl-test
           sed -i '/#include "util.h"/i #include "drwl.h"\n' dwl.c
@@ -64,9 +65,11 @@ jobs:
           sed -i '/#define TAGMASK/i #define TEXTW(mon, text)        (drwl_font_getwidth(mon->drw, text) + mon->lrpad)' dwl.c
           sed -i '/enum { XDGShell/i enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */' dwl.c
           
-          sed -i '/unsigned int mod;/i \tunsigned int click;' dwl.c
+          # Agregar argumento del click EXCLUSIVAMENTE en struct Button (no en Key)
+          sed -i '/unsigned int button;/i \tunsigned int click;' dwl.c
           
-          sed -i 's/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
+          # Agregamos el argumento 0 (ClkRoot/ClkTagBar default) en config.def.h EXCLUSIVAMENTE para los buttons
+          sed -i '/{ WLR_MODIFIER/s/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
           cp config.def.h config.h
 
       - name: Trigger Clean Compiler Run
