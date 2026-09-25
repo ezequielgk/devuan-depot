@@ -1,0 +1,43 @@
+name: Compiler Debug (Bar)
+on:
+  workflow_dispatch:
+
+jobs:
+  debug-compilation:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      - name: Setup APT and dependencies
+        run: |
+          apt-get update
+          apt-get install -y git build-essential pkg-config jq wget
+          # Setup custom depot for wlroots0.20
+          echo "deb [trusted=yes] https://ezequielgk.github.io/devuan-depot trixie main" > /etc/apt/sources.list.d/devuan-depot.list
+          apt-get update
+          apt-get install -y wlroots0.20 wayland-protocols libwayland-dev libxkbcommon-dev libinput-dev libpixman-1-dev libfcft-dev libxcb1-dev libxcb-icccm4-dev libegl-dev libgbm-dev libgles-dev libvulkan-dev liblcms2-dev libseat-dev libdisplay-info-dev libliftoff-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-render0-dev libxcb-res0-dev libxcb-xfixes0-dev libxcb-errors-dev
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Prepare Base v0.9 (Pre-rebase scenario)
+        run: |
+          git clone --branch v0.9 --depth 1 https://codeberg.org/dwl/dwl.git dwl-test
+          cd dwl-test
+
+          # Inyectamos UNICAMENTE la resolucion manual del Hunk 1 (Tagmask -> Tags y Colors) en config.def.h
+          sed -i '/static const float bordercolor\[\]/d' config.def.h
+          sed -i '/static const float focuscolor\[\]/d' config.def.h
+          sed -i '/static const float urgentcolor\[\]/d' config.def.h
+          sed -i 's/static const float rootcolor\[\].*/static const int showbar = 1;\nstatic const int topbar = 1;\nstatic const char \*fonts\[\] = {"monospace:size=10"};\nstatic const float rootcolor\[\] = COLOR(0x000000ff);/g' config.def.h
+          
+          sed -i '/static const float fullscreen_bg\[\]/i static uint32_t colors[][3] = {\n\t[SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },\n\t[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },\n\t[SchemeUrg]  = { 0, 0, 0x770000ff },\n};\n' config.def.h
+          sed -i 's/#define TAGCOUNT (9)/static char \*tags\[\] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };/g' config.def.h
+          sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
+          cp config.def.h config.h
+
+      - name: Trigger Clean Compiler Run
+        run: |
+          cd dwl-test
+          echo "==== STARTING COMPILER RUN ===="
+          make || exit 1
