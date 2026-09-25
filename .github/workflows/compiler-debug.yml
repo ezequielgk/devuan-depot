@@ -37,8 +37,6 @@ jobs:
       - name: Fetch drwl files from drwl repository
         run: |
           cd dwl-test
-          wget https://raw.githubusercontent.com/djpohly/dwl/master/util.h -O util.h || true
-          
           git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
           git apply --include=drwl.h ../patches/patches/bar/bar.patch || true
           
@@ -65,7 +63,7 @@ jobs:
           sed -i '/#define TAGMASK/i #define TEXTW(mon, text)        (drwl_font_getwidth(mon->drw, text) + mon->lrpad)' dwl.c
           sed -i '/enum { XDGShell/i enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */' dwl.c
           
-          sed -i '/unsigned int button;/i \tunsigned int click;' dwl.c
+          sed -i '/uint32_t button;/i \tunsigned int click;' dwl.c
           
           sed -i '/{ WLR_MODIFIER/s/{ WLR_MODIFIER/{ 0, WLR_MODIFIER/g' config.def.h
           cp config.def.h config.h
