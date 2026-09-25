@@ -1,4 +1,4 @@
-name: Compiler Debug (Col)
+name: Compiler Debug (IPC)
 on:
   workflow_dispatch:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          ref: patched-column
+          ref: patched-ipc
 
       - name: Set up DWL v0.9 source and Bar patch
         run: |
@@ -38,17 +38,18 @@ jobs:
           cp dwl-patched/Makefile dwl-test/Makefile
           mkdir -p dwl-test/protocols
           cp dwl-patched/protocols/wlr-foreign-toplevel-management-unstable-v1.xml dwl-test/protocols/ || true
+          cp dwl-patched/protocols/dwl-ipc-unstable-v2.xml dwl-test/protocols/ || true
           
-      - name: Compile and Test Headless Col
+      - name: Compile C Code
         run: |
           cd dwl-test
           make > ../make.log 2>&1 || true
-          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -d -s 'foot -e sh -c "echo Column test; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless-col.log 2>&1 || true
+          mkdir -p /tmp/xdg && XDG_RUNTIME_DIR=/tmp/xdg WLR_BACKENDS=headless ./dwl -d -s 'foot -e sh -c "echo IPC test; sleep 2" & sleep 3; kill $PPID' > ../dwl-headless-ipc.log 2>&1 || true
           cd ..
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git config --global --add safe.directory /__w/devuan-depot/devuan-depot
-          git pull origin patched-column
-          git add dwl-headless-col.log make.log
-          git commit -m "Upload headless col log"
-          git push origin patched-column
+          git pull origin patched-ipc
+          git add dwl-headless-ipc.log make.log
+          git commit -m "Upload headless ipc log"
+          git push origin patched-ipc
