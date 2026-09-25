@@ -36,6 +36,22 @@ jobs:
           sed -i '/\/\* tagging - TAGCOUNT must be no greater than 31 \*\//d' config.def.h
 
       - name: Fix Hunk 1 Compilation errors in core
+      - name: Fetch drwl files from drwl repository
+        run: |
+          cd dwl-test
+          # En la versión v0.8/v0.9 del parche bar, introducen un micro backend de renderizado vía drwl
+          wget https://raw.githubusercontent.com/djpohly/dwl/master/util.h -O util.h || true
+          
+          # Hacemos check-out del repo de parches real en action para copiar los archivos faltantes nativos que proveía
+          git clone --depth 1 https://codeberg.org/dwl/dwl-patches.git ../patches
+          git -C ../patches checkout HEAD -- patches/bar/drwl.h patches/bar/drwl.c
+          cp ../patches/patches/bar/drwl.h .
+          cp ../patches/patches/bar/drwl.c .
+          
+          # Agregar drwl.c a la flag SRC del Makefile
+          sed -i 's/dwl.o: dwl.c config.mk config.h client.h/drwl.o: drwl.c drwl.h config.mk\n\ndwl.o: dwl.c config.mk config.h client.h drwl.h/g' Makefile
+          sed -i 's/dwl: dwl.o util.o/dwl: dwl.o util.o drwl.o/g' Makefile
+
         run: |
           cd dwl-test
           
