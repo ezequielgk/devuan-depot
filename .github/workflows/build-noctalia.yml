@@ -1,4 +1,4 @@
-name: Build Libraries
+name: Build Noctalia
 
 on:
   workflow_dispatch:
@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-          - wlroots
-          - scenefx
-          - xwayland-satellite
-          - backports
+          - umbriel
+          - noctalia-greeter
+          - noctalia
+          - xdg-desktop-portal-umbriel
 
 permissions:
   contents: write
