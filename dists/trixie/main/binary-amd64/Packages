@@ -28,53 +28,6 @@ Priority: optional
 Description: Concord - A Discord terminal client
  Concord is a fast and simple terminal Discord client written in Rust.
 
-Package: dwl-devuan
-Version: 0.9.20260925.82~devuandepot
-Architecture: amd64
-Maintainer: Ezequiel <ezequielgk@example.invalid>
-Installed-Size: 646
-Depends: libc6 (>= 2.34), libinput10 (>= 1.5.0), libwayland-server0 (>= 1.14.91), libxkbcommon0 (>= 0.5.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot), inotify-tools, build-essential, runit, pkg-config, libegl-dev, libgbm-dev, libgles-dev, libvulkan-dev, liblcms2-dev, libseat-dev, libdisplay-info-dev, libliftoff-dev, libxcb-composite0-dev, libxcb-ewmh-dev, libxcb-render0-dev, libxcb-res0-dev, libxcb-xfixes0-dev, libxcb-errors-dev, wayland-protocols, libwayland-dev, libxkbcommon-dev, libinput-dev, libpixman-1-dev, libfcft-dev
-Filename: pool/main/dwl-devuan_0.9.20260925.82~devuandepot_amd64.deb
-Size: 116588
-MD5sum: 724faf896853d72666bfc4dc226c3872
-SHA1: bbb3d175fae950d98ebe681ab505ddd53498f3dd
-SHA256: 2e79dd04395fb058068cae6e280a4cff6921d939dae1880ce4f33615a406c6bf
-Section: x11
-Priority: optional
-Homepage: https://codeberg.org/dwl/dwl
-Description: dwl compact Wayland compositor, con config externa e IPC
- dwl es el equivalente de dwm para Wayland: minimalista, hackeable,
- configurado originalmente vía config.h + recompilación.
- .
- Este paquete embebe el árbol fuente (con el parche ipc aplicado) y
- provee:
-  - /etc/dwl/config.h como archivo de configuración editable por el
-    usuario, separado del árbol fuente empaquetado.
-  - dwl-rebuild: reconstruye e instala dwl a partir de ese config.h.
-  - un servicio runit opcional que vigila /etc/dwl/config.h y dispara
-    la reconstrucción automáticamente al guardarlo.
- .
- Sigue requiriendo recompilar para aplicar cambios (así es dwl), pero
- el usuario nunca tiene que tocar el árbol fuente ni el .deb.
-
-Package: dwl-devuan-dbgsym
-Source: dwl-devuan
-Version: 0.9.20260925.82~devuandepot
-Auto-Built-Package: debug-symbols
-Architecture: amd64
-Maintainer: Ezequiel <ezequielgk@example.invalid>
-Installed-Size: 159
-Depends: dwl-devuan (= 0.9.20260925.82~devuandepot)
-Filename: pool/main/dwl-devuan-dbgsym_0.9.20260925.82~devuandepot_amd64.deb
-Size: 115308
-MD5sum: daa9426bf8c038491b41cc9248e5e28c
-SHA1: c153bcb38812a07afb3766436d3c976a20b689af
-SHA256: 425dd362c66405b53c129226ef2c748f41db8346afb7485df1bd2060b3ad74ed
-Section: debug
-Priority: optional
-Description: debug symbols for dwl-devuan
-Build-Ids: da3ab90f7d64e478d4e86e4739cf702e691c3998
-
 Package: foot
 Version: 1.27.0.20260729.1~devuandepot
 Architecture: amd64
