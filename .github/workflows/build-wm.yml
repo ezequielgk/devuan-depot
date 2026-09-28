@@ -12,12 +12,8 @@ on:
           - niri
           - mangowc
           - scroll
-          - noctalia
-          - noctalia-greeter
           - greetd
-          - umbriel
           - labwc
-          - dwl
 
 permissions:
   contents: write
