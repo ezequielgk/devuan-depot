@@ -4,7 +4,7 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 
 echo "Getting latest Sway tag..."
-LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/swaywm/sway/tags | jq -r '.[0].name')
+LATEST_TAG=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/swaywm/sway/releases/latest | jq -r '.tag_name')
 echo "Obtained latest version: $LATEST_TAG"
 
 echo "Cloning Sway..."
