@@ -1603,6 +1603,22 @@ Section: x11
 Priority: optional
 Description: scroll - Wayland compositor forked from sway with scrolling layout
 
+Package: sway
+Version: 1.12.20261002.85~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.34), libcairo2 (>= 1.10.0), libdrm2 (>= 2.4.113), libevdev2 (>= 0.9.1), libgdk-pixbuf-2.0-0 (>= 2.31.1), libglib2.0-0t64 (>= 2.12.0), libinput10 (>= 1.26.0), libjson-c5 (>= 0.15), libpango-1.0-0 (>= 1.44.3), libpangocairo-1.0-0 (>= 1.22.0), libpcre2-8-0 (>= 10.22), libpixman-1-0 (>= 0.25.2), libsystemd0 (>= 243), libudev1 (>= 183), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libwayland-server0 (>= 1.23.0), libxcb-icccm4 (>= 0.4.2), libxcb1, libxkbcommon0 (>= 0.7.0), wlroots0.20 (>= 0.20.2~gitd783533.20260729.6~devuandepot)
+Recommends: seatd
+Filename: pool/main/sway_1.12.20261002.85~devuandepot_amd64.deb
+Size: 5186260
+MD5sum: 1c2113f12b36a8876d704ed1eae390da
+SHA1: 63fc2e157803a01f2bc18626714990d81040c9a6
+SHA256: 7a656b91dd6091921d99c98e520b45441b59a3a7d8231c09fb8a485489341251
+Section: x11
+Priority: optional
+Description: Sway - An i3-compatible Wayland compositor
+ Built with Xwayland support enabled.
+
 Package: swayfx
 Version: 0.6.20260807.14~devuandepot
 Architecture: amd64
