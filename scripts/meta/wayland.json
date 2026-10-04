@@ -1,13 +1,13 @@
 {
   "script": "build-wayland.sh",
   "needs_devuan_depot_repo": false,
-  "base_apt_packages": ["gcc-i686-linux-gnu", "g++-i686-linux-gnu"],
+  "base_apt_packages": [],
   "variants": [
     {
       "env": {
         "DUMMY": "dummy"
       },
-      "artifact_suffix": "amd64-i386",
+      "artifact_suffix": "amd64",
       "extra_apt_packages": []
     }
   ]
