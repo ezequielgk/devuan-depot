@@ -4,6 +4,7 @@
   "variants": [
     {
       "env": {
+        "DUMMY": "dummy"
       },
       "artifact_suffix": "amd64-i386"
     }
