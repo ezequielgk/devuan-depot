@@ -1,7 +1,7 @@
 {
   "script": "build-wayland.sh",
   "needs_devuan_depot_repo": false,
-  "base_apt_packages": [],
+  "base_apt_packages": ["gcc-i686-linux-gnu", "g++-i686-linux-gnu"],
   "variants": [
     {
       "env": {
