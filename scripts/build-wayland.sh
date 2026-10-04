@@ -10,8 +10,9 @@ grep -q "^deb-src" /etc/apt/sources.list || echo "deb-src http://deb.debian.org/
 dpkg --add-architecture i386
 apt-get update
 
-apt-get install -y dpkg-dev build-essential fakeroot devscripts
+apt-get install -y dpkg-dev build-essential fakeroot devscripts cmake pkg-config
 apt-get build-dep -y wayland
+apt-get install -y wayland-protocols libwayland-dev libffi-dev:i386 libxml2-dev:i386 libexpat1-dev:i386
 apt-get build-dep -y -a i386 wayland || true
 
 mkdir -p src/wayland
