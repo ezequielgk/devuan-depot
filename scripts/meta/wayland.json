@@ -1,0 +1,11 @@
+{
+  "script": "build-wayland.sh",
+  "needs_devuan_depot_repo": false,
+  "variants": [
+    {
+      "env": {
+      },
+      "artifact_suffix": "amd64-i386"
+    }
+  ]
+}
