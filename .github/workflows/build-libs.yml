@@ -12,6 +12,8 @@ on:
           - scenefx
           - xwayland-satellite
           - backports
+          - wayland
+          - libdrm
 
 permissions:
   contents: write
