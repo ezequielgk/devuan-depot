@@ -1,6 +1,6 @@
 {
   "script": "build-fuzzel.sh",
-  "needs_devuan_depot_repo": false,
+  "needs_devuan_depot_repo": true,
   "base_apt_packages": [
     "git", "build-essential", "meson", "ninja-build", "pkg-config", "scdoc", "dpkg-dev",
     "libwayland-dev", "wayland-protocols", "libpixman-1-dev", "libcairo2-dev",
