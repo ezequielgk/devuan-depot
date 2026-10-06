@@ -1,0 +1,12 @@
+{
+  "script": "build-fuzzel.sh",
+  "needs_devuan_depot_repo": false,
+  "variants": [
+    {
+      "env": {
+        "DUMMY": "dummy"
+      },
+      "artifact_suffix": "amd64"
+    }
+  ]
+}
