@@ -58,6 +58,22 @@ Priority: optional
 Description: Foot - A fast, lightweight and minimalistic Wayland terminal emulator
  A fast, lightweight and minimalistic Wayland terminal emulator.
 
+Package: fuzzel
+Version: 1.15.0.20261006.36~devuandepot
+Architecture: amd64
+Maintainer: Zeke Ezequielgk <ezequieldtz@tuta.io>
+Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libfcft4t64 (>= 3.3.1), libfontconfig1 (>= 2.12.6), libglib2.0-0t64 (>= 2.12.0), libpixman-1-0 (>= 0.30.0), libpng16-16t64 (>= 1.6.46), librsvg2-2 (>= 2.46.0), libwayland-client0 (>= 1.20.0), libwayland-cursor0 (>= 1.0.2), libxkbcommon0 (>= 1.0.0)
+Filename: pool/main/fuzzel_1.15.0.20261006.36~devuandepot_amd64.deb
+Size: 124200
+MD5sum: ff265f4abdc540a01bc50113935d46da
+SHA1: 7ef9d02091046d2f85af9c819963092606df578c
+SHA256: 74b9d7702383dfe53cdefa587559ac5252749660e723209bfe629bf102e426a2
+Section: x11
+Priority: optional
+Description: Wayland-native application launcher and fuzzy finder
+ Fuzzel is a Wayland-native application launcher and fuzzy finder,
+ inspired by rofi and dmenu.
+
 Package: gamescope
 Version: 3.16.25.20260803.14~devuandepot
 Architecture: amd64
