@@ -1,12 +1,19 @@
 {
   "script": "build-fuzzel.sh",
   "needs_devuan_depot_repo": false,
+  "base_apt_packages": [
+    "git", "build-essential", "meson", "ninja-build", "pkg-config", "scdoc", "dpkg-dev",
+    "libwayland-dev", "wayland-protocols", "libpixman-1-dev", "libcairo2-dev",
+    "libxkbcommon-dev", "libpng-dev", "librsvg2-dev", "libfcft-dev", "libtllist-dev"
+  ],
   "variants": [
     {
+      "artifact_suffix": "amd64",
+      "extra_apt_packages": [],
       "env": {
-        "DUMMY": "dummy"
-      },
-      "artifact_suffix": "amd64"
+        "CFLAGS": "-O3 -pipe -fno-plt",
+        "LDFLAGS": "-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
+      }
     }
   ]
 }

@@ -4,12 +4,6 @@ set -e
 RUN_NUMBER=${GITHUB_RUN_NUMBER:-1}
 echo "Compiling fuzzel..."
 
-apt-get update
-apt-get install -y git build-essential meson ninja-build pkg-config scdoc \
-    libwayland-dev wayland-protocols \
-    libpixman-1-dev libcairo2-dev libxkbcommon-dev libpng-dev librsvg2-dev \
-    libfcft-dev
-
 # Pull fuzzel
 git clone https://codeberg.org/dnkl/fuzzel.git src/fuzzel
 cd src/fuzzel
