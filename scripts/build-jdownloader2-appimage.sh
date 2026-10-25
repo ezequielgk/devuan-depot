@@ -3,12 +3,16 @@ set -euo pipefail
 
 # ==============================================================================
 # Script para generar AppImage de JDownloader2 (x86_64 y aarch64)
+# Versión endurecida: sin ejecuciones de Java en build, validación estricta
 # ==============================================================================
 
-# 1. Verificación de dependencias críticas (fallar rápido)
-for cmd in curl jq tar unzip java; do
+# 1. Verificación de dependencias críticas de BUILD
+# NOTA: 'java' ya NO es necesario en el entorno de build. 
+# El script solo descarga y empaqueta archivos. El JRE se incluye en el AppImage 
+# y el JDownloader.jar solo se valida con unzip, no se ejecuta.
+for cmd in curl jq tar unzip; do
     if ! command -v "$cmd" &> /dev/null; then
-        echo "ERROR: La dependencia '$cmd' no está instalada en el sistema." >&2
+        echo "ERROR: La dependencia de build '$cmd' no está instalada en el sistema." >&2
         exit 1
     fi
 done
@@ -39,7 +43,9 @@ APPDIR="${WORKDIR}/AppDir"
 mkdir -p "$APPDIR/opt/jdownloader"
 mkdir -p "$APPDIR/opt/jre"
 
+# ==============================================================================
 # 3. Descarga del entorno Java (OpenJDK JRE 17) desde Adoptium
+# ==============================================================================
 echo "=== Descargando entorno Java (OpenJDK JRE 17) ==="
 JRE_API_URL="https://api.adoptium.net/v3/assets/latest/17/hotspot"
 
@@ -55,7 +61,9 @@ curl --fail --silent --show-error --location --retry 3 --retry-all-errors "$JRE_
 tar -xzf jre.tar.gz -C "$APPDIR/opt/jre" --strip-components=1
 echo "✅ JRE extraído correctamente"
 
+# ==============================================================================
 # 4. Descarga directa de JDownloader.jar (Sin instalador, sin || true)
+# ==============================================================================
 echo "=== Descargando JDownloader.jar base ==="
 curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
   "https://installer.jdownloader.org/JDownloader.jar" \
@@ -68,7 +76,9 @@ if ! unzip -tq "$APPDIR/opt/jdownloader/JDownloader.jar" >/dev/null 2>&1; then
 fi
 echo "✅ JDownloader.jar descargado y verificado correctamente"
 
+# ==============================================================================
 # 5. Extracción del icono (Con fallback infalible)
+# ==============================================================================
 echo "=== Extrayendo icono ==="
 # Intentamos extraer del JAR (las rutas pueden variar entre versiones)
 unzip -p "$APPDIR/opt/jdownloader/JDownloader.jar" "org/jdownloader/images/logo/jd_logo_256_256.png" > "$APPDIR/jdownloader.png" 2>/dev/null || \
@@ -86,7 +96,9 @@ if [[ ! -s "$APPDIR/jdownloader.png" ]]; then
     fi
 fi
 
+# ==============================================================================
 # 6. Creación de archivos de configuración del AppDir
+# ==============================================================================
 echo "=== Creando jdownloader.desktop ==="
 cat << 'INNER_EOF' > "$APPDIR/jdownloader.desktop"
 [Desktop Entry]
@@ -131,8 +143,9 @@ INNER_EOF_RUN
 
 chmod +x "$APPDIR/AppRun"
 
+# ==============================================================================
 # 7. Empaquetado en AppImage
-
+# ==============================================================================
 echo "=== Descargando appimagetool para ${APPIMAGE_ARCH} ==="
 curl --fail --silent --show-error --location \
   "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${APPIMAGE_ARCH}.AppImage" \
@@ -144,6 +157,7 @@ export ARCH="$APPIMAGE_ARCH"
 OUTPUT_NAME="JDownloader2-${APPIMAGE_ARCH}.AppImage"
 
 echo "=== Generando AppImage: $OUTPUT_NAME ==="
+# --appimage-extract-and-run evita la necesidad de FUSE, que falta en runners de CI modernos
 ./appimagetool.AppImage --appimage-extract-and-run "$APPDIR" "$OUTPUT_NAME"
 
 cp "$OUTPUT_NAME" "${OLDPWD:-.}/"
