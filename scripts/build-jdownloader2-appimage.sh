@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ==============================================================================
 # Script para generar AppImage de JDownloader2 (x86_64 y aarch64)
-# v3: sin bucle de supervision. El JRE se copia a ~/.local/share/JDownloader2/jre
+# v4: sin bucle de supervision. El JRE se copia a ~/.local/share/JDownloader2/jre
 #     para que el "Direct Restart" de JD no dependa del mount temporal del AppImage.
 # ==============================================================================
 
@@ -165,7 +165,10 @@ fi
 
 export JAVA_HOME="$JRE_DIR"
 export PATH="$JRE_DIR/bin:$PATH"
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.opengl=true"
+# Sin -Dsun.java2d.opengl=true: el pipeline OpenGL de Java2D es experimental y
+# provoca "free(): invalid size" (abort de glibc) con Mesa/XWayland.
+# --add-opens sun.awt.X11: permite a JD fijar su WM_CLASS (app-id e icono).
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED"
 
 cd "$DATA_DIR"
 
