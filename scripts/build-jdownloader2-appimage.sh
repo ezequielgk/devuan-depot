@@ -3,13 +3,10 @@ set -euo pipefail
 
 # ==============================================================================
 # Script para generar AppImage de JDownloader2 (x86_64 y aarch64)
-# Versión endurecida: sin ejecuciones de Java en build, validación estricta
+# Versión endurecida: con AppRun de bucle para soportar el "Direct Restart" de JD
 # ==============================================================================
 
 # 1. Verificación de dependencias críticas de BUILD
-# NOTA: 'java' ya NO es necesario en el entorno de build. 
-# El script solo descarga y empaqueta archivos. El JRE se incluye en el AppImage 
-# y el JDownloader.jar solo se valida con unzip, no se ejecuta.
 for cmd in curl jq tar unzip; do
     if ! command -v "$cmd" &> /dev/null; then
         echo "ERROR: La dependencia de build '$cmd' no está instalada en el sistema." >&2
@@ -80,16 +77,13 @@ echo "✅ JDownloader.jar descargado y verificado correctamente"
 # 5. Extracción del icono (Con fallback infalible)
 # ==============================================================================
 echo "=== Extrayendo icono ==="
-# Intentamos extraer del JAR (las rutas pueden variar entre versiones)
 unzip -p "$APPDIR/opt/jdownloader/JDownloader.jar" "org/jdownloader/images/logo/jd_logo_256_256.png" > "$APPDIR/jdownloader.png" 2>/dev/null || \
 unzip -p "$APPDIR/opt/jdownloader/JDownloader.jar" "themes/standard/org/jdownloader/images/updatericon.png" > "$APPDIR/jdownloader.png" 2>/dev/null || true
 
-# Si el archivo está vacío o no existe, usamos el fallback de Wikimedia (con --fail para asegurar)
 if [[ ! -s "$APPDIR/jdownloader.png" ]]; then
     echo "Usando fallback de icono desde Wikimedia..."
     curl --fail --silent --show-error --location "https://upload.wikimedia.org/wikipedia/commons/4/43/Jdownloader.png" -o "$APPDIR/jdownloader.png"
     
-    # Doble verificación del fallback
     if [[ ! -s "$APPDIR/jdownloader.png" ]]; then
         echo "ERROR: No se pudo obtener el icono por ningún medio." >&2
         exit 1
@@ -114,22 +108,18 @@ MimeType=x-scheme-handler/jd;
 INNER_EOF
 
 echo "=== Creando script AppRun wrapper (PORTABLE) ==="
+# NOTA: Usamos 'INNER_EOF_RUN' con comillas simples para que las variables ($HERE, etc.)
+# NO se evalúen ahora, sino en tiempo de ejecución cuando el usuario lance el AppImage.
 cat << 'INNER_EOF_RUN' > "$APPDIR/AppRun"
 #!/bin/bash
-set -euo pipefail
 
 export HERE="$(dirname "$(readlink -f "$0")")"
 export PATH="$HERE/opt/jre/bin:$PATH"
-
-# Optimizaciones de renderizado Java
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.opengl=true"
 
-# Directorio de datos del usuario (respeta XDG_DATA_HOME)
 DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/JDownloader2"
 mkdir -p "$DATA_DIR"
 
-# Copia inicial de los archivos base solo si es la primera ejecución.
-# cp -a con "/." copia todo el contenido (incluyendo ocultos) y no falla con globbing vacío.
 if [ ! -f "$DATA_DIR/JDownloader.jar" ]; then
     echo "Primera corrida: copiando JDownloader base en $DATA_DIR..."
     cp -a "$HERE/opt/jdownloader/." "$DATA_DIR/"
@@ -137,8 +127,21 @@ fi
 
 cd "$DATA_DIR"
 
-# Ejecución oficial
-exec java -jar "$DATA_DIR/JDownloader.jar" "$@"
+# Capturar señales (Ctrl+C) para salir limpiamente
+trap 'echo "Cerrando JDownloader..."; exit 0' INT TERM
+
+# BUCLE DE SUPERVISIÓN:
+# JDownloader realiza un "Direct Restart" interno tras la primera actualización.
+# Si usáramos 'exec java', el proceso principal del AppImage moriría al reiniciar,
+# desmontando el sistema de archivos temporal (/tmp/.mount_...) y matando al 
+# proceso hijo que intentaba arrancar.
+# Mantener el script bash vivo con un bucle while preserva el mount point.
+while true; do
+    java -jar "$DATA_DIR/JDownloader.jar" "$@"
+    
+    # Pausa breve para evitar bucles frenéticos en caso de error fatal de Java
+    sleep 2
+done
 INNER_EOF_RUN
 
 chmod +x "$APPDIR/AppRun"
@@ -157,7 +160,6 @@ export ARCH="$APPIMAGE_ARCH"
 OUTPUT_NAME="JDownloader2-${APPIMAGE_ARCH}.AppImage"
 
 echo "=== Generando AppImage: $OUTPUT_NAME ==="
-# --appimage-extract-and-run evita la necesidad de FUSE, que falta en runners de CI modernos
 ./appimagetool.AppImage --appimage-extract-and-run "$APPDIR" "$OUTPUT_NAME"
 
 cp "$OUTPUT_NAME" "${OLDPWD:-.}/"
