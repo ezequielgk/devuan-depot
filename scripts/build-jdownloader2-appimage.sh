@@ -3,8 +3,10 @@ set -euo pipefail
 
 # ==============================================================================
 # Script para generar AppImage de JDownloader2 (x86_64 y aarch64)
-# v4: sin bucle de supervision. El JRE se copia a ~/.local/share/JDownloader2/jre
-#     para que el "Direct Restart" de JD no dependa del mount temporal del AppImage.
+# v5: sin bucle de supervision. Todo vive en una carpeta contenedor
+#     (~/.var/app/jdownloader2) y JD corre dentro de un sandbox bubblewrap.
+#     El JRE vive en el contenedor para que el "Direct Restart" de JD no
+#     dependa del mount temporal del AppImage.
 # ==============================================================================
 
 # 1. Verificacion de dependencias criticas de BUILD
@@ -131,21 +133,45 @@ cat << 'INNER_EOF_RUN' > "$APPDIR/AppRun"
 set -e
 
 HERE="$(dirname "$(readlink -f "$0")")"
-DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/JDownloader2"
-JRE_DIR="$DATA_DIR/jre"
 
-mkdir -p "$DATA_DIR"
+# ==============================================================================
+# Contenedor: TODO lo de JDownloader vive en una sola carpeta del host.
+#   $CONTAINER/JDownloader2  -> jar, libs, cfg, logs, actualizaciones
+#   $CONTAINER/jre           -> Java (copia fuera del mount del AppImage)
+#
+# Variables opcionales:
+#   JD_CONTAINER_DIR  carpeta del contenedor  (def: ~/.var/app/jdownloader2)
+#   JD_DOWNLOAD_DIR   carpeta de descargas    (def: ~/Downloads)
+#   JD_EXTRA_BIND     otras carpetas con escritura, separadas por ':'
+#   JD_SANDBOX=0      ejecutar sin sandbox (bubblewrap)
+# ==============================================================================
+CONTAINER="${JD_CONTAINER_DIR:-$HOME/.var/app/jdownloader2}"
+APP_DIR="$CONTAINER/JDownloader2"
+JRE_DIR="$CONTAINER/jre"
+DOWNLOADS_DIR="${JD_DOWNLOAD_DIR:-$HOME/Downloads}"
+LEGACY_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/JDownloader2"
+
+mkdir -p "$CONTAINER" "$DOWNLOADS_DIR"
+
+# --- Migracion unica desde la ubicacion anterior ------------------------------
+if [ ! -e "$APP_DIR" ] && [ -f "$LEGACY_DIR/JDownloader.jar" ]; then
+    echo "Migrando datos existentes de $LEGACY_DIR a $APP_DIR..."
+    mv "$LEGACY_DIR" "$APP_DIR"
+    if [ -d "$APP_DIR/jre" ] && [ ! -e "$JRE_DIR" ]; then
+        mv "$APP_DIR/jre" "$JRE_DIR"
+    fi
+fi
 
 # --- JDownloader.jar base (solo la primera vez) -------------------------------
-if [ ! -f "$DATA_DIR/JDownloader.jar" ]; then
-    echo "Primera corrida: copiando JDownloader base en $DATA_DIR..."
-    cp -a "$HERE/opt/jdownloader/." "$DATA_DIR/"
+mkdir -p "$APP_DIR"
+if [ ! -f "$APP_DIR/JDownloader.jar" ]; then
+    echo "Primera corrida: copiando JDownloader base en $APP_DIR..."
+    cp -a "$HERE/opt/jdownloader/." "$APP_DIR/"
 fi
 
 # --- JRE persistente fuera del mount del AppImage -----------------------------
 # JD hace un "Direct Restart" tras actualizarse: lanza un Java nuevo y cierra el
-# actual. Si ese Java viviera en /tmp/.mount_*, desapareceria junto con el
-# proceso original. Por eso usamos una copia del JRE en el home del usuario.
+# actual. Si ese Java viviera en /tmp/.mount_*, desapareceria con el AppImage.
 WANT_VER="$(cat "$HERE/opt/.jre-version")"
 HAVE_VER="$(cat "$JRE_DIR/.jre-version" 2>/dev/null || true)"
 
@@ -158,23 +184,84 @@ if [ ! -x "$JRE_DIR/bin/java" ] || [ "$WANT_VER" != "$HAVE_VER" ]; then
     mv "$JRE_DIR.tmp" "$JRE_DIR"
 fi
 
-if [ ! -f "$DATA_DIR/JDownloader.jar" ]; then
-    echo "ERROR: no se encontro $DATA_DIR/JDownloader.jar" >&2
+if [ ! -f "$APP_DIR/JDownloader.jar" ]; then
+    echo "ERROR: no se encontro $APP_DIR/JDownloader.jar" >&2
     exit 1
 fi
 
-export JAVA_HOME="$JRE_DIR"
-export PATH="$JRE_DIR/bin:$PATH"
 # Sin -Dsun.java2d.opengl=true: el pipeline OpenGL de Java2D es experimental y
 # provoca "free(): invalid size" (abort de glibc) con Mesa/XWayland.
 # --add-opens sun.awt.X11: permite a JD fijar su WM_CLASS (app-id e icono).
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED"
+JAVA_OPTS_VALUE="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED"
 
-cd "$DATA_DIR"
+# --- Sandbox (bubblewrap) ------------------------------------------------------
+use_sandbox=0
+if [ "${JD_SANDBOX:-1}" != "0" ]; then
+    if command -v bwrap >/dev/null 2>&1 && bwrap --ro-bind / / --unshare-user-try true >/dev/null 2>&1; then
+        use_sandbox=1
+    else
+        echo "AVISO: bubblewrap no esta disponible o no puede crear namespaces; se ejecuta SIN sandbox." >&2
+    fi
+fi
 
-# exec: sin bucle. Si JD se reinicia solo, el proceso nuevo ya no depende del
-# mount; si el usuario cierra JD, se cierra todo.
-exec "$JRE_DIR/bin/java" -jar "$DATA_DIR/JDownloader.jar" "$@"
+if [ "$use_sandbox" = "0" ]; then
+    export JAVA_HOME="$JRE_DIR"
+    export PATH="$JRE_DIR/bin:$PATH"
+    export _JAVA_OPTIONS="$JAVA_OPTS_VALUE"
+    cd "$APP_DIR"
+    exec "$JRE_DIR/bin/java" -jar "$APP_DIR/JDownloader.jar" "$@"
+fi
+
+# Dentro del sandbox el HOME es el contenedor: JD solo ve su propia carpeta,
+# las descargas y lo que se agregue en JD_EXTRA_BIND.
+#
+# Sin --unshare-pid ni --die-with-parent a proposito: el "Direct Restart" de JD
+# lanza un Java nuevo y termina el viejo; con un namespace de PID el sandbox
+# mataria al proceso nuevo, y --die-with-parent lo mataria si el lanzador sale.
+args=(--unshare-user-try --unshare-uts --unshare-cgroup-try
+      --ro-bind /usr /usr
+      --ro-bind /etc /etc
+      --proc /proc
+      --dev /dev
+      --tmpfs /tmp)
+
+for d in /bin /sbin /lib /lib32 /lib64 /libx32; do
+    if [ -L "$d" ]; then
+        args+=(--symlink "$(readlink "$d")" "$d")
+    elif [ -d "$d" ]; then
+        args+=(--ro-bind "$d" "$d")
+    fi
+done
+
+args+=(--ro-bind-try /tmp/.X11-unix /tmp/.X11-unix
+       --ro-bind-try /run/systemd/resolve /run/systemd/resolve
+       --ro-bind-try /run/NetworkManager /run/NetworkManager
+       --bind "$CONTAINER" "$HOME"
+       --bind "$DOWNLOADS_DIR" "$HOME/Downloads")
+
+XA="${XAUTHORITY:-$HOME/.Xauthority}"
+if [ -f "$XA" ]; then
+    args+=(--ro-bind "$XA" "$XA")
+fi
+
+if [ -n "${JD_EXTRA_BIND:-}" ]; then
+    IFS=':' read -ra extra <<< "$JD_EXTRA_BIND"
+    for p in "${extra[@]}"; do
+        if [ -d "$p" ]; then
+            args+=(--bind "$p" "$p")
+        else
+            echo "AVISO: JD_EXTRA_BIND: '$p' no existe, se ignora." >&2
+        fi
+    done
+fi
+
+exec bwrap "${args[@]}" \
+    --chdir "$HOME/JDownloader2" \
+    --setenv HOME "$HOME" \
+    --setenv JAVA_HOME "$HOME/jre" \
+    --setenv PATH "$HOME/jre/bin:/usr/local/bin:/usr/bin:/bin" \
+    --setenv _JAVA_OPTIONS "$JAVA_OPTS_VALUE" \
+    "$HOME/jre/bin/java" -jar "$HOME/JDownloader2/JDownloader.jar" "$@"
 INNER_EOF_RUN
 
 chmod +x "$APPDIR/AppRun"
